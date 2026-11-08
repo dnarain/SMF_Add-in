@@ -1,0 +1,871 @@
+{
+  "schema_version": 2,
+  "upstream_repository": "https://github.com/ClimberMel/SMF_Add-in",
+  "upstream_commit": "a0daad05699b1a7e213cf72ee641f30fc615af46",
+  "configurations": {
+    "mac=1;win64=0": {
+      "constants": {
+        "mac": 1,
+        "vba7": -1,
+        "win64": 0,
+        "win32": 0
+      },
+      "module_signatures": {
+        "code/JsonConverter.bas": {
+          "function parsejson": "functionparsejson(byvaljsonstringasstring)asobject",
+          "function converttojson": "functionconverttojson(byvaljsonvalueasvariant,optionalbyvalwhitespaceasvariant,optionalbyvaljson_currentindentationaslong=0)asstring",
+          "function parseutc": "functionparseutc(utc_utcdateasdate)asdate",
+          "function converttoutc": "functionconverttoutc(utc_localdateasdate)asdate",
+          "function parseiso": "functionparseiso(utc_isostringasstring)asdate",
+          "function converttoiso": "functionconverttoiso(utc_localdateasdate)asstring"
+        },
+        "code/modExtractData.bas": {
+          "function rchextractdata": "functionrchextractdata(byvalpsourceasstring,byvalpelementasstring,byvalpfind1asstring,byvalpfind2asstring,byvalpfind3asstring,byvalpfind4asstring,byvalprowsasinteger,byvalpendasstring,byvalpcellsasinteger,byvalplookasinteger)asvariant"
+        },
+        "code/modGetAdvFNElement.bas": {
+          "function smfgetadvfnelement": "functionsmfgetadvfnelement(byvalptickerasstring,byvalpperiodasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"\",optionalbyvalpfind2asstring=\"\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfsetadvfnprefix": "subsmfsetadvfnprefix(p1asstring)",
+          "sub loadadvfnprefix": "subloadadvfnprefix()"
+        },
+        "code/modGetCSVFile.bas": {
+          "function smfgetcsvfile": "functionsmfgetcsvfile(purlasstring,optionalbyvalpdelimiterasstring=\",\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/modGetEconData.bas": {
+          "function smfgetecondata": "functionsmfgetecondata(pidasstring,pdateasvariant,optionalperrorasvariant=\"Error\")"
+        },
+        "code/modGetElementNumber.bas": {
+          "function rchgetelementnumber": "functionrchgetelementnumber(byvalptickerasstring,optionalbyvalpitemasinteger=1,optionalbyvalperrorasvariant=\"Error\",optionalbyvalpfileasstring=\"\")",
+          "sub loadelementsfromfile": "subloadelementsfromfile(psuffixasvariant)",
+          "sub loadelementsfrominternet": "subloadelementsfrominternet(psuffixasvariant)",
+          "sub smfsetelementslocation": "subsmfsetelementslocation(p1asstring)",
+          "sub loadelementslocation": "subloadelementslocation()",
+          "function smfgetaparms": "functionsmfgetaparms(p1asinteger)",
+          "function smfgetaconstants": "functionsmfgetaconstants(p1asinteger)",
+          "function smfgetafiles": "functionsmfgetafiles(p1asinteger)"
+        },
+        "code/modGetGuruFocusData.bas": {
+          "function smfgetgurufocusdata": "functionsmfgetgurufocusdata(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"C\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems": "subsmfloadgurufocusitems()"
+        },
+        "code/modGetGuruFocusItem.bas": {
+          "function smfgetgurufocusitem": "functionsmfgetgurufocusitem(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"TTM\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems2": "subsmfloadgurufocusitems2()"
+        },
+        "code/modGetHTMLTable.bas": {
+          "function rchgethtmltable": "functionrchgethtmltable(byvalpurlasstring,byvalpfind1asstring,optionalbyvalpdir1asinteger=-1,optionalbyvalpfind2asstring=\"\",optionalbyvalpdir2asinteger=1,optionalbyvalprowonlyasboolean=false,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpcalcasinteger=1)"
+        },
+        "code/modGetMSNHistory.bas": {
+          "function smfgetmsnhistory": "functionsmfgetmsnhistory(ptickerasstring,optionalpstartyearasinteger=1900,optionalpstartmonthasinteger=1,optionalpendyearasinteger=2100,optionalpendmonthasinteger=12,optionalpitemsasstring=\"DOHLCV\",optionalpnamesasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetOptionExpirations.bas": {
+          "function smfgetoptionexpirations": "functionsmfgetoptionexpirations(byvalptickerasstring,optionalbyvalpsourceasstring=\"Yahoo\",optionalbyvalpputcallasstring=\"X\",optionalbyvalpstrikeasdouble=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpperiodasstring=\"A\")"
+        },
+        "code/modGetOptionExpiry.bas": {
+          "function smfgetoptionexpiry": "functionsmfgetoptionexpiry(optionalbyvalpyearasinteger=0,optionalbyvalpmonthasinteger=0,optionalbyvalptypeasstring=\"M\")"
+        },
+        "code/modGetOptionQuotes.bas": {
+          "function smfgetoptionquotes": "functionsmfgetoptionquotes(byvalptickersasvariant,byvalpitemsasvariant,optionalbyvalpheaderasinteger=0,optionalbyvalpsourceasstring=\"Y\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)",
+          "function smfget888optionquote": "functionsmfget888optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbarchartoptionquote": "functionsmfgetbarchartoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbigchartsoptionquote": "functionsmfgetbigchartsoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetgoogleoptionquote": "functionsmfgetgoogleoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetmsnoptionquote": "functionsmfgetmsnoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetnasdaqoptionquote": "functionsmfgetnasdaqoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetmwoptionquote": "functionsmfgetmwoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetoxoptionquote": "functionsmfgetoxoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox2optionquote": "functionsmfgetox2optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox3optionquote": "functionsmfgetox3optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote": "functionsmfgetyahoooptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote1": "functionsmfgetyahoooptionquote1(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote2": "functionsmfgetyahoooptionquote2(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)"
+        },
+        "code/modGetOptionStrikes.bas": {
+          "function smfgetoptionstrikes": "functionsmfgetoptionstrikes(byvalptickerasstring,optionalbyvalpexpiryasvariant=0,optionalbyvalpputcallasstring=\"P\",optionalbyvalpsourceasstring=\"Y\",optionalbyvalpsymbolsasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0)"
+        },
+        "code/modGetTableCell.bas": {
+          "function rchgettablecell": "functionrchgettablecell(byvalpurlasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"<BODY\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalprowsasinteger=0,optionalbyvalpendasstring=\"</BODY\",optionalbyvalplookasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/modGetTagContent.bas": {
+          "function smfgettagcontent": "functionsmfgettagcontent(byvalpurlasstring,byvalptagasstring,optionalbyvalptagsasinteger=1,optionalbyvalpfind1asstring=\"<\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalpconvasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0,optionalbyvalplenasinteger=32767,optionalbyvalptag2asstring=\" \")asvariant"
+        },
+        "code/modGetWebData.bas": {
+          "function rchgetwebdata": "functionrchgetwebdata(byvalpurlasstring,optionalbyvalpposasvariant=1,optionalbyvalplenasinteger=32767,optionalbyvalpoffsetasinteger=0,optionalbyvalpuseieasinteger=0)asvariant"
+        },
+        "code/modGetYahooHistory.bas": {
+          "function rchgetyahoohistory": "functionrchgetyahoohistory(ptickerasstring,optionalpstartyearasinteger=1950,optionalpstartmonthasinteger=1,optionalpstartdayasinteger=1,optionalpendyearasinteger=2030,optionalpendmonthasinteger=12,optionalpenddayasinteger=31,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVU\",optionalpnamesasinteger=1,optionalpadjustasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=20000,optionalpdim2asinteger=7)",
+          "function rchgetyahoohistory2": "functionrchgetyahoohistory2(ptickerasstring,optionalpstartyearasinteger=0,optionalpstartmonthasinteger=0,optionalpstartdayasinteger=0,optionalpendyearasinteger=0,optionalpendmonthasinteger=0,optionalpenddayasinteger=0,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVA\",optionalpnamesasinteger=1,optionalpadjustasinteger=0,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetYahooJSONData.bas": {
+          "function smfgetyahoojsonfield": "functionsmfgetyahoojsonfield(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpstartasdouble=0)",
+          "function smfgetyahoojsondata": "functionsmfgetyahoojsondata(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpperiodasinteger=1,optionalbyvalpprocessasstring=\"raw\",optionalbyvalpenddateasinteger=0)",
+          "function smfbuildyahootimeseriesurl": "functionsmfbuildyahootimeseriesurl(byvalptickerasstring,byvalpmoduleasstring)"
+        },
+        "code/modGetYahooQuotes.bas": {
+          "function rchgetyahooquotes": "functionrchgetyahooquotes(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"sl1d1t1c1ohgv\",optionalbyvalpserveridasstring=\"\",optionalbyvalprefreshasvariant=0,optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalpdelimiterasstring=\",\")",
+          "function smfyahoocodedesc": "functionsmfyahoocodedesc(pcodeasstring)"
+        },
+        "code/modInCellChart.bas": {
+          "function smfincellchart": "functionsmfincellchart(pvectorasvariant,optionalptypeasstring=\"Line\",optionalpcoloraslong=203)asstring"
+        },
+        "code/modJSONExtract.bas": {
+          "sub initscriptengine": "subinitscriptengine()",
+          "function decodejsonstring": "functiondecodejsonstring(byvaljsonstringasstring)",
+          "function getproperty": "functiongetproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asvariant",
+          "function getobjectproperty": "functiongetobjectproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asobject",
+          "function getkeys": "functiongetkeys(byvaljsonobjectasobject)asstring()",
+          "function smfjsonextractfield": "functionsmfjsonextractfield(pjsondataasstring,pjsonfieldsasstring)",
+          "function smfjsonextractfield_x64": "functionsmfjsonextractfield_x64(pjsondataasstring,pfieldnamesasstring)",
+          "function smfchkjsonfieldtype": "functionsmfchkjsonfieldtype(pfield)",
+          "function smfjsonextractkeys": "functionsmfjsonextractkeys(pjsondataasstring,pfieldnameasstring)"
+        },
+        "code/modMacCode.bas": {
+          "function rchgeturldata1mac": "functionrchgeturldata1mac(purlasstring,optionalbyvalpuseieasinteger=0)asstring"
+        },
+        "code/modMenu.bas": {
+          "sub auto_open": "subauto_open()",
+          "sub auto_close": "subauto_close()"
+        },
+        "code/modPictureInsert.bas": {
+          "sub rchinsertpicture": "subrchinsertpicture(byvaltargetasrange)"
+        },
+        "code/modPictureTable.bas": {
+          "function rchimagetable": "functionrchimagetable(ptickersasvariant,optionalbyvalpbreaksasinteger=-1,optionalbyvalpchartasstring=\"6\")"
+        },
+        "code/modPictureToggle.bas": {
+          "sub rchtogglepicture": "subrchtogglepicture()"
+        },
+        "code/modRSITargetPrices.bas": {
+          "function smfrsitargetprices": "functionsmfrsitargetprices(byvalptickerasstring,optionalbyvalplotriggerasinteger=20,optionalbyvalphitriggerasinteger=80,optionalbyvalpitemsasvariant=\"010203040506070809101112\")"
+        },
+        "code/modTechnicalAnalysis.bas": {
+          "function smftech": "functionsmftech(pdatarangeasvariant,pindicatorasstring,optionalpparm1asvariant=\"\",optionalpparm2asvariant=\"\",optionalpparm3asvariant=\"\",optionalpparm4asvariant=\"\",optionalpparm5asvariant=\"\",optionalpparm6asvariant=\"\")"
+        },
+        "code/modYahooAPIData.bas": {
+          "function smfyahooapidata": "functionsmfyahooapidata(ptickerasstring,optionalpitemasstring=\"LastTradePriceOnly\",optionalpfeedasstring=\"a\",optionalpoptionsymbolasstring=\"\")"
+        },
+        "code/modZAdditional.bas": {
+          "function dateofhigh": "functiondateofhigh(ptickerasstring,pdaysasinteger)",
+          "function smfhighbetween": "functionsmfhighbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflowbetween": "functionsmflowbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflastprice": "functionsmflastprice(ptickerasstring,penddateasvariant)asvariant",
+          "sub testing2": "subtesting2()"
+        },
+        "code/smfConvertData_.bas": {
+          "function smfconvertdata": "functionsmfconvertdata(byvalpdataasstring,optionalbyvalpconvasinteger=0)"
+        },
+        "code/smfConvertYahooTicker_.bas": {
+          "function smfconvertyahooticker": "functionsmfconvertyahooticker(byvalptickerasstring,byvalpsourceasstring)asstring"
+        },
+        "code/smfCreateComment_.bas": {
+          "function rchcreatecomment": "functionrchcreatecomment(ptickerasstring,optionalbyvalpchoiceasinteger=1,optionalbyvalpwidthasinteger=0,optionalbyvalpheightasinteger=0,optionalbyvalpvisibleasinteger=0,optionalbyvalptopasinteger=1,optionalbyvalpleftasinteger=1,optionalbyvalpscaleassingle=1#,optionalbyvalptextasstring=\"\",optionalbyvalpreturnasstring=\"Chart\")"
+        },
+        "code/smfDownloadTable_.bas": {
+          "sub smfupdatedownloadtable": "subsmfupdatedownloadtable()"
+        },
+        "code/smfGetGoogleHistoryCSV_.bas": {
+          "function smfgetgooglehistorycsv": "functionsmfgetgooglehistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetGuruFocusCSVItem_.bas": {
+          "function smfgetgurufocuscsvitem": "functionsmfgetgurufocuscsvitem(byvalptickerasstring,byvalpitemasstring,optionalbyvalpperiodasvariant=\"TTM\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/smfGetMorningStarCSV_.bas": {
+          "function smfgetmorningstarhistorycsv": "functionsmfgetmorningstarhistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetYahooHistoryCSV_.bas": {
+          "function smfgetyahoohistorycsv": "functionsmfgetyahoohistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)",
+          "function smfgetyahoohistorycsvdata": "functionsmfgetyahoohistorycsvdata(optionalbyrefpurlasstring=\"https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb=\")"
+        },
+        "code/smfGetYahooHistory_.bas": {
+          "function smfgetyahoohistory": "functionsmfgetyahoohistory(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalpitemsasstring=\"dohlcvufgxs\",optionalbyvalpnamesasinteger=1,optionalbyvalpresortasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0)"
+        },
+        "code/smfGetYahooPortfolio_.bas": {
+          "function smfgetyahooportfolioview": "functionsmfgetyahooportfolioview(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091\",optionalbyvalpmultipleasstring=\"N\",optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/smfPricesBetween_.bas": {
+          "function smfpricesbetween": "functionsmfpricesbetween(byvalptickerasstring,optionalbyvalpbegdateasvariant,optionalbyvalpenddateasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213\")"
+        },
+        "code/smfPricesByDates_.bas": {
+          "function smfpricesbydates": "functionsmfpricesbydates(byvalptickerasstring,paramarraypdates()asvariant)"
+        },
+        "code/smfUtilities_.bas": {
+          "function smfloginternetcalls": "functionsmfloginternetcalls(plogasstring)",
+          "sub smfopenlogfile": "subsmfopenlogfile()",
+          "sub smfforcerecalculation": "subsmfforcerecalculation()",
+          "sub smfasyncon": "subsmfasyncon()",
+          "sub smfasyncoff": "subsmfasyncoff()",
+          "function rchgeturldata1": "functionrchgeturldata1(purlasstring,optionalbyvalptypeasstring=\"GET\")asstring",
+          "function rchgeturldata2": "functionrchgeturldata2(purlasstring)asstring",
+          "function rchgeturldata3": "functionrchgeturldata3(purlasstring)asstring",
+          "function rchgeturldata": "functionrchgeturldata(byvalpurlasstring,optionalbyvalpuseieasinteger=0)asstring",
+          "function smfcdec": "functionsmfcdec(byvalpstringasstring)asvariant",
+          "function smfgetwebpage": "functionsmfgetwebpage(byvalpurlasstring,optionalbyvalpuseieasinteger=0,optionalbyvalpconvtypeasinteger=0)asstring",
+          "function smfgetadata": "functionsmfgetadata(p1asinteger,p2asinteger)",
+          "sub smffixlinks": "subsmffixlinks()",
+          "function fnwait": "functionfnwait(isecondsasinteger)",
+          "function smfstrextr": "functionsmfstrextr(pstringasstring,pstartasstring,pendasstring,optionalpconvertasinteger=0)",
+          "function smfeval": "functionsmfeval(pdataasstring)",
+          "function smfevaluatetwice": "functionsmfevaluatetwice(pdataasstring)",
+          "function smfjoin": "functionsmfjoin(myrangeasrange,mydelimiterasstring)",
+          "function smfword": "functionsmfword(byvalphaystackasstring,byvalpoccurrenceaslong,optionalbyvalpdelimiterasstring=\" \",optionalbyvalpconvertasinteger=0,optionalbyvalpreverseasinteger=0)",
+          "function smfstriphtml": "functionsmfstriphtml(byvalshtmlasstring)asstring",
+          "function smfdate2unix": "functionsmfdate2unix(byvalpdateasdate)aslong",
+          "function smfunix2date": "functionsmfunix2date(punixdateaslong)asdate",
+          "function smfunix2datestr": "functionsmfunix2datestr(punixdateaslong,optionalpformatasstring=\"yyyy-mm-dd\")",
+          "function smfhtmldecode": "functionsmfhtmldecode(pstringasstring)asstring",
+          "function rchgeturldata4": "functionrchgeturldata4(purlasstring)"
+        },
+        "code/smfxDatabaseUpdate_.bas": {
+          "sub updatestockdatabase": "subupdatestockdatabase()"
+        }
+      }
+    },
+    "mac=1;win64=-1": {
+      "constants": {
+        "mac": 1,
+        "vba7": -1,
+        "win64": -1,
+        "win32": 0
+      },
+      "module_signatures": {
+        "code/JsonConverter.bas": {
+          "function parsejson": "functionparsejson(byvaljsonstringasstring)asobject",
+          "function converttojson": "functionconverttojson(byvaljsonvalueasvariant,optionalbyvalwhitespaceasvariant,optionalbyvaljson_currentindentationaslong=0)asstring",
+          "function parseutc": "functionparseutc(utc_utcdateasdate)asdate",
+          "function converttoutc": "functionconverttoutc(utc_localdateasdate)asdate",
+          "function parseiso": "functionparseiso(utc_isostringasstring)asdate",
+          "function converttoiso": "functionconverttoiso(utc_localdateasdate)asstring"
+        },
+        "code/modExtractData.bas": {
+          "function rchextractdata": "functionrchextractdata(byvalpsourceasstring,byvalpelementasstring,byvalpfind1asstring,byvalpfind2asstring,byvalpfind3asstring,byvalpfind4asstring,byvalprowsasinteger,byvalpendasstring,byvalpcellsasinteger,byvalplookasinteger)asvariant"
+        },
+        "code/modGetAdvFNElement.bas": {
+          "function smfgetadvfnelement": "functionsmfgetadvfnelement(byvalptickerasstring,byvalpperiodasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"\",optionalbyvalpfind2asstring=\"\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfsetadvfnprefix": "subsmfsetadvfnprefix(p1asstring)",
+          "sub loadadvfnprefix": "subloadadvfnprefix()"
+        },
+        "code/modGetCSVFile.bas": {
+          "function smfgetcsvfile": "functionsmfgetcsvfile(purlasstring,optionalbyvalpdelimiterasstring=\",\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/modGetEconData.bas": {
+          "function smfgetecondata": "functionsmfgetecondata(pidasstring,pdateasvariant,optionalperrorasvariant=\"Error\")"
+        },
+        "code/modGetElementNumber.bas": {
+          "function rchgetelementnumber": "functionrchgetelementnumber(byvalptickerasstring,optionalbyvalpitemasinteger=1,optionalbyvalperrorasvariant=\"Error\",optionalbyvalpfileasstring=\"\")",
+          "sub loadelementsfromfile": "subloadelementsfromfile(psuffixasvariant)",
+          "sub loadelementsfrominternet": "subloadelementsfrominternet(psuffixasvariant)",
+          "sub smfsetelementslocation": "subsmfsetelementslocation(p1asstring)",
+          "sub loadelementslocation": "subloadelementslocation()",
+          "function smfgetaparms": "functionsmfgetaparms(p1asinteger)",
+          "function smfgetaconstants": "functionsmfgetaconstants(p1asinteger)",
+          "function smfgetafiles": "functionsmfgetafiles(p1asinteger)"
+        },
+        "code/modGetGuruFocusData.bas": {
+          "function smfgetgurufocusdata": "functionsmfgetgurufocusdata(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"C\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems": "subsmfloadgurufocusitems()"
+        },
+        "code/modGetGuruFocusItem.bas": {
+          "function smfgetgurufocusitem": "functionsmfgetgurufocusitem(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"TTM\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems2": "subsmfloadgurufocusitems2()"
+        },
+        "code/modGetHTMLTable.bas": {
+          "function rchgethtmltable": "functionrchgethtmltable(byvalpurlasstring,byvalpfind1asstring,optionalbyvalpdir1asinteger=-1,optionalbyvalpfind2asstring=\"\",optionalbyvalpdir2asinteger=1,optionalbyvalprowonlyasboolean=false,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpcalcasinteger=1)"
+        },
+        "code/modGetMSNHistory.bas": {
+          "function smfgetmsnhistory": "functionsmfgetmsnhistory(ptickerasstring,optionalpstartyearasinteger=1900,optionalpstartmonthasinteger=1,optionalpendyearasinteger=2100,optionalpendmonthasinteger=12,optionalpitemsasstring=\"DOHLCV\",optionalpnamesasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetOptionExpirations.bas": {
+          "function smfgetoptionexpirations": "functionsmfgetoptionexpirations(byvalptickerasstring,optionalbyvalpsourceasstring=\"Yahoo\",optionalbyvalpputcallasstring=\"X\",optionalbyvalpstrikeasdouble=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpperiodasstring=\"A\")"
+        },
+        "code/modGetOptionExpiry.bas": {
+          "function smfgetoptionexpiry": "functionsmfgetoptionexpiry(optionalbyvalpyearasinteger=0,optionalbyvalpmonthasinteger=0,optionalbyvalptypeasstring=\"M\")"
+        },
+        "code/modGetOptionQuotes.bas": {
+          "function smfgetoptionquotes": "functionsmfgetoptionquotes(byvalptickersasvariant,byvalpitemsasvariant,optionalbyvalpheaderasinteger=0,optionalbyvalpsourceasstring=\"Y\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)",
+          "function smfget888optionquote": "functionsmfget888optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbarchartoptionquote": "functionsmfgetbarchartoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbigchartsoptionquote": "functionsmfgetbigchartsoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetgoogleoptionquote": "functionsmfgetgoogleoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetmsnoptionquote": "functionsmfgetmsnoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetnasdaqoptionquote": "functionsmfgetnasdaqoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetmwoptionquote": "functionsmfgetmwoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetoxoptionquote": "functionsmfgetoxoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox2optionquote": "functionsmfgetox2optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox3optionquote": "functionsmfgetox3optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote": "functionsmfgetyahoooptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote1": "functionsmfgetyahoooptionquote1(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote2": "functionsmfgetyahoooptionquote2(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)"
+        },
+        "code/modGetOptionStrikes.bas": {
+          "function smfgetoptionstrikes": "functionsmfgetoptionstrikes(byvalptickerasstring,optionalbyvalpexpiryasvariant=0,optionalbyvalpputcallasstring=\"P\",optionalbyvalpsourceasstring=\"Y\",optionalbyvalpsymbolsasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0)"
+        },
+        "code/modGetTableCell.bas": {
+          "function rchgettablecell": "functionrchgettablecell(byvalpurlasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"<BODY\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalprowsasinteger=0,optionalbyvalpendasstring=\"</BODY\",optionalbyvalplookasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/modGetTagContent.bas": {
+          "function smfgettagcontent": "functionsmfgettagcontent(byvalpurlasstring,byvalptagasstring,optionalbyvalptagsasinteger=1,optionalbyvalpfind1asstring=\"<\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalpconvasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0,optionalbyvalplenasinteger=32767,optionalbyvalptag2asstring=\" \")asvariant"
+        },
+        "code/modGetWebData.bas": {
+          "function rchgetwebdata": "functionrchgetwebdata(byvalpurlasstring,optionalbyvalpposasvariant=1,optionalbyvalplenasinteger=32767,optionalbyvalpoffsetasinteger=0,optionalbyvalpuseieasinteger=0)asvariant"
+        },
+        "code/modGetYahooHistory.bas": {
+          "function rchgetyahoohistory": "functionrchgetyahoohistory(ptickerasstring,optionalpstartyearasinteger=1950,optionalpstartmonthasinteger=1,optionalpstartdayasinteger=1,optionalpendyearasinteger=2030,optionalpendmonthasinteger=12,optionalpenddayasinteger=31,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVU\",optionalpnamesasinteger=1,optionalpadjustasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=20000,optionalpdim2asinteger=7)",
+          "function rchgetyahoohistory2": "functionrchgetyahoohistory2(ptickerasstring,optionalpstartyearasinteger=0,optionalpstartmonthasinteger=0,optionalpstartdayasinteger=0,optionalpendyearasinteger=0,optionalpendmonthasinteger=0,optionalpenddayasinteger=0,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVA\",optionalpnamesasinteger=1,optionalpadjustasinteger=0,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetYahooJSONData.bas": {
+          "function smfgetyahoojsonfield": "functionsmfgetyahoojsonfield(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpstartasdouble=0)",
+          "function smfgetyahoojsondata": "functionsmfgetyahoojsondata(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpperiodasinteger=1,optionalbyvalpprocessasstring=\"raw\",optionalbyvalpenddateasinteger=0)",
+          "function smfbuildyahootimeseriesurl": "functionsmfbuildyahootimeseriesurl(byvalptickerasstring,byvalpmoduleasstring)"
+        },
+        "code/modGetYahooQuotes.bas": {
+          "function rchgetyahooquotes": "functionrchgetyahooquotes(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"sl1d1t1c1ohgv\",optionalbyvalpserveridasstring=\"\",optionalbyvalprefreshasvariant=0,optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalpdelimiterasstring=\",\")",
+          "function smfyahoocodedesc": "functionsmfyahoocodedesc(pcodeasstring)"
+        },
+        "code/modInCellChart.bas": {
+          "function smfincellchart": "functionsmfincellchart(pvectorasvariant,optionalptypeasstring=\"Line\",optionalpcoloraslong=203)asstring"
+        },
+        "code/modJSONExtract.bas": {
+          "sub initscriptengine": "subinitscriptengine()",
+          "function decodejsonstring": "functiondecodejsonstring(byvaljsonstringasstring)",
+          "function getproperty": "functiongetproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asvariant",
+          "function getobjectproperty": "functiongetobjectproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asobject",
+          "function getkeys": "functiongetkeys(byvaljsonobjectasobject)asstring()",
+          "function smfjsonextractfield": "functionsmfjsonextractfield(pjsondataasstring,pjsonfieldsasstring)",
+          "function smfjsonextractfield_x64": "functionsmfjsonextractfield_x64(pjsondataasstring,pfieldnamesasstring)",
+          "function smfchkjsonfieldtype": "functionsmfchkjsonfieldtype(pfield)",
+          "function smfjsonextractkeys": "functionsmfjsonextractkeys(pjsondataasstring,pfieldnameasstring)"
+        },
+        "code/modMacCode.bas": {
+          "function rchgeturldata1mac": "functionrchgeturldata1mac(purlasstring,optionalbyvalpuseieasinteger=0)asstring"
+        },
+        "code/modMenu.bas": {
+          "sub auto_open": "subauto_open()",
+          "sub auto_close": "subauto_close()"
+        },
+        "code/modPictureInsert.bas": {
+          "sub rchinsertpicture": "subrchinsertpicture(byvaltargetasrange)"
+        },
+        "code/modPictureTable.bas": {
+          "function rchimagetable": "functionrchimagetable(ptickersasvariant,optionalbyvalpbreaksasinteger=-1,optionalbyvalpchartasstring=\"6\")"
+        },
+        "code/modPictureToggle.bas": {
+          "sub rchtogglepicture": "subrchtogglepicture()"
+        },
+        "code/modRSITargetPrices.bas": {
+          "function smfrsitargetprices": "functionsmfrsitargetprices(byvalptickerasstring,optionalbyvalplotriggerasinteger=20,optionalbyvalphitriggerasinteger=80,optionalbyvalpitemsasvariant=\"010203040506070809101112\")"
+        },
+        "code/modTechnicalAnalysis.bas": {
+          "function smftech": "functionsmftech(pdatarangeasvariant,pindicatorasstring,optionalpparm1asvariant=\"\",optionalpparm2asvariant=\"\",optionalpparm3asvariant=\"\",optionalpparm4asvariant=\"\",optionalpparm5asvariant=\"\",optionalpparm6asvariant=\"\")"
+        },
+        "code/modYahooAPIData.bas": {
+          "function smfyahooapidata": "functionsmfyahooapidata(ptickerasstring,optionalpitemasstring=\"LastTradePriceOnly\",optionalpfeedasstring=\"a\",optionalpoptionsymbolasstring=\"\")"
+        },
+        "code/modZAdditional.bas": {
+          "function dateofhigh": "functiondateofhigh(ptickerasstring,pdaysasinteger)",
+          "function smfhighbetween": "functionsmfhighbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflowbetween": "functionsmflowbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflastprice": "functionsmflastprice(ptickerasstring,penddateasvariant)asvariant",
+          "sub testing2": "subtesting2()"
+        },
+        "code/smfConvertData_.bas": {
+          "function smfconvertdata": "functionsmfconvertdata(byvalpdataasstring,optionalbyvalpconvasinteger=0)"
+        },
+        "code/smfConvertYahooTicker_.bas": {
+          "function smfconvertyahooticker": "functionsmfconvertyahooticker(byvalptickerasstring,byvalpsourceasstring)asstring"
+        },
+        "code/smfCreateComment_.bas": {
+          "function rchcreatecomment": "functionrchcreatecomment(ptickerasstring,optionalbyvalpchoiceasinteger=1,optionalbyvalpwidthasinteger=0,optionalbyvalpheightasinteger=0,optionalbyvalpvisibleasinteger=0,optionalbyvalptopasinteger=1,optionalbyvalpleftasinteger=1,optionalbyvalpscaleassingle=1#,optionalbyvalptextasstring=\"\",optionalbyvalpreturnasstring=\"Chart\")"
+        },
+        "code/smfDownloadTable_.bas": {
+          "sub smfupdatedownloadtable": "subsmfupdatedownloadtable()"
+        },
+        "code/smfGetGoogleHistoryCSV_.bas": {
+          "function smfgetgooglehistorycsv": "functionsmfgetgooglehistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetGuruFocusCSVItem_.bas": {
+          "function smfgetgurufocuscsvitem": "functionsmfgetgurufocuscsvitem(byvalptickerasstring,byvalpitemasstring,optionalbyvalpperiodasvariant=\"TTM\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/smfGetMorningStarCSV_.bas": {
+          "function smfgetmorningstarhistorycsv": "functionsmfgetmorningstarhistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetYahooHistoryCSV_.bas": {
+          "function smfgetyahoohistorycsv": "functionsmfgetyahoohistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)",
+          "function smfgetyahoohistorycsvdata": "functionsmfgetyahoohistorycsvdata(optionalbyrefpurlasstring=\"https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb=\")"
+        },
+        "code/smfGetYahooHistory_.bas": {
+          "function smfgetyahoohistory": "functionsmfgetyahoohistory(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalpitemsasstring=\"dohlcvufgxs\",optionalbyvalpnamesasinteger=1,optionalbyvalpresortasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0)"
+        },
+        "code/smfGetYahooPortfolio_.bas": {
+          "function smfgetyahooportfolioview": "functionsmfgetyahooportfolioview(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091\",optionalbyvalpmultipleasstring=\"N\",optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/smfPricesBetween_.bas": {
+          "function smfpricesbetween": "functionsmfpricesbetween(byvalptickerasstring,optionalbyvalpbegdateasvariant,optionalbyvalpenddateasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213\")"
+        },
+        "code/smfPricesByDates_.bas": {
+          "function smfpricesbydates": "functionsmfpricesbydates(byvalptickerasstring,paramarraypdates()asvariant)"
+        },
+        "code/smfUtilities_.bas": {
+          "function smfloginternetcalls": "functionsmfloginternetcalls(plogasstring)",
+          "sub smfopenlogfile": "subsmfopenlogfile()",
+          "sub smfforcerecalculation": "subsmfforcerecalculation()",
+          "sub smfasyncon": "subsmfasyncon()",
+          "sub smfasyncoff": "subsmfasyncoff()",
+          "function rchgeturldata1": "functionrchgeturldata1(purlasstring,optionalbyvalptypeasstring=\"GET\")asstring",
+          "function rchgeturldata2": "functionrchgeturldata2(purlasstring)asstring",
+          "function rchgeturldata3": "functionrchgeturldata3(purlasstring)asstring",
+          "function rchgeturldata": "functionrchgeturldata(byvalpurlasstring,optionalbyvalpuseieasinteger=0)asstring",
+          "function smfcdec": "functionsmfcdec(byvalpstringasstring)asvariant",
+          "function smfgetwebpage": "functionsmfgetwebpage(byvalpurlasstring,optionalbyvalpuseieasinteger=0,optionalbyvalpconvtypeasinteger=0)asstring",
+          "function smfgetadata": "functionsmfgetadata(p1asinteger,p2asinteger)",
+          "sub smffixlinks": "subsmffixlinks()",
+          "function fnwait": "functionfnwait(isecondsasinteger)",
+          "function smfstrextr": "functionsmfstrextr(pstringasstring,pstartasstring,pendasstring,optionalpconvertasinteger=0)",
+          "function smfeval": "functionsmfeval(pdataasstring)",
+          "function smfevaluatetwice": "functionsmfevaluatetwice(pdataasstring)",
+          "function smfjoin": "functionsmfjoin(myrangeasrange,mydelimiterasstring)",
+          "function smfword": "functionsmfword(byvalphaystackasstring,byvalpoccurrenceaslong,optionalbyvalpdelimiterasstring=\" \",optionalbyvalpconvertasinteger=0,optionalbyvalpreverseasinteger=0)",
+          "function smfstriphtml": "functionsmfstriphtml(byvalshtmlasstring)asstring",
+          "function smfdate2unix": "functionsmfdate2unix(byvalpdateasdate)aslong",
+          "function smfunix2date": "functionsmfunix2date(punixdateaslong)asdate",
+          "function smfunix2datestr": "functionsmfunix2datestr(punixdateaslong,optionalpformatasstring=\"yyyy-mm-dd\")",
+          "function smfhtmldecode": "functionsmfhtmldecode(pstringasstring)asstring",
+          "function rchgeturldata4": "functionrchgeturldata4(purlasstring)"
+        },
+        "code/smfxDatabaseUpdate_.bas": {
+          "sub updatestockdatabase": "subupdatestockdatabase()"
+        }
+      }
+    },
+    "mac=-1;win64=0": {
+      "constants": {
+        "mac": -1,
+        "vba7": -1,
+        "win64": 0,
+        "win32": 0
+      },
+      "module_signatures": {
+        "code/JsonConverter.bas": {
+          "function parsejson": "functionparsejson(byvaljsonstringasstring)asobject",
+          "function converttojson": "functionconverttojson(byvaljsonvalueasvariant,optionalbyvalwhitespaceasvariant,optionalbyvaljson_currentindentationaslong=0)asstring",
+          "function parseutc": "functionparseutc(utc_utcdateasdate)asdate",
+          "function converttoutc": "functionconverttoutc(utc_localdateasdate)asdate",
+          "function parseiso": "functionparseiso(utc_isostringasstring)asdate",
+          "function converttoiso": "functionconverttoiso(utc_localdateasdate)asstring"
+        },
+        "code/modExtractData.bas": {
+          "function rchextractdata": "functionrchextractdata(byvalpsourceasstring,byvalpelementasstring,byvalpfind1asstring,byvalpfind2asstring,byvalpfind3asstring,byvalpfind4asstring,byvalprowsasinteger,byvalpendasstring,byvalpcellsasinteger,byvalplookasinteger)asvariant"
+        },
+        "code/modGetAdvFNElement.bas": {
+          "function smfgetadvfnelement": "functionsmfgetadvfnelement(byvalptickerasstring,byvalpperiodasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"\",optionalbyvalpfind2asstring=\"\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfsetadvfnprefix": "subsmfsetadvfnprefix(p1asstring)",
+          "sub loadadvfnprefix": "subloadadvfnprefix()"
+        },
+        "code/modGetCSVFile.bas": {
+          "function smfgetcsvfile": "functionsmfgetcsvfile(purlasstring,optionalbyvalpdelimiterasstring=\",\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/modGetEconData.bas": {
+          "function smfgetecondata": "functionsmfgetecondata(pidasstring,pdateasvariant,optionalperrorasvariant=\"Error\")"
+        },
+        "code/modGetElementNumber.bas": {
+          "function rchgetelementnumber": "functionrchgetelementnumber(byvalptickerasstring,optionalbyvalpitemasinteger=1,optionalbyvalperrorasvariant=\"Error\",optionalbyvalpfileasstring=\"\")",
+          "sub loadelementsfromfile": "subloadelementsfromfile(psuffixasvariant)",
+          "sub loadelementsfrominternet": "subloadelementsfrominternet(psuffixasvariant)",
+          "sub smfsetelementslocation": "subsmfsetelementslocation(p1asstring)",
+          "sub loadelementslocation": "subloadelementslocation()",
+          "function smfgetaparms": "functionsmfgetaparms(p1asinteger)",
+          "function smfgetaconstants": "functionsmfgetaconstants(p1asinteger)",
+          "function smfgetafiles": "functionsmfgetafiles(p1asinteger)"
+        },
+        "code/modGetGuruFocusData.bas": {
+          "function smfgetgurufocusdata": "functionsmfgetgurufocusdata(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"C\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems": "subsmfloadgurufocusitems()"
+        },
+        "code/modGetGuruFocusItem.bas": {
+          "function smfgetgurufocusitem": "functionsmfgetgurufocusitem(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"TTM\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems2": "subsmfloadgurufocusitems2()"
+        },
+        "code/modGetHTMLTable.bas": {
+          "function rchgethtmltable": "functionrchgethtmltable(byvalpurlasstring,byvalpfind1asstring,optionalbyvalpdir1asinteger=-1,optionalbyvalpfind2asstring=\"\",optionalbyvalpdir2asinteger=1,optionalbyvalprowonlyasboolean=false,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpcalcasinteger=1)"
+        },
+        "code/modGetMSNHistory.bas": {
+          "function smfgetmsnhistory": "functionsmfgetmsnhistory(ptickerasstring,optionalpstartyearasinteger=1900,optionalpstartmonthasinteger=1,optionalpendyearasinteger=2100,optionalpendmonthasinteger=12,optionalpitemsasstring=\"DOHLCV\",optionalpnamesasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetOptionExpirations.bas": {
+          "function smfgetoptionexpirations": "functionsmfgetoptionexpirations(byvalptickerasstring,optionalbyvalpsourceasstring=\"Yahoo\",optionalbyvalpputcallasstring=\"X\",optionalbyvalpstrikeasdouble=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpperiodasstring=\"A\")"
+        },
+        "code/modGetOptionExpiry.bas": {
+          "function smfgetoptionexpiry": "functionsmfgetoptionexpiry(optionalbyvalpyearasinteger=0,optionalbyvalpmonthasinteger=0,optionalbyvalptypeasstring=\"M\")"
+        },
+        "code/modGetOptionQuotes.bas": {
+          "function smfgetoptionquotes": "functionsmfgetoptionquotes(byvalptickersasvariant,byvalpitemsasvariant,optionalbyvalpheaderasinteger=0,optionalbyvalpsourceasstring=\"Y\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)",
+          "function smfget888optionquote": "functionsmfget888optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbarchartoptionquote": "functionsmfgetbarchartoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbigchartsoptionquote": "functionsmfgetbigchartsoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetgoogleoptionquote": "functionsmfgetgoogleoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetmsnoptionquote": "functionsmfgetmsnoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetnasdaqoptionquote": "functionsmfgetnasdaqoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetmwoptionquote": "functionsmfgetmwoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetoxoptionquote": "functionsmfgetoxoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox2optionquote": "functionsmfgetox2optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox3optionquote": "functionsmfgetox3optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote": "functionsmfgetyahoooptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote1": "functionsmfgetyahoooptionquote1(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote2": "functionsmfgetyahoooptionquote2(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)"
+        },
+        "code/modGetOptionStrikes.bas": {
+          "function smfgetoptionstrikes": "functionsmfgetoptionstrikes(byvalptickerasstring,optionalbyvalpexpiryasvariant=0,optionalbyvalpputcallasstring=\"P\",optionalbyvalpsourceasstring=\"Y\",optionalbyvalpsymbolsasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0)"
+        },
+        "code/modGetTableCell.bas": {
+          "function rchgettablecell": "functionrchgettablecell(byvalpurlasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"<BODY\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalprowsasinteger=0,optionalbyvalpendasstring=\"</BODY\",optionalbyvalplookasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/modGetTagContent.bas": {
+          "function smfgettagcontent": "functionsmfgettagcontent(byvalpurlasstring,byvalptagasstring,optionalbyvalptagsasinteger=1,optionalbyvalpfind1asstring=\"<\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalpconvasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0,optionalbyvalplenasinteger=32767,optionalbyvalptag2asstring=\" \")asvariant"
+        },
+        "code/modGetWebData.bas": {
+          "function rchgetwebdata": "functionrchgetwebdata(byvalpurlasstring,optionalbyvalpposasvariant=1,optionalbyvalplenasinteger=32767,optionalbyvalpoffsetasinteger=0,optionalbyvalpuseieasinteger=0)asvariant"
+        },
+        "code/modGetYahooHistory.bas": {
+          "function rchgetyahoohistory": "functionrchgetyahoohistory(ptickerasstring,optionalpstartyearasinteger=1950,optionalpstartmonthasinteger=1,optionalpstartdayasinteger=1,optionalpendyearasinteger=2030,optionalpendmonthasinteger=12,optionalpenddayasinteger=31,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVU\",optionalpnamesasinteger=1,optionalpadjustasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=20000,optionalpdim2asinteger=7)",
+          "function rchgetyahoohistory2": "functionrchgetyahoohistory2(ptickerasstring,optionalpstartyearasinteger=0,optionalpstartmonthasinteger=0,optionalpstartdayasinteger=0,optionalpendyearasinteger=0,optionalpendmonthasinteger=0,optionalpenddayasinteger=0,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVA\",optionalpnamesasinteger=1,optionalpadjustasinteger=0,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetYahooJSONData.bas": {
+          "function smfgetyahoojsonfield": "functionsmfgetyahoojsonfield(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpstartasdouble=0)",
+          "function smfgetyahoojsondata": "functionsmfgetyahoojsondata(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpperiodasinteger=1,optionalbyvalpprocessasstring=\"raw\",optionalbyvalpenddateasinteger=0)",
+          "function smfbuildyahootimeseriesurl": "functionsmfbuildyahootimeseriesurl(byvalptickerasstring,byvalpmoduleasstring)"
+        },
+        "code/modGetYahooQuotes.bas": {
+          "function rchgetyahooquotes": "functionrchgetyahooquotes(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"sl1d1t1c1ohgv\",optionalbyvalpserveridasstring=\"\",optionalbyvalprefreshasvariant=0,optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalpdelimiterasstring=\",\")",
+          "function smfyahoocodedesc": "functionsmfyahoocodedesc(pcodeasstring)"
+        },
+        "code/modInCellChart.bas": {
+          "function smfincellchart": "functionsmfincellchart(pvectorasvariant,optionalptypeasstring=\"Line\",optionalpcoloraslong=203)asstring"
+        },
+        "code/modJSONExtract.bas": {
+          "sub initscriptengine": "subinitscriptengine()",
+          "function decodejsonstring": "functiondecodejsonstring(byvaljsonstringasstring)",
+          "function getproperty": "functiongetproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asvariant",
+          "function getobjectproperty": "functiongetobjectproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asobject",
+          "function getkeys": "functiongetkeys(byvaljsonobjectasobject)asstring()",
+          "function smfjsonextractfield": "functionsmfjsonextractfield(pjsondataasstring,pjsonfieldsasstring)",
+          "function smfjsonextractfield_x64": "functionsmfjsonextractfield_x64(pjsondataasstring,pfieldnamesasstring)",
+          "function smfchkjsonfieldtype": "functionsmfchkjsonfieldtype(pfield)",
+          "function smfjsonextractkeys": "functionsmfjsonextractkeys(pjsondataasstring,pfieldnameasstring)"
+        },
+        "code/modMacCode.bas": {
+          "function rchgeturldata1mac": "functionrchgeturldata1mac(purlasstring,optionalbyvalpuseieasinteger=0)asstring"
+        },
+        "code/modMenu.bas": {
+          "sub auto_open": "subauto_open()",
+          "sub auto_close": "subauto_close()"
+        },
+        "code/modPictureInsert.bas": {
+          "sub rchinsertpicture": "subrchinsertpicture(byvaltargetasrange)"
+        },
+        "code/modPictureTable.bas": {
+          "function rchimagetable": "functionrchimagetable(ptickersasvariant,optionalbyvalpbreaksasinteger=-1,optionalbyvalpchartasstring=\"6\")"
+        },
+        "code/modPictureToggle.bas": {
+          "sub rchtogglepicture": "subrchtogglepicture()"
+        },
+        "code/modRSITargetPrices.bas": {
+          "function smfrsitargetprices": "functionsmfrsitargetprices(byvalptickerasstring,optionalbyvalplotriggerasinteger=20,optionalbyvalphitriggerasinteger=80,optionalbyvalpitemsasvariant=\"010203040506070809101112\")"
+        },
+        "code/modTechnicalAnalysis.bas": {
+          "function smftech": "functionsmftech(pdatarangeasvariant,pindicatorasstring,optionalpparm1asvariant=\"\",optionalpparm2asvariant=\"\",optionalpparm3asvariant=\"\",optionalpparm4asvariant=\"\",optionalpparm5asvariant=\"\",optionalpparm6asvariant=\"\")"
+        },
+        "code/modYahooAPIData.bas": {
+          "function smfyahooapidata": "functionsmfyahooapidata(ptickerasstring,optionalpitemasstring=\"LastTradePriceOnly\",optionalpfeedasstring=\"a\",optionalpoptionsymbolasstring=\"\")"
+        },
+        "code/modZAdditional.bas": {
+          "function dateofhigh": "functiondateofhigh(ptickerasstring,pdaysasinteger)",
+          "function smfhighbetween": "functionsmfhighbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflowbetween": "functionsmflowbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflastprice": "functionsmflastprice(ptickerasstring,penddateasvariant)asvariant",
+          "sub testing2": "subtesting2()"
+        },
+        "code/smfConvertData_.bas": {
+          "function smfconvertdata": "functionsmfconvertdata(byvalpdataasstring,optionalbyvalpconvasinteger=0)"
+        },
+        "code/smfConvertYahooTicker_.bas": {
+          "function smfconvertyahooticker": "functionsmfconvertyahooticker(byvalptickerasstring,byvalpsourceasstring)asstring"
+        },
+        "code/smfCreateComment_.bas": {
+          "function rchcreatecomment": "functionrchcreatecomment(ptickerasstring,optionalbyvalpchoiceasinteger=1,optionalbyvalpwidthasinteger=0,optionalbyvalpheightasinteger=0,optionalbyvalpvisibleasinteger=0,optionalbyvalptopasinteger=1,optionalbyvalpleftasinteger=1,optionalbyvalpscaleassingle=1#,optionalbyvalptextasstring=\"\",optionalbyvalpreturnasstring=\"Chart\")"
+        },
+        "code/smfDownloadTable_.bas": {
+          "sub smfupdatedownloadtable": "subsmfupdatedownloadtable()"
+        },
+        "code/smfGetGoogleHistoryCSV_.bas": {
+          "function smfgetgooglehistorycsv": "functionsmfgetgooglehistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetGuruFocusCSVItem_.bas": {
+          "function smfgetgurufocuscsvitem": "functionsmfgetgurufocuscsvitem(byvalptickerasstring,byvalpitemasstring,optionalbyvalpperiodasvariant=\"TTM\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/smfGetMorningStarCSV_.bas": {
+          "function smfgetmorningstarhistorycsv": "functionsmfgetmorningstarhistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetYahooHistoryCSV_.bas": {
+          "function smfgetyahoohistorycsv": "functionsmfgetyahoohistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)",
+          "function smfgetyahoohistorycsvdata": "functionsmfgetyahoohistorycsvdata(optionalbyrefpurlasstring=\"https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb=\")"
+        },
+        "code/smfGetYahooHistory_.bas": {
+          "function smfgetyahoohistory": "functionsmfgetyahoohistory(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalpitemsasstring=\"dohlcvufgxs\",optionalbyvalpnamesasinteger=1,optionalbyvalpresortasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0)"
+        },
+        "code/smfGetYahooPortfolio_.bas": {
+          "function smfgetyahooportfolioview": "functionsmfgetyahooportfolioview(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091\",optionalbyvalpmultipleasstring=\"N\",optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/smfPricesBetween_.bas": {
+          "function smfpricesbetween": "functionsmfpricesbetween(byvalptickerasstring,optionalbyvalpbegdateasvariant,optionalbyvalpenddateasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213\")"
+        },
+        "code/smfPricesByDates_.bas": {
+          "function smfpricesbydates": "functionsmfpricesbydates(byvalptickerasstring,paramarraypdates()asvariant)"
+        },
+        "code/smfUtilities_.bas": {
+          "function smfloginternetcalls": "functionsmfloginternetcalls(plogasstring)",
+          "sub smfopenlogfile": "subsmfopenlogfile()",
+          "sub smfforcerecalculation": "subsmfforcerecalculation()",
+          "sub smfasyncon": "subsmfasyncon()",
+          "sub smfasyncoff": "subsmfasyncoff()",
+          "function rchgeturldata1": "functionrchgeturldata1(purlasstring,optionalbyvalptypeasstring=\"GET\")asstring",
+          "function rchgeturldata2": "functionrchgeturldata2(purlasstring)asstring",
+          "function rchgeturldata3": "functionrchgeturldata3(purlasstring)asstring",
+          "function rchgeturldata": "functionrchgeturldata(byvalpurlasstring,optionalbyvalpuseieasinteger=0)asstring",
+          "function smfcdec": "functionsmfcdec(byvalpstringasstring)asvariant",
+          "function smfgetwebpage": "functionsmfgetwebpage(byvalpurlasstring,optionalbyvalpuseieasinteger=0,optionalbyvalpconvtypeasinteger=0)asstring",
+          "function smfgetadata": "functionsmfgetadata(p1asinteger,p2asinteger)",
+          "sub smffixlinks": "subsmffixlinks()",
+          "function fnwait": "functionfnwait(isecondsasinteger)",
+          "function smfstrextr": "functionsmfstrextr(pstringasstring,pstartasstring,pendasstring,optionalpconvertasinteger=0)",
+          "function smfeval": "functionsmfeval(pdataasstring)",
+          "function smfevaluatetwice": "functionsmfevaluatetwice(pdataasstring)",
+          "function smfjoin": "functionsmfjoin(myrangeasrange,mydelimiterasstring)",
+          "function smfword": "functionsmfword(byvalphaystackasstring,byvalpoccurrenceaslong,optionalbyvalpdelimiterasstring=\" \",optionalbyvalpconvertasinteger=0,optionalbyvalpreverseasinteger=0)",
+          "function smfstriphtml": "functionsmfstriphtml(byvalshtmlasstring)asstring",
+          "function smfdate2unix": "functionsmfdate2unix(byvalpdateasdate)aslong",
+          "function smfunix2date": "functionsmfunix2date(punixdateaslong)asdate",
+          "function smfunix2datestr": "functionsmfunix2datestr(punixdateaslong,optionalpformatasstring=\"yyyy-mm-dd\")",
+          "function smfhtmldecode": "functionsmfhtmldecode(pstringasstring)asstring",
+          "function rchgeturldata4": "functionrchgeturldata4(purlasstring)"
+        },
+        "code/smfxDatabaseUpdate_.bas": {
+          "sub updatestockdatabase": "subupdatestockdatabase()"
+        }
+      }
+    },
+    "mac=-1;win64=-1": {
+      "constants": {
+        "mac": -1,
+        "vba7": -1,
+        "win64": -1,
+        "win32": 0
+      },
+      "module_signatures": {
+        "code/JsonConverter.bas": {
+          "function parsejson": "functionparsejson(byvaljsonstringasstring)asobject",
+          "function converttojson": "functionconverttojson(byvaljsonvalueasvariant,optionalbyvalwhitespaceasvariant,optionalbyvaljson_currentindentationaslong=0)asstring",
+          "function parseutc": "functionparseutc(utc_utcdateasdate)asdate",
+          "function converttoutc": "functionconverttoutc(utc_localdateasdate)asdate",
+          "function parseiso": "functionparseiso(utc_isostringasstring)asdate",
+          "function converttoiso": "functionconverttoiso(utc_localdateasdate)asstring"
+        },
+        "code/modExtractData.bas": {
+          "function rchextractdata": "functionrchextractdata(byvalpsourceasstring,byvalpelementasstring,byvalpfind1asstring,byvalpfind2asstring,byvalpfind3asstring,byvalpfind4asstring,byvalprowsasinteger,byvalpendasstring,byvalpcellsasinteger,byvalplookasinteger)asvariant"
+        },
+        "code/modGetAdvFNElement.bas": {
+          "function smfgetadvfnelement": "functionsmfgetadvfnelement(byvalptickerasstring,byvalpperiodasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"\",optionalbyvalpfind2asstring=\"\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfsetadvfnprefix": "subsmfsetadvfnprefix(p1asstring)",
+          "sub loadadvfnprefix": "subloadadvfnprefix()"
+        },
+        "code/modGetCSVFile.bas": {
+          "function smfgetcsvfile": "functionsmfgetcsvfile(purlasstring,optionalbyvalpdelimiterasstring=\",\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/modGetEconData.bas": {
+          "function smfgetecondata": "functionsmfgetecondata(pidasstring,pdateasvariant,optionalperrorasvariant=\"Error\")"
+        },
+        "code/modGetElementNumber.bas": {
+          "function rchgetelementnumber": "functionrchgetelementnumber(byvalptickerasstring,optionalbyvalpitemasinteger=1,optionalbyvalperrorasvariant=\"Error\",optionalbyvalpfileasstring=\"\")",
+          "sub loadelementsfromfile": "subloadelementsfromfile(psuffixasvariant)",
+          "sub loadelementsfrominternet": "subloadelementsfrominternet(psuffixasvariant)",
+          "sub smfsetelementslocation": "subsmfsetelementslocation(p1asstring)",
+          "sub loadelementslocation": "subloadelementslocation()",
+          "function smfgetaparms": "functionsmfgetaparms(p1asinteger)",
+          "function smfgetaconstants": "functionsmfgetaconstants(p1asinteger)",
+          "function smfgetafiles": "functionsmfgetafiles(p1asinteger)"
+        },
+        "code/modGetGuruFocusData.bas": {
+          "function smfgetgurufocusdata": "functionsmfgetgurufocusdata(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"C\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems": "subsmfloadgurufocusitems()"
+        },
+        "code/modGetGuruFocusItem.bas": {
+          "function smfgetgurufocusitem": "functionsmfgetgurufocusitem(byvalptickerasstring,byvalpitemasinteger,optionalbyvalpperiodasstring=\"TTM\",optionalbyvalpoffsetasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant",
+          "sub smfloadgurufocusitems2": "subsmfloadgurufocusitems2()"
+        },
+        "code/modGetHTMLTable.bas": {
+          "function rchgethtmltable": "functionrchgethtmltable(byvalpurlasstring,byvalpfind1asstring,optionalbyvalpdir1asinteger=-1,optionalbyvalpfind2asstring=\"\",optionalbyvalpdir2asinteger=1,optionalbyvalprowonlyasboolean=false,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpcalcasinteger=1)"
+        },
+        "code/modGetMSNHistory.bas": {
+          "function smfgetmsnhistory": "functionsmfgetmsnhistory(ptickerasstring,optionalpstartyearasinteger=1900,optionalpstartmonthasinteger=1,optionalpendyearasinteger=2100,optionalpendmonthasinteger=12,optionalpitemsasstring=\"DOHLCV\",optionalpnamesasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetOptionExpirations.bas": {
+          "function smfgetoptionexpirations": "functionsmfgetoptionexpirations(byvalptickerasstring,optionalbyvalpsourceasstring=\"Yahoo\",optionalbyvalpputcallasstring=\"X\",optionalbyvalpstrikeasdouble=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0,optionalbyvalpperiodasstring=\"A\")"
+        },
+        "code/modGetOptionExpiry.bas": {
+          "function smfgetoptionexpiry": "functionsmfgetoptionexpiry(optionalbyvalpyearasinteger=0,optionalbyvalpmonthasinteger=0,optionalbyvalptypeasstring=\"M\")"
+        },
+        "code/modGetOptionQuotes.bas": {
+          "function smfgetoptionquotes": "functionsmfgetoptionquotes(byvalptickersasvariant,byvalpitemsasvariant,optionalbyvalpheaderasinteger=0,optionalbyvalpsourceasstring=\"Y\",optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)",
+          "function smfget888optionquote": "functionsmfget888optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbarchartoptionquote": "functionsmfgetbarchartoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetbigchartsoptionquote": "functionsmfgetbigchartsoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetgoogleoptionquote": "functionsmfgetgoogleoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetmsnoptionquote": "functionsmfgetmsnoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetnasdaqoptionquote": "functionsmfgetnasdaqoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant,optionalbyvalphistoryasvariant=\"\")",
+          "function smfgetmwoptionquote": "functionsmfgetmwoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetoxoptionquote": "functionsmfgetoxoptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox2optionquote": "functionsmfgetox2optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetox3optionquote": "functionsmfgetox3optionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote": "functionsmfgetyahoooptionquote(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote1": "functionsmfgetyahoooptionquote1(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)",
+          "function smfgetyahoooptionquote2": "functionsmfgetyahoooptionquote2(byvalptickerasvariant,byvalpputcallasvariant,byvalpexpiryasvariant,byvalpstrikeasvariant,byvalpitemasvariant)"
+        },
+        "code/modGetOptionStrikes.bas": {
+          "function smfgetoptionstrikes": "functionsmfgetoptionstrikes(byvalptickerasstring,optionalbyvalpexpiryasvariant=0,optionalbyvalpputcallasstring=\"P\",optionalbyvalpsourceasstring=\"Y\",optionalbyvalpsymbolsasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0,optionalbyvalptypeasinteger=0)"
+        },
+        "code/modGetTableCell.bas": {
+          "function rchgettablecell": "functionrchgettablecell(byvalpurlasstring,byvalpcellsasinteger,optionalbyvalpfind1asstring=\"<BODY\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalprowsasinteger=0,optionalbyvalpendasstring=\"</BODY\",optionalbyvalplookasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/modGetTagContent.bas": {
+          "function smfgettagcontent": "functionsmfgettagcontent(byvalpurlasstring,byvalptagasstring,optionalbyvalptagsasinteger=1,optionalbyvalpfind1asstring=\"<\",optionalbyvalpfind2asstring=\" \",optionalbyvalpfind3asstring=\" \",optionalbyvalpfind4asstring=\" \",optionalbyvalpconvasinteger=0,optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0,optionalbyvalplenasinteger=32767,optionalbyvalptag2asstring=\" \")asvariant"
+        },
+        "code/modGetWebData.bas": {
+          "function rchgetwebdata": "functionrchgetwebdata(byvalpurlasstring,optionalbyvalpposasvariant=1,optionalbyvalplenasinteger=32767,optionalbyvalpoffsetasinteger=0,optionalbyvalpuseieasinteger=0)asvariant"
+        },
+        "code/modGetYahooHistory.bas": {
+          "function rchgetyahoohistory": "functionrchgetyahoohistory(ptickerasstring,optionalpstartyearasinteger=1950,optionalpstartmonthasinteger=1,optionalpstartdayasinteger=1,optionalpendyearasinteger=2030,optionalpendmonthasinteger=12,optionalpenddayasinteger=31,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVU\",optionalpnamesasinteger=1,optionalpadjustasinteger=1,optionalpresortasinteger=0,optionalpdim1asinteger=20000,optionalpdim2asinteger=7)",
+          "function rchgetyahoohistory2": "functionrchgetyahoohistory2(ptickerasstring,optionalpstartyearasinteger=0,optionalpstartmonthasinteger=0,optionalpstartdayasinteger=0,optionalpendyearasinteger=0,optionalpendmonthasinteger=0,optionalpenddayasinteger=0,optionalpperiodasstring=\"d\",optionalpitemsasstring=\"DOHLCVA\",optionalpnamesasinteger=1,optionalpadjustasinteger=0,optionalpresortasinteger=0,optionalpdim1asinteger=0,optionalpdim2asinteger=0)"
+        },
+        "code/modGetYahooJSONData.bas": {
+          "function smfgetyahoojsonfield": "functionsmfgetyahoojsonfield(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpstartasdouble=0)",
+          "function smfgetyahoojsondata": "functionsmfgetyahoojsondata(byvalptickerasstring,byvalpmoduleasstring,byvalpfieldasstring,optionalbyvalpperiodasinteger=1,optionalbyvalpprocessasstring=\"raw\",optionalbyvalpenddateasinteger=0)",
+          "function smfbuildyahootimeseriesurl": "functionsmfbuildyahootimeseriesurl(byvalptickerasstring,byvalpmoduleasstring)"
+        },
+        "code/modGetYahooQuotes.bas": {
+          "function rchgetyahooquotes": "functionrchgetyahooquotes(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"sl1d1t1c1ohgv\",optionalbyvalpserveridasstring=\"\",optionalbyvalprefreshasvariant=0,optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0,optionalbyvalpdelimiterasstring=\",\")",
+          "function smfyahoocodedesc": "functionsmfyahoocodedesc(pcodeasstring)"
+        },
+        "code/modInCellChart.bas": {
+          "function smfincellchart": "functionsmfincellchart(pvectorasvariant,optionalptypeasstring=\"Line\",optionalpcoloraslong=203)asstring"
+        },
+        "code/modJSONExtract.bas": {
+          "sub initscriptengine": "subinitscriptengine()",
+          "function decodejsonstring": "functiondecodejsonstring(byvaljsonstringasstring)",
+          "function getproperty": "functiongetproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asvariant",
+          "function getobjectproperty": "functiongetobjectproperty(byvaljsonobjectasobject,byvalpropertynameasstring)asobject",
+          "function getkeys": "functiongetkeys(byvaljsonobjectasobject)asstring()",
+          "function smfjsonextractfield": "functionsmfjsonextractfield(pjsondataasstring,pjsonfieldsasstring)",
+          "function smfjsonextractfield_x64": "functionsmfjsonextractfield_x64(pjsondataasstring,pfieldnamesasstring)",
+          "function smfchkjsonfieldtype": "functionsmfchkjsonfieldtype(pfield)",
+          "function smfjsonextractkeys": "functionsmfjsonextractkeys(pjsondataasstring,pfieldnameasstring)"
+        },
+        "code/modMacCode.bas": {
+          "function rchgeturldata1mac": "functionrchgeturldata1mac(purlasstring,optionalbyvalpuseieasinteger=0)asstring"
+        },
+        "code/modMenu.bas": {
+          "sub auto_open": "subauto_open()",
+          "sub auto_close": "subauto_close()"
+        },
+        "code/modPictureInsert.bas": {
+          "sub rchinsertpicture": "subrchinsertpicture(byvaltargetasrange)"
+        },
+        "code/modPictureTable.bas": {
+          "function rchimagetable": "functionrchimagetable(ptickersasvariant,optionalbyvalpbreaksasinteger=-1,optionalbyvalpchartasstring=\"6\")"
+        },
+        "code/modPictureToggle.bas": {
+          "sub rchtogglepicture": "subrchtogglepicture()"
+        },
+        "code/modRSITargetPrices.bas": {
+          "function smfrsitargetprices": "functionsmfrsitargetprices(byvalptickerasstring,optionalbyvalplotriggerasinteger=20,optionalbyvalphitriggerasinteger=80,optionalbyvalpitemsasvariant=\"010203040506070809101112\")"
+        },
+        "code/modTechnicalAnalysis.bas": {
+          "function smftech": "functionsmftech(pdatarangeasvariant,pindicatorasstring,optionalpparm1asvariant=\"\",optionalpparm2asvariant=\"\",optionalpparm3asvariant=\"\",optionalpparm4asvariant=\"\",optionalpparm5asvariant=\"\",optionalpparm6asvariant=\"\")"
+        },
+        "code/modYahooAPIData.bas": {
+          "function smfyahooapidata": "functionsmfyahooapidata(ptickerasstring,optionalpitemasstring=\"LastTradePriceOnly\",optionalpfeedasstring=\"a\",optionalpoptionsymbolasstring=\"\")"
+        },
+        "code/modZAdditional.bas": {
+          "function dateofhigh": "functiondateofhigh(ptickerasstring,pdaysasinteger)",
+          "function smfhighbetween": "functionsmfhighbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflowbetween": "functionsmflowbetween(ptickerasstring,pbegdateasvariant,penddateasvariant)",
+          "function smflastprice": "functionsmflastprice(ptickerasstring,penddateasvariant)asvariant",
+          "sub testing2": "subtesting2()"
+        },
+        "code/smfConvertData_.bas": {
+          "function smfconvertdata": "functionsmfconvertdata(byvalpdataasstring,optionalbyvalpconvasinteger=0)"
+        },
+        "code/smfConvertYahooTicker_.bas": {
+          "function smfconvertyahooticker": "functionsmfconvertyahooticker(byvalptickerasstring,byvalpsourceasstring)asstring"
+        },
+        "code/smfCreateComment_.bas": {
+          "function rchcreatecomment": "functionrchcreatecomment(ptickerasstring,optionalbyvalpchoiceasinteger=1,optionalbyvalpwidthasinteger=0,optionalbyvalpheightasinteger=0,optionalbyvalpvisibleasinteger=0,optionalbyvalptopasinteger=1,optionalbyvalpleftasinteger=1,optionalbyvalpscaleassingle=1#,optionalbyvalptextasstring=\"\",optionalbyvalpreturnasstring=\"Chart\")"
+        },
+        "code/smfDownloadTable_.bas": {
+          "sub smfupdatedownloadtable": "subsmfupdatedownloadtable()"
+        },
+        "code/smfGetGoogleHistoryCSV_.bas": {
+          "function smfgetgooglehistorycsv": "functionsmfgetgooglehistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetGuruFocusCSVItem_.bas": {
+          "function smfgetgurufocuscsvitem": "functionsmfgetgurufocuscsvitem(byvalptickerasstring,byvalpitemasstring,optionalbyvalpperiodasvariant=\"TTM\",optionalbyvalperrorasvariant=\"Error\",optionalbyvalptypeasinteger=0)asvariant"
+        },
+        "code/smfGetMorningStarCSV_.bas": {
+          "function smfgetmorningstarhistorycsv": "functionsmfgetmorningstarhistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)"
+        },
+        "code/smfGetYahooHistoryCSV_.bas": {
+          "function smfgetyahoohistorycsv": "functionsmfgetyahoohistorycsv(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalprowsasinteger=10000,optionalbyvalpcolsasinteger=7)",
+          "function smfgetyahoohistorycsvdata": "functionsmfgetyahoohistorycsvdata(optionalbyrefpurlasstring=\"https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb=\")"
+        },
+        "code/smfGetYahooHistory_.bas": {
+          "function smfgetyahoohistory": "functionsmfgetyahoohistory(byvalptickerasstring,optionalbyvalpstartdateasvariant=\"\",optionalbyvalpenddateasvariant=\"\",optionalbyvalpperiodasstring=\"d\",optionalbyvalpitemsasstring=\"dohlcvufgxs\",optionalbyvalpnamesasinteger=1,optionalbyvalpresortasinteger=0,optionalbyvalprowsasinteger=0,optionalbyvalpcolsasinteger=0)"
+        },
+        "code/smfGetYahooPortfolio_.bas": {
+          "function smfgetyahooportfolioview": "functionsmfgetyahooportfolioview(byvalptickersasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091\",optionalbyvalpmultipleasstring=\"N\",optionalbyvalpheaderasinteger=0,optionalbyvalpdim1asinteger=0,optionalbyvalpdim2asinteger=0)"
+        },
+        "code/smfPricesBetween_.bas": {
+          "function smfpricesbetween": "functionsmfpricesbetween(byvalptickerasstring,optionalbyvalpbegdateasvariant,optionalbyvalpenddateasvariant,optionalbyvalpitemsasvariant=\"01020304050607080910111213\")"
+        },
+        "code/smfPricesByDates_.bas": {
+          "function smfpricesbydates": "functionsmfpricesbydates(byvalptickerasstring,paramarraypdates()asvariant)"
+        },
+        "code/smfUtilities_.bas": {
+          "function smfloginternetcalls": "functionsmfloginternetcalls(plogasstring)",
+          "sub smfopenlogfile": "subsmfopenlogfile()",
+          "sub smfforcerecalculation": "subsmfforcerecalculation()",
+          "sub smfasyncon": "subsmfasyncon()",
+          "sub smfasyncoff": "subsmfasyncoff()",
+          "function rchgeturldata1": "functionrchgeturldata1(purlasstring,optionalbyvalptypeasstring=\"GET\")asstring",
+          "function rchgeturldata2": "functionrchgeturldata2(purlasstring)asstring",
+          "function rchgeturldata3": "functionrchgeturldata3(purlasstring)asstring",
+          "function rchgeturldata": "functionrchgeturldata(byvalpurlasstring,optionalbyvalpuseieasinteger=0)asstring",
+          "function smfcdec": "functionsmfcdec(byvalpstringasstring)asvariant",
+          "function smfgetwebpage": "functionsmfgetwebpage(byvalpurlasstring,optionalbyvalpuseieasinteger=0,optionalbyvalpconvtypeasinteger=0)asstring",
+          "function smfgetadata": "functionsmfgetadata(p1asinteger,p2asinteger)",
+          "sub smffixlinks": "subsmffixlinks()",
+          "function fnwait": "functionfnwait(isecondsasinteger)",
+          "function smfstrextr": "functionsmfstrextr(pstringasstring,pstartasstring,pendasstring,optionalpconvertasinteger=0)",
+          "function smfeval": "functionsmfeval(pdataasstring)",
+          "function smfevaluatetwice": "functionsmfevaluatetwice(pdataasstring)",
+          "function smfjoin": "functionsmfjoin(myrangeasrange,mydelimiterasstring)",
+          "function smfword": "functionsmfword(byvalphaystackasstring,byvalpoccurrenceaslong,optionalbyvalpdelimiterasstring=\" \",optionalbyvalpconvertasinteger=0,optionalbyvalpreverseasinteger=0)",
+          "function smfstriphtml": "functionsmfstriphtml(byvalshtmlasstring)asstring",
+          "function smfdate2unix": "functionsmfdate2unix(byvalpdateasdate)aslong",
+          "function smfunix2date": "functionsmfunix2date(punixdateaslong)asdate",
+          "function smfunix2datestr": "functionsmfunix2datestr(punixdateaslong,optionalpformatasstring=\"yyyy-mm-dd\")",
+          "function smfhtmldecode": "functionsmfhtmldecode(pstringasstring)asstring",
+          "function rchgeturldata4": "functionrchgeturldata4(purlasstring)"
+        },
+        "code/smfxDatabaseUpdate_.bas": {
+          "sub updatestockdatabase": "subupdatestockdatabase()"
+        }
+      }
+    }
+  }
+}

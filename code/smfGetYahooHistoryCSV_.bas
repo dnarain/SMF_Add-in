@@ -108,6 +108,9 @@ Function smfGetYahooHistoryCSVData(Optional ByRef pURL As String = "https://quer
    Dim i1 As Integer, b1 As Boolean
    Dim oData As Object
    
+#If Mac Then
+   smfGetYahooHistoryCSVData = smfMacFetch(pURL, "YAHOO")
+#Else
    sURL = "https://finance.yahoo.com/lookup?s=%7B0%7D"
    Set oData = New WinHttp.WinHttpRequest
    b1 = True
@@ -134,5 +137,6 @@ Function smfGetYahooHistoryCSVData(Optional ByRef pURL As String = "https://quer
        Next i1
    
     smfGetYahooHistoryCSVData = sResult
+#End If
       
 End Function

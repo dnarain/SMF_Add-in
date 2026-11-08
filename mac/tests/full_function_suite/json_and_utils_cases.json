@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "ParseJson",
+    "function": "ParseJson",
+    "group": "json_core",
+    "description": "JsonConverter.ParseJson preserves numbers, false, null, and a 19-digit identifier in a Dictionary.",
+    "declarations": [
+      "Dim jsonOldLarge As Boolean"
+    ],
+    "setup": [
+      "jsonOldLarge = JsonConverter.JsonOptions.UseDoubleForLargeNumbers",
+      "JsonConverter.JsonOptions.UseDoubleForLargeNumbers = False"
+    ],
+    "expression": "JsonConverter.ParseJson(\"{\"\"n\"\":7,\"\"flag\"\":false,\"\"nil\"\":null,\"\"id\"\":1234567890123456789}\")",
+    "object_result": true,
+    "check": "TypeName(obj) = \"Dictionary\" And obj.Count = 4 And CDbl(obj.Item(\"n\")) = 7 And VarType(obj.Item(\"flag\")) = vbBoolean And CBool(obj.Item(\"flag\")) = False And IsNull(obj.Item(\"nil\")) And VarType(obj.Item(\"id\")) = vbString And CStr(obj.Item(\"id\")) = \"1234567890123456789\"",
+    "expected_text": "Dictionary with n=7, Boolean False, Null, and identifier text 1234567890123456789",
+    "cleanup": [
+      "JsonConverter.JsonOptions.UseDoubleForLargeNumbers = jsonOldLarge"
+    ],
+    "module": "JsonConverter.bas"
+  },
+  {
+    "id": "ConvertToJson",
+    "function": "ConvertToJson",
+    "group": "json_core",
+    "description": "JsonConverter.ConvertToJson serializes a native Variant array with numeric, Boolean, and Null values.",
+    "declarations": [],
+    "setup": [],
+    "expression": "JsonConverter.ConvertToJson(Array(7, False, Null))",
+    "object_result": false,
+    "check": "VarType(result) = vbString And CStr(result) = \"[7,false,null]\"",
+    "expected_text": "[7,false,null]",
+    "cleanup": [],
+    "module": "JsonConverter.bas"
+  },
+  {
+    "id": "ParseUtc",
+    "function": "ParseUtc",
+    "group": "json_core",
+    "description": "JsonConverter.ParseUtc converts a winter UTC timestamp to the verified America/Los_Angeles host timezone.",
+    "declarations": [
+      "Dim jsonUtcFixture As Date"
+    ],
+    "setup": [
+      "jsonUtcFixture = DateSerial(2024, 1, 15) + TimeSerial(20, 0, 0)"
+    ],
+    "expression": "JsonConverter.ParseUtc(jsonUtcFixture)",
+    "object_result": false,
+    "check": "VarType(result) = vbDate And CDbl(result) = CDbl(DateSerial(2024, 1, 15) + TimeSerial(12, 0, 0))",
+    "expected_text": "2024-01-15 12:00:00 PST; requires the verified America/Los_Angeles host timezone",
+    "cleanup": [],
+    "module": "JsonConverter.bas",
+    "requires": [
+      "host_timezone_America_Los_Angeles"
+    ],
+    "implementation_note": "The existing Mac implementation invokes macOS date through libc popen/fread; the expected winter PST offset was independently verified by the root agent."
+  },
+  {
+    "id": "ConvertToUtc",
+    "function": "ConvertToUtc",
+    "group": "json_core",
+    "description": "JsonConverter.ConvertToUtc converts winter noon in the verified America/Los_Angeles host timezone to UTC.",
+    "declarations": [
+      "Dim jsonLocalFixture As Date"
+    ],
+    "setup": [
+      "jsonLocalFixture = DateSerial(2024, 1, 15) + TimeSerial(12, 0, 0)"
+    ],
+    "expression": "JsonConverter.ConvertToUtc(jsonLocalFixture)",
+    "object_result": false,
+    "check": "VarType(result) = vbDate And CDbl(result) = CDbl(DateSerial(2024, 1, 15) + TimeSerial(20, 0, 0))",
+    "expected_text": "2024-01-15 20:00:00 UTC; requires the verified America/Los_Angeles host timezone",
+    "cleanup": [],
+    "module": "JsonConverter.bas",
+    "requires": [
+      "host_timezone_America_Los_Angeles"
+    ],
+    "implementation_note": "The existing Mac implementation invokes macOS date through libc popen/fread; the expected winter PST offset was independently verified by the root agent."
+  },
+  {
+    "id": "ParseIso",
+    "function": "ParseIso",
+    "group": "json_core",
+    "description": "JsonConverter.ParseIso parses a leap-day date without a time or timezone conversion.",
+    "declarations": [],
+    "setup": [],
+    "expression": "JsonConverter.ParseIso(\"2024-02-29\")",
+    "object_result": false,
+    "check": "VarType(result) = vbDate And CDbl(result) = CDbl(DateSerial(2024, 2, 29))",
+    "expected_text": "2024-02-29 00:00:00",
+    "cleanup": [],
+    "module": "JsonConverter.bas"
+  },
+  {
+    "id": "ConvertToIso",
+    "function": "ConvertToIso",
+    "group": "json_core",
+    "description": "JsonConverter.ConvertToIso formats winter noon in the verified America/Los_Angeles host timezone as a UTC ISO timestamp.",
+    "declarations": [
+      "Dim jsonIsoLocalFixture As Date"
+    ],
+    "setup": [
+      "jsonIsoLocalFixture = DateSerial(2024, 1, 15) + TimeSerial(12, 0, 0)"
+    ],
+    "expression": "JsonConverter.ConvertToIso(jsonIsoLocalFixture)",
+    "object_result": false,
+    "check": "VarType(result) = vbString And CStr(result) = \"2024-01-15T20:00:00.000Z\"",
+    "expected_text": "2024-01-15T20:00:00.000Z; requires the verified America/Los_Angeles host timezone",
+    "cleanup": [],
+    "module": "JsonConverter.bas",
+    "requires": [
+      "host_timezone_America_Los_Angeles"
+    ],
+    "implementation_note": "The existing Mac implementation invokes macOS date through libc popen/fread; the expected winter PST offset was independently verified by the root agent."
+  },
+  {
+    "id": "DecodeJsonString",
+    "function": "DecodeJsonString",
+    "group": "json_core",
+    "description": "DecodeJsonString returns a Collection for a root JSON array and preserves its item order.",
+    "declarations": [],
+    "setup": [],
+    "expression": "DecodeJsonString(\"[{\"\"name\"\":\"\"first\"\"},{\"\"name\"\":\"\"second\"\"}]\")",
+    "object_result": true,
+    "check": "TypeName(obj) = \"Collection\" And obj.Count = 2 And CStr(obj.Item(1).Item(\"name\")) = \"first\" And CStr(obj.Item(2).Item(\"name\")) = \"second\"",
+    "expected_text": "Collection with two Dictionary items named first and second",
+    "cleanup": [],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "GetProperty",
+    "function": "GetProperty",
+    "group": "json_core",
+    "description": "GetProperty returns a false JSON property as a Boolean.",
+    "declarations": [
+      "Dim jsonPropertyFixture As Object"
+    ],
+    "setup": [
+      "Set jsonPropertyFixture = JsonConverter.ParseJson(\"{\"\"flag\"\":false}\")"
+    ],
+    "expression": "GetProperty(jsonPropertyFixture, \"flag\")",
+    "object_result": false,
+    "check": "VarType(result) = vbBoolean And CBool(result) = False",
+    "expected_text": "Boolean False",
+    "cleanup": [
+      "Set jsonPropertyFixture = Nothing"
+    ],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "GetObjectProperty",
+    "function": "GetObjectProperty",
+    "group": "json_core",
+    "description": "GetObjectProperty returns a JSON array child as a Collection.",
+    "declarations": [
+      "Dim jsonObjectFixture As Object"
+    ],
+    "setup": [
+      "Set jsonObjectFixture = JsonConverter.ParseJson(\"{\"\"items\"\":[3,9]}\")"
+    ],
+    "expression": "GetObjectProperty(jsonObjectFixture, \"items\")",
+    "object_result": true,
+    "check": "TypeName(obj) = \"Collection\" And obj.Count = 2 And CDbl(obj.Item(1)) = 3 And CDbl(obj.Item(2)) = 9",
+    "expected_text": "Collection containing 3 and 9 in that order",
+    "cleanup": [
+      "Set jsonObjectFixture = Nothing"
+    ],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "GetKeys",
+    "function": "GetKeys",
+    "group": "json_core",
+    "description": "GetKeys returns a zero-based native String array and preserves numeric-looking object keys.",
+    "declarations": [
+      "Dim jsonKeysFixture As Object"
+    ],
+    "setup": [
+      "Set jsonKeysFixture = JsonConverter.ParseJson(\"{\"\"0\"\":\"\"zero\"\",\"\"01\"\":\"\"leading\"\"}\")"
+    ],
+    "expression": "GetKeys(jsonKeysFixture)",
+    "object_result": false,
+    "check": "IsArray(result) And LBound(result) = 0 And UBound(result) = 1 And CStr(result(0)) = \"0\" And CStr(result(1)) = \"01\"",
+    "expected_text": "Native array indexed 0..1 containing 0 and 01",
+    "cleanup": [
+      "Set jsonKeysFixture = Nothing"
+    ],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "smfJSONExtractField",
+    "function": "smfJSONExtractField",
+    "group": "json_core",
+    "description": "smfJSONExtractField follows a zero-based array index through a nested JSON path.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfJSONExtractField(\"{\"\"rows\"\":[{\"\"raw\"\":0},{\"\"raw\"\":7}]}\", \"rows.1.raw\")",
+    "object_result": false,
+    "check": "IsNumeric(result) And VarType(result) <> vbString And CDbl(result) = 7",
+    "expected_text": "Numeric 7 from the second array item",
+    "cleanup": [],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "smfJSONExtractField_x64",
+    "function": "smfJSONExtractField_x64",
+    "group": "json_core",
+    "description": "smfJSONExtractField_x64 uses the portable Mac parser and preserves false at array index zero.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfJSONExtractField_x64(\"{\"\"items\"\":[{\"\"flag\"\":false}]}\", \"items.0.flag\")",
+    "object_result": false,
+    "check": "VarType(result) = vbBoolean And CBool(result) = False",
+    "expected_text": "Boolean False from the first array item",
+    "cleanup": [],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "smfChkJSONFieldType",
+    "function": "smfChkJSONFieldType",
+    "group": "json_core",
+    "description": "smfChkJSONFieldType converts numeric path text zero to the converter's one-based numeric index one.",
+    "declarations": [
+      "Dim jsonIndexToken As Variant"
+    ],
+    "setup": [
+      "jsonIndexToken = \"0\""
+    ],
+    "expression": "smfChkJSONFieldType(jsonIndexToken)",
+    "object_result": false,
+    "check": "IsNumeric(result) And VarType(result) <> vbString And CDbl(result) = 1",
+    "expected_text": "Numeric 1",
+    "cleanup": [],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "smfJSONExtractKeys",
+    "function": "smfJSONExtractKeys",
+    "group": "json_core",
+    "description": "smfJSONExtractKeys returns zero-based array index text in a one-column native array ending with its sentinel.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfJSONExtractKeys(\"{\"\"items\"\":[3,9]}\", \"items\")",
+    "object_result": false,
+    "check": "IsArray(result) And LBound(result, 1) = 1 And UBound(result, 1) = 3 And LBound(result, 2) = 1 And UBound(result, 2) = 1 And CStr(result(1, 1)) = \"0\" And CStr(result(2, 1)) = \"1\" And CStr(result(3, 1)) = \"#N/A\"",
+    "expected_text": "One-column array with rows 0, 1, and #N/A",
+    "cleanup": [],
+    "module": "modJSONExtract.bas"
+  },
+  {
+    "id": "SMFMacJSONSelfTest",
+    "function": "SMFMacJSONSelfTest",
+    "group": "json_core",
+    "description": "SMFMacJSONSelfTest runs its explicit local JSON assertions and returns the exact check count.",
+    "declarations": [
+      "Dim jsonSelfTestOldLarge As Boolean"
+    ],
+    "setup": [
+      "jsonSelfTestOldLarge = JsonConverter.JsonOptions.UseDoubleForLargeNumbers",
+      "JsonConverter.JsonOptions.UseDoubleForLargeNumbers = False"
+    ],
+    "expression": "SMFMacJSONSelfTest()",
+    "object_result": false,
+    "check": "VarType(result) = vbString And CStr(result) = \"PASS: 84 JSON checks\"",
+    "expected_text": "PASS: 84 JSON checks",
+    "cleanup": [
+      "JsonConverter.JsonOptions.UseDoubleForLargeNumbers = jsonSelfTestOldLarge"
+    ],
+    "module": "modMacJSONTests.bas"
+  },
+  {
+    "id": "RCHGetURLData1Mac",
+    "function": "RCHGetURLData1Mac",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "RCHGetURLData1Mac(\"{{LOCAL_HTTP_BASE}}/text\", 0)",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "smfMacFetch",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "smfMacFetch(\"{{LOCAL_HTTP_BASE}}/text\", \"GET\")",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "RCHGetURLData1",
+    "function": "RCHGetURLData1",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "RCHGetURLData1(\"{{LOCAL_HTTP_BASE}}/text\", \"GET\")",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "RCHGetURLData2",
+    "function": "RCHGetURLData2",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "RCHGetURLData2(\"{{LOCAL_HTTP_BASE}}/text\")",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "RCHGetURLData3",
+    "function": "RCHGetURLData3",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "RCHGetURLData3(\"{{LOCAL_HTTP_BASE}}/text\")",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "RCHGetURLData",
+    "function": "RCHGetURLData",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "RCHGetURLData(\"{{LOCAL_HTTP_BASE}}/text\", 0)",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "RCHGetURLData4",
+    "function": "RCHGetURLData4",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Fetch a known ASCII body from the loopback fixture server.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog",
+      "sLog = \"N\""
+    ],
+    "expression": "RCHGetURLData4(\"{{LOCAL_HTTP_BASE}}/text\")",
+    "object_result": false,
+    "check": "CStr(result) = \"SMF fixture response\" And SMFMacHTTPStatus() = 200",
+    "expected_text": "HTTP 200; exact body SMF fixture response",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ],
+    "coverage_note": "Confirms the Mac path using loopback HTTP; this does not test Windows IE/HTMLDocument/WinHTTP implementations or Yahoo authentication."
+  },
+  {
+    "id": "smfMacReadResponse",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Decode an HTTP envelope while preserving body line feeds.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"200\" & vbLf & \"A\" & vbLf & \"B\")",
+    "object_result": false,
+    "check": "CStr(result) = \"A\" & vbLf & \"B\" And SMFMacHTTPStatus() = 200 And SMFMacLastError() = vbNullString",
+    "expected_text": "A<LF>B; status200; no transport error",
+    "cleanup": []
+  },
+  {
+    "id": "SMFMacHTTPStatus",
+    "function": "SMFMacHTTPStatus",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Read the exact status from a synthetic multistatus envelope.",
+    "declarations": [
+      "Dim testBody As String"
+    ],
+    "setup": [
+      "testBody = smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"207\" & vbLf & \"fixture\")"
+    ],
+    "expression": "SMFMacHTTPStatus()",
+    "object_result": false,
+    "check": "CLng(result) = 207",
+    "expected_text": "207",
+    "cleanup": []
+  },
+  {
+    "id": "SMFMacLastError",
+    "function": "SMFMacLastError",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Read a concrete failed-status message after local envelope decoding.",
+    "declarations": [
+      "Dim testBody As String"
+    ],
+    "setup": [
+      "testBody = smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"403\" & vbLf & \"fixture denied\")"
+    ],
+    "expression": "SMFMacLastError()",
+    "object_result": false,
+    "check": "CStr(result) = \"HTTP 403\"",
+    "expected_text": "HTTP 403",
+    "cleanup": []
+  },
+  {
+    "id": "SMFMacLastURL",
+    "function": "SMFMacLastURL",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Read the attempted URL after rejection before any network request.",
+    "declarations": [
+      "Dim testBody As String"
+    ],
+    "setup": [
+      "testBody = smfMacFetch(\"fixture://recorded-url\", \"GET\")"
+    ],
+    "expression": "SMFMacLastURL()",
+    "object_result": false,
+    "check": "CStr(result) = \"fixture://recorded-url\"",
+    "expected_text": "fixture://recorded-url",
+    "cleanup": [],
+    "coverage_note": "The deliberately invalid scheme records the URL then rejects it; no network request is made."
+  },
+  {
+    "id": "smfMacTryTagContentRecipe",
+    "function": "smfMacTryTagContentRecipe",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Dispatch one complete literal recipe directly and return numeric42.",
+    "declarations": [
+      "Dim testParsed As Variant"
+    ],
+    "setup": [],
+    "expression": "smfMacTryTagContentRecipe(\"=smfGetTagContent(\"\"<table><tr><td>Label</td><td><b>42</b></td></tr></table>\"\",\"\"TD\"\",1,\"\">Label\"\",,,,1,,0)\", testParsed)",
+    "object_result": false,
+    "check": "CBool(result) And VarType(testParsed) = vbDouble And CDbl(testParsed) = 42",
+    "expected_text": "True; parsed result numeric42",
+    "cleanup": []
+  },
+  {
+    "id": "smfMacReadElementText",
+    "function": "smfMacReadElementText",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Read a dedicated UTF-8 element fixture through AppleScriptTask.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfMacReadElementText(\"{{SUITE_DIR}}\", \"suite\")",
+    "object_result": false,
+    "check": "CStr(result) = \"19998;Fixture;Value;=1+2\" & Chr$(10) And SMFMacLastFileError() = vbNullString",
+    "expected_text": "19998;Fixture;Value;=1+2 followed by one LF",
+    "cleanup": [],
+    "requires": [
+      "suite_fixture_files",
+      "installed_SMFMac_helper"
+    ]
+  },
+  {
+    "id": "SMFMacLastFileError",
+    "function": "SMFMacLastFileError",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Confirm a successful fixture read clears the file-error diagnostic.",
+    "declarations": [
+      "Dim testBody As String"
+    ],
+    "setup": [
+      "testBody = smfMacReadElementText(\"{{SUITE_DIR}}\", \"suite\")"
+    ],
+    "expression": "SMFMacLastFileError()",
+    "object_result": false,
+    "check": "CStr(result) = vbNullString",
+    "expected_text": "empty string",
+    "cleanup": [],
+    "requires": [
+      "suite_fixture_files",
+      "installed_SMFMac_helper"
+    ],
+    "coverage_note": "Tests the cleared-success state; error propagation is not exercised by this case."
+  },
+  {
+    "id": "smfMacReadElementLocation",
+    "function": "smfMacReadElementLocation",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Read Local plus LF from the dedicated location fixture.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfMacReadElementLocation(\"{{SUITE_DIR}}\")",
+    "object_result": false,
+    "check": "CStr(result) = \"Local\" & Chr$(10)",
+    "expected_text": "Local followed by one LF",
+    "cleanup": [],
+    "requires": [
+      "suite_fixture_files",
+      "installed_SMFMac_helper"
+    ]
+  },
+  {
+    "id": "SMFMacTransportSelfTest",
+    "function": "SMFMacTransportSelfTest",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Run every deterministic transport-envelope fixture.",
+    "declarations": [],
+    "setup": [],
+    "expression": "SMFMacTransportSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 6",
+    "expected_text": "6 deterministic transport checks",
+    "cleanup": []
+  },
+  {
+    "id": "smfMacStripHTML",
+    "function": "smfMacStripHTML",
+    "module": "modMacHTML.bas",
+    "group": "json_and_utils",
+    "description": "Strip inline tags and decode a named ampersand entity.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfMacStripHTML(\"<b>42</b>&amp;<i>7</i>\")",
+    "object_result": false,
+    "check": "CStr(result) = \"42&7\"",
+    "expected_text": "42&7",
+    "cleanup": []
+  },
+  {
+    "id": "smfMacHTMLSelfTest",
+    "function": "smfMacHTMLSelfTest",
+    "module": "modMacHTML.bas",
+    "group": "json_and_utils",
+    "description": "Run the complete current HTML parser fixture set.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfMacHTMLSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 55",
+    "expected_text": "55 HTML checks",
+    "cleanup": []
+  },
+  {
+    "id": "SMFMacIntegrationSelfTest",
+    "function": "SMFMacIntegrationSelfTest",
+    "module": "modMacIntegrationTests.bas",
+    "group": "json_and_utils",
+    "description": "Run native HTML, numeric, element, and literal-recipe integration checks.",
+    "declarations": [],
+    "setup": [],
+    "expression": "SMFMacIntegrationSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 25",
+    "expected_text": "25 integration checks",
+    "cleanup": []
+  },
+  {
+    "id": "SMFMacRecipeSelfTest",
+    "function": "SMFMacRecipeSelfTest",
+    "module": "modMacIntegrationTests.bas",
+    "group": "json_and_utils",
+    "description": "Run accepted, rejected, quoting, omission, and overflow recipe fixtures.",
+    "declarations": [],
+    "setup": [],
+    "expression": "SMFMacRecipeSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 20",
+    "expected_text": "20 zero-HTTP recipe checks",
+    "cleanup": []
+  },
+  {
+    "id": "smfLogInternetCalls",
+    "function": "smfLogInternetCalls",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Disable logging without creating, deleting, or appending a file.",
+    "declarations": [
+      "Dim testOldLog As String"
+    ],
+    "setup": [
+      "testOldLog = sLog"
+    ],
+    "expression": "smfLogInternetCalls(\"N\")",
+    "object_result": false,
+    "check": "CStr(result) = \"Logging off\" And sLog = \"N\"",
+    "expected_text": "Logging off; sLog=N",
+    "cleanup": [
+      "sLog = testOldLog"
+    ],
+    "coverage_note": "The destructive DELETE/RESET modes and log creation are intentionally excluded."
+  },
+  {
+    "id": "smfCDec",
+    "function": "smfCDec",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Convert a fractional decimal without Currency four-place truncation.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfCDec(\"0.123456789\")",
+    "object_result": false,
+    "check": "VarType(result) = vbDouble And Abs(CDbl(result) - 0.123456789) < 0.000000000001",
+    "expected_text": "Double0.123456789",
+    "cleanup": []
+  },
+  {
+    "id": "smfGetWebPage",
+    "function": "smfGetWebPage",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Fetch fixture HTML into the first normal cache slot and verify both URL and body.",
+    "declarations": [
+      "Dim testOldKey As String, testOldBody As String",
+      "Dim testOldCache As String, testOldLog As String"
+    ],
+    "setup": [
+      "testOldKey = aData(1, 1)",
+      "testOldBody = aData(1, 2)",
+      "testOldCache = sWebCache",
+      "testOldLog = sLog",
+      "aData(1, 1) = vbNullString",
+      "aData(1, 2) = vbNullString",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\""
+    ],
+    "expression": "smfGetWebPage(\"{{LOCAL_HTTP_BASE}}/html\", 0, 0)",
+    "object_result": false,
+    "check": "CStr(result) = \"<html><body><table><tr><td>Label</td><td>42</td></tr><tr><td>Earnings</td><td>Nov 20 AMC</td></tr></table></body></html>\" And aData(1, 1) = \"0:{{LOCAL_HTTP_BASE}}/html\" And aData(1, 2) = \"<html><body><table><tr><td>Label</td><td>42</td></tr><tr><td>Earnings</td><td>Nov 20 AMC</td></tr></table></body></html>\"",
+    "expected_text": "Exact fixture HTML stored under mode0 URL key",
+    "cleanup": [
+      "aData(1, 1) = testOldKey",
+      "aData(1, 2) = testOldBody",
+      "sWebCache = testOldCache",
+      "sLog = testOldLog"
+    ],
+    "requires": [
+      "local_http_server"
+    ]
+  },
+  {
+    "id": "smfGetAData",
+    "function": "smfGetAData",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Read a cache body with the documented32767-character cap.",
+    "declarations": [
+      "Dim testOldBody As String"
+    ],
+    "setup": [
+      "testOldBody = aData(1, 2)",
+      "aData(1, 2) = String$(40000, \"x\")"
+    ],
+    "expression": "smfGetAData(1, 2)",
+    "object_result": false,
+    "check": "VarType(result) = vbString And Len(CStr(result)) = 32767 And CStr(result) = String$(32767, \"x\")",
+    "expected_text": "32767 x characters",
+    "cleanup": [
+      "aData(1, 2) = testOldBody"
+    ]
+  },
+  {
+    "id": "fnWait",
+    "function": "fnWait",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Wait approximately one second and retain the function's Empty return.",
+    "declarations": [
+      "Dim testStarted As Double"
+    ],
+    "setup": [
+      "testStarted = Timer"
+    ],
+    "expression": "fnWait(1)",
+    "object_result": false,
+    "check": "IsEmpty(result) And (((Timer - testStarted) >= 0.9) Or ((Timer < testStarted) And ((Timer + 86400# - testStarted) >= 0.9)))",
+    "expected_text": "Empty return after at least0.9seconds",
+    "cleanup": [],
+    "requires": [
+      "run_before_local_23_59_58"
+    ],
+    "coverage_note": "The function itself does not handle Timer crossing midnight; do not start within the last two seconds of the local day."
+  },
+  {
+    "id": "smfStrExtr",
+    "function": "smfStrExtr",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Extract a bracketed numeric value and request numeric conversion.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfStrExtr(\"before[123.45]after\", \"[\", \"]\", 1)",
+    "object_result": false,
+    "check": "VarType(result) = vbDouble And Abs(CDbl(result) - 123.45) < 0.000000001",
+    "expected_text": "Double123.45",
+    "cleanup": []
+  },
+  {
+    "id": "smfEval",
+    "function": "smfEval",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Evaluate a pure arithmetic expression without invoking any SMF worksheet function.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfEval(\"1+2*3\")",
+    "object_result": false,
+    "check": "IsNumeric(result) And CDbl(result) = 7",
+    "expected_text": "7",
+    "cleanup": [],
+    "coverage_note": "Direct call to the public function; it internally uses Excel Evaluate as designed. Only built-in arithmetic is evaluated."
+  },
+  {
+    "id": "smfEvaluateTwice",
+    "function": "smfEvaluateTwice",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Evaluate a built-in SUM expression with a concrete exact result.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfEvaluateTwice(\"SUM(1,2)\")",
+    "object_result": false,
+    "check": "IsNumeric(result) And CDbl(result) = 3",
+    "expected_text": "3",
+    "cleanup": [],
+    "coverage_note": "Direct call to the public function; its internal evaluator retry branch is not forced by this input."
+  },
+  {
+    "id": "smfJoin",
+    "function": "smfJoin",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Join the five staged worksheet values with commas.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfJoin(ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"A1:A5\"), \",\")",
+    "object_result": false,
+    "check": "CStr(result) = \"1,2,3,4,5\"",
+    "expected_text": "1,2,3,4,5",
+    "cleanup": [],
+    "requires": [
+      "suite_sheet_A1_A5_1_to_5"
+    ]
+  },
+  {
+    "id": "smfWord",
+    "function": "smfWord",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Select the first pipe-delimited word from the end.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfWord(\"alpha|beta|gamma\", 1, \"|\", 0, 1)",
+    "object_result": false,
+    "check": "CStr(result) = \"gamma\"",
+    "expected_text": "gamma",
+    "cleanup": []
+  },
+  {
+    "id": "smfStripHTML",
+    "function": "smfStripHTML",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Use the Mac wrapper to strip inline HTML and decode an entity.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfStripHTML(\"<b>7</b>&amp;<i>8</i>\")",
+    "object_result": false,
+    "check": "CStr(result) = \"7&8\"",
+    "expected_text": "7&8",
+    "cleanup": []
+  },
+  {
+    "id": "smfDate2Unix",
+    "function": "smfDate2Unix",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Convert the day after the epoch to a known second count.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfDate2Unix(DateSerial(1970, 1, 2))",
+    "object_result": false,
+    "check": "CLng(result) = 86400",
+    "expected_text": "86400",
+    "cleanup": []
+  },
+  {
+    "id": "smfUnix2Date",
+    "function": "smfUnix2Date",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Convert86400seconds to an exact VBA date.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfUnix2Date(86400)",
+    "object_result": false,
+    "check": "VarType(result) = vbDate And CDate(result) = DateSerial(1970, 1, 2)",
+    "expected_text": "1970-01-02 00:00:00 as Date",
+    "cleanup": []
+  },
+  {
+    "id": "smfUnix2DateStr",
+    "function": "smfUnix2DateStr",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Format a known epoch offset with explicit minutes and seconds.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfUnix2DateStr(90061, \"yyyy-mm-dd hh:nn:ss\")",
+    "object_result": false,
+    "check": "CStr(result) = \"1970-01-02 01:01:01\"",
+    "expected_text": "1970-01-02 01:01:01",
+    "cleanup": []
+  },
+  {
+    "id": "smfHTMLDecode",
+    "function": "smfHTMLDecode",
+    "module": "smfUtilities_.bas",
+    "group": "json_and_utils",
+    "description": "Decode angle brackets, quotes, and ampersands without stripping tags.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfHTMLDecode(\"&lt;b&gt;&quot;A&amp;B&quot;&lt;/b&gt;\")",
+    "object_result": false,
+    "check": "CStr(result) = \"<b>\"\"A&B\"\"</b>\"",
+    "expected_text": "<b>\"A&B\"</b>",
+    "cleanup": []
+  },
+  {
+    "id": "smfConvertData",
+    "function": "smfConvertData",
+    "module": "smfConvertData_.bas",
+    "group": "json_and_utils",
+    "description": "Convert a percentage suffix to its decimal numeric value.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfConvertData(\"12.5%\")",
+    "object_result": false,
+    "check": "VarType(result) = vbDouble And Abs(CDbl(result) - 0.125) < 0.000000000001",
+    "expected_text": "Double0.125",
+    "cleanup": []
+  },
+  {
+    "id": "smfConvertYahooTicker",
+    "function": "smfConvertYahooTicker",
+    "module": "smfConvertYahooTicker_.bas",
+    "group": "json_and_utils",
+    "description": "Normalize a Canadian Yahoo ticker to the MSN provider spelling.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfConvertYahooTicker(\" cmg.to \", \"MSN2\")",
+    "object_result": false,
+    "check": "CStr(result) = \"CA:CMG\"",
+    "expected_text": "CA:CMG",
+    "cleanup": []
+  },
+  {
+    "id": "smfMacTryTableCellRecipe",
+    "function": "smfMacTryTableCellRecipe",
+    "module": "modMacCode.bas",
+    "group": "json_and_utils",
+    "description": "Dispatch a literal table-cell recipe directly against controlled cached HTML.",
+    "declarations": [
+      "Dim tableParsed As Variant, tableOldKey As String, tableOldBody As String",
+      "Dim tableOldText2 As String, tableOldText3 As String, tableOldCache As String",
+      "Dim tableOldError As Variant"
+    ],
+    "setup": [
+      "tableOldKey = aData(1, 1)",
+      "tableOldBody = aData(1, 2)",
+      "tableOldText2 = sData(2)",
+      "tableOldText3 = sData(3)",
+      "tableOldCache = sWebCache",
+      "tableOldError = vError",
+      "sWebCache = \"Y\"",
+      "aData(1, 1) = \"0:fixture://function-table\"",
+      "aData(1, 2) = \"<html><body><table><tr><td>Label</td><td>42</td></tr></table></body></html>\""
+    ],
+    "expression": "smfMacTryTableCellRecipe(\"=RCHGetTableCell(\"\"fixture://function-table\"\",1,\"\">Label\"\")\", tableParsed)",
+    "object_result": false,
+    "check": "CBool(result) And IsNumeric(tableParsed) And Val(CStr(tableParsed)) = 42",
+    "expected_text": "True with numeric parsed value42; no HTTP request",
+    "cleanup": [
+      "aData(1, 1) = tableOldKey",
+      "aData(1, 2) = tableOldBody",
+      "sData(2) = tableOldText2",
+      "sData(3) = tableOldText3",
+      "sWebCache = tableOldCache",
+      "vError = tableOldError"
+    ],
+    "network": false
+  },
+  {
+    "id": "SMFMacTableRecipeSelfTest",
+    "function": "SMFMacTableRecipeSelfTest",
+    "module": "modMacIntegrationTests.bas",
+    "group": "json_and_utils",
+    "description": "Run the complete literal table-cell recipe checks with cached HTML and state restoration.",
+    "setup": [],
+    "expression": "SMFMacTableRecipeSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 40",
+    "expected_text": "40 table-recipe checks",
+    "cleanup": [],
+    "network": false
+  },
+  {
+    "id": "SMFMacTableGuardSelfTest",
+    "function": "SMFMacTableGuardSelfTest",
+    "module": "modGetElementNumber.bas",
+    "group": "json_and_utils",
+    "description": "Run table-call scanner and numbered-recipe fallback guard checks without HTTP.",
+    "setup": [],
+    "expression": "SMFMacTableGuardSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 17",
+    "expected_text": "17 table guard checks",
+    "cleanup": [],
+    "network": false
+  }
+]

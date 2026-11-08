@@ -1,5 +1,9 @@
 Attribute VB_Name = "modGetElementNumber"
-Const kVersion = "3.0.2024.07.30"                   ' Version number of add-in
+#If Mac Then
+Const kVersion = "3.0.2024.07.30-mac.0.3-dev"       ' Direct literal tag and table-cell recipes on Mac
+#Else
+Const kVersion = "3.0.2024.07.30"                   ' Upstream Windows version
+#End If
     
 Const kElements = 20000                             ' Number of data elements
 Dim aParms(1 To kElements) As String                ' Extraction parameters for each element
@@ -257,13 +261,32 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
             RCHGetElementNumber = smfGetADVFNElement(sTicker1, "Q", aParm(3), aParm(4), aParm(5), pError)
        Case aParm(0) = "Evaluate"
 #If Mac Then
-            RCHGetElementNumber = Evaluate("=" & Replace(aParm(2), "~~~~~", sTicker2))
+            If Not smfMacTryTagContentRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
+                If Not smfMacTryTableCellRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
+                    ' Unsupported table calls must not re-enter Excel's evaluator.
+                    If MacRecipeCallsTableCell(Replace(aParm(2), "~~~~~", sTicker2)) Then
+                        RCHGetElementNumber = pError
+                        Exit Function
+                    End If
+                    vTemp = Evaluate("=" & Replace(aParm(2), "~~~~~", sTicker2))
+                End If
+            End If
+            RCHGetElementNumber = vTemp
 #Else
             RCHGetElementNumber = smfEvaluateTwice(Replace(aParm(2), "~~~~~", sTicker2))
 #End If
        Case Left(aParm(2), 1) = "="
 #If Mac Then
-            vTemp = Evaluate("=" & Replace(Mid(aParm(2), 2), "~~~~~", sTicker2))
+            If Not smfMacTryTagContentRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
+                If Not smfMacTryTableCellRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
+                    ' Unsupported table calls must not re-enter Excel's evaluator.
+                    If MacRecipeCallsTableCell(Replace(aParm(2), "~~~~~", sTicker2)) Then
+                        RCHGetElementNumber = pError
+                        Exit Function
+                    End If
+                    vTemp = Evaluate("=" & Replace(Mid(aParm(2), 2), "~~~~~", sTicker2))
+                End If
+            End If
 #Else
             vTemp = smfEvaluateTwice(Replace(Mid(aParm(2), 2), "~~~~~", sTicker2))
 #End If
@@ -665,6 +688,9 @@ Sub LoadElementsFromFile(pSuffix As Variant)
     Dim sElementFile As String
     
     sElementFile = ThisWorkbook.Path & Application.PathSeparator & "smf-elements-" & pSuffix & ".txt"
+#If Mac Then
+    LoadMacElementsText smfMacReadElementText(ThisWorkbook.Path, CStr(pSuffix)), sElementFile
+#Else
     Open sElementFile For Input As #1
     On Error Resume Next
     
@@ -684,8 +710,78 @@ Sub LoadElementsFromFile(pSuffix As Variant)
           End Select
        Loop
     Close #1
+#End If
 ErrorExit:
     End Sub
+
+#If Mac Then
+Private Sub LoadMacElementsText(ByVal pText As String, ByVal pFile As String)
+    Dim lines As Variant, line As Variant, sLine As String
+    Dim separatorAt As Long, item As Long
+    If Len(pText) = 0 Then Exit Sub
+    pText = Replace(Replace(pText, vbCrLf, vbLf), vbCr, vbLf)
+    lines = Split(pText, vbLf)
+    On Error Resume Next
+    For Each line In lines
+        sLine = CStr(line)
+        Select Case True
+            Case Len(Trim$(sLine)) = 0
+            Case Left$(sLine, 1) = "'"
+            Case Left$(UCase$(sLine), 7) = "SETTING"
+                Evaluate smfWord(sLine, 3, ";")
+            Case Left$(UCase$(sLine), 8) = "CONSTANT"
+                Err.Clear
+                item = CInt(smfWord(sLine, 2, ";"))
+                If Err.Number = 0 And item >= LBound(aConstants) And item <= UBound(aConstants) Then
+                    aConstants(item) = smfWord(sLine, 4, ";")
+                End If
+            Case Else
+                separatorAt = InStr(sLine, ";")
+                If separatorAt > 1 Then
+                    Err.Clear
+                    item = CInt(Left$(sLine, separatorAt - 1))
+                    If Err.Number = 0 And item >= LBound(aParms) And item <= UBound(aParms) Then
+                        aParms(item) = Mid$(sLine, separatorAt + 1)
+                        aFiles(item) = pFile & " (Mac helper)"
+                    End If
+                End If
+        End Select
+    Next line
+    Err.Clear
+End Sub
+#End If
+
+Public Function SMFMacElementsSelfTest() As Long
+#If Mac Then
+    Dim oldParm As String, oldFile As String, oldConstant As String
+    Dim errorNumber As Long, errorText As String
+    oldParm = aParms(19999)
+    oldFile = aFiles(19999)
+    oldConstant = aConstants(99)
+    On Error GoTo RestoreFailed
+    LoadMacElementsText "'Comment" & vbCrLf & vbCrLf & _
+        "19999;FinViz;Fixture;=SUM(1,2)" & vbLf & _
+        "bad;ignored" & vbCr & _
+        "CONSTANT;99;Fixture;value" & vbLf & "CONSTANT;bad;Fixture;wrong", "fixture.txt"
+    If aParms(19999) <> "FinViz;Fixture;=SUM(1,2)" Then Err.Raise 5, , "Element definition parsing failed"
+    If aFiles(19999) <> "fixture.txt (Mac helper)" Then Err.Raise 5, , "Element filename was lost"
+    If aConstants(99) <> "value" Then Err.Raise 5, , "Constant parsing failed"
+    SMFMacElementsSelfTest = 3
+RestoreState:
+    aParms(19999) = oldParm
+    aFiles(19999) = oldFile
+    aConstants(99) = oldConstant
+    If errorNumber <> 0 Then Err.Raise errorNumber, "SMFMacElementsSelfTest", errorText
+    Exit Function
+RestoreFailed:
+    errorNumber = Err.Number
+    errorText = Err.Description
+    Resume RestoreState
+#Else
+    Err.Raise 5, , "This test requires Excel for Mac"
+#End If
+End Function
+
 Sub LoadElementsFromInternet(pSuffix As Variant)
     '-----------------------------------------------------------------------------------------------------------*
     ' 2016.05.18 -- Change to RCHGetURLData to ease transition between operating systems
@@ -723,9 +819,18 @@ Sub smfSetElementsLocation(p1 As String)
 Sub LoadElementsLocation()
     If sElementsLocation = "" Then sElementsLocation = "Local"
     On Error GoTo ErrorExit
+#If Mac Then
+    Dim locationText As String, locationLines As Variant
+    locationText = smfMacReadElementLocation(ThisWorkbook.Path)
+    If Len(locationText) > 0 Then
+        locationLines = Split(Replace(Replace(locationText, vbCrLf, vbLf), vbCr, vbLf), vbLf)
+        sElementsLocation = CStr(locationLines(0))
+    End If
+#Else
     Open ThisWorkbook.Path & Application.PathSeparator & "smf-Elements-Location.txt" For Input As #1
     Line Input #1, sElementsLocation
     Close #1
+#End If
 ErrorExit:
     End Sub
 
@@ -747,3 +852,113 @@ Public Function smfGetaFiles(p1 As Integer)
     smfGetaFiles = aFiles(p1)
     End Function
 
+
+#If Mac Then
+Private Function MacRecipeCallsTableCell(ByVal pExpression As String) As Boolean
+    Dim i As Long, startAt As Long, nextAt As Long
+    Dim quoted As Boolean, character As String, token As String
+    i = 1
+    Do While i <= Len(pExpression)
+        character = Mid$(pExpression, i, 1)
+        If character = Chr$(34) Then
+            If quoted And i < Len(pExpression) Then
+                If Mid$(pExpression, i + 1, 1) = Chr$(34) Then
+                    i = i + 2
+                    GoTo NextCharacter
+                End If
+            End If
+            quoted = Not quoted
+        ElseIf Not quoted Then
+            If character Like "[A-Za-z0-9_]" Then
+                startAt = i
+                Do While i <= Len(pExpression)
+                    character = Mid$(pExpression, i, 1)
+                    If Not character Like "[A-Za-z0-9_]" Then Exit Do
+                    i = i + 1
+                Loop
+                token = Mid$(pExpression, startAt, i - startAt)
+                If StrComp(token, "RCHGetTableCell", vbTextCompare) = 0 Then
+                    nextAt = i
+                    Do While nextAt <= Len(pExpression)
+                        character = Mid$(pExpression, nextAt, 1)
+                        If character <> " " And character <> vbTab And character <> vbCr And character <> vbLf Then Exit Do
+                        nextAt = nextAt + 1
+                    Loop
+                    If Mid$(pExpression, nextAt, 1) = "(" Then
+                        MacRecipeCallsTableCell = True
+                        Exit Function
+                    End If
+                End If
+                GoTo NextCharacter
+            End If
+        End If
+        i = i + 1
+NextCharacter:
+    Loop
+End Function
+
+Public Function SMFMacTableGuardSelfTest() As Long
+    Dim expression As Variant, actual As Variant, checks As Long
+    Dim oldParm As String, oldInit As Integer, errorNumber As Long, errorText As String
+    Dim oldGuardError As Variant
+    Dim beforeURL As String, beforeError As String, beforeStatus As Long
+    oldParm = aParms(19997)
+    oldGuardError = vError
+    oldInit = iInit
+    beforeURL = SMFMacLastURL()
+    beforeError = SMFMacLastError()
+    beforeStatus = SMFMacHTTPStatus()
+    On Error GoTo Failed
+    For Each expression In Array( _
+        "=RCHGetTableCell(""x"",1)", _
+        "=PROPER(RCHGetTableCell(""x"",1))", _
+        "=rchgettablecell (""x"",1)*1000", _
+        "=modGetTableCell.RCHGetTableCell(""x"",1)", _
+        "=SUM(1," & vbTab & "RCHGetTableCell" & vbTab & "(""x"",1))")
+        If Not MacRecipeCallsTableCell(CStr(expression)) Then Err.Raise 5, , "Table call was not detected"
+        checks = checks + 1
+    Next expression
+    For Each expression In Array( _
+        "=""RCHGetTableCell(""""x"""",1)""", _
+        "=OtherRCHGetTableCell(""x"",1)", _
+        "=RCHGetTableCellExtra(""x"",1)", _
+        "=RCHGetTableCell", _
+        "=RCHGetTableCell + 1", _
+        "=SUM(1,2)", _
+        "=""first"""" RCHGetTableCell(""""x"""",1)""", _
+        "=123RCHGetTableCell(""x"",1)")
+        If MacRecipeCallsTableCell(CStr(expression)) Then Err.Raise 5, , "Non-table expression was blocked"
+        checks = checks + 1
+    Next expression
+    iInit = 1
+    aParms(19997) = "Fixture;Compound;=PROPER(RCHGetTableCell(""https://example.invalid/no-network"",1))"
+    actual = RCHGetElementNumber("TEST", 19997, "unsupported-table")
+    If CStr(actual) <> "unsupported-table" Then Err.Raise 5, , "Compound table error changed"
+    checks = checks + 1
+    actual = RCHGetElementNumber("TEST", 19997, "")
+    If VarType(actual) <> vbString Then Err.Raise 5, , "Empty error changed type"
+    If CStr(actual) <> "" Then Err.Raise 5, , "Empty error fell through preprocessing"
+    checks = checks + 1
+    actual = RCHGetElementNumber("TEST", 19997, -77)
+    If VarType(actual) <> vbInteger Then Err.Raise 5, , "Numeric error changed type"
+    If CInt(actual) <> -77 Then Err.Raise 5, , "Numeric error changed value"
+    checks = checks + 1
+    aParms(19997) = "Evaluate;Compound;PROPER(RCHGetTableCell(""https://example.invalid/no-network"",1))"
+    actual = RCHGetElementNumber("TEST", 19997, "evaluate-blocked")
+    If CStr(actual) <> "evaluate-blocked" Then Err.Raise 5, , "Evaluate-source table call was not blocked"
+    checks = checks + 1
+    If SMFMacLastURL() <> beforeURL Or SMFMacLastError() <> beforeError Or _
+       SMFMacHTTPStatus() <> beforeStatus Then Err.Raise 5, , "Guard fixtures made an HTTP request"
+    SMFMacTableGuardSelfTest = checks
+RestoreState:
+    aParms(19997) = oldParm
+    vError = oldGuardError
+    iInit = oldInit
+    If errorNumber <> 0 Then Err.Raise errorNumber, "SMFMacTableGuardSelfTest", errorText
+    Exit Function
+Failed:
+    errorNumber = Err.Number
+    errorText = Err.Description
+    Resume RestoreState
+End Function
+#End If

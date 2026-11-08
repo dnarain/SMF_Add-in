@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "ticker": "AAPL",
+  "option_expiry": "2026-11-20",
+  "option_strike": 350,
+  "runtime_domains": 35,
+  "source_scope": "Active native Mac code plus effective numeric definitions loaded from smf-elements0..22 and constants. Comments, documentation URLs, and obsolete definition rows are excluded. Runtime reachability is separately classified.",
+  "dynamic_destinations": [
+    {
+      "template": "https://<sAdvFNPrefix>.advfn.com",
+      "default": "www.advfn.com",
+      "reference": "code/modGetAdvFNElement.bas:52,55,LoadAdvFNPrefix",
+      "note": "Caller configuration can select other ADVFN subdomains; the default is tested."
+    },
+    {
+      "template": "Caller-supplied pURL/pModule URL",
+      "reference": "RCHGetWebData,RCHGetTableCell,smfGetTagContent,smfMacFetch,smfGetYahooJSONField,smfGetYahooJSONData,RCHGetCSVFile,picture helpers",
+      "note": "Arbitrary user URLs are unbounded; inventory contains shipped defaults/recipes rather than every possible caller URL."
+    },
+    {
+      "template": "YQL env=datatables.org and encoded download.finance.yahoo.com URL",
+      "reference": "code/modYahooAPIData.bas:24-32",
+      "note": "Server-side YQL dependencies, not separate outbound Mac requests."
+    }
+  ],
+  "excluded_references": [
+    {
+      "domain": "biz.yahoo.com",
+      "classification": "parsed_link_marker",
+      "references": [
+        {
+          "file": "code/modGetElementNumber.bas",
+          "line": 458,
+          "function": "RCHSpecialExtraction",
+          "url_literal": "HTTP://BIZ.YAHOO.COM/P/"
+        },
+        {
+          "file": "code/modGetElementNumber.bas",
+          "line": 463,
+          "function": "RCHSpecialExtraction",
+          "url_literal": "HTTP://BIZ.YAHOO.COM/IC/"
+        }
+      ],
+      "reason": "RCHSpecialExtraction searches these strings inside an already fetched page; it does not fetch this host."
+    },
+    {
+      "domain": "finance.yahoo.com.",
+      "classification": "partial_authority_in_unreachable_branch",
+      "references": [
+        {
+          "file": "code/modGetYahooQuotes.bas",
+          "line": 117,
+          "function": "RCHGetYahooQuotes",
+          "url_literal": "https://finance.yahoo.com."
+        }
+      ],
+      "reason": "A URL fragment concatenated with a country prefix, not a standalone host. pServerID is forced to empty, so this country branch cannot run."
+    },
+    {
+      "domain": "moneycentral.msn.com",
+      "classification": "unreachable_after_obsolete_return",
+      "references": [
+        {
+          "file": "code/modGetOptionQuotes.bas",
+          "line": 805,
+          "function": "smfGetMSNOptionQuote",
+          "url_literal": "http://moneycentral.msn.com/detail/market_quote?symbol="
+        }
+      ],
+      "reason": "smfGetMSNOptionQuote returns Obsolete before the URL code."
+    },
+    {
+      "domain": "www.optionsxpress.com",
+      "classification": "unreachable_legacy_option_paths",
+      "references": [
+        {
+          "file": "code/modGetOptionExpirations.bas",
+          "line": 107,
+          "function": "smfGetOptionExpirations",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=All&lstMarket=0&ChainType=14&lstMonths=0&Symbol="
+        },
+        {
+          "file": "code/modGetOptionExpirations.bas",
+          "line": 119,
+          "function": "smfGetOptionExpirations",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Symbol="
+        },
+        {
+          "file": "code/modGetOptionExpirations.bas",
+          "line": 141,
+          "function": "smfGetOptionExpirations",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Symbol="
+        },
+        {
+          "file": "code/modGetOptionQuotes.bas",
+          "line": 1153,
+          "function": "smfGetOXOptionQuote",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=0&lstMarket=0&ChainType=3&lstMonths="
+        },
+        {
+          "file": "code/modGetOptionQuotes.bas",
+          "line": 1242,
+          "function": "smfGetOX2OptionQuote",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=All&lstMarket=0&ChainType=14&lstMonths="
+        },
+        {
+          "file": "code/modGetOptionQuotes.bas",
+          "line": 1330,
+          "function": "smfGetOX3OptionQuote",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=All&lstMarket=0&lstMonths="
+        },
+        {
+          "file": "code/modGetOptionStrikes.bas",
+          "line": 135,
+          "function": "smfGetOptionStrikes",
+          "url_literal": "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=0&lstMarket=0&Symbol="
+        }
+      ],
+      "reason": "Provider selectors no longer reach OX branches; three quote functions return Obsolete before URL code. Optional curl probes may document the old host but cannot establish working native routes."
+    }
+  ],
+  "unreachable_option_references": [
+    {
+      "function": "smfGetMSNOptionQuote",
+      "domains": [
+        "investing.money.msn.com",
+        "moneycentral.msn.com"
+      ],
+      "reason": "The function unconditionally returns Obsolete and exits before either legacy URL block.",
+      "known_current_response": "Obsolete",
+      "live_provider_tested": false,
+      "reachable": false,
+      "probe_optional": true,
+      "probe_urls": [
+        "http://investing.money.msn.com/investments/equity-options/?symbol=AAPL&optionsdate=11/20/2026"
+      ],
+      "unresolved_url_templates": [
+        "http://moneycentral.msn.com/detail/market_quote?symbol=<primary extraction result>"
+      ]
+    },
+    {
+      "function": "smfGetOXOptionQuote",
+      "domains": [
+        "www.optionsxpress.com"
+      ],
+      "reason": "The function unconditionally returns an obsolete-status string and exits before its legacy chain URL.",
+      "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
+      "live_provider_tested": false,
+      "reachable": false,
+      "probe_optional": true,
+      "probe_urls": [
+        "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=0&lstMarket=0&ChainType=3&lstMonths=11/20/2026;1&Symbol=AAPL"
+      ]
+    },
+    {
+      "function": "smfGetOX2OptionQuote",
+      "domains": [
+        "www.optionsxpress.com"
+      ],
+      "reason": "The function unconditionally returns an obsolete-status string and exits before its legacy chain URL.",
+      "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
+      "live_provider_tested": false,
+      "reachable": false,
+      "probe_optional": true,
+      "probe_urls": [
+        "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=All&lstMarket=0&ChainType=14&lstMonths=11/20/2026;7&Symbol=AAPL"
+      ],
+      "resolution_note": "The unreachable URL uses the current default monthly expiration, resolved to 2026-11-20 for the 2026-11-08 test session."
+    },
+    {
+      "function": "smfGetOX3OptionQuote",
+      "domains": [
+        "www.optionsxpress.com"
+      ],
+      "reason": "The function unconditionally returns an obsolete-status string and exits before its legacy chain URL.",
+      "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
+      "live_provider_tested": false,
+      "reachable": false,
+      "probe_optional": true,
+      "probe_urls": [
+        "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=All&lstMarket=0&lstMonths=11/20/2026;7&Symbol=AAPL"
+      ],
+      "resolution_note": "The unreachable URL uses the current default monthly expiration, resolved to 2026-11-20 for the 2026-11-08 test session."
+    },
+    {
+      "function": "smfGetOptionExpirations",
+      "domains": [
+        "www.optionsxpress.com"
+      ],
+      "reason": "The current source selector does not accept OX; its OptionsXpress labels have no reachable source branch.",
+      "live_provider_tested": false,
+      "reachable": false,
+      "probe_optional": true,
+      "probe_urls": [
+        "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=All&lstMarket=0&ChainType=14&lstMonths=0&Symbol=AAPL"
+      ]
+    },
+    {
+      "function": "smfGetOptionStrikes",
+      "domains": [
+        "www.optionsxpress.com"
+      ],
+      "reason": "The current source selector does not accept OX; its OptionsXpress label has no reachable source branch.",
+      "live_provider_tested": false,
+      "reachable": false,
+      "probe_optional": true,
+      "probe_urls": [
+        "https://www.optionsxpress.com/OXNetTools/Chains/index.aspx?Range=0&lstMarket=0&Symbol=AAPL&lstMonths=11/20/2026;7"
+      ]
+    }
+  ],
+  "source_inventory_note": "datasource_cases.json is an array of35default/configured provider groups and42 planned native cases. ca.advfn.com is an explicit configured-prefix case. No live case is marked executed before results are recorded.",
+  "informational_comment_links_note": "Copyright/license/tutorial links in comments (GitHub,VBA-tools,StackOverflow,Microsoft documentation,IETF,code.google.com,etc.) are not runtime fetch destinations and are not probed."
+}

@@ -186,6 +186,12 @@ Public Function ParseJson(ByVal JsonString As String) As Object
         ' Error: Invalid JSON string
         Err.Raise 10001, "JSONConverter", json_ParseErrorMessage(JsonString, json_Index, "Expecting '{' or '['")
     End Select
+
+    ' Reject an incomplete download followed by an error page or other text.
+    json_SkipSpaces JsonString, json_Index
+    If json_Index <= Len(JsonString) Then
+        Err.Raise 10001, "JSONConverter", json_ParseErrorMessage(JsonString, json_Index, "Unexpected text after JSON value")
+    End If
 End Function
 
 ''
@@ -516,6 +522,10 @@ End Function
 
 Private Function json_ParseValue(json_String As String, ByRef json_Index As Long) As Variant
     json_SkipSpaces json_String, json_Index
+    ' A truncated response must fail, not loop while parsing an unfinished array.
+    If json_Index > Len(json_String) Then
+        Err.Raise 10001, "JSONConverter", json_ParseErrorMessage(json_String, json_Index, "Unexpected end of JSON input")
+    End If
     Select Case VBA.Mid$(json_String, json_Index, 1)
     Case "{"
         Set json_ParseValue = json_ParseObject(json_String, json_Index)

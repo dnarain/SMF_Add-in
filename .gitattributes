@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Preserve CRLF in class exports imported by Excel for Mac.
+*.cls text eol=crlf

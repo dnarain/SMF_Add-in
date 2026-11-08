@@ -184,3 +184,28 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Native Mac source checks
+!/mac/tests/
+!/mac/tests/*.py
+!/mac/tests/upstream-signatures.json
+!/mac/tests/full_function_suite/
+!/mac/tests/full_function_suite/*.py
+!/mac/tests/full_function_suite/*_cases.json
+!/mac/tests/full_function_suite/datasource_inventory_meta.json
+
+# Native Mac generated copies, test workbooks, and local packages
+/SMF-Mac-port.zip
+/SMF-Mac-workaround-test.zip
+/mac/build_import/
+/mac/out/
+/mac/diagnostics/out/
+/mac/diagnostics/fixtures/
+
+# Local diagnostic helpers tied to saved, untracked test workbooks
+/mac/diagnostics/SMFMacFinish.bas
+/mac/diagnostics/SMFMacParserProbe.bas
+/mac/package_workaround_test.py
+
+!/mac/TEST-RESULTS-20261108.md
+!/mac/TESTING-PLAN.md

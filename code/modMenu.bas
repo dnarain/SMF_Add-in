@@ -12,6 +12,21 @@ Private Const sMenuTag As String = "smfCellControlTag"
 
 Private Sub smfAddToCellMenu()
     Dim ContextMenu As CommandBar
+#If Mac Then
+    ' Use flat buttons after Mac popup casts and child access failed.
+    Call smfDeleteFromCellMenu
+    Set ContextMenu = Application.CommandBars("Cell")
+    Call smfAddMacCellButton(ContextMenu, "SMF: Recalculate Selection", "smfMenuRecalculateSelection", True)
+    Call smfAddMacCellButton(ContextMenu, "SMF: Recalculate Worksheet", "smfForceRecalculation")
+    Call smfAddMacCellButton(ContextMenu, "SMF: Fix Links", "smfFixLinks")
+    Call smfAddMacCellButton(ContextMenu, "SMF: Update Download Table", "smfUpdateDownloadTable")
+    Call smfAddMacCellButton(ContextMenu, "SMF: Enable Asynchronous processing", "smfASyncOn")
+    Call smfAddMacCellButton(ContextMenu, "SMF: Disable Asynchronous processing (default)", "smfASyncOff")
+    Call smfAddMacCellButton(ContextMenu, "SMF Logging: Enable", "smfMenuEnableLog")
+    Call smfAddMacCellButton(ContextMenu, "SMF Logging: Disable", "smfMenuDisableLog")
+    Call smfAddMacCellButton(ContextMenu, "SMF Logging: Open Log File", "smfOpenLogFile")
+    Call smfAddMacCellButton(ContextMenu, "SMF Logging: Delete Log File", "smfMenuDeleteLogFile")
+#Else
     Dim MySubMenu As CommandBarControl, MySubMenu2 As CommandBarControl
 
     ' Delete the controls first to avoid duplicates.
@@ -108,21 +123,36 @@ Private Sub smfAddToCellMenu()
 
     ' Add a separator to the Cell context menu.
     'ContextMenu.Controls(4).BeginGroup = True
+#End If
 End Sub
+
+#If Mac Then
+Private Sub smfAddMacCellButton(ByVal pMenu As CommandBar, ByVal pCaption As String, _
+                              ByVal pAction As String, Optional ByVal pBeginGroup As Boolean = False)
+    Dim control As CommandBarControl
+    Set control = pMenu.Controls.Add(Type:=msoControlButton, Temporary:=True)
+    control.Tag = sMenuTag
+    control.Caption = pCaption
+    control.OnAction = "'" & Replace(ThisWorkbook.Name, "'", "''") & "'!" & pAction
+    If pBeginGroup Then control.BeginGroup = True
+End Sub
+#End If
 
 Private Sub smfDeleteFromCellMenu()
     Dim ContextMenu As CommandBar
     Dim ctrl As CommandBarControl
+    Dim controlIndex As Long
 
     ' Set ContextMenu to the Cell context menu.
     Set ContextMenu = Application.CommandBars("Cell")
 
     ' Delete the custom controls with the Tag : "smfCellControlTag".
-    For Each ctrl In ContextMenu.Controls
+    For controlIndex = ContextMenu.Controls.Count To 1 Step -1
+        Set ctrl = ContextMenu.Controls(controlIndex)
         If ctrl.Tag = sMenuTag Then
             ctrl.Delete
         End If
-    Next ctrl
+    Next controlIndex
 
 End Sub
 

@@ -89,6 +89,11 @@ Public Sub smfASyncOff() ' Turn Asynchronous XMLHTTP off
 
 Public Function RCHGetURLData1(pURL As String, _
                      Optional ByVal pType As String = "GET") As String
+#If Mac Then
+    Dim macMode As Long
+    If UCase$(pType) = "POST" Then macMode = 3
+    RCHGetURLData1 = RCHGetURLData1Mac(pURL, macMode)
+#Else
                      
     '-----------------------------------------------------------------------------------------------> Version 2.0i
     ' 2008.07.18 -- Expand oHTTP.Status selections for "OK" to include zero
@@ -120,9 +125,13 @@ Public Function RCHGetURLData1(pURL As String, _
     Exit Function
 ErrorExit:
     RCHGetURLData1 = vError
+#End If
     End Function
 
 Public Function RCHGetURLData2(pURL As String) As String
+#If Mac Then
+    RCHGetURLData2 = RCHGetURLData1Mac(pURL)
+#Else
     '-----------------------------------------------------------------------------------------------------------*
     ' 2018.08.14 -- Change Busy to a combination of Busy and ReadyState
     '-----------------------------------------------------------------------------------------------------------*
@@ -159,9 +168,13 @@ Public Function RCHGetURLData2(pURL As String) As String
     Exit Function
 ErrorExit:
     RCHGetURLData2 = vError
+#End If
     End Function
 
 Public Function RCHGetURLData3(pURL As String) As String
+#If Mac Then
+    RCHGetURLData3 = RCHGetURLData1Mac(pURL)
+#Else
     '-----------------------------------------------------------------------------------------------> Version 2.0i
     ' 2009.01.26 -- Drop ".Document" qualifier
     '-----------------------------------------------------------------------------------------------> Version 2.0k
@@ -176,6 +189,7 @@ Public Function RCHGetURLData3(pURL As String) As String
     Exit Function
 ErrorExit:
     RCHGetURLData3 = vError
+#End If
     End Function
 
 Public Function RCHGetURLData(ByVal pURL As String, _
@@ -231,7 +245,8 @@ Public Function smfCDec(ByVal pString As String) As Variant
     On Error Resume Next
     
     #If Mac Then
-        smfCDec = CCur(smfCDec)
+        ' Double retains more than the four decimal places of Currency.
+        smfCDec = CDbl(smfCDec)
     #Else
         smfCDec = CDec(smfCDec)
     #End If
@@ -253,6 +268,13 @@ Public Function smfGetWebPage(ByVal pURL As String, _
            Case aData(iData, 1) = "" Or (aData(iData, 1) = pUseIE & ":" & pURL And sWebCache = "N")
                 'sWebCache = "Y"
                 s2 = RCHGetURLData(pURL, pUseIE)
+#If Mac Then
+                ' Do not save an HTTP failure as a successful cached page.
+                If Left$(s2, 9) = "Error -- " Then
+                    smfGetWebPage = s2
+                    Exit Function
+                End If
+#End If
                 Select Case pConvType
                      Case 0
                           s2 = Replace(s2, "&amp;", "&")
@@ -434,6 +456,9 @@ ErrorHandler:
     End Function
 
 Public Function smfStripHTML(ByVal sHTML As String) As String
+#If Mac Then
+    smfStripHTML = smfMacStripHTML(sHTML)
+#Else
     '-----------------------------------------------------------------------------------------------------------*
     ' 2014.04.07 -- Add function
     '-----------------------------------------------------------------------------------------------------------*
@@ -441,6 +466,7 @@ Public Function smfStripHTML(ByVal sHTML As String) As String
     Set oDoc = New HTMLDocument
     oDoc.body.innerHTML = sHTML
     smfStripHTML = oDoc.body.innerText
+#End If
     End Function
   
 Public Function smfDate2Unix(ByVal pDate As Date) As Long
@@ -511,6 +537,9 @@ Public Function smfHTMLDecode(pString As String) As String
     End Function
 
 Public Function RCHGetURLData4(pURL As String)
+#If Mac Then
+    RCHGetURLData4 = RCHGetURLData1Mac(pURL, 4)
+#Else
     '-----------------------------------------------------------------------------------------------------------*
     ' 2023-06-07 -- Added function
     '            -- Gets Yahoo Data Using Cookie/Crumb Method
@@ -528,10 +557,12 @@ Public Function RCHGetURLData4(pURL As String)
         
         RCHGetURLData4 = .responseText
     End With
+#End If
 
 End Function
 
 Private Sub getYahooCookieCrumb(crumb As String, cookie As String)
+#If Mac = 0 Then
     '-----------------------------------------------------------------------------------------------------------*
     ' 2023.06.07 -- Added sub
     '            -- Helper function for RCHGetURLData4
@@ -553,5 +584,6 @@ Private Sub getYahooCookieCrumb(crumb As String, cookie As String)
             
     End With
 
+#End If
 End Sub
 

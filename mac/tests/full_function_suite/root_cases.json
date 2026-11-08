@@ -1,0 +1,659 @@
+[
+  {
+    "id": "RCHExtractData",
+    "function": "RCHExtractData",
+    "module": "modExtractData.bas",
+    "group": "local",
+    "description": "Extract the numeric value after Label from controlled shared HTML buffers.",
+    "declarations": [
+      "Dim oldData2 As String, oldData3 As String, oldError As Variant"
+    ],
+    "setup": [
+      "oldData2 = sData(2)",
+      "oldData3 = sData(3)",
+      "oldError = vError",
+      "sData(2) = FixtureHTML()",
+      "sData(3) = UCase$(sData(2))",
+      "vError = \"Error\""
+    ],
+    "expression": "RCHExtractData(\"Fixture\", \"Label\", \">Label\", \" \", \" \", \" \", 0, \"</BODY\", 1, 0)",
+    "object_result": false,
+    "check": "IsNumeric(result) And CDbl(result) = 42",
+    "expected_text": "42 as a numeric result.",
+    "cleanup": [
+      "sData(2) = oldData2",
+      "sData(3) = oldData3",
+      "vError = oldError"
+    ],
+    "network": false
+  },
+  {
+    "id": "smfGetCSVFile",
+    "function": "smfGetCSVFile",
+    "module": "modGetCSVFile.bas",
+    "group": "local",
+    "description": "Fetch and parse the exact three-row local Date/Close/Volume CSV.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfGetCSVFile(\"{{LOCAL_HTTP_BASE}}/data.csv\", \",\", 3, 3)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"Date\" And CStr(ArrayCell(result, 1, 2)) = \"Close\" And CStr(ArrayCell(result, 1, 3)) = \"Volume\" And Val(CStr(ArrayCell(result, 2, 2))) = 100.5 And Val(CStr(ArrayCell(result, 2, 3))) = 1000 And Val(CStr(ArrayCell(result, 3, 2))) = 102.25 And Val(CStr(ArrayCell(result, 3, 3))) = 1200",
+    "expected_text": "Date/Close/Volume headers, then 100.5/1000 and 102.25/1200.",
+    "cleanup": [],
+    "requires": [
+      "local_http_server"
+    ]
+  },
+  {
+    "id": "RCHGetElementNumber",
+    "function": "RCHGetElementNumber",
+    "module": "modGetElementNumber.bas",
+    "group": "market",
+    "description": "Exercise the real AAPL Finviz earnings-date recipe through numbered field4072.",
+    "declarations": [],
+    "setup": [],
+    "expression": "RCHGetElementNumber(\"AAPL\", 4072, \"Error\")",
+    "object_result": false,
+    "check": "IsUsableMarketResult(result) And (DateNumber(result) > 0 Or InStr(1, CStr(result), \"AMC\", vbTextCompare) > 0 Or InStr(1, CStr(result), \"BMO\", vbTextCompare) > 0)",
+    "expected_text": "A usable earnings date, optionally with AMC/BMO timing. Returned error/Undefined is not a pass.",
+    "cleanup": [],
+    "requirements": "Public Finviz quote page access and installed local element definitions."
+  },
+  {
+    "id": "RCHGetElementNumber_Price",
+    "function": "RCHGetElementNumber",
+    "module": "modGetElementNumber.bas",
+    "group": "market",
+    "description": "Exercise AAPL Finviz price through numbered field4074.",
+    "declarations": [],
+    "setup": [],
+    "expression": "RCHGetElementNumber(\"AAPL\", 4074, \"Error\")",
+    "object_result": false,
+    "check": "IsUsableMarketResult(result) And IsNumeric(result) And Val(CStr(result)) > 0",
+    "expected_text": "A positive numeric Finviz price; cached status/timestamp must remain visible in the result log.",
+    "cleanup": [],
+    "requirements": "Public Finviz quote page access and installed local element definitions."
+  },
+  {
+    "id": "SMFMacElementsSelfTest",
+    "function": "SMFMacElementsSelfTest",
+    "module": "modGetElementNumber.bas",
+    "group": "local",
+    "description": "Run the complete native element-file parser fixture and state-restoration checks.",
+    "declarations": [],
+    "setup": [],
+    "expression": "SMFMacElementsSelfTest()",
+    "object_result": false,
+    "check": "CLng(result) = 3",
+    "expected_text": "3 element parsing checks.",
+    "cleanup": [],
+    "network": false
+  },
+  {
+    "id": "smfGetAParms",
+    "function": "smfGetAParms",
+    "module": "modGetElementNumber.bas",
+    "group": "local",
+    "description": "Read the stored definition of Finviz earnings field4072 after normal initialization.",
+    "declarations": [
+      "Dim definition As Variant"
+    ],
+    "setup": [
+      "definition = RCHGetElementNumber(\"Definition\", 4072)"
+    ],
+    "expression": "smfGetAParms(4072)",
+    "object_result": false,
+    "check": "CStr(result) = CStr(definition) And Left$(CStr(result), 7) = \"FinViz;\" And InStr(1, CStr(result), \">Earnings\", vbBinaryCompare) > 0",
+    "expected_text": "The initialized FinViz definition containing the Earnings search marker.",
+    "cleanup": [],
+    "network": false
+  },
+  {
+    "id": "smfGetAConstants",
+    "function": "smfGetAConstants",
+    "module": "modGetElementNumber.bas",
+    "group": "local",
+    "description": "Read a controlled constant from the last supported constant slot.",
+    "declarations": [
+      "Dim oldConstant As String"
+    ],
+    "setup": [
+      "oldConstant = aConstants(100)",
+      "aConstants(100) = \"suite-fixed-constant\""
+    ],
+    "expression": "smfGetAConstants(100)",
+    "object_result": false,
+    "check": "CStr(result) = \"suite-fixed-constant\"",
+    "expected_text": "suite-fixed-constant",
+    "cleanup": [
+      "aConstants(100) = oldConstant"
+    ],
+    "network": false
+  },
+  {
+    "id": "smfGetaFiles",
+    "function": "smfGetaFiles",
+    "module": "modGetElementNumber.bas",
+    "group": "local",
+    "description": "Read the source-file record for initialized Finviz field4072.",
+    "declarations": [
+      "Dim definition As Variant"
+    ],
+    "setup": [
+      "definition = RCHGetElementNumber(\"Definition\", 4072)"
+    ],
+    "expression": "smfGetaFiles(4072)",
+    "object_result": false,
+    "check": "InStr(1, CStr(result), \"smf-elements-4.txt\", vbTextCompare) > 0",
+    "expected_text": "A source-file record naming smf-elements-4.txt.",
+    "cleanup": [],
+    "network": false
+  },
+  {
+    "id": "RCHGetHTMLTable",
+    "function": "RCHGetHTMLTable",
+    "module": "modGetHTMLTable.bas",
+    "group": "local",
+    "description": "Extract both rows and columns from the local HTML table.",
+    "declarations": [],
+    "setup": [],
+    "expression": "RCHGetHTMLTable(\"{{LOCAL_HTTP_BASE}}/html\", \">Label\", -1, \">Earnings\", 1, False, 2, 2, 0, 1)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"Label\" And Val(CStr(ArrayCell(result, 1, 2))) = 42 And CStr(ArrayCell(result, 2, 1)) = \"Earnings\" And CStr(ArrayCell(result, 2, 2)) = \"Nov 20 AMC\"",
+    "expected_text": "The 2-by-2 table Label/42 and Earnings/Nov 20 AMC.",
+    "cleanup": [],
+    "requires": [
+      "local_http_server"
+    ]
+  },
+  {
+    "id": "RCHGetTableCell",
+    "function": "RCHGetTableCell",
+    "module": "modGetTableCell.bas",
+    "group": "local",
+    "description": "Fetch the local HTML fixture and extract the numeric cell after Label.",
+    "declarations": [],
+    "setup": [],
+    "expression": "RCHGetTableCell(\"{{LOCAL_HTTP_BASE}}/html\", 1, \">Label\", \" \", \" \", \" \", 0, \"</BODY\", 0, \"Error\", 0)",
+    "object_result": false,
+    "check": "IsNumeric(result) And CDbl(result) = 42",
+    "expected_text": "42 as a numeric result.",
+    "cleanup": [],
+    "requires": [
+      "local_http_server"
+    ]
+  },
+  {
+    "id": "smfGetTagContent",
+    "function": "smfGetTagContent",
+    "module": "modGetTagContent.bas",
+    "group": "local",
+    "description": "Extract and convert the Earnings TD from a direct HTML string.",
+    "declarations": [],
+    "setup": [],
+    "expression": "smfGetTagContent(FixtureHTML(), \"TD\", 1, \">Earnings\", \" \", \" \", \" \", 1, \"Error\", 0)",
+    "object_result": false,
+    "check": "CStr(result) = \"Nov 20 AMC\"",
+    "expected_text": "Nov 20 AMC",
+    "cleanup": [],
+    "network": false
+  },
+  {
+    "id": "RCHGetWebData",
+    "function": "RCHGetWebData",
+    "module": "modGetWebData.bas",
+    "group": "local",
+    "description": "Fetch the local page and read five characters after its >Label marker.",
+    "declarations": [],
+    "setup": [],
+    "expression": "RCHGetWebData(\"{{LOCAL_HTTP_BASE}}/html\", \">Label\", 5, 1, 0)",
+    "object_result": false,
+    "check": "CStr(result) = \"Label\"",
+    "expected_text": "Label",
+    "cleanup": [],
+    "requires": [
+      "local_http_server"
+    ]
+  },
+  {
+    "id": "RCHImageTable",
+    "function": "RCHImageTable",
+    "module": "modPictureTable.bas",
+    "group": "local",
+    "description": "Create two chart-image HTML rows from the supported custom image template.",
+    "declarations": [],
+    "setup": [],
+    "expression": "RCHImageTable(\"AAPL,MSFT\", -1, \"<img src=\"\"{{LOCAL_HTTP_BASE}}/image.png?t=~~~~~\"\">\")",
+    "object_result": false,
+    "check": "CStr(result) = \"<table><tr><td><img src=\"\"{{LOCAL_HTTP_BASE}}/image.png?t=AAPL\"\"></td></tr><tr><td><img src=\"\"{{LOCAL_HTTP_BASE}}/image.png?t=MSFT\"\"></td></tr></table>\"",
+    "expected_text": "Exactly two HTML table rows with AAPL and MSFT substituted into image URLs; this function itself fetches no images.",
+    "cleanup": [],
+    "network": false
+  },
+  {
+    "id": "SMFTech",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate SMA on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"SMA\", 3)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"SMA\" & Chr$(10) & \"3\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 4) < 0.00000001 And IsNumeric(ArrayCell(result, 4, 1)) And (Abs(Val(CStr(ArrayCell(result, 4, 1))) - 2) < 0.000000001)",
+    "expected_text": "Three-day SMA of closes1,2,3,4,5 ends at4; its first full three-day mean is2.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_EMA",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate EMA on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"EMA\", 3)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"EMA\" & Chr$(10) & \"3\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 4) < 0.00000001 And (True)",
+    "expected_text": "Three-day EMA seeded with the first three closes ends at4.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_ATR",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate ATR on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"ATR\", 3)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"ATR\" & Chr$(10) & \"3\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 1.4259259259259258) < 0.00000001 And (True)",
+    "expected_text": "Three-day Wilder ATR ends at77/54 for true ranges1,1.5,1.5,1.5,1.5.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_CCI",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate CCI on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"CCI\", 3)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"CCI\" & Chr$(10) & \"3\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 100) < 0.00000001 And (True)",
+    "expected_text": "Three-day CCI ends at100 for linearly increasing typical prices.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_MACD",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate MACD on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"MACD\", 2, 3, 2)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"MACD\" & Chr$(10) & \"2-3-2\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 0.5) < 0.00000001 And IsNumeric(ArrayCell(result, 6, 2)) And IsNumeric(ArrayCell(result, 6, 3)) And (Abs(Val(CStr(ArrayCell(result, 6, 2))) - 4.5) < 0.000000001 And Abs(Val(CStr(ArrayCell(result, 6, 3))) - 4) < 0.000000001)",
+    "expected_text": "The function's SMA-based2/3 MACD with a two-day signal ends at0.5; fast/slow means are4.5/4.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_OBV",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate OBV on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"OBV\")",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"OBV\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 400) < 0.00000001 And (True)",
+    "expected_text": "Four rising closes after the initial observation add100 volume each, ending OBV at400.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_ROC",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate ROC on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"ROC\", 2)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"ROC\" & Chr$(10) & \"2\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 0.6666666666666666) < 0.00000001 And (True)",
+    "expected_text": "Two-period ROC ends at5/3-1 = 2/3.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_RSI",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate RSI on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"RSI\", 3)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"RSI\" & Chr$(10) & \"3\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 100) < 0.00000001 And IsNumeric(ArrayCell(result, 6, 5)) And IsNumeric(ArrayCell(result, 6, 6)) And (Abs(Val(CStr(ArrayCell(result, 6, 5))) - 1) < 0.000000001 And Val(CStr(ArrayCell(result, 6, 6))) = 0)",
+    "expected_text": "Three-period RSI ends at100 with average gain1 and average loss0.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_ADL",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate ADL on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"ADL\")",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"ADL\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 0) < 0.00000001 And IsNumeric(ArrayCell(result, 6, 2)) And (Val(CStr(ArrayCell(result, 6, 2))) = 0)",
+    "expected_text": "Each close is the midpoint of its high/low; CLV and final ADL are zero.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "SMFTech_STO",
+    "function": "SMFTech",
+    "module": "modTechnicalAnalysis.bas",
+    "group": "local",
+    "description": "Calculate STO on five deterministic OHLCV observations.",
+    "declarations": [
+      "Dim priceData As Variant, testRow As Long"
+    ],
+    "setup": [
+      "ReDim priceData(1 To 6, 1 To 6)",
+      "priceData(1, 1) = \"Date\"",
+      "priceData(1, 2) = \"Open\"",
+      "priceData(1, 3) = \"High\"",
+      "priceData(1, 4) = \"Low\"",
+      "priceData(1, 5) = \"Close\"",
+      "priceData(1, 6) = \"Volume\"",
+      "For testRow = 2 To 6",
+      "priceData(testRow, 1) = DateSerial(2026, 11, testRow)",
+      "priceData(testRow, 2) = testRow - 1.25",
+      "priceData(testRow, 3) = testRow - 0.5",
+      "priceData(testRow, 4) = testRow - 1.5",
+      "priceData(testRow, 5) = testRow - 1",
+      "priceData(testRow, 6) = 100",
+      "Next testRow"
+    ],
+    "expression": "SMFTech(priceData, \"STO\", 3, 2, 1)",
+    "object_result": false,
+    "check": "CStr(ArrayCell(result, 1, 1)) = \"Stoch\" & Chr$(10) & \"3-2-1\" And IsNumeric(ArrayCell(result, 6, 1)) And Abs(Val(CStr(ArrayCell(result, 6, 1))) - 83.33333333333333) < 0.00000001 And (True)",
+    "expected_text": "Three-period stochastic %K and the short smoothers end at250/3.",
+    "cleanup": [],
+    "network": false,
+    "coverage_note": "The data has ascending dates, Close1..5, High=Close+0.5, Low=Close-0.5, Open=Close-0.25, and Volume100. Expectations follow the stated mathematical calculation, not source output."
+  },
+  {
+    "id": "smfInCellChart",
+    "function": "smfInCellChart",
+    "module": "modInCellChart.bas",
+    "group": "worksheet",
+    "description": "Call the Line chart UDF from J20 and verify four line shapes for five input values.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, oldHeight As Double, oldWidth As Double",
+      "Dim shapesBefore As Long, shapeIndex As Long"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "oldHeight = testSheet.Rows(20).RowHeight",
+      "oldWidth = testSheet.Columns(\"J\").ColumnWidth",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "shapesBefore = testSheet.Shapes.Count",
+      "testSheet.Rows(20).RowHeight = 36",
+      "testSheet.Columns(\"J\").ColumnWidth = 20",
+      "testSheet.Range(\"J20\").Formula = \"=smfInCellChart(A1:A5,\"\"Line\"\",203)\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check": "CStr(result) = \"\" And testSheet.Shapes.Count = shapesBefore + 4",
+    "expected_text": "An empty cell result and exactly four new line shapes. This requires a worksheet caller, not a direct macro call.",
+    "cleanup": [
+      "testSheet.Range(\"J20\").ClearContents",
+      "For shapeIndex = testSheet.Shapes.Count To shapesBefore + 1 Step -1",
+      "testSheet.Shapes(shapeIndex).Delete",
+      "Next shapeIndex",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "testSheet.Rows(20).RowHeight = oldHeight",
+      "testSheet.Columns(\"J\").ColumnWidth = oldWidth",
+      "oldActiveSheet.Activate"
+    ],
+    "network": false,
+    "requires": [
+      "suite_sheet_A1_A5_1_to_5",
+      "worksheet_caller"
+    ],
+    "coverage_note": "Only the Line branch is used here. Bar and Slope are separate modes of the same function, not additional public functions."
+  },
+  {
+    "id": "RCHCreateComment",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet",
+    "description": "Call the comment UDF from J20 in its supported text-only mode and verify the note text.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant",
+      "Dim commentText As String"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"AAPL\"\",0,200,100,0,1,1,1,\"\"SMF test note\"\",\"\"Note\"\")\"",
+      "testSheet.Range(\"J20\").Calculate",
+      "commentText = \"\"",
+      "If Not testSheet.Range(\"J20\").Comment Is Nothing Then commentText = testSheet.Range(\"J20\").Comment.Text"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check": "CStr(result) = \"Note\" And commentText = \"SMF test note\"",
+    "expected_text": "Cell result Note and a comment whose text is exactly SMF test note; no external image is requested.",
+    "cleanup": [
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "network": false,
+    "requires": [
+      "worksheet_caller"
+    ],
+    "coverage_note": "The formula selects pChoice=0, the documented text-only path. Picture download and chart-provider modes require separate provider-specific checks. A missing comment is an assertion failure."
+  }
+]

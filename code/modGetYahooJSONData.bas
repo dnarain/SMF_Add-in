@@ -45,7 +45,9 @@ Public Function smfGetYahooJSONField(ByVal pTicker As String, _
   ' s1 = smfGetWebPage(sURL)
    s1 = smfGetWebPage(sURL, 4)                   ' Get url using crumb
    
-   #If Win64 Then
+   #If Mac Then
+        smfGetYahooJSONField = smfJSONExtractField(s1, pField)
+   #ElseIf Win64 Then
         ' .. Excel x64
         smfGetYahooJSONField = smfJSONExtractField_x64(s1, pField)
    #Else
