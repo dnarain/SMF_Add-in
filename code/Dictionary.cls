@@ -454,4 +454,3 @@ Private Sub Class_Terminate()
     Set dict_pDictionary = Nothing
 #End If
 End Sub
-
