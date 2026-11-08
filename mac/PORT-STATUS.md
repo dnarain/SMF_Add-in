@@ -2,7 +2,42 @@
 
 This record describes checks on November 7 and 8, 2026.
 
-## Current state: November 8, 2026 — table-cell fix
+## Current state: November 8, 2026 — data and picture repairs
+
+The source version is `3.0.2024.07.30-mac.0.4-dev`.
+The last verified add-in remains the `0.3-dev` binary described below.
+The `0.4-dev` add-in has not been built or loaded yet.
+
+The dedicated native repair workbook completed all 59 selected cases without an observed Excel exit.
+It recorded 52 passes and seven failed provider data checks.
+The four local-image tests first used relative fixture paths. All four passed after the agent corrected the generated paths.
+The live StockCharts pictures, point-and-figure picture, local numeric charts, repaired history calls,
+option expiration bounds, GuruFocus dividend yield, Zacks price target, Netflix year and ADVFN date passed.
+
+All seven additional checks for dependent history functions passed.
+The agent corrected `smfPricesBetween` after its earlier-end-date check returned blanks.
+The function now skips newer quotes and stops before the requested beginning date.
+The shared date-filter correction also affects Windows; Windows runtime checks remain pending.
+
+An independent agent inspected the saved workbook and found all 51 core VBA components with their original types.
+All eleven revised core modules match the reviewed source after known VBA editor formatting changes.
+All 40 unchanged core modules match the saved `0.3-dev` workbook.
+Dictionary retains its default-member attribute.
+The full 66-case snapshot is `diagnostics/out/SMF-Mac-Data-Picture-Fix-Passed-20261108.xlsm`.
+It contains 987,635 bytes with SHA256 `224c8a29de15dd0caa36d2daecab7f094627d9099ce1ba23e01a2428002357c1`.
+The agent removed five test modules and eight test worksheets from the separate add-in copy.
+That copy contains one blank worksheet and no live worksheet formulas.
+
+Excel refused the add-in SaveAs with error `1004` about write permission.
+The output `out/SMF-Mac.xlam` is an incomplete zero-byte file and must not be loaded.
+The previous add-in remains at `out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
+Its matching element files and a second binary copy remain in `out/rollback-0.3-dev-before-data-picture-20261108/`.
+No `0.4-dev` add-in load is claimed.
+
+See [the repair notes](DATA-PICTURE-REPAIRS-20261108.md) for the fixes and remaining native checks.
+The records below preserve earlier checkpoints.
+
+## Earlier November 8 checkpoint: table-cell fix
 
 Excel loaded `out/SMF-Mac.xlam`, version `3.0.2024.07.30-mac.0.3-dev`.
 The revised code passed 57 new native checks:

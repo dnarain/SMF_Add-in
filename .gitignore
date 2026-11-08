@@ -189,6 +189,7 @@ cython_debug/
 !/mac/tests/
 !/mac/tests/*.py
 !/mac/tests/upstream-signatures.json
+!/mac/tests/provider_recipe_fixtures/manifest.json
 !/mac/tests/full_function_suite/
 !/mac/tests/full_function_suite/*.py
 !/mac/tests/full_function_suite/*_cases.json

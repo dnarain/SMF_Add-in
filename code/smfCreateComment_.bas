@@ -28,6 +28,15 @@ Attribute RCHCreateComment.VB_Description = "Creates a comment box for the cell 
     '
     '-----------------------------------------------------------------------------------------------------------*
     
+#If Mac Then
+    Dim macCaller As Object
+    On Error Resume Next
+    Set macCaller = Application.Caller
+    On Error GoTo 0
+    RCHCreateComment = smfMacCreateComment(macCaller, pTicker, pChoice, pWidth, pHeight, _
+                                         pVisible, pTop, pLeft, pScale, pText, pReturn)
+    Exit Function
+#Else
     Set oCell = Cells(Application.Caller.Cells.Row, Application.Caller.Cells.Column)
     If ActiveWorkbook.Name <> Application.Caller.Parent.Parent.Name Then Exit Function
     If ActiveSheet.Name <> Application.Caller.Worksheet.Name Then Exit Function
@@ -119,6 +128,252 @@ Attribute RCHCreateComment.VB_Description = "Creates a comment box for the cell 
     Exit Function
 ErrorExit:
     RCHCreateComment = "Error"
+#End If
     End Function
 
 
+
+#If Mac Then
+' Excel for Mac 16.114.4 raised445 for Comment.Shape.Fill. Keep note text
+' and embed a separate worksheet picture, keyed to its formula cell.
+Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As String, _
+        ByVal choice As Integer, ByVal width As Integer, ByVal height As Integer, _
+        ByVal visible As Integer, ByVal offsetTop As Integer, ByVal offsetLeft As Integer, _
+        ByVal pictureScale As Single, ByVal noteText As String, ByVal returnText As String) As Variant
+    Dim target As Range, picture As Shape, numericChart As ChartObject
+    Dim source As String, imageFile As String, ownedDownload As Boolean
+    Dim failure As String, reply As String, parts As Variant, operation As String
+    operation = "Preparing the chart cell"
+    On Error GoTo Failed
+    If Not IsObject(caller) Then GoTo InvalidInput
+    If TypeName(caller) <> "Range" Then GoTo InvalidInput
+    Set target = caller.Cells(1, 1)
+    If ActiveWorkbook.Name <> target.Parent.Parent.Name Then Exit Function
+    If ActiveSheet.Name <> target.Worksheet.Name Then Exit Function
+    operation = "Removing the previous chart"
+    Call smfMacRemoveCommentPicture(target)
+    On Error Resume Next
+    target.Comment.Delete
+    On Error GoTo Failed
+    If UCase$(ticker) = "NONE" Then
+        smfMacCreateComment = "None"
+        Exit Function
+    End If
+    If pictureScale <= 0 Or width < 0 Or height < 0 Then GoTo InvalidInput
+    source = smfMacCommentImageURL(ticker, choice, width, height, pictureScale)
+    If choice <> 0 And source = "" Then GoTo InvalidInput
+    operation = "Creating the cell note"
+    If choice = 0 Then
+        target.AddComment IIf(noteText = "", " ", noteText)
+    Else
+        target.AddComment IIf(noteText = "", "", noteText & vbLf) & _
+            "SMF stores this chart on the worksheet. Select this cell and use " & _
+            "SMF: Show/Hide Cell Chart in the cell menu."
+    End If
+    ' Cosmetic comment properties vary between Excel for Mac builds. A missing
+    ' border or shadow operation must not turn a valid text note into #VALUE!.
+    On Error Resume Next
+    target.Comment.Shape.Width = width
+    target.Comment.Shape.Height = height
+    target.Comment.Shape.Top = target.Top + offsetTop
+    target.Comment.Shape.Left = target.Left + offsetLeft
+    target.Comment.Visible = (visible = 1)
+    On Error GoTo Failed
+    If choice = 0 Then
+        smfMacCreateComment = returnText
+        Exit Function
+    End If
+    operation = "Creating the local numeric chart"
+    If choice = 98 Then
+        Set numericChart = target.Worksheet.ChartObjects.Add(target.Left + offsetLeft, _
+                                target.Top + offsetTop, width, height)
+        numericChart.Chart.ChartType = xlLine
+        numericChart.Chart.SeriesCollection.NewSeries.Values = smfMacNumericChartValues(ticker)
+        numericChart.Chart.HasLegend = False
+        On Error Resume Next
+        numericChart.Chart.Axes(xlValue).MinimumScale = 0
+        numericChart.Chart.Axes(xlValue).MaximumScale = 100
+        On Error GoTo Failed
+        Set picture = target.Worksheet.Shapes(numericChart.Name)
+    Else
+    If LCase$(Left$(source, 7)) = "http://" Or LCase$(Left$(source, 8)) = "https://" Then
+        operation = "Downloading the image"
+        reply = AppleScriptTask("SMFMac.scpt", "downloadImage", source)
+        parts = Split(reply, vbLf)
+        If UBound(parts) < 3 Then Err.Raise 5, "RCHCreateComment", "The image helper returned an invalid response"
+        If parts(0) <> "SMFIMAGE/1" Then Err.Raise 5, "RCHCreateComment", "The image helper returned an invalid response"
+        If parts(1) <> "200" Or parts(2) = "" Then
+            failure = CStr(parts(3))
+            If failure = "" Then failure = "The image request did not return a picture"
+            GoTo FailedImage
+        End If
+        imageFile = CStr(parts(2))
+        ownedDownload = True
+    ElseIf Left$(source, 1) = "/" Then
+        operation = "Preparing the local image"
+        reply = AppleScriptTask("SMFMac.scpt", "prepareLocalImage", source)
+        parts = Split(reply, vbLf)
+        If UBound(parts) < 3 Then Err.Raise 5, "RCHCreateComment", "The image helper returned an invalid response"
+        If parts(0) <> "SMFIMAGE/1" Then Err.Raise 5, "RCHCreateComment", "The image helper returned an invalid response"
+        If parts(1) <> "200" Or parts(2) = "" Then
+            failure = CStr(parts(3))
+            If failure = "" Then failure = "The local file could not be prepared as a picture"
+            GoTo FailedImage
+        End If
+        imageFile = CStr(parts(2))
+        ownedDownload = True
+    Else
+        Err.Raise 5, "RCHCreateComment", "Use an HTTP image URL or an absolute Mac file path"
+    End If
+    operation = "Embedding the image"
+    Set picture = target.Worksheet.Shapes.AddPicture(imageFile, msoFalse, msoTrue, _
+                    target.Left + offsetLeft, target.Top + offsetTop, width, height)
+    End If
+    operation = "Naming the chart"
+    picture.Name = smfMacCommentPictureName(target)
+    operation = "Setting chart metadata"
+    picture.AlternativeText = "SMFCommentPicture/1" & vbLf & target.Address(False, False) & vbLf & source
+    operation = "Anchoring the chart to its cell"
+    picture.Placement = xlMoveAndSize
+    operation = "Setting chart visibility"
+    picture.Visible = IIf(visible = 1, msoTrue, msoFalse)
+    If ownedDownload Then reply = AppleScriptTask("SMFMac.scpt", "releaseImage", imageFile)
+    smfMacCreateComment = returnText
+    Exit Function
+InvalidInput:
+    operation = "Checking chart arguments"
+    failure = "The chart arguments are invalid"
+    GoTo FailedImage
+Failed:
+    failure = CStr(Err.Number) & ": " & Err.Description
+FailedImage:
+    If operation <> "" Then failure = operation & ": " & failure
+    On Error Resume Next
+    If Not picture Is Nothing Then picture.Delete
+    If Not numericChart Is Nothing Then numericChart.Delete
+    If ownedDownload Then reply = AppleScriptTask("SMFMac.scpt", "releaseImage", imageFile)
+    If Not target Is Nothing Then
+        If target.Comment Is Nothing Then target.AddComment " "
+        target.Comment.Text IIf(noteText = "", "", noteText & vbLf) & "SMF chart unavailable: " & failure
+    End If
+    smfMacCreateComment = "Error"
+End Function
+
+Private Function smfMacCommentPictureName(ByVal target As Range) As String
+    smfMacCommentPictureName = "SMFCommentPicture_" & CStr(target.Row) & "_" & CStr(target.Column)
+End Function
+
+Private Sub smfMacRemoveCommentPicture(ByVal target As Range)
+    Dim picture As Shape
+    On Error Resume Next
+    Set picture = target.Worksheet.Shapes(smfMacCommentPictureName(target))
+    On Error GoTo 0
+    If picture Is Nothing Then Exit Sub
+    If Left$(picture.AlternativeText, Len("SMFCommentPicture/1" & vbLf)) <> "SMFCommentPicture/1" & vbLf Then
+        Err.Raise 5, "RCHCreateComment", "Another worksheet object uses this chart name"
+    End If
+    picture.Delete
+End Sub
+
+Public Sub smfToggleCommentPicture()
+    Dim target As Range, picture As Shape
+    On Error GoTo Failed
+    If TypeName(Selection) <> "Range" Then Exit Sub
+    Set target = Selection.Cells(1, 1)
+    Set picture = target.Worksheet.Shapes(smfMacCommentPictureName(target))
+    If Left$(picture.AlternativeText, Len("SMFCommentPicture/1" & vbLf)) <> "SMFCommentPicture/1" & vbLf Then Exit Sub
+    picture.Visible = IIf(picture.Visible = msoFalse, msoTrue, msoFalse)
+    Exit Sub
+Failed:
+    MsgBox "This cell has no SMF chart to show. Check the formula result and the cell note.", vbInformation, "SMF chart"
+End Sub
+
+Private Function smfMacCommentImageURL(ByVal ticker As String, ByVal choice As Integer, _
+        ByRef width As Integer, ByRef height As Integer, ByVal pictureScale As Single) As String
+    Dim source As String, values As Variant, i As Long, count As Long
+    Select Case choice
+        Case 0
+            If width = 0 Then width = 300
+            If height = 0 Then height = 200
+        Case 1
+            source = "https://stockcharts.com/c-sc/sc?chart=" & ticker & ",uu[h,a]daclyyay[pb50!b200!f][vc60][iue12,26,9!lc20]"
+            If width = 0 Then width = 350 * pictureScale
+            If height = 0 Then height = 390 * pictureScale
+        Case 2
+            source = "https://stockcharts.com/pnf/chart?c=" & ticker & ",P"
+            If width = 0 Then width = 390 * pictureScale
+            If height = 0 Then height = 314 * pictureScale
+        Case 3
+            source = "https://stockcharts.com/c-sc/sc?chart=" & ticker & ",uu[305,a]dacayaci[pb20!b50][dc]"
+            If width = 0 Then width = 229 * pictureScale
+            If height = 0 Then height = 132 * pictureScale
+        Case 4
+            source = "https://stockcharts.com/c-sc/sc?s=" & ticker & "&p=D&yr=0&mn=6&dy=0&i=t94339682869&r=4806"
+            If width = 0 Then width = 638 * pictureScale
+            If height = 0 Then height = 501 * pictureScale
+        Case 5
+            source = "https://stockcharts.com/c-sc/sc?s=" & ticker & "&p=D&yr=0&mn=6&dy=0&i=t39628903145&r=9933"
+            If width = 0 Then width = 350 * pictureScale
+            If height = 0 Then height = 360 * pictureScale
+        Case 97
+            values = Split(ticker, ",")
+            If UBound(values) <> 4 Then Exit Function
+            source = "https://www.advfn.com/p.php?pid=financialgraphs"
+            For i = 0 To UBound(values)
+                source = source & "&a" & CStr(i) & "=" & CStr(values(i))
+            Next i
+            If width = 0 Then width = 263 * pictureScale
+            If height = 0 Then height = 169 * pictureScale
+        Case 98
+            values = Split(ticker, ",")
+            count = UBound(values)
+            source = "SMF local numeric chart: " & ticker
+            If width = 0 Then width = 36 * IIf(count < 1, 1, count) * pictureScale
+            If height = 0 Then height = 90 * pictureScale
+        Case 99
+            source = ticker
+            If width = 0 Then width = 400
+            If height = 0 Then height = 300
+    End Select
+    smfMacCommentImageURL = source
+End Function
+Private Function smfMacNumericChartValues(ByVal ticker As String) As Variant
+    Dim values As Variant, plotted() As Double
+    Dim maximum As Double, minimum As Double, value As Double, i As Long
+    Dim hasPositive As Boolean
+    values = Split(ticker, ",")
+    ReDim plotted(0 To UBound(values))
+    For i = 0 To UBound(values)
+        value = 0
+        On Error Resume Next
+        value = smfCDec(values(i))
+        On Error GoTo 0
+        If value > 0 Then
+            If Not hasPositive Then
+                minimum = value
+                maximum = value
+                hasPositive = True
+            Else
+                If value > maximum Then maximum = value
+                If value < minimum Then minimum = value
+            End If
+        End If
+    Next i
+    For i = 0 To UBound(values)
+        value = 0
+        On Error Resume Next
+        value = smfCDec(values(i))
+        On Error GoTo 0
+        If value > 0 Then
+            If maximum = minimum Then
+                plotted(i) = 50
+            Else
+                plotted(i) = CInt(1 + 97 * (value - minimum) / (maximum - minimum))
+            End If
+        Else
+            plotted(i) = 0
+        End If
+    Next i
+    smfMacNumericChartValues = plotted
+End Function
+#End If

@@ -165,7 +165,15 @@ Public Function RCHGetYahooQuotes(ByVal pTickers As Variant, _
     If InStr(sURL, "&crumb=") > 0 Then
        sqData = smfGetYahooHistoryCSVData(sURL)
     Else
+#If Mac Then
+       If smfMacYahooDownloadURL(sURL) Then
+          sqData = smfMacYahooDownloadCSV(sURL)
+       Else
+          sqData = RCHGetURLData(sURL)
+       End If
+#Else
        sqData = RCHGetURLData(sURL) '& Chr(13)
+#End If
        End If
     vData(1 + pHeader, 1) = sqData
     

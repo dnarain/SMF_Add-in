@@ -198,6 +198,7 @@ Source_Yahoo:
               Then
            iPtr = iPtr + 1
            vData(iPtr, 1) = vNext
+           If iPtr = kRows Then Exit For
            End If
         Next iRow
     

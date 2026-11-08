@@ -239,3 +239,167 @@ Private Sub smfMacAssertTableRecipe(ByVal pRecipe As String, ByVal pExpected As 
         Err.Raise 5, , "Table recipe expected [" & CStr(pExpected) & "]; got [" & CStr(actual) & "]: " & pRecipe
     End If
 End Sub
+
+#If Mac Then
+' Exercise approved nested recipes with cached pages, not live providers.
+Public Function SMFMacNestedRecipeSelfTest() As Long
+    Dim html As String, url As String, jsonURL As String, tagYear As String, tagRating As String
+    Dim tagYield As String, tagDate As String, tagEnd As String, recipe As String, dateText As String
+    Dim actual As Variant, item As Variant, rejected As Variant, checks As Long, i As Long
+    Dim oldKeys(1 To kPages) As String, oldBodies(1 To kPages) As String
+    Dim oldTexts(1 To 3) As String, oldCache As String, oldLog As String, oldError As Variant
+    Dim oldConstant As String, beforeURL As String, beforeError As String, beforeStatus As Long
+    Dim savedState As Boolean, errorNumber As Long, errorText As String
+    On Error GoTo TestFailed
+    beforeURL = SMFMacLastURL(): beforeError = SMFMacLastError(): beforeStatus = SMFMacHTTPStatus()
+    oldCache = sWebCache: oldLog = sLog: oldError = vError: oldConstant = aConstants(1)
+    For i = 1 To kPages
+        oldKeys(i) = aData(i, 1): oldBodies(i) = aData(i, 2)
+    Next i
+    For i = 1 To 3: oldTexts(i) = sData(i): Next i
+    savedState = True
+    Erase aData
+    sWebCache = "Y": sLog = "N"
+    url = "https://fixture.invalid/nested?arg=(one,two)"
+    jsonURL = "https://fixture.invalid/nested-json"
+    aConstants(1) = jsonURL
+    dateText = CStr(DateSerial(2026, 11, 20))
+    html = "<html><body><div>Ex-Dividend</div><div>" & dateText & "</div>" & _
+        "<span class=""year"">2010</span><h1>0.45%<span>(Forward)</span></h1>" & _
+        "<div>Rating:</div><a>7 out of 10</a><table><tr><td>Year End " & dateText & "</td></tr></table>" & _
+        "</body></html>"
+    aData(1, 1) = "0:" & url: aData(1, 2) = html
+    aData(2, 1) = "4:" & url: aData(2, 2) = Replace(html, ">2010<", ">2020<")
+    aData(3, 1) = "4:" & jsonURL
+    aData(3, 2) = "{""data"":[{""raw"":{""exchange"":""NASDAQ"",""high52w"":12}}," & _
+        "{""raw"":{""exchange"":""NYSE"",""high52w"":34}}],""zero"":0,""flag"":false}"
+    tagYear = "smfGetTagContent(" & smfMacFixtureQuote(url) & ",""span"",-1," & _
+        smfMacFixtureQuote("class=""year""") & ")"
+    tagYield = "smfGetTagContent(" & smfMacFixtureQuote(url) & ",""h1"",-1,"">(Forward)"")"
+    tagRating = "smfGetTagContent(" & smfMacFixtureQuote(url) & ",""a"",1,""Rating:"")"
+    tagDate = "smfGetTagContent(" & smfMacFixtureQuote(url) & ",""div"",1,"">Ex-Dividend"")"
+    tagEnd = "smfGetTagContent(" & smfMacFixtureQuote(url) & ",""TD"",-1,"">Year End"")"
+
+    ' The five original provider recipe families and an ADVFN date wrapper.
+    smfMacAssertNestedRecipe "=DATEVALUE(" & tagDate & ")", DateSerial(2026, 11, 20)
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(smfStrExtr(" & tagYield & ",""~"",""<""))", 0.0045#
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(smfstrExtr(" & tagRating & ",""~"","" out of""))", 7#
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(" & tagYear & ")", 2010#: checks = checks + 1
+    recipe = "=smfGetYahooJSONField(""None"",""barChartMM"",""data.1.raw.high52w"")"
+    smfMacAssertNestedRecipe recipe, 34#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfGetYahooJSONField(""AAPL""," & smfMacFixtureQuote(jsonURL) & _
+        ",""data.0.raw.high52w"")", 12#: checks = checks + 1
+    smfMacAssertNestedRecipe " = SmFgEtYaHoOjSoNfIeLd (""None"",""barChartMM"",""data.1.raw.high52w"",+1E0) ", 34#
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfGetYahooJSONField(""None"",""barChartMM"",""data.1.raw.high52w"",)", 34#
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfGetYahooJSONField(""None"",""barChartMM"",""missing"")", "Not Found"
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData("" 42 "")", 42#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(""42"",)", 42#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(""42"",False)", 42#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfStrExtr(""a[42]z"",""["",""]"")", "42": checks = checks + 1
+    smfMacAssertNestedRecipe "=smfStrExtr(""a[42]z"",""["",""]"",1)", 42#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfStrExtr(""a[42]z"",""["",""]"",)", "42": checks = checks + 1
+    smfMacAssertNestedRecipe "=smfStrExtr(" & smfMacFixtureQuote("first, ""x)""|tail") & _
+        ",""~"",""|"")", "first, ""x)""": checks = checks + 1
+    smfMacAssertNestedRecipe "=smfStrExtr(""abc"",""missing"",""~"")", "": checks = checks + 1
+    smfMacAssertNestedRecipe "=DATEVALUE(" & smfMacFixtureQuote(dateText & " 13:45:10") & ")", DateSerial(2026, 11, 20)
+    checks = checks + 1
+    recipe = "=smfConvertData(smfGetTagContent(" & smfMacFixtureQuote(url) & ",""span"",-1," & _
+        smfMacFixtureQuote("class=""year""") & ","" "","" "","" "",0,""missing"",4,2,"" ""))"
+    smfMacAssertNestedRecipe recipe, 20#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(smfGetTagContent(""<html><span>42</span></html>"",""span""))", 42#
+    checks = checks + 1
+    recipe = "=smfConvertData(smfGetTagContent(" & smfMacFixtureQuote(url) & ",""span"",1,"">missing"",,,,0,"
+    smfMacAssertNestedRecipe recipe & """inner missing""))", "inner missing": checks = checks + 1
+    smfMacAssertNestedRecipe recipe & "-77))", -77#: checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(""42"",40000)", "outer conversion", "outer conversion"
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfStrExtr(""a[42]z"",""["",""]"",40000)", "outer substring", "outer substring"
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=DATEVALUE(""invalid date"")", "outer date", "outer date": checks = checks + 1
+    smfMacAssertNestedRecipe "=smfGetYahooJSONField(""None"",""barChartMM"",""zero"",1E999)", _
+        "outer JSON", "outer JSON": checks = checks + 1
+    recipe = "=smfConvertData(smfGetTagContent(" & smfMacFixtureQuote(url) & ",""span"","
+    smfMacAssertNestedRecipe recipe & "1E999,"">year"",,,,0,""tag number""))", "tag number"
+    checks = checks + 1
+    smfMacAssertNestedRecipe recipe & "40000,"">year"",,,,0,""tag count""))", "tag count"
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfConvertData(1E999)", CInt(-91), CInt(-91): checks = checks + 1
+    smfMacAssertNestedRecipe "=DATEVALUE(smfStrExtr(" & tagEnd & ",""Year End "",""~""))", DateSerial(2026, 11, 20)
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfGetYahooJSONField(""None"",""barChartMM"",""flag"")", False
+    checks = checks + 1
+    smfMacAssertNestedRecipe "=smfGetYahooJSONField(""None"",""barChartMM"",""zero"")", 0#: checks = checks + 1
+
+    rejected = Array( _
+        "=smfConvertData(" & tagYear & ")*1000", _
+        "=PROPER(" & tagYear & ")", _
+        "=smfConvertData(LEFT(""42"",1))", _
+        "=smfConvertData(""42"",1+0)", _
+        "=smfStrExtr(smfGetTagContent(""https://example.invalid/no-network"",""span""),""~"",A1)", _
+        "=smfConvertData()", _
+        "=smfConvertData(""42"",0,0)", _
+        "=smfStrExtr(""42"",,""~"")", _
+        "=smfStrExtr(""42"",""~"",""~"",0,0)", _
+        "=smfGetYahooJSONField(""None"",""barChartMM"",)", _
+        "=smfGetYahooJSONField(""None"",""barChartMM"",""zero"",0,0)", _
+        "=smfGetYahooJSONField(" & tagYear & ",""barChartMM"",""zero"")", _
+        "=smfGetTagContent(" & smfMacFixtureQuote(url) & ",""span"",1," & tagYear & ")", _
+        "=smfConvertData(RCHGetTableCell(""https://example.invalid/no-network"",1))", _
+        "=smfConvertData(""unfinished)")
+    For Each item In rejected
+        actual = "unchanged"
+        If smfMacTryNestedRecipe(CStr(item), actual) Then Err.Raise 5, , "Unsupported nested recipe was accepted"
+        If CStr(actual) <> "unchanged" Then Err.Raise 5, , "Rejected nested recipe changed its output"
+        checks = checks + 1
+    Next item
+    recipe = """42"""
+    For i = 1 To 9: recipe = "smfConvertData(" & recipe & ")": Next i
+    rejected = Array(recipe, "=smfConvertData(" & smfMacFixtureQuote(String$(8200, "x")) & ")", _
+        "=smfConvertData(" & tagYear & ") & ""suffix""")
+    For Each item In rejected
+        actual = "unchanged"
+        If smfMacTryNestedRecipe(CStr(item), actual) Then Err.Raise 5, , "Unbounded or trailing recipe was accepted"
+        If CStr(actual) <> "unchanged" Then Err.Raise 5, , "Rejected bounded recipe changed its output"
+        checks = checks + 1
+    Next item
+    If checks <> 50 Then Err.Raise 5, , "Unexpected nested recipe fixture count"
+    If SMFMacLastURL() <> beforeURL Or SMFMacLastError() <> beforeError Or _
+       SMFMacHTTPStatus() <> beforeStatus Then Err.Raise 5, , "Nested recipe fixtures changed HTTP state"
+    SMFMacNestedRecipeSelfTest = checks
+    GoTo RestoreState
+TestFailed:
+    errorNumber = Err.Number: errorText = Err.Description
+    Resume RestoreState
+RestoreState:
+    On Error Resume Next
+    If savedState Then
+        For i = 1 To kPages
+            aData(i, 1) = oldKeys(i): aData(i, 2) = oldBodies(i)
+        Next i
+        For i = 1 To 3: sData(i) = oldTexts(i): Next i
+        sWebCache = oldCache: sLog = oldLog: vError = oldError: aConstants(1) = oldConstant
+    End If
+    On Error GoTo 0
+    If errorNumber <> 0 Then Err.Raise errorNumber, "SMFMacNestedRecipeSelfTest", errorText
+End Function
+
+Private Sub smfMacAssertNestedRecipe(ByVal pRecipe As String, ByVal pExpected As Variant, _
+                                     Optional ByVal pError As Variant = "Error")
+    Dim actual As Variant
+    If Not smfMacTryNestedRecipe(pRecipe, actual, pError) Then Err.Raise 5, , "Approved nested recipe was rejected: " & pRecipe
+    If VarType(actual) <> VarType(pExpected) Then
+        Err.Raise 5, , "Nested recipe returned " & TypeName(actual) & "; expected " & TypeName(pExpected) & ": " & pRecipe
+    End If
+    If VarType(pExpected) = vbDouble Or VarType(pExpected) = vbDate Then
+        If Abs(CDbl(actual) - CDbl(pExpected)) > 0.000000001 Then Err.Raise 5, , "Nested numeric/date value changed"
+    ElseIf CStr(actual) <> CStr(pExpected) Then
+        Err.Raise 5, , "Nested recipe value changed: " & pRecipe
+    End If
+End Sub
+#End If

@@ -196,6 +196,137 @@ RecipeFailed:
     If smfMacTryTableCellRecipe Then pValue = values(10)
 End Function
 
+#If Mac Then
+' Accept only complete calls from this small function list. Validate the whole
+' expression without fetching data before executing any approved VBA call.
+Public Function smfMacTryNestedRecipe(ByVal pExpression As String, ByRef pValue As Variant, _
+                                    Optional ByVal pError As Variant = "Error") As Boolean
+    Dim expression As String, unused As Variant, calls As Long
+    On Error GoTo RecipeFailed
+    expression = Trim$(pExpression)
+    If Left$(expression, 1) = "=" Then expression = Trim$(Mid$(expression, 2))
+    If Len(expression) = 0 Or Len(expression) > 8192 Then Exit Function
+    If Not smfMacNestedRecipeNode(expression, False, unused, 1, calls) Then Exit Function
+    smfMacTryNestedRecipe = True
+    calls = 0
+    If Not smfMacNestedRecipeNode(expression, True, pValue, 1, calls) Then Err.Raise 5
+    Exit Function
+RecipeFailed:
+    ' An accepted call must never retry through Excel's evaluator after an error.
+    If smfMacTryNestedRecipe Then pValue = pError
+End Function
+
+Private Function smfMacNestedRecipeNode(ByVal pExpression As String, ByVal pExecute As Boolean, _
+                                      ByRef pValue As Variant, ByVal pDepth As Long, _
+                                      ByRef pCalls As Long) As Boolean
+    Dim tokens(1 To 12) As String, values(1 To 12) As Variant
+    Dim name As String, count As Long, required As Long, maximum As Long
+    Dim i As Long, openAt As Long, canNest As Boolean
+    If pDepth > 8 Or pCalls >= 16 Then Exit Function
+    pCalls = pCalls + 1
+    openAt = InStr(1, pExpression, "(", vbBinaryCompare)
+    If openAt = 0 Then Exit Function
+    name = LCase$(Trim$(Left$(pExpression, openAt - 1)))
+    Select Case name
+        Case "smfgettagcontent": required = 2: maximum = 12
+            values(9) = "Error"
+        Case "smfgetyahoojsonfield": required = 3: maximum = 4: values(4) = 0
+        Case "smfconvertdata": required = 1: maximum = 2: values(2) = 0: canNest = True
+        Case "smfstrextr": required = 3: maximum = 4: values(4) = 0: canNest = True
+        Case "datevalue": required = 1: maximum = 1: canNest = True
+        Case Else: Exit Function
+    End Select
+    If Not smfMacNestedArguments(Mid$(pExpression, openAt + 1), tokens, count) Then Exit Function
+    If count < required Or count > maximum Then Exit Function
+    For i = 1 To required
+        If Len(tokens(i)) = 0 Then Exit Function
+    Next i
+    For i = 1 To count
+        If Len(tokens(i)) > 0 Then
+            If smfMacRecipeIsNumber(tokens(i)) Then
+                ' Syntax validation must not coerce an overflowing number.
+            ElseIf smfMacRecipeLiteral(tokens(i), values(i)) Then
+                ' Strings and Boolean literals have no external effects.
+            ElseIf i = 1 And canNest Then
+                If Not smfMacNestedRecipeNode(tokens(i), pExecute, values(i), pDepth + 1, pCalls) Then Exit Function
+            Else
+                Exit Function
+            End If
+        End If
+    Next i
+    smfMacNestedRecipeNode = True
+    If Not pExecute Then Exit Function
+
+    If name = "smfgettagcontent" Then
+        ' The existing literal dispatcher preserves all twelve tag arguments.
+        ' Its False result on an overflowing numeric literal is handled here.
+        If smfMacRecipeIsNumber(tokens(9)) Then values(9) = Val(tokens(9))
+        If Not smfMacTryTagContentRecipe(pExpression, pValue) Then pValue = values(9)
+        Exit Function
+    End If
+    For i = 1 To count
+        If Len(tokens(i)) > 0 Then
+            If smfMacRecipeIsNumber(tokens(i)) Then values(i) = Val(tokens(i))
+        End If
+    Next i
+    Select Case name
+        Case "smfgetyahoojsonfield"
+            pValue = smfGetYahooJSONField(CStr(values(1)), CStr(values(2)), CStr(values(3)), CDbl(values(4)))
+        Case "smfconvertdata"
+            pValue = smfConvertData(CStr(values(1)), CInt(values(2)))
+        Case "smfstrextr"
+            ' smfStrExtr has ByRef parameters; pass explicit typed expressions.
+            pValue = smfStrExtr(CStr(values(1)), CStr(values(2)), CStr(values(3)), CInt(values(4)))
+        Case "datevalue"
+            pValue = DateValue(CStr(values(1)))
+    End Select
+End Function
+
+Private Function smfMacNestedArguments(ByVal pText As String, ByRef pTokens() As String, _
+                                     ByRef pCount As Long) As Boolean
+    Dim i As Long, startAt As Long, depth As Long, quoted As Boolean, character As String
+    pCount = 1
+    startAt = 1
+    i = 1
+    Do While i <= Len(pText)
+        character = Mid$(pText, i, 1)
+        If character = Chr$(34) Then
+            If quoted And i < Len(pText) Then
+                If Mid$(pText, i + 1, 1) = Chr$(34) Then
+                    i = i + 2
+                    GoTo NextCharacter
+                End If
+            End If
+            quoted = Not quoted
+        ElseIf Not quoted Then
+            Select Case character
+                Case "("
+                    depth = depth + 1
+                    If depth > 8 Then Exit Function
+                Case ")"
+                    If depth > 0 Then
+                        depth = depth - 1
+                    Else
+                        pTokens(pCount) = Trim$(Mid$(pText, startAt, i - startAt))
+                        If Len(Trim$(Mid$(pText, i + 1))) > 0 Then Exit Function
+                        smfMacNestedArguments = True
+                        Exit Function
+                    End If
+                Case ","
+                    If depth = 0 Then
+                        pTokens(pCount) = Trim$(Mid$(pText, startAt, i - startAt))
+                        pCount = pCount + 1
+                        If pCount > UBound(pTokens) Then Exit Function
+                        startAt = i + 1
+                    End If
+            End Select
+        End If
+        i = i + 1
+NextCharacter:
+    Loop
+End Function
+#End If
+
 Private Function smfMacRecipeArguments(ByVal pText As String, ByRef pTokens() As String, _
                                        ByRef pCount As Long) As Boolean
     Dim i As Long, startAt As Long, quoted As Boolean, character As String

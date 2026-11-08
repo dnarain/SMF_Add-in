@@ -155,8 +155,11 @@ def main():
     if suite is None:
         state = json.loads((REPO / 'mac/diagnostics/out/exhaustive-current.json').read_text())
         suite = Path(state['suite_dir'])
+    # Fixture filenames must remain absolute inside Excel's workbook formulas.
+    suite = suite.resolve()
     server = json.loads(args.server_config.read_text())
-    files = ['json_and_utils_cases.json', 'root_cases.json', 'provider_cases.json', 'options_cases.json']
+    files = ['json_and_utils_cases.json', 'root_cases.json', 'provider_cases.json', 'options_cases.json',
+             'repair_cases.json', 'mac_picture_cases.json', 'derived_history_cases.json']
     missing_files = [name for name in files if not (BASE / name).exists()]
     if missing_files:
         raise SystemExit('Missing reviewed case files: ' + ', '.join(missing_files))

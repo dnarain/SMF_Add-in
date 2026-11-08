@@ -151,6 +151,9 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
     Const kItemList As String = "Ticker,Date,Open,High,Low,Close,AdjClose,Volume,Dividend,Split"
     For i1 = 1 To 10: aItems(i1) = 0: Next i1
     sItems = UCase(pItems)
+#If Mac Then
+    sItems = Replace(sItems, "A", "C")
+#End If
     Select Case sPeriod                                     ' sPeriod is Day, Week, Month for historical data or V for Dividends or S for Splits
        Case "V"                                             ' Just bring back Date and Dividend
             If InStr(sItems, "T") > 0 Then aItems(1) = 1    ' include Ticker
@@ -189,7 +192,15 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
     '------------------> Create URL and retrieve data
     sURL = "https://query1.finance.yahoo.com/v7/finance/download/" & pTicker & "?period1=" & dBegin & "&period2=" & dEnd & _
            "&interval=" & sInterval & "&events=" & sfilter & "&includeAdjustedClose=true"
+#If Mac Then
+    sData = smfMacYahooDownloadCSV(sURL)
+    If Left$(sData, 5) <> "Date," Then
+        vData(1, 1) = sData
+        GoTo ErrorExit
+    End If
+#Else
     sData = RCHGetURLData(sURL)
+#End If
     vByDay = Split(sData, Chr(10))
     
     '------------------> Extract data
@@ -206,6 +217,7 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
 
     For i1 = UBound(vByDay) To 1 Step -1
        s1 = vByDay(i1)
+       If Len(Trim$(s1)) = 0 Then GoTo NextHistoryLine
        s1 = Replace(s1, "null", 0)
        vItem = Split(s1, ",")
        d1 = DateValue(vItem(0))    ' Get the date from the first field
@@ -228,6 +240,7 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
                 If aItems(10) > 0 Then vData(iRow, aItems(10)) = vItem(1)               'split
         End Select
         
+NextHistoryLine:
     Next i1
     
     If sPeriod = "S" Or sPeriod = "V" Then

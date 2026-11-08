@@ -3,7 +3,7 @@
 846;Zacks;Style Scores, Momentum;=smfGetTagContent("https://www.zacks.com/stock/quote/~~~~~","span",4,"rank_view","rank_view","composite_val")
 847;Zacks;Style Scores, VGM;=smfGetTagContent("https://www.zacks.com/stock/quote/~~~~~","span",6,"rank_view","rank_view","composite_val")
 848;Zacks;Zacks Rank;=smfGetTagContent("https://www.zacks.com/stock/quote/~~~~~","p",-1,"rank_view",,,,,,,,"<span")
-849;Zacks;Target Price Consensus;=RCHGetTableCell("https://www.zacks.com/stock/research/~~~~~/brokerage-recommendations",1,">Average Target Price")
+849;Zacks;Target Price Consensus;=RCHGetTableCell("https://www.zacks.com/stock/research/~~~~~/price-target-stock-forecast",1,">Average Price Target",,,,1)
 850;Zacks;Industry Group;=smfstrExtr(smfGetTagContent("https://www.zacks.com/stock/quote/~~~~~","a",-1,"Industry:"),": ","~")
 851;Zacks;Rank of Industry;=smfConvertData(smfstrExtr(RCHGetTableCell("https://www.zacks.com/stock/research/~~~~~/brokerage-recommendations",1,">Industry Rank by ABR<"),"~"," of "))
 852;Zacks;Rank Within Industry;=smfGetTagContent("https://www.zacks.com/stock/quote/~~~~~","a",-1,"rank_view","rank_view","rank_view","stocks/industry-rank")

@@ -604,7 +604,7 @@
 2724;YahooH;Ex-Dividend Date (Historical Estimate);=INDEX(RCHGetYahooHistory("~~~~~",,,,,,,"v",,0,,,10,1),MATCH(Today()-365,RCHGetYahooHistory("~~~~~",,,,,,,"v",,0,,,10,1),-1))+365
 2725;GuruDiv;Ex-Dividend Date;=DATEVALUE(smfGetTagContent("https://www.gurufocus.com/dividend/~~~~~","td",2,">Ex-Date","<tr"))
 2726;YahooH;Previous Dividend Payment;=INDEX(RCHGetYahooHistory("~~~~~",,,,,,,"v",,0,,,1,2),1,2)
-2727;GuruDiv;Dividend Yield;=smfConvertData(smfStrExtr(smfGetTagContent("https://www.gurufocus.com/dividend/~~~~~","h1",-1,">(Forward)"),"~","<"))
+2727;GuruDiv;Dividend Yield;=smfGetTagContent("https://www.gurufocus.com/stock/~~~~~/dividend","div",-1," (Forward)",,,,1,,0,32767," (Forward)")
 
 
 

@@ -1,6 +1,6 @@
 Attribute VB_Name = "modGetElementNumber"
 #If Mac Then
-Const kVersion = "3.0.2024.07.30-mac.0.3-dev"       ' Direct literal tag and table-cell recipes on Mac
+Const kVersion = "3.0.2024.07.30-mac.0.4-dev"       ' Provider, history, and picture repairs in development
 #Else
 Const kVersion = "3.0.2024.07.30"                   ' Upstream Windows version
 #End If
@@ -255,14 +255,18 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
        Case sTicker1 = "P-END": RCHGetElementNumber = aParm(9): Exit Function
        Case sTicker1 = "P-LOOK": RCHGetElementNumber = aParm(10): Exit Function
        Case sTicker1 = "P-TYPE": RCHGetElementNumber = aParm(11): Exit Function
-       Case aParm(0) = "AdvFN-A"
+       Case aParm(0) = "AdvFN-A" And Left(aParm(2), 1) <> "="
             RCHGetElementNumber = smfGetADVFNElement(sTicker1, "A", aParm(3), aParm(4), aParm(5), pError)
-       Case aParm(0) = "AdvFN-Q"
+       Case aParm(0) = "AdvFN-Q" And Left(aParm(2), 1) <> "="
             RCHGetElementNumber = smfGetADVFNElement(sTicker1, "Q", aParm(3), aParm(4), aParm(5), pError)
        Case aParm(0) = "Evaluate"
 #If Mac Then
             If Not smfMacTryTagContentRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
                 If Not smfMacTryTableCellRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
+                    If smfMacTryNestedRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp, pError) Then
+                        RCHGetElementNumber = vTemp
+                        Exit Function
+                    End If
                     ' Unsupported table calls must not re-enter Excel's evaluator.
                     If MacRecipeCallsTableCell(Replace(aParm(2), "~~~~~", sTicker2)) Then
                         RCHGetElementNumber = pError
@@ -272,6 +276,7 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
                 End If
             End If
             RCHGetElementNumber = vTemp
+            Exit Function
 #Else
             RCHGetElementNumber = smfEvaluateTwice(Replace(aParm(2), "~~~~~", sTicker2))
 #End If
@@ -279,6 +284,10 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
 #If Mac Then
             If Not smfMacTryTagContentRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
                 If Not smfMacTryTableCellRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp) Then
+                    If smfMacTryNestedRecipe(Replace(aParm(2), "~~~~~", sTicker2), vTemp, pError) Then
+                        RCHGetElementNumber = vTemp
+                        Exit Function
+                    End If
                     ' Unsupported table calls must not re-enter Excel's evaluator.
                     If MacRecipeCallsTableCell(Replace(aParm(2), "~~~~~", sTicker2)) Then
                         RCHGetElementNumber = pError
@@ -295,6 +304,9 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
             Else
                RCHGetElementNumber = vTemp
                End If
+#If Mac Then
+            Exit Function
+#End If
        Case Else: RCHGetElementNumber = ""
        End Select
     If RCHGetElementNumber <> "" Then Exit Function
@@ -954,11 +966,49 @@ RestoreState:
     aParms(19997) = oldParm
     vError = oldGuardError
     iInit = oldInit
+    On Error GoTo 0
     If errorNumber <> 0 Then Err.Raise errorNumber, "SMFMacTableGuardSelfTest", errorText
     Exit Function
 Failed:
     errorNumber = Err.Number
     errorText = Err.Description
+    Resume RestoreState
+End Function
+
+' Keep private element-fixture state inside the module that owns aParms.
+Public Function SMFMacEmptyRecipeSelfTest() As Long
+    Dim recipes As Variant, actual As Variant, i As Long, checks As Long
+    Dim oldParm As String, oldInit As Integer, oldError As Variant, fallback As String
+    Dim beforeURL As String, beforeError As String, beforeStatus As Long
+    Dim errorNumber As Long, errorText As String
+    oldParm = aParms(19996): oldInit = iInit: oldError = vError
+    beforeURL = SMFMacLastURL(): beforeError = SMFMacLastError(): beforeStatus = SMFMacHTTPStatus()
+    On Error GoTo Failed
+    recipes = Array( _
+        "Fixture;Empty;=smfStrExtr(""abc"",""missing"",""~"")", _
+        "Evaluate;Empty;smfStrExtr(""abc"",""missing"",""~"")", _
+        "Fixture;EmptyError;=smfConvertData(1E999)", _
+        "Evaluate;EmptyError;smfConvertData(1E999)")
+    iInit = 1
+    For i = LBound(recipes) To UBound(recipes)
+        aParms(19996) = CStr(recipes(i))
+        fallback = IIf(i < 2, "outer error", "")
+        actual = RCHGetElementNumber("TEST", 19996, fallback)
+        If VarType(actual) <> vbString Then Err.Raise 5, , "Empty recipe result changed type"
+        If CStr(actual) <> "" Then Err.Raise 5, , "Empty recipe fell through to another path"
+        checks = checks + 1
+    Next i
+    If SMFMacLastURL() <> beforeURL Or SMFMacLastError() <> beforeError Or _
+       SMFMacHTTPStatus() <> beforeStatus Then Err.Raise 5, , "Empty recipe made an HTTP request"
+    checks = checks + 1
+    SMFMacEmptyRecipeSelfTest = checks
+RestoreState:
+    aParms(19996) = oldParm: iInit = oldInit: vError = oldError
+    On Error GoTo 0
+    If errorNumber <> 0 Then Err.Raise errorNumber, "SMFMacEmptyRecipeSelfTest", errorText
+    Exit Function
+Failed:
+    errorNumber = Err.Number: errorText = Err.Description
     Resume RestoreState
 End Function
 #End If

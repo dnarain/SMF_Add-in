@@ -26,6 +26,7 @@ Private Sub smfAddToCellMenu()
     Call smfAddMacCellButton(ContextMenu, "SMF Logging: Disable", "smfMenuDisableLog")
     Call smfAddMacCellButton(ContextMenu, "SMF Logging: Open Log File", "smfOpenLogFile")
     Call smfAddMacCellButton(ContextMenu, "SMF Logging: Delete Log File", "smfMenuDeleteLogFile")
+    Call smfAddMacCellButton(ContextMenu, "SMF: Show/hide cell chart", "smfToggleCommentPicture")
 #Else
     Dim MySubMenu As CommandBarControl, MySubMenu2 As CommandBarControl
 

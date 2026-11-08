@@ -232,8 +232,8 @@ def inventory() -> tuple[int, int, int, int]:
     table = {key for key, value in recipes.items() if literal_call(value, "RCHGetTableCell", 11) is not None}
     tag = {key for key, value in recipes.items() if literal_call(value, "smfGetTagContent", 12) is not None}
     guarded = {key for key, value in recipes.items() if key not in table and contains_table_call(value)}
-    assert len(recipes) == 1815
-    assert len(table) == 138 and len(tag) == 291
+    assert len(recipes) == 1816  # ADVFN 5196 now uses a formula.
+    assert len(table) == 138 and len(tag) == 293  # GuruFocus and Netflix use literal tag recipes.
     assert 2003 in table
     assert len(guarded) == 35
     expected_guarded = {783, 784, 788, 791, 794, *range(800, 807), *range(811, 814),

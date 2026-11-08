@@ -17,7 +17,7 @@
 ' 19003;NetFlix;Title;=smfGetTagContent("http://dvd.netflix.com/Movie/~~~~~","h1",2)
 19003;NetFlix;Title;=smfGetTagContent("http://dvd.netflix.com/Movie/~~~~~","h1",1,"=""title-wrapper""")
 
-19004;NetFlix;Year;=smfConvertData(smfGetTagContent("http://dvd.netflix.com/Movie/~~~~~","span",-1,"class=""year"""))
+19004;NetFlix;Year;=smfGetTagContent("https://www.netflix.com/title/~~~~~","li",1,"data-uia=""metadata""",,,,1)
 19005;NetFlix;Length;=smfGetTagContent("http://dvd.netflix.com/Movie/~~~~~","span",-1,"class=""duration""",,,,,"N/A")
 19006;NetFlix;Genre;=smfGetTagContent("http://dvd.netflix.com/Movie/~~~~~","a",1,">Genres")
 

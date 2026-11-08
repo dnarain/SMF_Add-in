@@ -1,0 +1,578 @@
+[
+  {
+    "id": "ImageComment_local_file",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Stage a valid local PNG through the helper and embed it in the Mac workbook.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{SUITE_DIR}}/fixture.png\"\",99,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoPicture And pictureVisibility = msoTrue And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf",
+    "expected_text": "Chart result and a newly embedded Mac picture tied to J20, with the requested visible state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_file",
+    "test_mode": "worksheet_mac_embedded_picture",
+    "network": false,
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image.",
+    "supplemental": true
+  },
+  {
+    "id": "MacComment_numeric_constant",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Verify the local numeric chart handles constant values.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"2,2,2\"\",98,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "plotted = testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection(1).Values"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoChart And pictureVisibility = msoTrue And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf And testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection.Count = 1 And CDbl(ArrayCell(plotted, 1, 0)) = 50 And CDbl(ArrayCell(plotted, 2, 0)) = 50 And CDbl(ArrayCell(plotted, 3, 0)) = 50",
+    "expected_text": "Chart result and a newly embedded Mac line chart tied to J20, with the requested visible state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata & \"; Series=\" & CStr(ArrayCell(plotted, 1, 0)) & \",\" & CStr(ArrayCell(plotted, 2, 0)) & \",\" & CStr(ArrayCell(plotted, 3, 0))",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_numeric_chart",
+    "test_mode": "worksheet_mac_embedded_chart",
+    "network": false,
+    "coverage_note": "Mac renders the supplied numeric series locally. Positive values are normalized to integers 1..98; nonpositive values become 0; equal positive values become 50. No ogres-crypt.com request occurs."
+  },
+  {
+    "id": "MacComment_numeric_nonpositive",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Verify the local numeric chart handles nonpositive values.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"-1,0,2,4\"\",98,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "plotted = testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection(1).Values"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoChart And pictureVisibility = msoTrue And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf And testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection.Count = 1 And CDbl(ArrayCell(plotted, 1, 0)) = 0 And CDbl(ArrayCell(plotted, 2, 0)) = 0 And CDbl(ArrayCell(plotted, 3, 0)) = 1 And CDbl(ArrayCell(plotted, 4, 0)) = 98",
+    "expected_text": "Chart result and a newly embedded Mac line chart tied to J20, with the requested visible state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata & \"; Series=\" & CStr(ArrayCell(plotted, 1, 0)) & \",\" & CStr(ArrayCell(plotted, 2, 0)) & \",\" & CStr(ArrayCell(plotted, 3, 0))",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_numeric_chart",
+    "test_mode": "worksheet_mac_embedded_chart",
+    "network": false,
+    "coverage_note": "Mac renders the supplied numeric series locally. Positive values are normalized to integers 1..98; nonpositive values become 0; equal positive values become 50. No ogres-crypt.com request occurs."
+  },
+  {
+    "id": "MacComment_toggle_visibility",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Show and hide the calling cell's Mac picture with the same macro used by its menu.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{SUITE_DIR}}/fixture.png\"\",99,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "testSheet.Range(\"J20\").Select",
+      "smfToggleCommentPicture",
+      "If macPicture.Visible <> msoTrue Then Err.Raise vbObjectError + 1901, \"Mac picture toggle\", \"The hidden chart did not become visible\"",
+      "smfToggleCommentPicture",
+      "pictureVisibility = macPicture.Visible"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoPicture And pictureVisibility = msoFalse And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf",
+    "expected_text": "Chart result and a newly embedded Mac picture tied to J20, with the requested hidden state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_file",
+    "test_mode": "worksheet_mac_embedded_picture",
+    "network": false,
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
+  },
+  {
+    "id": "MacComment_text_only",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Create a basic text note without unsupported Mac comment-fill, line or shadow operations.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"\"\",0,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = Nothing",
+      "On Error Resume Next",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "On Error GoTo Failed",
+      "pictureMetadata = testSheet.Range(\"J20\").Comment.Text"
+    ],
+    "check": "CStr(result) = \"Chart\" And macPicture Is Nothing And pictureMetadata = \"SMF picture fixture\"",
+    "expected_text": "Chart result, the requested text note, and no SMF picture object.",
+    "result_details": "\"Note text=\" & pictureMetadata",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_file",
+    "test_mode": "worksheet_mac_embedded_picture",
+    "network": false,
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
+  },
+  {
+    "id": "MacComment_clear_none",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Remove the calling cell's chart and note when its ticker becomes NONE.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{SUITE_DIR}}/fixture.png\"\",99,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate",
+      "If CStr(testSheet.Range(\"J20\").Value) <> \"Chart\" Then Err.Raise vbObjectError + 1902, \"Mac picture NONE\", \"The initial picture did not load\"",
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"NONE\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "Set macPicture = Nothing",
+      "On Error Resume Next",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "On Error GoTo Failed"
+    ],
+    "check": "CStr(result) = \"None\" And macPicture Is Nothing And testSheet.Range(\"J20\").Comment Is Nothing",
+    "expected_text": "None result after a valid picture; the previous picture and note must both be absent.",
+    "result_details": "\"Previous Mac picture and note removed\"",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_file",
+    "test_mode": "worksheet_mac_embedded_picture",
+    "network": false,
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
+  },
+  {
+    "id": "MacComment_failed_update_clears_picture",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Reject a nonimage HTTP200 body and remove the previous picture, so an old image cannot pass as the new result.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{SUITE_DIR}}/fixture.png\"\",99,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate",
+      "If CStr(testSheet.Range(\"J20\").Value) <> \"Chart\" Then Err.Raise vbObjectError + 1903, \"Mac failed picture update\", \"The initial picture did not load\"",
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{LOCAL_HTTP_BASE}}/text\"\",99,200,100,1)\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = Nothing",
+      "On Error Resume Next",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "On Error GoTo Failed",
+      "pictureMetadata = testSheet.Range(\"J20\").Comment.Text"
+    ],
+    "check": "CStr(result) = \"Error\" And macPicture Is Nothing And InStr(1, pictureMetadata, \"not a PNG\", vbTextCompare) > 0",
+    "expected_text": "Error result for HTTP200 text, no previous picture, and a note identifying the invalid image response.",
+    "result_details": "\"Failure note=\" & pictureMetadata",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "loopback",
+    "test_mode": "worksheet_mac_embedded_picture",
+    "network": true,
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
+  },
+  {
+    "id": "MacComment_numeric_tiny_positive",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Normalize tiny positive values using their actual minimum and maximum.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"0.001,0.002\"\",98,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "plotted = testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection(1).Values"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoChart And pictureVisibility = msoTrue And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf And testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection.Count = 1 And UBound(plotted) - LBound(plotted) + 1 = 2 And CDbl(ArrayCell(plotted, 1, 0)) = 1 And CDbl(ArrayCell(plotted, 2, 0)) = 98",
+    "expected_text": "Chart result with one local numeric series containing exactly 1,98.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata & \"; Series=\" & CStr(ArrayCell(plotted, 1, 0)) & \",\" & CStr(ArrayCell(plotted, 2, 0))",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_numeric_chart",
+    "test_mode": "worksheet_mac_embedded_chart",
+    "network": false,
+    "coverage_note": "Mac renders the supplied numeric series locally. Positive values are normalized to integers 1..98; nonpositive values become 0; equal positive values become 50. No ogres-crypt.com request occurs.",
+    "expected_series": [
+      1,
+      98
+    ]
+  },
+  {
+    "id": "MacComment_numeric_tiny_constant",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Place equal tiny positive values at the middle of the local chart.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"0.005,0.005\"\",98,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "plotted = testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection(1).Values"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoChart And pictureVisibility = msoTrue And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf And testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection.Count = 1 And UBound(plotted) - LBound(plotted) + 1 = 2 And CDbl(ArrayCell(plotted, 1, 0)) = 50 And CDbl(ArrayCell(plotted, 2, 0)) = 50",
+    "expected_text": "Chart result with one local numeric series containing exactly 50,50.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata & \"; Series=\" & CStr(ArrayCell(plotted, 1, 0)) & \",\" & CStr(ArrayCell(plotted, 2, 0))",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_numeric_chart",
+    "test_mode": "worksheet_mac_embedded_chart",
+    "network": false,
+    "coverage_note": "Mac renders the supplied numeric series locally. Positive values are normalized to integers 1..98; nonpositive values become 0; equal positive values become 50. No ogres-crypt.com request occurs.",
+    "expected_series": [
+      50,
+      50
+    ]
+  },
+  {
+    "id": "MacComment_numeric_large_positive",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Normalize positive values above the old 999999999 sentinel using their actual extrema.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"1000000000000,2000000000000\"\",98,200,100,1,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
+    ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "plotted = testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection(1).Values"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoChart And pictureVisibility = msoTrue And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf And testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection.Count = 1 And UBound(plotted) - LBound(plotted) + 1 = 2 And CDbl(ArrayCell(plotted, 1, 0)) = 1 And CDbl(ArrayCell(plotted, 2, 0)) = 98",
+    "expected_text": "Chart result with one local numeric series containing exactly 1,98.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata & \"; Series=\" & CStr(ArrayCell(plotted, 1, 0)) & \",\" & CStr(ArrayCell(plotted, 2, 0))",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_numeric_chart",
+    "test_mode": "worksheet_mac_embedded_chart",
+    "network": false,
+    "coverage_note": "Mac renders the supplied numeric series locally. Positive values are normalized to integers 1..98; nonpositive values become 0; equal positive values become 50. No ogres-crypt.com request occurs.",
+    "expected_series": [
+      1,
+      98
+    ]
+  }
+]

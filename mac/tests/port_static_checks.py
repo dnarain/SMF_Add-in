@@ -231,6 +231,31 @@ WINDOWS_LIBRARY = re.compile(
     r'\bLib\s+"(?:kernel32|user32|advapi32|wininet|ole32|ws2_32|gdi32|shell32|urlmon)(?:\.dll)?"', re.I)
 
 
+# These identifier categories are reserved by MS-VBAL3.3.5.2. This catches
+# invalid procedure parameters before VBE silently omits their declarations.
+# https://learn.microsoft.com/en-us/openspecs/microsoft_general_purpose_programming_languages/ms-vbal/7df907cb-ab6c-40d3-aa81-272742ce00c3
+RESERVED_PARAMETER_NAMES = frozenset("""
+Abs CBool CByte CCur CDate CDbl CDec CInt CLng CLngLng CLngPtr CSng CStr CVar
+CVErr Date Debug DoEvents Fix Int Len LenB Me PSet Scale Sgn String Array
+Circle Input InputB LBound UBound Boolean Byte Currency Double Integer Long
+LongLong LongPtr Single Variant
+""".lower().split())
+PARAMETER_NAME = re.compile(
+    r"[,(]\s*(?:Optional\s+)?(?:(?:ByVal|ByRef)\s+)?([A-Za-z_]\w*)"
+    r"\s*(?:\(\s*\))?\s+As\b", re.I)
+
+
+def reserved_parameters(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
+    problems = []
+    for number, line in logical_lines(lines):
+        if not DECLARATION.match(line):
+            continue
+        for parameter in PARAMETER_NAME.finditer(without_strings(line)):
+            if parameter[1].lower() in RESERVED_PARAMETER_NAMES:
+                problems.append((number, f"Reserved VBA parameter name {parameter[1]}"))
+    return problems
+
+
 def forbidden_dependencies(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
     problems = []
     for number, line in logical_lines(lines):
@@ -291,7 +316,18 @@ def self_tests() -> int:
             raise AssertionError(f"Numeric VBA expression fixture failed: {source}")
     if not unsafe_mac_guards("#If Not Mac Then") or unsafe_mac_guards("#If Mac = 0 Then"):
         raise AssertionError("Unsafe numeric Mac guard fixture failed")
-    return len(cases) + 14
+    parameter_fixtures = [
+        ("Private Function F(ByVal scale As Single) As String", 1),
+        ("Private Function F(Optional ByRef SCALE As Single = 1) As String", 1),
+        ("Private Function F(ByVal pArg As Long, _\n    ByVal Scale As Single) As String", 1),
+        ("Private Function F(ByVal pictureScale As Single) As String", 0),
+        ('Private Function F(Optional pArg As String = "ByVal Scale As Single")', 0),
+    ]
+    for source, expected in parameter_fixtures:
+        actual = reserved_parameters(list(enumerate(source.splitlines(), 1)))
+        if len(actual) != expected:
+            raise AssertionError(f"Reserved parameter scanner fixture failed: {source!r}: {actual!r}")
+    return len(cases) + 14 + len(parameter_fixtures)
 
 
 def mac_configurations():
@@ -385,6 +421,8 @@ def check(root: Path, baseline: str | None) -> int:
             configuration = f"Mac={constants['mac']} VBA7={constants['vba7']} Win64={constants['win64']}"
             try:
                 lines = active_lines(source, constants)
+                for number, problem in reserved_parameters(lines):
+                    failures.append(f"{relative}:{number} [{configuration}]: {problem}")
                 for number, problem in forbidden_dependencies(lines):
                     failures.append(f"{relative}:{number} [{configuration}]: {problem}")
                 module = re.search(r'^Attribute VB_Name = "([^"]+)"', source, re.M)
@@ -428,7 +466,7 @@ def main() -> int:
     parser.add_argument("--self-test-only", action="store_true")
     args = parser.parse_args()
     count = self_tests()
-    print(f"PASS: {count} conditional-parser and dependency-scanner fixtures.")
+    print(f"PASS: {count} conditional-parser, dependency-scanner and parameter-scanner fixtures.")
     return 0 if args.self_test_only else check(args.root.resolve(), args.baseline)
 
 

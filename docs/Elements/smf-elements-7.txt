@@ -1,4 +1,4 @@
-5196;AdvFN-A;Annual Indicators -- Ending Date -- FY1;AdvFN-A;1;>INDICATORS;>year end date; ; ;0;0;0;0
+5196;AdvFN-A;Annual Indicators -- Ending Date -- FY1;=DATEVALUE(smfStrExtr(smfGetTagContent("https://www.advfn.com/p.php?pid=financials&symbol=~~~~~","TD",-1,">Year End"),"Year End ","~"))
 5197;AdvFN-A;Annual Indicators -- Ending Date -- FY2;AdvFN-A;2;>INDICATORS;>year end date; ; ;0;0;0;0
 5198;AdvFN-A;Annual Indicators -- Ending Date -- FY3;AdvFN-A;3;>INDICATORS;>year end date; ; ;0;0;0;0
 5199;AdvFN-A;Annual Indicators -- Ending Date -- FY4;AdvFN-A;4;>INDICATORS;>year end date; ; ;0;0;0;0

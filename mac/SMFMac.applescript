@@ -221,3 +221,133 @@ on logBuildState(requestText)
         return "unavailable"
     end try
 end logBuildState
+
+-- Comment fills are not supported by current Excel for Mac. Images are
+-- downloaded as files for Shapes.AddPicture, without passing binary data
+-- through an AppleScriptTask text result.
+on downloadImage(targetURL)
+    set imageDirectory to ""
+    set responseStatus to 0
+    try
+        if targetURL contains linefeed or targetURL contains return then error "An image URL cannot contain a line break"
+        if targetURL does not start with "https://" and targetURL does not start with "http://" then error "Only HTTP and HTTPS image URLs are supported"
+        set cacheFolder to my imageCacheFolder()
+        do shell script "umask 077; /bin/mkdir -p " & quoted form of cacheFolder
+        set imageDirectory to do shell script "/usr/bin/mktemp -d " & quoted form of (cacheFolder & "/image.XXXXXX")
+        do shell script "/usr/bin/printf '%s' 'SMFIMAGE/1' > " & quoted form of (imageDirectory & "/.smf-image-owner")
+        set bodyFile to imageDirectory & "/body.bin"
+        set imageFile to imageDirectory & "/image.png"
+        set commandText to "/usr/bin/curl --globoff --http1.1 --silent --show-error --location --compressed --connect-timeout 8 --max-time 25 --max-filesize 10485760 --proto '=http,https' --proto-redir '=http,https' --user-agent 'Mozilla/5.0 SMF-Mac/0.4' --write-out '%{http_code}'"
+        set commandText to commandText & " --output " & quoted form of bodyFile & " --url " & quoted form of targetURL
+        set responseStatus to (do shell script commandText) as integer
+        if responseStatus is not 200 then error "Image request returned HTTP " & responseStatus
+        my decodeImageFile(bodyFile, imageFile)
+        return my imageEnvelope(200, imageFile, "")
+    on error messageText number errorNumber
+        if imageDirectory is not "" then my releaseImage(imageDirectory & "/image.png")
+        return my imageEnvelope(responseStatus, "", "Image request failed (" & errorNumber & "): " & messageText)
+    end try
+end downloadImage
+
+-- Local pictures also pass through Excel's own cache. Excel can reject a
+-- direct path outside its container even when AppleScript can read the file.
+on prepareLocalImage(sourceFile)
+    set imageDirectory to ""
+    try
+        my validateAbsolutePath(sourceFile)
+        do shell script "/bin/test -f " & quoted form of sourceFile
+        set byteCount to (do shell script "/usr/bin/wc -c < " & quoted form of sourceFile) as integer
+        if byteCount < 1 or byteCount > 10485760 then error "Image size must be between 1 byte and 10 MiB"
+        set cacheFolder to my imageCacheFolder()
+        do shell script "umask 077; /bin/mkdir -p " & quoted form of cacheFolder
+        set imageDirectory to do shell script "/usr/bin/mktemp -d " & quoted form of (cacheFolder & "/image.XXXXXX")
+        do shell script "/usr/bin/printf '%s' 'SMFIMAGE/1' > " & quoted form of (imageDirectory & "/.smf-image-owner")
+        set bodyFile to imageDirectory & "/body.bin"
+        set imageFile to imageDirectory & "/image.png"
+        do shell script "/bin/cp -p " & quoted form of sourceFile & " " & quoted form of bodyFile
+        my decodeImageFile(bodyFile, imageFile)
+        return my imageEnvelope(200, imageFile, "")
+    on error messageText number errorNumber
+        if imageDirectory is not "" then my releaseImage(imageDirectory & "/image.png")
+        return my imageEnvelope(0, "", "Local image failed (" & errorNumber & "): " & messageText)
+    end try
+end prepareLocalImage
+
+on decodeImageFile(bodyFile, imageFile)
+    set byteCount to (do shell script "/usr/bin/wc -c < " & quoted form of bodyFile) as integer
+    if byteCount < 1 or byteCount > 10485760 then error "Image size must be between 1 byte and 10 MiB"
+    set mimeType to do shell script "/usr/bin/file --brief --mime-type " & quoted form of bodyFile
+    if mimeType is not in {"image/png", "image/jpeg", "image/gif"} then error "Response is not a PNG, JPEG, or GIF image"
+    set dimensions to do shell script "/usr/bin/sips -g pixelWidth -g pixelHeight " & quoted form of bodyFile
+    set pixelWidth to my imageDimension(dimensions, "pixelWidth: ")
+    set pixelHeight to my imageDimension(dimensions, "pixelHeight: ")
+    if pixelWidth < 1 or pixelHeight < 1 or pixelWidth > 8192 or pixelHeight > 8192 or pixelWidth * pixelHeight > 16777216 then error "Image dimensions exceed the supported limit"
+    -- Decode before Excel sees the file. This rejects corrupt image bodies
+    -- and gives AddPicture one supported, static PNG representation.
+    do shell script "/usr/bin/sips -s format png " & quoted form of bodyFile & " --out " & quoted form of imageFile
+    do shell script "/bin/test -s " & quoted form of imageFile & " && /bin/rm -f -- " & quoted form of bodyFile
+end decodeImageFile
+
+on imageCacheFolder()
+    set homePath to POSIX path of (path to home folder)
+    if homePath ends with "/Library/Containers/com.microsoft.Excel/Data/" then
+        set containerHome to homePath
+    else
+        set containerHome to homePath & "Library/Containers/com.microsoft.Excel/Data/"
+    end if
+    return containerHome & "Library/Caches/SMF-Mac-Images"
+end imageCacheFolder
+
+on imageDimension(dimensionText, labelText)
+    repeat with dimensionLine in paragraphs of dimensionText
+        set dimensionLine to dimensionLine as text
+        set labelAt to offset of labelText in dimensionLine
+        if labelAt > 0 then return (text (labelAt + (length of labelText)) thru -1 of dimensionLine) as integer
+    end repeat
+    error "Image decoder did not return its dimensions"
+end imageDimension
+
+on imageEnvelope(statusCode, imagePath, errorText)
+    set errorText to my replaceImageLineBreaks(errorText)
+    return "SMFIMAGE/1" & linefeed & (statusCode as text) & linefeed & imagePath & linefeed & errorText
+end imageEnvelope
+
+on replaceImageLineBreaks(valueText)
+    set oldDelimiters to AppleScript's text item delimiters
+    try
+        set AppleScript's text item delimiters to {return, linefeed}
+        set pieces to text items of valueText
+        set AppleScript's text item delimiters to " "
+        set valueText to pieces as text
+        set AppleScript's text item delimiters to oldDelimiters
+        return valueText
+    on error messageText number errorNumber
+        set AppleScript's text item delimiters to oldDelimiters
+        error messageText number errorNumber
+    end try
+end replaceImageLineBreaks
+
+on releaseImage(imagePath)
+    try
+        set cacheFolder to my imageCacheFolder()
+        set expectedPrefix to cacheFolder & "/image."
+        if imagePath does not start with expectedPrefix or imagePath does not end with "/image.png" then return "ignored"
+        set directoryPart to text ((length of expectedPrefix) + 1) thru ((length of imagePath) - 10) of imagePath
+        if directoryPart is "" then return "ignored"
+        repeat with aCharacter in characters of directoryPart
+            considering case
+                if "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" does not contain (aCharacter as text) then return "ignored"
+            end considering
+        end repeat
+        set imageDirectory to expectedPrefix & directoryPart
+        set ownerFile to imageDirectory & "/.smf-image-owner"
+        if (do shell script "/bin/cat " & quoted form of ownerFile) is not "SMFIMAGE/1" then return "ignored"
+        -- Delete only this request's fixed filenames. rmdir refuses a directory
+        -- containing any other file; no caller-provided path reaches rm -rf.
+        do shell script "/bin/rm -f -- " & quoted form of (imageDirectory & "/image.png") & " " & quoted form of (imageDirectory & "/body.bin") & " " & quoted form of ownerFile
+        do shell script "/bin/rmdir -- " & quoted form of imageDirectory
+        return "removed"
+    on error
+        return "unavailable"
+    end try
+end releaseImage

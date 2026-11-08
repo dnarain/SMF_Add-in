@@ -631,7 +631,7 @@
       "line": 607,
       "source": "GuruDiv",
       "label": "Dividend Yield",
-      "definition": "GuruDiv;Dividend Yield;=smfConvertData(smfStrExtr(smfGetTagContent(\"https://www.gurufocus.com/dividend/~~~~~\",\"h1\",-1,\">(Forward)\"),\"~\",\"<\"))"
+      "definition": "GuruDiv;Dividend Yield;=smfGetTagContent(\"https://www.gurufocus.com/stock/~~~~~/dividend\",\"div\",-1,\" (Forward)\",,,,1,,0,32767,\" (Forward)\")"
     },
     "test_mode": "live_numbered_element_extraction",
     "network": true,
@@ -805,7 +805,7 @@
       "line": 6,
       "source": "Zacks",
       "label": "Target Price Consensus",
-      "definition": "Zacks;Target Price Consensus;=RCHGetTableCell(\"https://www.zacks.com/stock/research/~~~~~/brokerage-recommendations\",1,\">Average Target Price\")"
+      "definition": "Zacks;Target Price Consensus;=RCHGetTableCell(\"https://www.zacks.com/stock/research/~~~~~/price-target-stock-forecast\",1,\">Average Price Target\",,,,1)"
     },
     "test_mode": "live_numbered_element_extraction",
     "network": true,
@@ -921,7 +921,7 @@
       "line": 20,
       "source": "NetFlix",
       "label": "Year",
-      "definition": "NetFlix;Year;=smfConvertData(smfGetTagContent(\"http://dvd.netflix.com/Movie/~~~~~\",\"span\",-1,\"class=\"\"year\"\"\"))"
+      "definition": "NetFlix;Year;=smfGetTagContent(\"https://www.netflix.com/title/~~~~~\",\"li\",1,\"data-uia=\"\"metadata\"\"\",,,,1)"
     },
     "test_mode": "live_numbered_element_extraction",
     "network": true,
@@ -1042,7 +1042,7 @@
       "line": 1,
       "source": "AdvFN-A",
       "label": "Annual Indicators -- Ending Date -- FY1",
-      "definition": "AdvFN-A;Annual Indicators -- Ending Date -- FY1;AdvFN-A;1;>INDICATORS;>year end date; ; ;0;0;0;0"
+      "definition": "AdvFN-A;Annual Indicators -- Ending Date -- FY1;=DATEVALUE(smfStrExtr(smfGetTagContent(\"https://www.advfn.com/p.php?pid=financials&symbol=~~~~~\",\"TD\",-1,\">Year End\"),\"Year End \",\"~\"))"
     },
     "test_mode": "live_numbered_element_extraction",
     "network": true,
@@ -1100,233 +1100,222 @@
     "id": "ImageComment_c_stockcharts_com",
     "function": "RCHCreateComment",
     "module": "smfCreateComment_.bas",
-    "group": "worksheet_live_images",
-    "description": "Create a comment picture through choice 4 and verify Excel filled the comment with an image.",
+    "group": "worksheet_mac_images",
+    "description": "Create and inspect a Mac worksheet chart for the calling cell.",
     "declarations": [
       "Dim testSheet As Worksheet, oldActiveSheet As Object",
-      "Dim oldFormula As Variant, pictureType As Long",
-      "Dim pictureComment As Object, pictureShape As Object, pictureFill As Object"
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
     ],
     "setup": [
-      "Set testSheet = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\")",
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
       "Set oldActiveSheet = Application.ActiveSheet",
-      "detail = \"Activating TestInputs\"",
       "testSheet.Activate",
-      "detail = \"Reading J20.Formula\"",
       "oldFormula = testSheet.Range(\"J20\").Formula",
-      "detail = \"Clearing J20 contents\"",
       "testSheet.Range(\"J20\").ClearContents",
-      "detail = \"Clearing J20 comments\"",
       "testSheet.Range(\"J20\").ClearComments"
     ],
-    "expression": "testSheet.Range(\"J20\").Value",
-    "object_result": false,
-    "check": "CStr(result) = \"Chart\" And pictureType = msoFillPicture",
-    "expected_text": "Cell result Chart, a newly created comment and Comment.Shape.Fill.Type = msoFillPicture (6).",
-    "cleanup": [
-      "testSheet.Range(\"J20\").ClearContents",
-      "testSheet.Range(\"J20\").ClearComments",
-      "testSheet.Range(\"J20\").Formula = oldFormula",
-      "oldActiveSheet.Activate"
-    ],
-    "domain": "c.stockcharts.com",
-    "test_mode": "worksheet_comment_image",
-    "network": true,
-    "coverage_note": "Excel Shape.Fill.UserPicture loads this image directly. SMFMacHTTPStatus/LastURL do not describe this request; use the separate image HTTP probe as additional evidence.",
     "call_steps": [
-      "detail = \"Assigning J20 RCHCreateComment formula\"",
       "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"AAPL\"\",4,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
-      "detail = \"Calculating J20\"",
       "testSheet.Range(\"J20\").Calculate"
     ],
-    "check_setup": [
-      "pictureType = 0",
-      "detail = \"Reading J20.Comment\"",
-      "Set pictureComment = testSheet.Range(\"J20\").Comment",
-      "If Not pictureComment Is Nothing Then",
-      "detail = \"Reading J20.Comment.Shape\"",
-      "Set pictureShape = pictureComment.Shape",
-      "detail = \"Reading J20.Comment.Shape.Fill\"",
-      "Set pictureFill = pictureShape.Fill",
-      "detail = \"Reading J20.Comment.Shape.Fill.Type\"",
-      "pictureType = pictureFill.Type",
-      "End If"
-    ],
-    "result_details": "\"Comment Fill.Type=\" & CStr(pictureType)"
-  },
-  {
-    "id": "ImageComment_stockcharts_com",
-    "function": "RCHCreateComment",
-    "module": "smfCreateComment_.bas",
-    "group": "worksheet_live_images",
-    "description": "Create a comment picture through choice 2 and verify Excel filled the comment with an image.",
-    "declarations": [
-      "Dim testSheet As Worksheet, oldActiveSheet As Object",
-      "Dim oldFormula As Variant, pictureType As Long",
-      "Dim pictureComment As Object, pictureShape As Object, pictureFill As Object"
-    ],
-    "setup": [
-      "Set testSheet = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\")",
-      "Set oldActiveSheet = Application.ActiveSheet",
-      "detail = \"Activating TestInputs\"",
-      "testSheet.Activate",
-      "detail = \"Reading J20.Formula\"",
-      "oldFormula = testSheet.Range(\"J20\").Formula",
-      "detail = \"Clearing J20 contents\"",
-      "testSheet.Range(\"J20\").ClearContents",
-      "detail = \"Clearing J20 comments\"",
-      "testSheet.Range(\"J20\").ClearComments"
-    ],
     "expression": "testSheet.Range(\"J20\").Value",
     "object_result": false,
-    "check": "CStr(result) = \"Chart\" And pictureType = msoFillPicture",
-    "expected_text": "Cell result Chart, a newly created comment and Comment.Shape.Fill.Type = msoFillPicture (6).",
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoPicture And pictureVisibility = msoFalse And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf",
+    "expected_text": "Chart result and a newly embedded Mac picture tied to J20, with the requested hidden state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata",
     "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
       "testSheet.Range(\"J20\").ClearContents",
       "testSheet.Range(\"J20\").ClearComments",
       "testSheet.Range(\"J20\").Formula = oldFormula",
       "oldActiveSheet.Activate"
     ],
     "domain": "stockcharts.com",
-    "test_mode": "worksheet_comment_image",
+    "test_mode": "worksheet_mac_embedded_picture",
     "network": true,
-    "coverage_note": "Excel Shape.Fill.UserPicture loads this image directly. SMFMacHTTPStatus/LastURL do not describe this request; use the separate image HTTP probe as additional evidence.",
-    "call_steps": [
-      "detail = \"Assigning J20 RCHCreateComment formula\"",
-      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"AAPL\"\",2,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
-      "detail = \"Calculating J20\"",
-      "testSheet.Range(\"J20\").Calculate"
-    ],
-    "check_setup": [
-      "pictureType = 0",
-      "detail = \"Reading J20.Comment\"",
-      "Set pictureComment = testSheet.Range(\"J20\").Comment",
-      "If Not pictureComment Is Nothing Then",
-      "detail = \"Reading J20.Comment.Shape\"",
-      "Set pictureShape = pictureComment.Shape",
-      "detail = \"Reading J20.Comment.Shape.Fill\"",
-      "Set pictureFill = pictureShape.Fill",
-      "detail = \"Reading J20.Comment.Shape.Fill.Type\"",
-      "pictureType = pictureFill.Type",
-      "End If"
-    ],
-    "result_details": "\"Comment Fill.Type=\" & CStr(pictureType)"
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
   },
   {
-    "id": "ImageComment_ogres-crypt_com",
+    "id": "ImageComment_stockcharts_com",
     "function": "RCHCreateComment",
     "module": "smfCreateComment_.bas",
-    "group": "worksheet_live_images",
-    "description": "Create a comment picture through choice 98 and verify Excel filled the comment with an image.",
+    "group": "worksheet_mac_images",
+    "description": "Create and inspect a Mac worksheet chart for the calling cell.",
     "declarations": [
       "Dim testSheet As Worksheet, oldActiveSheet As Object",
-      "Dim oldFormula As Variant, pictureType As Long",
-      "Dim pictureComment As Object, pictureShape As Object, pictureFill As Object"
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
     ],
     "setup": [
-      "Set testSheet = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\")",
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
       "Set oldActiveSheet = Application.ActiveSheet",
-      "detail = \"Activating TestInputs\"",
       "testSheet.Activate",
-      "detail = \"Reading J20.Formula\"",
       "oldFormula = testSheet.Range(\"J20\").Formula",
-      "detail = \"Clearing J20 contents\"",
       "testSheet.Range(\"J20\").ClearContents",
-      "detail = \"Clearing J20 comments\"",
       "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"AAPL\"\",2,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
     ],
     "expression": "testSheet.Range(\"J20\").Value",
     "object_result": false,
-    "check": "CStr(result) = \"Chart\" And pictureType = msoFillPicture",
-    "expected_text": "Cell result Chart, a newly created comment and Comment.Shape.Fill.Type = msoFillPicture (6).",
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoPicture And pictureVisibility = msoFalse And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf",
+    "expected_text": "Chart result and a newly embedded Mac picture tied to J20, with the requested hidden state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata",
     "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
       "testSheet.Range(\"J20\").ClearContents",
       "testSheet.Range(\"J20\").ClearComments",
       "testSheet.Range(\"J20\").Formula = oldFormula",
       "oldActiveSheet.Activate"
     ],
-    "domain": "ogres-crypt.com",
-    "test_mode": "worksheet_comment_image",
+    "domain": "stockcharts.com",
+    "test_mode": "worksheet_mac_embedded_picture",
     "network": true,
-    "coverage_note": "Excel Shape.Fill.UserPicture loads this image directly. SMFMacHTTPStatus/LastURL do not describe this request; use the separate image HTTP probe as additional evidence.",
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
+  },
+  {
+    "id": "ImageComment_ogres-crypt_com",
+    "function": "RCHCreateComment",
+    "module": "smfCreateComment_.bas",
+    "group": "worksheet_mac_images",
+    "description": "Create and inspect a Mac worksheet chart for the calling cell.",
+    "declarations": [
+      "Dim testSheet As Worksheet, oldActiveSheet As Object",
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
+    ],
+    "setup": [
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
+      "Set oldActiveSheet = Application.ActiveSheet",
+      "testSheet.Activate",
+      "oldFormula = testSheet.Range(\"J20\").Formula",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments"
+    ],
     "call_steps": [
-      "detail = \"Assigning J20 RCHCreateComment formula\"",
       "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"1,2,3\"\",98,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
-      "detail = \"Calculating J20\"",
       "testSheet.Range(\"J20\").Calculate"
     ],
+    "expression": "testSheet.Range(\"J20\").Value",
+    "object_result": false,
     "check_setup": [
-      "pictureType = 0",
-      "detail = \"Reading J20.Comment\"",
-      "Set pictureComment = testSheet.Range(\"J20\").Comment",
-      "If Not pictureComment Is Nothing Then",
-      "detail = \"Reading J20.Comment.Shape\"",
-      "Set pictureShape = pictureComment.Shape",
-      "detail = \"Reading J20.Comment.Shape.Fill\"",
-      "Set pictureFill = pictureShape.Fill",
-      "detail = \"Reading J20.Comment.Shape.Fill.Type\"",
-      "pictureType = pictureFill.Type",
-      "End If"
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText",
+      "plotted = testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection(1).Values"
     ],
-    "result_details": "\"Comment Fill.Type=\" & CStr(pictureType)"
+    "check": "CStr(result) = \"Chart\" And pictureType = msoChart And pictureVisibility = msoFalse And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf And testSheet.ChartObjects(macPicture.Name).Chart.SeriesCollection.Count = 1 And CDbl(ArrayCell(plotted, 1, 0)) = 1 And CDbl(ArrayCell(plotted, 2, 0)) = 50 And CDbl(ArrayCell(plotted, 3, 0)) = 98",
+    "expected_text": "Chart result and a newly embedded Mac line chart tied to J20, with the requested hidden state. The one series must contain 1,50,98.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata & \"; Series=\" & CStr(ArrayCell(plotted, 1, 0)) & \",\" & CStr(ArrayCell(plotted, 2, 0)) & \",\" & CStr(ArrayCell(plotted, 3, 0))",
+    "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
+      "testSheet.Range(\"J20\").ClearContents",
+      "testSheet.Range(\"J20\").ClearComments",
+      "testSheet.Range(\"J20\").Formula = oldFormula",
+      "oldActiveSheet.Activate"
+    ],
+    "domain": "local_numeric_chart",
+    "test_mode": "worksheet_mac_embedded_chart",
+    "network": false,
+    "coverage_note": "Mac renders the supplied numeric series locally. Positive values are normalized to integers 1..98; nonpositive values become 0; equal positive values become 50. No ogres-crypt.com request occurs."
   },
   {
     "id": "ImageComment_loopback",
     "function": "RCHCreateComment",
     "module": "smfCreateComment_.bas",
-    "group": "worksheet",
-    "description": "Create a comment picture through choice 99 and verify Excel filled the comment with an image.",
+    "group": "worksheet_mac_images",
+    "description": "Create and inspect a Mac worksheet chart for the calling cell.",
     "declarations": [
       "Dim testSheet As Worksheet, oldActiveSheet As Object",
-      "Dim oldFormula As Variant, pictureType As Long",
-      "Dim pictureComment As Object, pictureShape As Object, pictureFill As Object"
+      "Dim oldFormula As Variant, pictureType As Long, pictureVisibility As Long",
+      "Dim macPicture As Shape, cleanupPicture As Shape, pictureMetadata As String, plotted As Variant"
     ],
     "setup": [
-      "Set testSheet = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\")",
+      "Set testSheet = ThisWorkbook.Worksheets(\"TestInputs\")",
       "Set oldActiveSheet = Application.ActiveSheet",
-      "detail = \"Activating TestInputs\"",
       "testSheet.Activate",
-      "detail = \"Reading J20.Formula\"",
       "oldFormula = testSheet.Range(\"J20\").Formula",
-      "detail = \"Clearing J20 contents\"",
       "testSheet.Range(\"J20\").ClearContents",
-      "detail = \"Clearing J20 comments\"",
       "testSheet.Range(\"J20\").ClearComments"
+    ],
+    "call_steps": [
+      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{LOCAL_HTTP_BASE}}/image.png\"\",99,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
+      "testSheet.Range(\"J20\").Calculate"
     ],
     "expression": "testSheet.Range(\"J20\").Value",
     "object_result": false,
-    "check": "CStr(result) = \"Chart\" And pictureType = msoFillPicture",
-    "expected_text": "Cell result Chart, a newly created comment and Comment.Shape.Fill.Type = msoFillPicture (6).",
+    "check_setup": [
+      "detail = \"Cell note unavailable\"",
+      "On Error Resume Next",
+      "detail = \"Cell note=\" & testSheet.Range(\"J20\").Comment.Text",
+      "Err.Clear",
+      "On Error GoTo Failed",
+      "Set macPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "pictureType = macPicture.Type",
+      "pictureVisibility = macPicture.Visible",
+      "pictureMetadata = macPicture.AlternativeText"
+    ],
+    "check": "CStr(result) = \"Chart\" And pictureType = msoPicture And pictureVisibility = msoFalse And Left$(pictureMetadata, Len(\"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf & \"J20\" & vbLf",
+    "expected_text": "Chart result and a newly embedded Mac picture tied to J20, with the requested hidden state.",
+    "result_details": "\"Mac Shape.Type=\" & CStr(pictureType) & \"; Visible=\" & CStr(pictureVisibility) & \"; Metadata=\" & pictureMetadata",
     "cleanup": [
+      "Set cleanupPicture = Nothing",
+      "Set cleanupPicture = testSheet.Shapes(\"SMFCommentPicture_20_10\")",
+      "If Not cleanupPicture Is Nothing Then",
+      "If Left$(cleanupPicture.AlternativeText, Len(\"SMFCommentPicture/1\" & vbLf)) = \"SMFCommentPicture/1\" & vbLf Then cleanupPicture.Delete",
+      "End If",
       "testSheet.Range(\"J20\").ClearContents",
       "testSheet.Range(\"J20\").ClearComments",
       "testSheet.Range(\"J20\").Formula = oldFormula",
       "oldActiveSheet.Activate"
     ],
     "domain": "loopback",
-    "test_mode": "worksheet_comment_image",
+    "test_mode": "worksheet_mac_embedded_picture",
     "network": true,
-    "coverage_note": "Excel Shape.Fill.UserPicture loads this image directly. SMFMacHTTPStatus/LastURL do not describe this request; use the separate image HTTP probe as additional evidence.",
-    "call_steps": [
-      "detail = \"Assigning J20 RCHCreateComment formula\"",
-      "testSheet.Range(\"J20\").Formula = \"=RCHCreateComment(\"\"{{LOCAL_HTTP_BASE}}/image.png\"\",99,200,100,0,1,1,1,\"\"SMF picture fixture\"\",\"\"Chart\"\")\"",
-      "detail = \"Calculating J20\"",
-      "testSheet.Range(\"J20\").Calculate"
-    ],
-    "check_setup": [
-      "pictureType = 0",
-      "detail = \"Reading J20.Comment\"",
-      "Set pictureComment = testSheet.Range(\"J20\").Comment",
-      "If Not pictureComment Is Nothing Then",
-      "detail = \"Reading J20.Comment.Shape\"",
-      "Set pictureShape = pictureComment.Shape",
-      "detail = \"Reading J20.Comment.Shape.Fill\"",
-      "Set pictureFill = pictureShape.Fill",
-      "detail = \"Reading J20.Comment.Shape.Fill.Type\"",
-      "pictureType = pictureFill.Type",
-      "End If"
-    ],
-    "result_details": "\"Comment Fill.Type=\" & CStr(pictureType)"
+    "coverage_note": "Mac stores the chart as an embedded worksheet object with a basic text note; the cell menu controls visibility. This checks object type, ownership and visibility, without Comment.Shape.Fill. HTTP diagnostics describe the last SMF data request, not this image."
   },
   {
     "id": "Live_smfGetOptionExpirations_50Rows",

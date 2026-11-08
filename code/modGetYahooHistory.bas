@@ -232,7 +232,23 @@ Public Function RCHGetYahooHistory2(pTicker As String, _
    '       "&g=" & pPeriod & _
    '       "&ignore=.csv"
    ' sqData = RCHGetURLData(sURL)
+#If Mac Then
+   Dim macStart As Date, macEnd As Date, macInterval As String, macEvent As String
+   macStart = DateSerial(IIf(pStartYear = 0, iEndYear, pStartYear), _
+                        IIf(pStartMonth = 0, 1, pStartMonth), IIf(pStartDay = 0, 1, pStartDay))
+   macEnd = DateSerial(IIf(pEndYear = 0, Year(Date), pEndYear), _
+                      IIf(pEndMonth = 0, Month(Date), pEndMonth), IIf(pEndDay = 0, Day(Date), pEndDay))
+   macInterval = "1d"
+   macEvent = "history"
+   If pPeriod = "w" Then macInterval = "1wk"
+   If pPeriod = "m" Then macInterval = "1mo"
+   If pPeriod = "v" Then macEvent = "div"
+   sURL = "https://query1.finance.yahoo.com/v7/finance/download/" & pTicker & _
+          "?period1=" & CStr(smfDate2Unix(macStart)) & "&period2=" & CStr(smfDate2Unix(macEnd + 1)) & _
+          "&interval=" & macInterval & "&events=" & macEvent
+#Else
    sURL = "https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb="
+#End If
    sqData = smfGetYahooHistoryCSVData(sURL)
    
    '------------------> Determine items needed
@@ -271,6 +287,20 @@ Public Function RCHGetYahooHistory2(pTicker As String, _
    '------------------> Parse web quotes
    Dim sPrevDate As String
    vLine = Split(sqData, Chr(10))
+#If Mac Then
+   ' This function returns newest first unless pResort requests the reverse.
+   Dim macLine As Variant
+   i1 = 1
+   i2 = UBound(vLine)
+   Do While i2 > 0
+      If Len(vLine(i2)) > 0 Then Exit Do
+      i2 = i2 - 1
+   Loop
+   Do While i1 < i2
+      macLine = vLine(i1): vLine(i1) = vLine(i2): vLine(i2) = macLine
+      i1 = i1 + 1: i2 = i2 - 1
+   Loop
+#End If
    nLines = IIf(kDim1 - pNames < UBound(vLine) + pNames, kDim1 - pNames, UBound(vLine) + pNames)
    iRow = 1 - pNames - 1
    i1 = 1 - pNames - 1
@@ -288,8 +318,13 @@ Public Function RCHGetYahooHistory2(pTicker As String, _
          If iHigh > 0 Then vData(iRow + pNames, iHigh) = sAdjust & vItem(2)
          If iLow > 0 Then vData(iRow + pNames, iLow) = sAdjust & vItem(3)
          If iClos > 0 Then vData(iRow + pNames, iClos) = sAdjust & vItem(4)
+#If Mac Then
+         If iVol > 0 Then vData(iRow + pNames, iVol) = vItem(6)
+         If iAdjC > 0 Then vData(iRow + pNames, iAdjC) = vItem(5)
+#Else
          If iVol > 0 Then vData(iRow + pNames, iVol) = vItem(5)
          If iAdjC > 0 Then vData(iRow + pNames, iAdjC) = vItem(6)
+#End If
       Else
          If sPrevDate = vItem(0) Then iRow = iRow - 1
          If iTick > 0 Then vData(iRow + pNames, iTick) = pTicker
@@ -300,14 +335,23 @@ Public Function RCHGetYahooHistory2(pTicker As String, _
             If smfConvertData(vItem(4)) = 0 Or pAdjust <> 1 Then
                nAdjust = 1
             Else
+#If Mac Then
+               nAdjust = smfConvertData(vItem(5)) / smfConvertData(vItem(4))
+#Else
                nAdjust = smfConvertData(vItem(6)) / smfConvertData(vItem(4))
+#End If
                End If
             If iOpen > 0 Then vData(iRow + pNames, iOpen) = smfConvertData(vItem(1)) * nAdjust
             If iHigh > 0 Then vData(iRow + pNames, iHigh) = smfConvertData(vItem(2)) * nAdjust
             If iLow > 0 Then vData(iRow + pNames, iLow) = smfConvertData(vItem(3)) * nAdjust
             If iClos > 0 Then vData(iRow + pNames, iClos) = smfConvertData(vItem(4)) * nAdjust
+#If Mac Then
+            If iVol > 0 Then vData(iRow + pNames, iVol) = smfConvertData(vItem(6))
+            If iAdjC > 0 Then vData(iRow + pNames, iAdjC) = smfConvertData(vItem(5))
+#Else
             If iVol > 0 Then vData(iRow + pNames, iVol) = smfConvertData(vItem(5))
             If iAdjC > 0 Then vData(iRow + pNames, iAdjC) = smfConvertData(vItem(6))
+#End If
             End If
          End If
       Loop
