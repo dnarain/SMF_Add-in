@@ -14,8 +14,12 @@ The [seven external provider fields](DATA-PICTURE-REPAIRS-20261108.md#seven-fiel
 The last verified `0.3-dev` add-in is preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 The isolated workbook passed the 50 nested-recipe, 12 history-conversion and 25 captured-provider checks.
 The `0.4-dev` add-in save failed with Excel error `1004` for file permission.
-The attempted `mac/out/SMF-Mac.xlam` output is zero bytes. Do not load that file.
-File-access approval and the `0.4-dev` add-in build/loading checks remain pending.
+The zero-byte failed output is archived as `mac/out/SMF-Mac-0.4-dev-save-failed.xlam`. Do not load that file.
+The complete 15-file `0.3-dev` package has been restored to `mac/out`.
+`mac/out/SMF-Mac.xlam` is again the verified 634,949-byte `0.3-dev` file, with SHA-256 `0950924e9856f6f1b6a7361adb55f3c166d5ac2e9a55b13102a89aee630fe2b8`.
+The restored add-in remains unloaded. Excel remains in manual calculation mode, with the clean repair workbook open.
+The Mac locked before calculation and add-in loading could be restored.
+Mac unlock, file-access approval and the `0.4-dev` add-in build/loading checks remain pending.
 
 The previously verified `0.3-dev` build made the following changes.
 It adds direct table-cell recipe calls after an IBD lookup crashed Excel during the broader provider tests.

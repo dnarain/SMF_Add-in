@@ -17,8 +17,13 @@ The last verified `0.3-dev` add-in remains preserved at `mac/out/SMF-Mac-0.3-dev
 The agent imported eleven revised core modules into the isolated workbook across the repair and derived-history checks.
 The agent has not built or loaded a `0.4-dev` add-in.
 Excel returned error `1004` for file permission during the attempted add-in save.
-The output at `mac/out/SMF-Mac.xlam` is zero bytes and must not be loaded.
-File-access approval remains pending.
+The zero-byte failed output is archived at `mac/out/SMF-Mac-0.4-dev-save-failed.xlam` and must not be loaded.
+The agent restored the complete 15-file `0.3-dev` package to `mac/out`.
+`mac/out/SMF-Mac.xlam` is the restored 634,949-byte `0.3-dev` file, with SHA-256 `0950924e9856f6f1b6a7361adb55f3c166d5ac2e9a55b13102a89aee630fe2b8`.
+The restored add-in remains unloaded. Excel remains in manual calculation mode, and the clean repair workbook remains open.
+The Mac locked before calculation and add-in loading could be restored.
+The agent prepared `GrantAccessToMultipleFiles` in the Immediate window, but automatic approval review rejected execution.
+That permission call did not run. Explicit file-access approval and Mac unlock remain pending.
 The previous add-in and its element files remain in the 15-file `mac/out/rollback-0.3-dev-before-data-picture-20261108/` copy.
 The complete 66-case workbook snapshot remains saved separately.
 The agent removed five diagnostic modules and eight test worksheets from the packaging copy, leaving one blank `Sheet1`.

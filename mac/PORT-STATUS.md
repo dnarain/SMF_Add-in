@@ -29,10 +29,17 @@ The agent removed five test modules and eight test worksheets from the separate 
 That copy contains one blank worksheet and no live worksheet formulas.
 
 Excel refused the add-in SaveAs with error `1004` about write permission.
-The output `out/SMF-Mac.xlam` is an incomplete zero-byte file and must not be loaded.
+The incomplete zero-byte output remains at `out/SMF-Mac-0.4-dev-save-failed.xlam` and must not be loaded.
+The agent restored the verified `0.3-dev` binary and its matching 14 element files to `out/`.
+The restored `out/SMF-Mac.xlam` has the `0.3-dev` size and SHA256 recorded below.
 The previous add-in remains at `out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 Its matching element files and a second binary copy remain in `out/rollback-0.3-dev-before-data-picture-20261108/`.
 No `0.4-dev` add-in load is claimed.
+The Mac locked before the agent could reload the previous add-in and restore automatic calculation.
+The add-in remains unloaded and Excel calculation remains manual.
+Automatic approval rejected `GrantAccessToMultipleFiles` for the output file because the user had not explicitly approved persistent file access.
+The exact file-access request and Mac unlock request remain pending.
+VBA project access remained OFF throughout these repair checks.
 
 See [the repair notes](DATA-PICTURE-REPAIRS-20261108.md) for the fixes and remaining native checks.
 The records below preserve earlier checkpoints.
