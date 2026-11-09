@@ -143,6 +143,7 @@ Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As St
     Dim target As Range, picture As Shape, numericChart As ChartObject
     Dim source As String, imageFile As String, ownedDownload As Boolean
     Dim failure As String, reply As String, parts As Variant, operation As String
+    Dim desiredNoteText As String
     operation = "Preparing the chart cell"
     On Error GoTo Failed
     If Not IsObject(caller) Then GoTo InvalidInput
@@ -150,11 +151,16 @@ Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As St
     Set target = caller.Cells(1, 1)
     If ActiveWorkbook.Name <> target.Parent.Parent.Name Then Exit Function
     If ActiveSheet.Name <> target.Worksheet.Name Then Exit Function
+    If choice = 98 And UCase$(ticker) <> "NONE" Then
+        Set numericChart = smfMacExistingNumericChart(target)
+    End If
     operation = "Removing the previous chart"
-    Call smfMacRemoveCommentPicture(target)
-    On Error Resume Next
-    target.Comment.Delete
-    On Error GoTo Failed
+    If numericChart Is Nothing Then
+        Call smfMacRemoveCommentPicture(target)
+        On Error Resume Next
+        target.Comment.Delete
+        On Error GoTo Failed
+    End If
     If UCase$(ticker) = "NONE" Then
         smfMacCreateComment = "None"
         Exit Function
@@ -164,11 +170,16 @@ Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As St
     If choice <> 0 And source = "" Then GoTo InvalidInput
     operation = "Creating the cell note"
     If choice = 0 Then
-        target.AddComment IIf(noteText = "", " ", noteText)
+        desiredNoteText = IIf(noteText = "", " ", noteText)
     Else
-        target.AddComment IIf(noteText = "", "", noteText & vbLf) & _
+        desiredNoteText = IIf(noteText = "", "", noteText & vbLf) & _
             "SMF stores this chart on the worksheet. Select this cell and use " & _
             "SMF: Show/Hide Cell Chart in the cell menu."
+    End If
+    If target.Comment Is Nothing Then
+        target.AddComment desiredNoteText
+    ElseIf target.Comment.Text <> desiredNoteText Then
+        target.Comment.Text desiredNoteText
     End If
     ' Cosmetic comment properties vary between Excel for Mac builds. A missing
     ' border or shadow operation must not turn a valid text note into #VALUE!.
@@ -185,10 +196,22 @@ Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As St
     End If
     operation = "Creating the local numeric chart"
     If choice = 98 Then
-        Set numericChart = target.Worksheet.ChartObjects.Add(target.Left + offsetLeft, _
-                                target.Top + offsetTop, width, height)
-        numericChart.Chart.ChartType = xlLine
-        numericChart.Chart.SeriesCollection.NewSeries.Values = smfMacNumericChartValues(ticker)
+        If numericChart Is Nothing Then
+            Set numericChart = target.Worksheet.ChartObjects.Add(target.Left + offsetLeft, _
+                                    target.Top + offsetTop, width, height)
+        End If
+        numericChart.Left = target.Left + offsetLeft
+        numericChart.Top = target.Top + offsetTop
+        numericChart.Width = width
+        numericChart.Height = height
+        If numericChart.Chart.ChartType <> xlLine Then numericChart.Chart.ChartType = xlLine
+        With numericChart.Chart.SeriesCollection
+            Do While .Count > 1
+                .Item(.Count).Delete
+            Loop
+            If .Count = 0 Then .NewSeries
+            .Item(1).Values = smfMacNumericChartValues(ticker)
+        End With
         numericChart.Chart.HasLegend = False
         On Error Resume Next
         numericChart.Chart.Axes(xlValue).MinimumScale = 0
@@ -237,6 +260,11 @@ Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As St
     picture.Placement = xlMoveAndSize
     operation = "Setting chart visibility"
     picture.Visible = IIf(visible = 1, msoTrue, msoFalse)
+    If choice = 98 Then
+        On Error Resume Next
+        picture.ZOrder msoBringToFront
+        On Error GoTo Failed
+    End If
     If ownedDownload Then reply = AppleScriptTask("SMFMac.scpt", "releaseImage", imageFile)
     smfMacCreateComment = returnText
     Exit Function
@@ -249,8 +277,11 @@ Failed:
 FailedImage:
     If operation <> "" Then failure = operation & ": " & failure
     On Error Resume Next
-    If Not picture Is Nothing Then picture.Delete
-    If Not numericChart Is Nothing Then numericChart.Delete
+    If Not numericChart Is Nothing Then
+        numericChart.Delete
+    ElseIf Not picture Is Nothing Then
+        picture.Delete
+    End If
     If ownedDownload Then reply = AppleScriptTask("SMFMac.scpt", "releaseImage", imageFile)
     If Not target Is Nothing Then
         If target.Comment Is Nothing Then target.AddComment " "
@@ -261,6 +292,19 @@ End Function
 
 Private Function smfMacCommentPictureName(ByVal target As Range) As String
     smfMacCommentPictureName = "SMFCommentPicture_" & CStr(target.Row) & "_" & CStr(target.Column)
+End Function
+
+Private Function smfMacExistingNumericChart(ByVal target As Range) As ChartObject
+    Dim picture As Shape, metadataPrefix As String
+    On Error Resume Next
+    Set picture = target.Worksheet.Shapes(smfMacCommentPictureName(target))
+    On Error GoTo 0
+    If picture Is Nothing Then Exit Function
+    If picture.Type <> msoChart Then Exit Function
+    metadataPrefix = "SMFCommentPicture/1" & vbLf & target.Address(False, False) & vbLf & _
+                     "SMF local numeric chart: "
+    If Left$(picture.AlternativeText, Len(metadataPrefix)) <> metadataPrefix Then Exit Function
+    Set smfMacExistingNumericChart = target.Worksheet.ChartObjects(picture.Name)
 End Function
 
 Private Sub smfMacRemoveCommentPicture(ByVal target As Range)
