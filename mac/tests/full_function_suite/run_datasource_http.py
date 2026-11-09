@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -15,8 +16,7 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, quote
 ROOT = Path(__file__).resolve().parents[3]
 INVENTORY = Path(__file__).with_name("datasource_cases.json")
 META = Path(__file__).with_name("datasource_inventory_meta.json")
-OUTPUT = ROOT / "mac/diagnostics/out" / ("datasource-http-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
-OUTPUT.mkdir(parents=True, exist_ok=False)
+OUTPUT: Path | None = None
 LOCKS: dict[str, threading.Lock] = {}
 GUARD = threading.Lock()
 
@@ -61,7 +61,7 @@ def curl(url: str, prefix: Path, cookie: Path | None = None) -> dict:
             "content_type": parts[2] if len(parts) > 2 else "", "bytes": len(payload),
             "redirects": parts[4] if len(parts) > 4 else "", "curl_seconds": parts[5] if len(parts) > 5 else "",
             "curl_exit": code, "error": error, "body_sha256": hashlib.sha256(payload).hexdigest(),
-            "body_path": str(body.relative_to(ROOT)), "headers_path": str(header.relative_to(ROOT)),
+            "body_path": str(body.relative_to(OUTPUT)), "headers_path": str(header.relative_to(OUTPUT)),
             "title": re.sub(r"\s+", " ", title.group(1)).strip()[:300] if title else "",
             "blocking_markers": blocking, "set_cookie_present": bool(re.search(r"(?im)^set-cookie:", raw_headers))}
 
@@ -76,13 +76,13 @@ def run_job(index: int, job: dict) -> dict:
             cookie = Path(temp) / "cookies.txt"
             first = curl("https://fc.yahoo.com", OUTPUT / f"{index:03d}-cookie", cookie)
             crumb = curl("https://query1.finance.yahoo.com/v1/test/getcrumb", OUTPUT / f"{index:03d}-crumb", cookie)
-            crumb_value = (ROOT / crumb["body_path"]).read_text(errors="replace") if (ROOT / crumb["body_path"]).exists() else ""
+            crumb_value = (OUTPUT / crumb["body_path"]).read_text(errors="replace") if (OUTPUT / crumb["body_path"]).exists() else ""
             record["auth"] = {"cookie_status": first["http_status"], "cookie_received": first["set_cookie_present"],
                               "crumb_status": crumb["http_status"], "crumb_valid": False}
             valid = crumb["http_status"] == 200 and 0 < len(crumb_value) <= 100 and not any(x in crumb_value for x in "\r\n{<")
             record["auth"]["crumb_valid"] = valid
             # Crumb bodies are anonymous session material; their values are not needed in the report.
-            (ROOT / crumb["body_path"]).write_text("[crumb redacted]\n")
+            (OUTPUT / crumb["body_path"]).write_text("[crumb redacted]\n")
             if valid:
                 parsed = urlsplit(url)
                 params = [(k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True) if k != "crumb"]
@@ -104,6 +104,19 @@ def run_job(index: int, job: dict) -> dict:
 
 
 def main():
+    global OUTPUT, INVENTORY, META
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True, help="New folder for this HTTP run; paths in records are relative to this folder.")
+    parser.add_argument("--workers", type=int, default=3)
+    parser.add_argument("--inventory", type=Path, default=INVENTORY)
+    parser.add_argument("--metadata", type=Path, default=META)
+    args = parser.parse_args()
+    if not 1 <= args.workers <= 6:
+        parser.error("--workers must be between 1 and 6")
+    INVENTORY = args.inventory.resolve()
+    META = args.metadata.resolve()
+    OUTPUT = args.output.resolve()
+    OUTPUT.mkdir(parents=True, exist_ok=False)
     inventory = json.loads(INVENTORY.read_text())
     meta = json.loads(META.read_text())
     jobs: dict[tuple[str, str], dict] = {}
@@ -124,8 +137,9 @@ def main():
         for url in ref.get("probe_urls", []):
             add(url, "unreachable:" + ref["function"], "unreachable_legacy_reference")
     records = []
-    print(json.dumps({"output": str(OUTPUT), "requests": len(jobs), "workers": 6}), flush=True)
-    with ThreadPoolExecutor(max_workers=6) as pool:
+    (OUTPUT / "run-metadata.json").write_text(json.dumps({"schema_version": 2, "started_utc": datetime.now(timezone.utc).isoformat(), "path_base": "this_output_folder", "inventory_sha256": hashlib.sha256(INVENTORY.read_bytes()).hexdigest(), "workers": args.workers}, indent=2) + "\n")
+    print(json.dumps({"output": str(OUTPUT), "requests": len(jobs), "workers": args.workers}), flush=True)
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = [pool.submit(run_job, index, job) for index, job in enumerate(jobs.values(), 1)]
         for future in as_completed(futures):
             record = future.result(); records.append(record)
