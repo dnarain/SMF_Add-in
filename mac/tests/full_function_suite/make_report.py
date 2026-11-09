@@ -304,7 +304,11 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
     source_rows, endpoint_rows = [], []
     for source in sources:
         domain = source["domain"]
-        source_ids = {case["id"] for case in source.get("native_cases", [])}
+        # A migrated case can remain in an old inventory container. Its explicit
+        # domain takes precedence over that container's case-ID association.
+        source_ids = {case["id"] for case in source.get("native_cases", [])
+                      if not case_by_id.get(case["id"], {}).get("domain")
+                      or str(case_by_id[case["id"]]["domain"]).lower() == domain.lower()}
         related = [row for row in rows if row["id"] in source_ids
                    or case_by_id.get(row["id"], {}).get("domain") == domain
                    or (row["causal_http"] and (urlsplit(row.get("http_url", "")).hostname or "").lower() == domain.lower())]

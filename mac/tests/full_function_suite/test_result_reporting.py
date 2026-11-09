@@ -293,6 +293,47 @@ class InterpretationTests(unittest.TestCase):
         stale=build_report(native,specs,[{'function':'F','visibility':'Public'}],sources,{})
         self.assertEqual(next(item for item in stale['sources'] if item['domain']=='ca.advfn.com')['case_ids'],[])
 
+    def test_migrated_option_case_does_not_make_old_html_source_working(self):
+        case_id = 'Live_smfGetYahooOptionQuote1'
+        url = 'https://query1.finance.yahoo.com/v10/finance/quoteSummary/AAPL261120C00350000?modules=summaryDetail'
+        old_url = 'https://finance.yahoo.com/quote/AAPL261120C00350000'
+        specs = [{'id':case_id, 'function':'smfGetYahooOptionQuote1',
+                  'group':'live_options', 'domain':'query1.finance.yahoo.com',
+                  'expression':'smfGetYahooOptionQuote1("AAPL","C",expiry,350,"B")',
+                  'expected_text':'A positive numeric bid and HTTP200'}]
+        row = {'id':case_id, 'function':'smfGetYahooOptionQuote1', 'row':2,
+               'status':'PASS', 'actual':'Double:3.9', 'http_status':'200',
+               'http_url':url, 'http_reset_marker':'smf-test-case:r:1',
+               'http_case_id':case_id, 'http_run_id':'r', 'http_observation':'REQUEST'}
+        native = {'workbook':'fixture.xlsm', 'workbook_vba_sha256':'fixture-vba', 'results':[row], 'run_metadata':{'Run ID':'r'}}
+        sources = [{'domain':'finance.yahoo.com', 'probe_urls':[old_url],
+                    'native_cases':[{'id':case_id}]},
+                   {'domain':'query1.finance.yahoo.com', 'probe_urls':[url]}]
+        report = build_report(native, specs, [{'function':'smfGetYahooOptionQuote1','visibility':'Public'}], sources, {})
+        groups = {source['domain']:source for source in report['sources']}
+        self.assertEqual(report['cases'][0]['raw_status'], 'PASS')
+        self.assertEqual(report['cases'][0]['interpreted_status'], 'PASS')
+        self.assertEqual(groups['finance.yahoo.com']['case_ids'], [])
+        self.assertEqual(groups['finance.yahoo.com']['positive_extraction_passes'], 0)
+        self.assertEqual(groups['query1.finance.yahoo.com']['case_ids'], [case_id])
+        self.assertEqual(groups['query1.finance.yahoo.com']['positive_extraction_passes'], 1)
+        endpoints = {endpoint['source']:endpoint for endpoint in report['endpoints']}
+        self.assertEqual(endpoints['finance.yahoo.com']['coverage_status'], 'UNTESTED')
+        self.assertEqual(endpoints['query1.finance.yahoo.com']['case_ids'], [case_id])
+        self.assertEqual(endpoints['query1.finance.yahoo.com']['coverage_status'], 'OBSERVED')
+
+    def test_source_id_fallback_keeps_missing_and_matching_explicit_domains(self):
+        for domain in [None, 'finance.yahoo.com']:
+            with self.subTest(domain=domain):
+                case = {'id':'cached', 'function':'F', 'group':'live_extraction', 'expression':'F()'}
+                if domain is not None:
+                    case['domain'] = domain
+                native = {'workbook':'fixture.xlsm', 'workbook_vba_sha256':'fixture-vba', 'results':[{'id':'cached','function':'F','status':'PASS'}], 'run_metadata':{}}
+                sources = [{'domain':'finance.yahoo.com','native_cases':[{'id':'cached'}]}]
+                report = build_report(native, [case], [{'function':'F','visibility':'Public'}], sources, {})
+                self.assertEqual(report['sources'][0]['case_ids'], ['cached'])
+                self.assertEqual(report['sources'][0]['positive_extraction_passes'], 1)
+
     def test_worksheet_entry_is_independent_of_fixture_and_vba_call_categories(self):
         cases=[{'id':'smfInCellChart','setup':['chartCell.FormulaArray = formulaText']},
                {'id':'RCHCreateComment','setup':['commentCell.Formula = formulaText']},
