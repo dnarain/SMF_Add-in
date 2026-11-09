@@ -2,7 +2,7 @@
 
 To try the built add-in, download the [working branch](https://github.com/dnarain/SMF_Add-in/tree/dnarain/mac-native-support) with **Code > Download ZIP**.
 Unzip it and open [`mac/built/0.5-dev`](built/0.5-dev/README.md) for the add-in, three examples and installation instructions.
-Keep the bundle files together. The build is experimental. Seven provider checks still fail.
+Keep the bundle files together. The build is experimental. See the [full-suite results](test-results/0.5-dev-20261108/README.md) for current failures and limits.
 
 This Mac port is experimental work in the [dnarain/SMF_Add-in fork](https://github.com/dnarain/SMF_Add-in).
 The working branch is `dnarain/mac-native-support`.
@@ -303,10 +303,12 @@ The saved worksheet's 11 overlapping checks passed again after a clean Excel res
 The `0.5-dev` source passed the focused row/column controls, and its packaged add-in passed eight worksheet checks after a clean restart.
 The tests do not establish correct results for every provider or recipe.
 
-The full-function developer scripts require local run metadata, retained evidence and explicit file paths.
-`build_suite.py` and `read_results.py` use ignored run-state files unless the selected route supplies paths.
+The [fresh-checkout suite instructions](tests/full_function_suite/README.md) prepare 239 cases from tracked files for 121 public functions.
+The preparer, generator and reader use explicit run paths; no ignored run-state files are required.
+The reader saves raw `native-results.private.json` locally. The reporter writes redacted `native-results.json`, Markdown and CSV summaries.
 The report scripts read saved results and separate HTTP evidence. They do not run Excel or request market data.
 The recorded UTC fixtures assume the Mac timezone `America/Los_Angeles`.
 Replaying those checks requires the same timezone or explicit changes to the timezone expectations.
-Raw diagnostic output, captured pages, generated workbooks and add-ins remain excluded from Git.
+Raw diagnostic output, captured pages and disposable test workbooks remain excluded from Git.
+The reviewed add-in and examples are tracked separately in `mac/built/0.5-dev` with build information and checksums.
 Reports for sharing must redact anonymous Yahoo cookie and crumb values from URLs and response details.

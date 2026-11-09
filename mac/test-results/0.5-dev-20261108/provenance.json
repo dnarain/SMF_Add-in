@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "core_source_commit": "6a7256f4c08e5a457f44431306290c636e37e3b2",
+  "runner_base_commit": "9f2ab6f",
+  "reporter_source_sha256": "350ff755793d58fe49ec3a08d5a7b0b75d373d34dbb58511121b219b5b75b08a",
+  "full_run_native_audit": {
+    "schema_version": 1,
+    "verdict": "PASS_WITH_DOCUMENTED_VBE_RUNNER_FORMATTING",
+    "scope": "Saved native owner-workbook source comparison and raw case-status comparison. The imported test runner changes the owner VBA binary; no identity with the packaged add-in binary is claimed.",
+    "workbook_file": "SMF-Full-Suite-run2-complete.xlsm",
+    "workbook_bytes": 1311579,
+    "workbook_sha256": "5cad375ba7c7c8c8cd23bb9bf19e229bcbe8d8d72497857b0344e9ba8ee5144e",
+    "owner_vba_sha256": "9cbd78d6a340106ee7a42e275e5ac5a7864ea170428ac4aeb8d6bdde4d1d4a53",
+    "base_artifact": "mac/built/0.5-dev/SMF-Mac.xlam",
+    "core_components": 51,
+    "core_sources_byte_exact": 51,
+    "changed_core_source_count": 0,
+    "added_components": [
+      "modSMFFunctionSuite"
+    ],
+    "missing_component_count": 0,
+    "component_type_counts": {
+      "Module": 49,
+      "Class": 1,
+      "Document": 2,
+      "BaseClass": 0
+    },
+    "dictionary_class_and_default_item_attribute": true,
+    "runner_generated_sha256": "4c7802f717333f69e7086cc0ce8f7a3cb8e6289c1f61bfa06287ee2502871cf1",
+    "runner_comparison": {
+      "numeric_source_format_changes": 105,
+      "descriptive_metadata_encoding_changes": 5,
+      "maximum_numeric_literal_delta": "5E-13",
+      "unclassified_change_count": 0
+    },
+    "raw_counts_run1": {
+      "PASS": 184,
+      "CHECK_FAILED": 52,
+      "CLEANUP_ERROR": 3
+    },
+    "raw_counts_run2": {
+      "PASS": 187,
+      "CHECK_FAILED": 52
+    },
+    "raw_status_changes": [
+      {
+        "id": "MacComment_clear_none",
+        "run1": "CLEANUP_ERROR",
+        "run2": "PASS"
+      },
+      {
+        "id": "MacComment_failed_update_clears_picture",
+        "run1": "CLEANUP_ERROR",
+        "run2": "PASS"
+      },
+      {
+        "id": "MacComment_text_only",
+        "run1": "CLEANUP_ERROR",
+        "run2": "PASS"
+      }
+    ],
+    "same_case_ids": true,
+    "saved_state": "DONE",
+    "strict_version_verified": true,
+    "case_specification_sha256": "add2676492f1a608b203c65c96194f8faa71dbd767b47d7825ef557739d40155",
+    "workbook_case_specification_verified": true,
+    "manifest_case_specification_verified": true,
+    "recorded_source_fingerprint": "db6485e2fb019ea6cfb5efea89c258494a6311afeb967c516a6242a603170fb0",
+    "source_fingerprint_verified": true,
+    "issues": []
+  },
+  "strict_version_native_smoke": {
+    "counts": {
+      "PASS": 1
+    },
+    "workbook_sha256": "becf1fc250a5bfee217781555617e73d7ac66b0ff50882593ced8cd559c21c70",
+    "workbook_vba_sha256": "d42682f3d2ffa68b9a0edd9693c430c656d457ece20c8e313d7c3b2e51438c47"
+  },
+  "strict_version_smoke_run_id": "smf-0.5-ff745e2aeef54296b662558fd948c74e",
+  "installed_helper_verification": {
+    "matches_tracked_source": true,
+    "helpers": {
+      "installed": {
+        "compiled_sha256": "0c88990e8d9b012d4902396a0ec077f88593def71d99f1ac109161c8fdad6272",
+        "decompiled_sha256": "25fe54e5c64366f04abfe05149ae71d98e74a1cf95f1e6ddbc61f8dddbbe54ff"
+      },
+      "reference": {
+        "compiled_sha256": "0c88990e8d9b012d4902396a0ec077f88593def71d99f1ac109161c8fdad6272",
+        "decompiled_sha256": "25fe54e5c64366f04abfe05149ae71d98e74a1cf95f1e6ddbc61f8dddbbe54ff"
+      }
+    }
+  },
+  "final_default_generation_comparison": {
+    "case_count": 239,
+    "test_specs_identical_after_run_path_normalization": true,
+    "only_generator_execution_change": "exact version-token gate; separately passed native smoke case"
+  },
+  "scope_note": "The exact version gate was tightened after full run 2 and passed a separate one-case native smoke check. The default 239 case specifications match the full native run after run-path normalization. No production source or packaged binary changed."
+}

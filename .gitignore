@@ -213,3 +213,16 @@ cython_debug/
 
 # Track the source and validation record for each bundled build.
 !/mac/built/*/BUILD-INFO.json
+
+# Reviewed, redacted full-suite reports; raw workbooks and captures stay local.
+!/mac/test-results/
+!/mac/test-results/0.5-dev-20261108/
+!/mac/test-results/0.5-dev-20261108/*.md
+!/mac/test-results/0.5-dev-20261108/*.csv
+!/mac/test-results/0.5-dev-20261108/report-data.json
+!/mac/test-results/0.5-dev-20261108/report-summary.json
+!/mac/test-results/0.5-dev-20261108/run1-summary.json
+!/mac/test-results/0.5-dev-20261108/provenance.json
+
+# macOS Finder metadata
+.DS_Store

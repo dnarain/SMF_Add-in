@@ -2,7 +2,17 @@
 
 This record describes checks on November 7 and 8, 2026.
 
-## Current state: November 8, 2026 — Yahoo worksheet row/column fix
+## Current state: November 8, 2026 — full fresh-checkout suite
+
+The [final run 2 report](test-results/0.5-dev-20261108/README.md) records the 239-case suite for 121 public functions.
+The cases include nine worksheet regressions; the datasource inventory contains 35 domains.
+Final run 2 counts: 187 PASS and 52 CHECK_FAILED; no SETUP_ERROR, ASSERTION_ERROR, CLEANUP_ERROR or unfinished rows.
+Keep run 1, its three harness cleanup errors and the corrected run 2 as separate records.
+The fresh-checkout workflow uses tracked files and the current Mac's Excel/helper installation; a new Mac profile remains unverified.
+Raw workbooks, HTTP captures and private JSON remain local. The reviewed bundle stays under `built/0.5-dev`.
+The port remains experimental. No pull request is open, and Windows runtime verification remains pending.
+
+## Earlier November 8 checkpoint: Yahoo worksheet row/column fix
 
 The source version is `3.0.2024.07.30-mac.0.5-dev`.
 The actual public `smfGetYahooHistory` passed 46 focused native checks in an isolated full-source workbook.

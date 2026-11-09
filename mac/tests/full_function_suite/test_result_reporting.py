@@ -14,7 +14,7 @@ import unittest
 import zipfile
 
 from read_results import WorkbookReadError, read, redact_anonymous
-from make_report import attach_http_diagnostics, build_report, causal_http, interpret, provider_working, version_matches
+from make_report import attach_http_diagnostics, build_report, causal_http, interpret, provider_working, version_matches, worksheet_entry, coverage_kind
 
 MAIN = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -267,6 +267,49 @@ class InterpretationTests(unittest.TestCase):
         self.assertEqual(report['cases'][0]['interpreted_status'],'UNCLASSIFIED_FAIL')
         self.assertEqual(report['summary']['separate_http_probe_records'],1)
         self.assertEqual(report['sources'][0]['separate_http_probe_counts'],{'403':1})
+
+    def test_observed_causal_alias_host_associates_source_and_exact_endpoint(self):
+        url='https://ca.advfn.com/p.php?pid=financials&symbol=NASDAQ:AAPL'
+        row={'id':'ADVFN','function':'F','row':2,'status':'CHECK_FAILED','actual':'Error',
+             'http_status':'200','http_url':url,'http_reset_marker':'smf-test-case:r:1',
+             'http_case_id':'ADVFN','http_run_id':'r','http_observation':'REQUEST'}
+        specs=[{'id':'ADVFN','function':'F','group':'live_extraction','domain':'www.advfn.com','expression':'F()'}]
+        native={'workbook':'fixture.xlsm','workbook_vba_sha256':'abc','results':[row],'run_metadata':{'Run ID':'r'}}
+        sources=[{'domain':'www.advfn.com','probe_urls':['https://www.advfn.com/']},
+                 {'domain':'ca.advfn.com','probe_urls':[url]},
+                 {'domain':'unrecorded-cdn.test','probe_urls':['https://unrecorded-cdn.test/image.png']}]
+        report=build_report(native,specs,[{'function':'F','visibility':'Public'}],sources,{})
+        self.assertEqual(report['cases'][0]['raw_status'],'CHECK_FAILED')
+        self.assertEqual(report['cases'][0]['interpreted_status'],'UNCLASSIFIED_FAIL')
+        groups={source['domain']:source for source in report['sources']}
+        self.assertEqual(groups['www.advfn.com']['case_ids'],['ADVFN'])
+        self.assertEqual(groups['ca.advfn.com']['case_ids'],['ADVFN'])
+        self.assertEqual(groups['unrecorded-cdn.test']['case_ids'],[])
+        endpoint=next(item for item in report['endpoints'] if item['source']=='ca.advfn.com')
+        self.assertEqual(endpoint['case_ids'],['ADVFN'])
+        self.assertEqual(endpoint['coverage_status'],'OBSERVED')
+        # A stale same-host URL cannot create the new observed-host association.
+        row['http_observation']='NONE'
+        stale=build_report(native,specs,[{'function':'F','visibility':'Public'}],sources,{})
+        self.assertEqual(next(item for item in stale['sources'] if item['domain']=='ca.advfn.com')['case_ids'],[])
+
+    def test_worksheet_entry_is_independent_of_fixture_and_vba_call_categories(self):
+        cases=[{'id':'smfInCellChart','setup':['chartCell.FormulaArray = formulaText']},
+               {'id':'RCHCreateComment','setup':['commentCell.Formula = formulaText']},
+               {'id':'MacComment_failed_update_clears_picture','fixture_source':'local PNG','call_steps':['target.Formula2 = formulaText']},
+               {'id':'ImageComment_loopback','domain':'loopback','setup':['target.Formula2 = formulaText']}]
+        self.assertEqual([coverage_kind(case) for case in cases],['VBA_CALL','VBA_CALL','FIXTURE','FIXTURE'])
+        self.assertTrue(all(worksheet_entry(case) for case in cases))
+        self.assertTrue(worksheet_entry({'worksheet_formula':'=F()'}))
+        self.assertTrue(worksheet_entry({'setup':['If ready Then target.Formula2 = formulaText']}))
+        for case in [{'worksheet_formula':None},
+                     {'setup':['oldFormula = target.Formula2']},
+                     {'cleanup':['target.Formula2 = oldFormula']},
+                     {'setup':['If target.Formula2 = "old" Then result = True']},
+                     {'setup':['comparison = target.Formula2 = "old"']},
+                     {'setup':['Inspect(target.Formula2 = "old")']},
+                     {'setup':['note = "target.Formula2 = value"']}]:
+            self.assertFalse(worksheet_entry(case),case)
 
     def test_404_reason_does_not_claim_a_provider_wide_outage(self):
         self.row['http_status']='404'

@@ -6,3 +6,6 @@
 
 # Preserve bundled build files and their checksums byte for byte.
 mac/built/** -text
+
+# Preserve captured CSV response excerpts, including trailing spaces.
+mac/test-results/0.5-dev-20261108/*.csv -text whitespace=-blank-at-eol

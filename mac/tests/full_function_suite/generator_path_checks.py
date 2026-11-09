@@ -244,17 +244,12 @@ class GeneratorPathChecks(unittest.TestCase):
             prefix = "Stock Market Functions add-in, Version "
             stale = prefix + "3.0.2024.07.30-mac.0.4-dev (/tmp/" + version + "; test)"
             suffixed = prefix + version + "-old (/tmp; test)"
-            case = self.case("VersionBoundaryFixture")
-            case["declarations"] = ["Dim versionGateOK As Boolean"]
-            case["setup"] = []
-            case["expression"] = 'RCHGetElementNumber("Version")'
-            case["check_setup"] = [
-                "versionGateOK = (SuiteVersionToken(CStr(result)) = ExpectedSMFVersion)",
-                'versionGateOK = versionGateOK And (SuiteVersionToken("' + suffixed + '") <> ExpectedSMFVersion)',
-                'versionGateOK = versionGateOK And (SuiteVersionToken("' + stale + '") <> ExpectedSMFVersion)',
-                'versionGateOK = versionGateOK And (SuiteVersionToken("' + prefix + version + '") = "")',
-            ]
-            case["check"] = "versionGateOK"
+            smoke = json.loads(Path(__file__).with_name("version_gate_cases.json").read_text())
+            self.assertEqual(len(smoke), 1)
+            case = smoke[0]
+            self.assertEqual(case["expression"], 'RCHGetElementNumber("Version")')
+            self.assertIs(case["network"], False)
+            self.assertEqual(case["check"], "versionGateOK")
             case_file, _ = self.custom_inputs(folder, case)
             suite = Path(folder) / "suite"
             self.invoke(folder, ["--suite", suite, "--case-file", case_file,

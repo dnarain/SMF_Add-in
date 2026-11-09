@@ -1,0 +1,71 @@
+{
+  "generated_utc": "2026-11-09T04:22:41.561845+00:00",
+  "run_id": "smf-0.5-292ff77704f242e4a453908d2137f677",
+  "control_state": "DONE",
+  "expected_version": "3.0.2024.07.30-mac.0.5-dev",
+  "observed_version": "Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.5-dev (/private/tmp/smf-0.5-full-run-20261108-run2; Macintosh (ARM) Version 27.0.1 (Build 26A434); 16.114; ; Local; 1)",
+  "observed_version_token": "3.0.2024.07.30-mac.0.5-dev",
+  "version_verified": true,
+  "workbook": "/private/tmp/smf-0.5-full-run-20261108-run2/SMF-Full-Suite-run2-complete.xlsm",
+  "workbook_sha256": "5cad375ba7c7c8c8cd23bb9bf19e229bcbe8d8d72497857b0344e9ba8ee5144e",
+  "workbook_vba_sha256": "9cbd78d6a340106ee7a42e275e5ac5a7864ea170428ac4aeb8d6bdde4d1d4a53",
+  "planned_cases": 239,
+  "saved_rows": 239,
+  "raw_case_counts": {
+    "PASS": 187,
+    "CHECK_FAILED": 52
+  },
+  "planned_case_status_counts": {
+    "PASS": 187,
+    "CHECK_FAILED": 52
+  },
+  "interpreted_case_counts": {
+    "PASS": 187,
+    "UNCLASSIFIED_FAIL": 16,
+    "PROVIDER_UNAVAILABLE": 31,
+    "CODE_FAILURE": 1,
+    "OBSOLETE": 4
+  },
+  "public_functions": 121,
+  "primary_raw_counts": {
+    "PASS": 108,
+    "CHECK_FAILED": 13
+  },
+  "primary_interpreted_counts": {
+    "PASS": 108,
+    "UNCLASSIFIED_FAIL": 2,
+    "PROVIDER_UNAVAILABLE": 6,
+    "CODE_FAILURE": 1,
+    "OBSOLETE": 4
+  },
+  "source_groups": 35,
+  "inventoried_endpoints": 53,
+  "positive_live_extraction_passes": 41,
+  "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+  "positive_provider_image_checks": 2,
+  "worksheet_entry_cases": 25,
+  "worksheet_entry_raw_counts": {
+    "PASS": 25
+  },
+  "evidence_errors": [],
+  "warnings": [],
+  "scope": "Inventoried public .bas Functions and selected cases only; Subs, Dictionary members, private functions, and every possible argument/provider field are not claimed covered.",
+  "input_bindings": {
+    "case_specification_sha256": "add2676492f1a608b203c65c96194f8faa71dbd767b47d7825ef557739d40155",
+    "workbook_case_specification_verified": true,
+    "manifest_case_specification_verified": true,
+    "recorded_source_fingerprint": "db6485e2fb019ea6cfb5efea89c258494a6311afeb967c516a6242a603170fb0",
+    "manifest_source_fingerprint": "db6485e2fb019ea6cfb5efea89c258494a6311afeb967c516a6242a603170fb0",
+    "source_fingerprint_verified": true
+  },
+  "source_commit": "6a7256f4c08e5a457f44431306290c636e37e3b2",
+  "separate_http_probe_records": 58,
+  "separate_http_status_counts": {
+    "403": 2,
+    "0": 17,
+    "200": 23,
+    "404": 9,
+    "401": 6,
+    "202": 1
+  }
+}

@@ -1,7 +1,8 @@
 # Run the SMF 0.5 native suite from a fresh checkout
 
 These tools prepare and read a disposable Excel test workbook. They do not change the packaged add-in or run Excel themselves.
-The reviewed set contains 239 cases for 121 public functions, including nine worksheet row/column regression cases.
+The reviewed set contains 239 cases for 121 public functions.
+It includes 25 worksheet-entry cases, with nine history row/column regressions.
 The checked-in datasource inventory contains 35 domains. It does not enumerate arbitrary caller-supplied URLs.
 
 Run the commands below from the repository root. Use Python 3 and native Excel on Mac.
@@ -58,6 +59,11 @@ python3 mac/tests/full_function_suite/build_suite.py \
 The generator writes `modSMFFunctionSuite.bas`, `test-cases.json`, `function-inventory.json` and `run-manifest.json`.
 It verifies public-function coverage and records the fixture URL, case hashes and expected version.
 Generation does not execute any case. A case is not a pass until native Excel saves its completed result.
+
+For a focused version-gate check, prepare another empty run folder.
+Add `--case-file mac/tests/full_function_suite/version_gate_cases.json` to that folder's build command.
+This optional one-case run checks the actual version and rejects version suffixes, path-only matches and malformed version text.
+It is separate from the default 239 cases.
 
 ## 4. Run in native Excel
 

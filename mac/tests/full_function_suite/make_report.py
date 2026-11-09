@@ -68,6 +68,25 @@ def coverage_kind(case):
     return "VBA_CALL"
 
 
+def worksheet_entry(case):
+    """Detect worksheet evaluation independently of fixture/live categories."""
+    formula = case.get("worksheet_formula", "")
+    if isinstance(formula, str) and formula.strip():
+        return True
+    for statement in (case.get("setup") or []) + (case.get("call_steps") or []):
+        # Ignore formula-looking text inside VBA strings/comments. Cleanup-only
+        # restoration and RHS reads do not establish a tested worksheet entry.
+        code = re.sub(r'"(?:""|[^"\n])*"', ' ', statement).split("'", 1)[0]
+        for match in re.finditer(r"\.Formula(?:2|Array)?\b\s*=", code, re.I):
+            prefix = re.split(r"\b(?:Then|Else)\b|:(?!=)", code[:match.start()], flags=re.I)[-1]
+            if re.search(r"\b(?:If|ElseIf|While|Until)\b", prefix, re.I):
+                continue
+            if re.search(r"(?<!:)=", prefix) or prefix.count("(") != prefix.count(")"):
+                continue
+            return True
+    return False
+
+
 def is_live(case):
     if case.get("network") is False or case.get("fixture_source") or case.get("domain") == "loopback":
         return False
@@ -244,6 +263,7 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
         row["expression"] = case.get("expression", "")
         row["worksheet_formula"] = case.get("worksheet_formula", "")
         row["coverage_kind"] = coverage_kind(case)
+        row["worksheet_entry"] = worksheet_entry(case)
         row["interpreted_status"], row["interpretation_reason"] = interpret(row, case, run_id)
         if issues:
             row["interpreted_status"] = "UNTESTED"
@@ -269,15 +289,15 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
                  "all_case_count": len(related), "raw_counts": dict(Counter(row["raw_status"] for row in related)),
                  "interpreted_counts": dict(Counter(row["interpreted_status"] for row in related)),
                  "case_ids": [row["id"] for row in related],
-                 "call_patterns": [{k: row.get(k, "") for k in ("id", "expression", "worksheet_formula", "coverage_kind", "raw_status", "interpreted_status")} for row in related],
+                 "call_patterns": [{k: row.get(k, "") for k in ("id", "expression", "worksheet_formula", "coverage_kind", "worksheet_entry", "raw_status", "interpreted_status")} for row in related],
                  "working_live_extraction_cases": sum(row["working_provider_case"] for row in related)}
         function_rows.append(entry)
         if not primary:
             gaps.append({"function": name, "pattern": "primary case", "reason": selection_note})
-        if not any(row["coverage_kind"] == "WORKSHEET" and row["interpreted_status"] != "UNTESTED" for row in related):
+        if not any(row["worksheet_entry"] and row["interpreted_status"] != "UNTESTED" for row in related):
             gaps.append({"function": name, "pattern": "worksheet evaluation", "reason": "No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior"})
         if name.lower() in source_functions and not entry["working_live_extraction_cases"]:
-            gaps.append({"function": name, "pattern": "live positive extraction", "reason": "No passing positive live extraction for the selected inputs"})
+            gaps.append({"function": name, "pattern": "positive provider data/image", "reason": "No passing positive provider-data/image check for the selected inputs"})
         for row in related:
             if row["interpreted_status"] == "UNTESTED":
                 gaps.append({"function": name, "pattern": row["id"], "reason": row["interpretation_reason"]})
@@ -285,7 +305,9 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
     for source in sources:
         domain = source["domain"]
         source_ids = {case["id"] for case in source.get("native_cases", [])}
-        related = [row for row in rows if row["id"] in source_ids or case_by_id.get(row["id"], {}).get("domain") == domain]
+        related = [row for row in rows if row["id"] in source_ids
+                   or case_by_id.get(row["id"], {}).get("domain") == domain
+                   or (row["causal_http"] and (urlsplit(row.get("http_url", "")).hostname or "").lower() == domain.lower())]
         endpoints = list(dict.fromkeys(source.get("probe_urls", []) + [source.get("representative_url", "")] +
                                       [item["url"] for item in source.get("extra_probes", []) if item.get("url")]))
         endpoints = [url for url in endpoints if url]
@@ -325,10 +347,19 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
                "primary_interpreted_counts": dict(Counter(row["primary_interpreted_status"] for row in function_rows)),
                "source_groups": len(source_rows), "inventoried_endpoints": len(endpoint_rows),
                "positive_live_extraction_passes": sum(row["working_provider_case"] for row in rows),
+               "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+               "positive_provider_image_checks": sum(row["working_provider_case"] and case_by_id.get(row["id"], {}).get("test_mode") == "worksheet_mac_embedded_picture" for row in rows),
+               "worksheet_entry_cases": sum(row["worksheet_entry"] for row in rows),
+               "worksheet_entry_raw_counts": dict(Counter(row["raw_status"] for row in rows if row["worksheet_entry"])),
                "evidence_errors": issues, "warnings": warnings,
                "scope": "Inventoried public .bas Functions and selected cases only; Subs, Dictionary members, private functions, and every possible argument/provider field are not claimed covered."}
     return {"summary": summary, "functions": function_rows, "sources": source_rows,
             "endpoints": endpoint_rows, "cases": rows, "uncovered_call_patterns": gaps,
+            "metric_descriptions": {
+                "summary.positive_live_extraction_passes": summary["positive_live_extraction_passes_description"],
+                "functions.working_live_extraction_cases": "Passing selected provider-data/image assertions, including cached values; does not establish fresh requests or complete provider coverage.",
+                "sources.positive_extraction_passes": "Passing selected provider-data/image assertions, including cached values; endpoint-content checks are counted separately.",
+                "cases.working_provider_case": "This selected provider-data/image assertion passed; cached values are included and freshness is not established."},
             "dynamic_destinations": source_meta.get("dynamic_destinations", []),
             "unreachable_option_references": source_meta.get("unreachable_option_references", [])}
 
@@ -381,6 +412,7 @@ def markdown(report):
              f"Expected version: `{cell(s['expected_version'])}`. Observed version: `{cell(s['observed_version'] or 'UNRECORDED')}`. Version verified: {s['version_verified']}.", "",
              f"Workbook SHA256: `{s['workbook_sha256']}`. Saved VBA SHA256: `{s['workbook_vba_sha256']}`.", "",
              "A PASS applies to the recorded input/assertion. Many live assertions require only a nonempty or positive result. They do not independently verify the provider's field accuracy, meaning, or freshness. Endpoint-content PASS, offline fixture parsing, error responses, and obsolete responses do not establish a working financial feed.", "",
+             f"{s['positive_live_extraction_passes']} provider-data/image checks passed, including {s['positive_provider_image_checks']} image checks and any cached values returned by the selected calls. This is not a count of fresh provider requests.", "",
              "This run uses a fresh checkout on the same Mac. The saved VBA hash identifies the owner workbook, including its imported runner; it does not claim that the packaged add-in binary was tested without modification or that a fresh macOS account was tested.", ""]
     if s.get("input_bindings"):
         binding = s["input_bindings"]
@@ -392,7 +424,7 @@ def markdown(report):
               "| Function | Primary raw | Primary interpretation | All cases |", "|---|---|---|---|"]
     for row in report["functions"]:
         lines.append(f"| `{cell(row['function'])}` | {row['primary_raw_status']} | {row['primary_interpreted_status']} | {cell(compact(row['interpreted_counts']))} |")
-    lines += ["", "## Source groups", "", "| Source | Raw cases | Interpreted cases | Endpoint-content passes | Positive extraction passes |", "|---|---|---|---|---|"]
+    lines += ["", "## Source groups", "", "| Source | Raw cases | Interpreted cases | Endpoint-content passes | Provider-data/image checks passed |", "|---|---|---|---|---|"]
     for row in report["sources"]:
         lines.append(f"| {cell(row['domain'])} | {cell(compact(row['raw_counts']))} | {cell(compact(row['interpreted_counts']))} | {row['endpoint_content_passes']} | {row['positive_extraction_passes']} |")
     if "http_probe_diagnostics" in report:
@@ -407,6 +439,7 @@ def markdown(report):
             detail = row["interpretation_reason"] + "; " + str(row.get("actual", "")) + "; " + str(row.get("error", ""))
             lines.append(f"| `{cell(row['id'])}` | {row['raw_status'] or 'BLANK'} | {row['interpreted_status']} | {cell(detail, 500)} |")
     lines += ["", "## Coverage limits", "", s["scope"], "",
+              f"{s['worksheet_entry_cases']} selected cases enter formulas in a worksheet: {compact(s['worksheet_entry_raw_counts'])}. `worksheet_entry` is independent of fixture/live categories; those categories do not replace evidence of actual formula assignment.", "",
               f"`uncovered-call-patterns.csv` records {len(report['uncovered_call_patterns'])} missing primary, worksheet, live-extraction, or unfinished call patterns. `report-data.json` lists each function's exact expressions and all source endpoints.", "",
               "Provider-unavailable classifications require matching case/run/reset fields and a same-case HTTP failure or a captured direct-response rejection marker. The label describes the requested endpoint during this run; it does not establish a provider-wide outage or prove that the requested URL is correct. HTTP 200 plus an extraction error remains unclassified when the response content was not captured. Last-HTTP diagnostics alone are not causal evidence.", "",
               "`native-results.private.json` preserves raw native evidence with owner-only file permissions. Shared native/report JSON, Markdown and CSV redact anonymous Yahoo crumbs and cookies; they do not publish those session values.", "",
