@@ -219,6 +219,51 @@ def public_signatures(lines: list[tuple[int, str]]) -> dict[str, tuple[int, str]
     return result
 
 
+HISTORY_DECLARATION = (
+    'Function smfGetYahooHistory(ByVal pTicker As String, '
+    'Optional ByVal pStartDate As Variant = "", '
+    'Optional ByVal pEndDate As Variant = "", '
+    'Optional ByVal pPeriod As String = "d", '
+    'Optional ByVal pItems As String = "dohlcvufgxs", '
+    'Optional ByVal pNames As Integer = 1, '
+    'Optional ByVal pResort As Integer = 0, '
+    'Optional ByVal pRows As Integer = 0, '
+    'Optional ByVal pCols As Integer = 0)'
+)
+HISTORY_LEGACY_SIGNATURE = normalized_signature(HISTORY_DECLARATION)
+HISTORY_MAC_SIGNATURE = normalized_signature(
+    HISTORY_DECLARATION.replace('pCols As Integer', 'pCols As Double', 1))
+HISTORY_MODULE = 'code/smfGetYahooHistory_.bas'
+HISTORY_NAME = 'function smfgetyahoohistory'
+
+
+def public_signature_matches(relative: str, name: str, before: str, after: str,
+                             constants: dict[str, int]) -> bool:
+    if before == after:
+        return True
+    # Only this exact Mac declaration may change one type. Names, defaults,
+    # argument order, ByVal modes, pRows, and the return declaration stay strict.
+    return (relative == HISTORY_MODULE and name == HISTORY_NAME
+            and constants.get('mac', 0) != 0
+            and before == HISTORY_LEGACY_SIGNATURE
+            and after == HISTORY_MAC_SIGNATURE)
+
+
+def history_signature_problems(source: str) -> list[str]:
+    """Check the actual Mac and Windows declarations, including every default."""
+    problems = []
+    for mac_value in (0, 1, -1):
+        for win64 in (0, -1):
+            constants = {'mac': mac_value, 'vba7': -1, 'win64': win64,
+                         'win32': -1 if mac_value == 0 and win64 == 0 else 0}
+            current = public_signatures(active_lines(source, constants))
+            expected = HISTORY_MAC_SIGNATURE if mac_value else HISTORY_LEGACY_SIGNATURE
+            if HISTORY_NAME not in current or current[HISTORY_NAME][1] != expected:
+                problems.append(f'Mac={mac_value} Win64={win64}: '
+                                'history declaration changed beyond the platform pCols type')
+    return problems
+
+
 TYPE_PATTERN = re.compile(
     r"\b(?:As\s+(?:New\s+)?|New\s+)(?:"
     r"(?:MSXML\d*|MSHTML|WinHttp|Scripting|MSScriptControl)\s*\.\s*\w+|"
@@ -327,7 +372,43 @@ def self_tests() -> int:
         actual = reserved_parameters(list(enumerate(source.splitlines(), 1)))
         if len(actual) != expected:
             raise AssertionError(f"Reserved parameter scanner fixture failed: {source!r}: {actual!r}")
-    return len(cases) + 14 + len(parameter_fixtures)
+    signature_fixtures = [
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE, HISTORY_MAC_SIGNATURE, 1, True),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE, HISTORY_MAC_SIGNATURE, -1, True),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE, HISTORY_MAC_SIGNATURE, 0, False),
+        ('code/other.bas', HISTORY_NAME, HISTORY_LEGACY_SIGNATURE, HISTORY_MAC_SIGNATURE, 1, False),
+        (HISTORY_MODULE, 'function other', HISTORY_LEGACY_SIGNATURE, HISTORY_MAC_SIGNATURE, 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('pcolsasdouble', 'pcolsasvariant'), 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('prowsasinteger', 'prowsaslong'), 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('pcolsasdouble=0', 'pcolsasdouble=1'), 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('pstartdate', 'pbegin'), 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE + 'asvariant', 1, False),
+    ]
+    for relative, name, before, after, mac_value, expected in signature_fixtures:
+        if public_signature_matches(relative, name, before, after, {'mac': mac_value}) != expected:
+            raise AssertionError(f'History signature allowance fixture failed: {relative} {after}')
+    history_fixture = ('#If Mac Then\n'
+                       + HISTORY_DECLARATION.replace('pCols As Integer', 'pCols As Double', 1)
+                       + '\n#Else\n' + HISTORY_DECLARATION + '\n#End If')
+    if history_signature_problems(history_fixture):
+        raise AssertionError('Valid Mac/Windows history declarations were rejected')
+    history_mutations = [
+        history_fixture.replace('pCols As Double', 'pCols As Integer', 1),
+        history_fixture.replace('pCols As Integer', 'pCols As Double', 1),
+        history_fixture.replace('pRows As Integer', 'pRows As Long'),
+        history_fixture.replace('pCols As Double = 0', 'pCols As Double = 1', 1),
+        history_fixture.replace('pStartDate', 'pBegin'),
+    ]
+    for source in history_mutations:
+        if not history_signature_problems(source):
+            raise AssertionError('Changed history declaration was accepted')
+    return (len(cases) + 14 + len(parameter_fixtures)
+            + len(signature_fixtures) + 1 + len(history_mutations))
 
 
 def mac_configurations():
@@ -408,6 +489,13 @@ def check(root: Path, baseline: str | None) -> int:
         if not path.exists():
             failures.append(f"{relative}: baseline VBA module was removed")
     signatures_checked = 0
+    history_path = root / HISTORY_MODULE
+    if history_path.exists():
+        try:
+            failures.extend(f'{HISTORY_MODULE}: {problem}' for problem in
+                            history_signature_problems(history_path.read_text(encoding='utf-8')))
+        except ValueError as error:
+            failures.append(f'{HISTORY_MODULE}: {error}')
     for path in files:
         for number in unsafe_mac_guards(path.read_text(encoding="utf-8", errors="replace")):
             failures.append(f"{path.relative_to(root)}:{number}: Not Mac negates a numeric constant; use Mac = 0")
@@ -438,7 +526,7 @@ def check(root: Path, baseline: str | None) -> int:
                     signatures_checked += 1
                     if name not in current:
                         failures.append(f"{relative} [{configuration}]: missing public {name}")
-                    elif current[name][1] != signature:
+                    elif not public_signature_matches(relative, name, signature, current[name][1], constants):
                         failures.append(f"{relative}:{current[name][0]} [{configuration}]: changed public signature {name}")
             except (ValueError, AssertionError) as error:
                 failures.append(f"{relative} [{configuration}]: {error}")
@@ -455,6 +543,7 @@ def check(root: Path, baseline: str | None) -> int:
     print(f"Signature baseline: upstream {original['upstream_commit']} "
           f"({'local Git' if baseline is not None else 'bundled JSON; no Git required'}).")
     print("No selected Windows dependencies, MacScript calls, or duplicate public procedures found in active Mac code.")
+    print('History declaration checked: Mac pCols Double; Windows pCols Integer; all other arguments/defaults unchanged.')
     print("STATIC CHECK ONLY: VBA compilation, Excel calculation, and network access were not executed.")
     return 0
 
@@ -466,7 +555,7 @@ def main() -> int:
     parser.add_argument("--self-test-only", action="store_true")
     args = parser.parse_args()
     count = self_tests()
-    print(f"PASS: {count} conditional-parser, dependency-scanner and parameter-scanner fixtures.")
+    print(f"PASS: {count} conditional-parser, dependency-scanner, parameter and signature fixtures.")
     return 0 if args.self_test_only else check(args.root.resolve(), args.baseline)
 
 

@@ -1,0 +1,461 @@
+[
+  {
+    "id": "HistoryWorksheet_Rows5Cols1",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Return five rows and one column for explicit dimensions.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"5x1:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "5x1:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_Rows5Cols2",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Return five rows and two columns for explicit dimensions.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,2))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,2))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,2),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"5x2:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "5x2:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,2))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,2))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,2),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_Rows5Cols0",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Use the scalar worksheet caller when the column count is zero.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,0))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,0))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,0),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"2x1:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "2x1:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,0))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,0))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,0),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_Rows0Cols0",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Use the scalar worksheet caller when both dimensions are zero.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,0,0))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,0,0))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,0,0),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"2x1:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "2x1:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,0,0))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,0,0))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,0,0),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_Rows1Cols1",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Promote a one-row request to the function's minimum two rows.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,1,1))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,1,1))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,1,1),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"2x1:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "2x1:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,1,1))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,1,1))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,1,1),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_NoneRows5Cols1",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Return the one-cell None sentinel before dimension processing.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"None\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"None\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"None\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"1x1:None\")"
+    ],
+    "check": "ok",
+    "expected_text": "1x1:None",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"None\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1))&\"x\"&COLUMNS(smfGetYahooHistory(\"None\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1))&\":\"&INDEX(smfGetYahooHistory(\"None\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_ColsFractionBelowHalf",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Use the worksheet caller after the local Integer column count rounds 0.4 to zero.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,0.4))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,0.4))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,0.4),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"2x1:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "2x1:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,0.4))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,0.4))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,0.4),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_ColsRoundHalfEven",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Return two columns after the local Integer column count rounds 1.5 to two.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1.5))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1.5))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,1.5),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"5x2:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "5x2:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1.5))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1.5))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,1.5),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  },
+  {
+    "id": "HistoryWorksheet_ColsStringZero",
+    "function": "smfGetYahooHistory",
+    "module": "smfGetYahooHistory_.bas",
+    "group": "worksheet_regression",
+    "description": "Use the worksheet caller after the text column count zero converts to local Integer zero.",
+    "declarations": [
+      "Dim historyCell As Range",
+      "Dim historySavedFormula As Variant, historySavedValue As Variant",
+      "Dim historyHadFormula As Boolean, historyCellSaved As Boolean",
+      "Dim historyFormula As String"
+    ],
+    "setup": [
+      "Set historyCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y200\")",
+      "historyHadFormula = historyCell.HasFormula",
+      "historySavedFormula = historyCell.Formula2",
+      "historySavedValue = historyCell.Value2",
+      "historyCellSaved = True",
+      "historyFormula = \"=ROWS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,\"\"0\"\"))&\"\"x\"\"&COLUMNS(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,\"\"0\"\"))&\"\":\"\"&INDEX(smfGetYahooHistory(\"\"AAPL\"\",\"\"11/2/2026\"\",\"\"11/7/2026\"\",\"\"bad\"\",\"\"C\"\",0,0,5,\"\"0\"\"),1,1)\""
+    ],
+    "call_steps": [
+      "historyCell.Formula2 = historyFormula",
+      "historyCell.Calculate"
+    ],
+    "expression": "historyCell.Value2",
+    "object_result": false,
+    "check_setup": [
+      "ok = False",
+      "If VarType(result) = vbString Then ok = (CStr(result) = \"2x1:Error on period: bad\")"
+    ],
+    "check": "ok",
+    "expected_text": "2x1:Error on period: bad",
+    "result_details": "\"Worksheet formula: \" & historyFormula",
+    "cleanup": [
+      "If historyCellSaved Then",
+      "historyCell.ClearContents",
+      "If historyHadFormula Then",
+      "historyCell.Formula2 = historySavedFormula",
+      "Else",
+      "historyCell.Value2 = historySavedValue",
+      "End If",
+      "End If",
+      "Set historyCell = Nothing"
+    ],
+    "network": false,
+    "test_mode": "worksheet_regression",
+    "execution_status": "not_run",
+    "worksheet_cell": "{{SUITE_SHEET}}!Y200",
+    "worksheet_formula": "=ROWS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,\"0\"))&\"x\"&COLUMNS(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,\"0\"))&\":\"&INDEX(smfGetYahooHistory(\"AAPL\",\"11/2/2026\",\"11/7/2026\",\"bad\",\"C\",0,0,5,\"0\"),1,1)",
+    "coverage_note": "Exercises the production function's worksheet argument passing and array dimensions on invalid-period or None paths before provider access."
+  }
+]

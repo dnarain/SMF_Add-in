@@ -10,14 +10,17 @@ Seven additional [cached-history cases](tests/full_function_suite/derived_histor
 The two batches contain 66 cases: 59 PASS and seven provider CHECK_FAILED results.
 Excel built and loaded the valid `0.4-dev` add-in.
 After a clean Excel restart and workbook reopen, all 11 overlapping worksheet checks passed.
-The explicit positive-`pRows` worksheet limitation remains unresolved.
+The later [`0.5-dev` row/column fix](YAHOO-HISTORY-ROWCOUNT-RESULTS-20261108.md) passed 46 focused native checks.
+The audited `0.5-dev` add-in passed eight fresh worksheet checks and a live `5x2` result after a clean Excel restart.
+The `0.4-dev` record below preserves the earlier data/picture checkpoint.
 
 ## Current verification checkpoint
 
-The development source reports `3.0.2024.07.30-mac.0.4-dev`.
+The data/picture repair checkpoint used `3.0.2024.07.30-mac.0.4-dev`.
+The current development source is `3.0.2024.07.30-mac.0.5-dev`.
 The previous `0.3-dev` add-in remains preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 The agent imported eleven revised core modules into the isolated workbook across the repair and derived-history checks.
-`mac/out/SMF-Mac.xlam` is the valid 713,180-byte `0.4-dev` file, with SHA-256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
+At that checkpoint, `mac/out/SMF-Mac.xlam` contained the valid 713,180-byte `0.4-dev` file, with SHA-256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
 Its Excel add-in content type is correct, and all 51 core modules match the passed 66-case snapshot.
 It contains no active diagnostic test modules. The 14 adjacent definition files match `docs/Elements/` byte for byte.
 The user explicitly authorized file access, and `GrantAccessToMultipleFiles` returned `True`.
@@ -139,17 +142,35 @@ These seven cases cover the captured observations and explicit inputs. They do n
 `smfRSITargetPrices` remains unfixed. It still requests the obsolete Yahoo quote CSV service.
 Its history call inherits `pItems="dohlcvufgxs"`, which includes the unsupported `F` and `G` items.
 
-The checked worksheet history calls returned close (`C`), volume (`V`) and date (`D`) data with omitted or zero `pRows`.
+At the `0.4-dev` checkpoint, the checked worksheet history calls returned close (`C`), volume (`V`) and date (`D`) data with omitted or zero `pRows`.
 An invalid period returned a diagnostic with default row settings.
 Explicit positive `pRows` returned `#VALUE!` after a fresh Excel launch.
 An invalid-period control also returned `#VALUE!` before HTTP retrieval.
-The native macro history cases with explicit row counts passed. The cause remains undetermined.
+The native macro history cases with explicit row counts passed.
 The exact controls are preserved in the local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx).
 This worksheet example omits the row and column overrides:
 
 ```excel
 =INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0),1,1)
 ```
+
+The `0.5-dev` source changes only the Mac `pCols` argument type to `Double` and checks the converted local dimensions for zero.
+`pRows` remains `Integer`, and the Windows declaration remains unchanged.
+The actual public function passed 28 offline worksheet, 12 live worksheet and six macro controls.
+The focused checks are separate from the earlier 66 cases. The seven external provider failures remain unresolved.
+The corrected source passed this explicit-size worksheet call:
+
+```excel
+=INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0,0,5,1),1,1)
+```
+
+The final `0.5-dev` add-in is 673,519 bytes, with SHA-256 `3b9423659992348920ee08bd32898a9b20187073116271b20e7d090a33514331`.
+The standard and versioned output files are byte-identical, and the binary audit passed.
+After removing a stale application-folder registration and selecting the exact repository output, Excel loaded it after a clean restart.
+All eight fresh [history worksheet checks](out/SMF-Mac-History-Checks-20261108.xlsx) passed, with the full live `5x2` result.
+The version formula reported `mac.0.5-dev` and the correct output directory.
+Calculation was **Automatic**, the add-in remained checked, and VBA project access was OFF.
+The 46 controls and eight follow-up checks remain separate from the earlier 66-case batch and its seven provider failures.
 
 ## Picture findings
 

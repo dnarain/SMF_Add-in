@@ -134,13 +134,13 @@ The 59-case and seven-case batches contain 66 unique cases: 59 PASS and seven pr
 The 11 worksheet checks overlap those cases and do not increase that total.
 The seven provider failures in the tables above remain unresolved.
 
-## Explicit worksheet row-count limitation
+## Worksheet row-count limitation in the `0.4-dev` build
 
 The checked worksheet calls returned close (`C`), volume (`V`) and date (`D`) data with omitted or zero `pRows`.
 An invalid period returned a diagnostic with default row settings.
 An explicit positive `pRows` still returned `#VALUE!` after a fresh Excel launch.
 An invalid-period control also returned `#VALUE!` before HTTP retrieval.
-The native macro history cases with explicit row counts passed. The cause remains undetermined.
+The native macro history cases with explicit row counts passed.
 The local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx) preserves the exact controls.
 
 This checked formula omits the row and column overrides:
@@ -148,6 +148,13 @@ This checked formula omits the row and column overrides:
 ```excel
 =INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0),1,1)
 ```
+
+The later [`0.5-dev` source fix](YAHOO-HISTORY-ROWCOUNT-RESULTS-20261108.md) passed 46 native controls of the actual public function.
+It uses `Double` for Mac `pCols` and tests converted local dimensions before caller sizing.
+The earlier tables and their 59-case count remain unchanged. The seven external provider failures remain unresolved.
+The audited `0.5-dev` add-in subsequently passed eight fresh [worksheet checks](out/SMF-Mac-History-Checks-20261108.xlsx) and a live `5x2` result after a clean Excel restart.
+Its version formula reported the correct output directory and `mac.0.5-dev`.
+The 46 focused controls and eight follow-up checks remain separate from this report's original counts.
 
 ## Scope and evidence
 

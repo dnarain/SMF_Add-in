@@ -1,6 +1,19 @@
 Attribute VB_Name = "smfGetYahooHistory_"
 Option Explicit
 
+' Native Mac worksheet probes read the ninth Integer argument as -32768.
+' Double preserved supplied columns in scalar and array probes.
+#If Mac Then
+Function smfGetYahooHistory(ByVal pTicker As String, _
+                   Optional ByVal pStartDate As Variant = "", _
+                   Optional ByVal pEndDate As Variant = "", _
+                   Optional ByVal pPeriod As String = "d", _
+                   Optional ByVal pItems As String = "dohlcvufgxs", _
+                   Optional ByVal pNames As Integer = 1, _
+                   Optional ByVal pResort As Integer = 0, _
+                   Optional ByVal pRows As Integer = 0, _
+                   Optional ByVal pCols As Double = 0)
+#Else
 Function smfGetYahooHistory(ByVal pTicker As String, _
                    Optional ByVal pStartDate As Variant = "", _
                    Optional ByVal pEndDate As Variant = "", _
@@ -10,6 +23,7 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
                    Optional ByVal pResort As Integer = 0, _
                    Optional ByVal pRows As Integer = 0, _
                    Optional ByVal pCols As Integer = 0)
+#End If
                     
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to download historical quotes from Yahoo!
@@ -95,7 +109,7 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
     '------------------> Determine size of array to return
     iRows = pRows  ' Rows
     iCols = pCols  ' Columns
-    If pRows = 0 Or pCols = 0 Then
+    If iRows = 0 Or iCols = 0 Then
        On Error Resume Next
        iRows = Application.Caller.Rows.Count
        iCols = Application.Caller.Columns.Count

@@ -2,7 +2,46 @@
 
 This record describes checks on November 7 and 8, 2026.
 
-## Current state: November 8, 2026 — data and picture repairs
+## Current state: November 8, 2026 — Yahoo worksheet row/column fix
+
+The source version is `3.0.2024.07.30-mac.0.5-dev`.
+The actual public `smfGetYahooHistory` passed 46 focused native checks in an isolated full-source workbook.
+The agent recorded 28 offline worksheet checks, 12 live worksheet checks and six direct macro checks.
+The checks include positive row counts, one/two columns, caller sizing, invalid-period diagnostics, `None`, fractional-column conversion and text zero.
+The live checks verified dated AAPL close/volume values, both date orders and returned dimensions.
+
+The Mac declaration changes the ninth argument, `pCols`, from `Integer` to `Double`.
+`pRows` remains `Integer`. All names, positions, defaults and remaining argument types stay unchanged.
+The Windows declaration retains `pCols As Integer`.
+The function tests the converted local `iRows` and `iCols` before choosing caller dimensions.
+Native scalar controls read the ninth `Integer` argument as `-32768`; the tested `Double` controls preserved the requested values.
+These observations support this source change. The underlying Excel cause remains unproved.
+
+See [the focused report](YAHOO-HISTORY-ROWCOUNT-RESULTS-20261108.md) for exact native results and evidence.
+The 46 controls are separate from the earlier 66-case batch; no combined unique-case total is claimed.
+The seven external provider failures remain unresolved.
+The audited `0.5-dev` add-in is saved at `out/SMF-Mac-0.5-dev.xlam` and installed at `out/SMF-Mac.xlam`.
+Both files contain 673,519 bytes with SHA256 `3b9423659992348920ee08bd32898a9b20187073116271b20e7d090a33514331`.
+The binary audit passed; no extra runner/test streams remain in the clean add-in.
+All 14 adjacent element files match `docs/Elements/` byte for byte. The AppleScript helper is unchanged for `0.5-dev`.
+The `0.4-dev` backup remains preserved.
+
+The first cold restart exposed a stale registration for `/Applications/Microsoft Excel.app/SMF-Mac.xlam`.
+The agent removed that missing entry and used **Browse** to select the full absolute path to the repository's `mac/out/SMF-Mac.xlam`.
+After a clean menu quit/restart and workbook reopen, Excel showed no missing-add-in warning or link prompt.
+The agent repasted and recalculated the formulas; all eight checks passed, and the live `5x2` result appeared.
+The saved workbook is `out/SMF-Mac-History-Checks-20261108.xlsx`: 11,974 bytes, SHA256 `fbf5e56f9e4968a8d4bb300b5a99ce0df35ac8a3c546dd2dbd10be317e99e2de`.
+Its version formula reports `mac.0.5-dev` and the correct `mac/out` directory.
+These eight worksheet checks are separate follow-up evidence; no expanded unique-case total is claimed.
+
+After restart, the SMF add-in remained checked and Excel calculation was **Automatic**.
+The final security readback confirmed VBA project access OFF; other macro-security settings were unchanged.
+The temporary keep-awake process was stopped.
+The passing `Double` controls and final restart completed without an Excel crash.
+The earlier unsafe `Long` probe record remains separate and is excluded from the 46 passing controls.
+The port remains experimental, with no pull request open.
+
+## Earlier November 8 checkpoint: data and picture repairs
 
 The source version is `3.0.2024.07.30-mac.0.4-dev`.
 Excel saved and loaded the `0.4-dev` add-in at `out/SMF-Mac.xlam`.
@@ -55,7 +94,7 @@ The StockCharts picture and the native numeric chart both reappeared after a cle
 The workbook contains one embedded PNG, one native chart, and no saved error cells.
 These checks overlap the 66 earlier cases and do not establish that every SMF function works.
 
-One worksheet limitation remains in `smfGetYahooHistory`.
+At this `0.4-dev` checkpoint, one worksheet limitation remained in `smfGetYahooHistory`.
 A positive explicit `pRows` returns `#VALUE!`, including an invalid-period case that does not request data.
 The native macro history cases with explicit row counts passed.
 Worksheet calls with omitted row and column counts return the expected values.

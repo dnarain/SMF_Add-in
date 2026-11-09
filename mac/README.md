@@ -4,7 +4,18 @@ This Mac port is experimental work in the [dnarain/SMF_Add-in fork](https://gith
 The working branch is `dnarain/mac-native-support`.
 There is no pull request for this Mac port. Further workbook and provider checks come first.
 
-The current development source version is `3.0.2024.07.30-mac.0.4-dev`.
+The current development source version is `3.0.2024.07.30-mac.0.5-dev`.
+The [Yahoo history row-count fix](YAHOO-HISTORY-ROWCOUNT-RESULTS-20261108.md) passed 46 native checks of the actual public function.
+The Mac declaration now uses `Double` for the ninth argument, `pCols`; `pRows` remains `Integer`.
+The Windows declaration retains `Integer` for `pCols`. All argument names, positions and defaults remain unchanged.
+Excel built, loaded and restarted with the audited `0.5-dev` add-in.
+`mac/out/SMF-Mac.xlam` and `mac/out/SMF-Mac-0.5-dev.xlam` are byte-identical: 673,519 bytes, SHA-256 `3b9423659992348920ee08bd32898a9b20187073116271b20e7d090a33514331`.
+After a clean quit/restart, all eight fresh [history worksheet checks](out/SMF-Mac-History-Checks-20261108.xlsx) passed, with a live five-row, two-column result.
+The version formula reported `mac.0.5-dev` and the correct `mac/out` directory.
+The add-in remained checked, calculation was **Automatic**, and VBA project access was OFF.
+All 14 adjacent element files match `docs/Elements/` byte for byte. This fix does not change the AppleScript helper.
+
+The following records describe the earlier `0.4-dev` build.
 The [data and picture repair run](DATA-PICTURE-REPAIR-RESULTS-20261108.md) has final results for all 59 selected cases.
 The isolated workbook recorded 52 passes and seven failed provider data checks.
 All 25 regression/offline cases, 13 live data cases and 14 image/chart cases passed.
@@ -13,7 +24,7 @@ The two batches contain 66 cases: 59 PASS and seven provider CHECK_FAILED result
 The [seven external provider fields](DATA-PICTURE-REPAIRS-20261108.md#seven-fields-still-blocked-or-unavailable) remain blocked or unavailable.
 The previous `0.3-dev` add-in is preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 The isolated workbook passed the 50 nested-recipe, 12 history-conversion and 25 captured-provider checks.
-Excel built and loaded the valid `0.4-dev` file at `mac/out/SMF-Mac.xlam`.
+At that checkpoint, Excel built and loaded the valid `0.4-dev` file at `mac/out/SMF-Mac.xlam`.
 It is 713,180 bytes, with SHA-256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
 The file has the correct Excel add-in content type. Its 51 core modules match the passed 66-case snapshot.
 It contains no active diagnostic test modules, and its 14 adjacent definition files match `docs/Elements/` byte for byte.
@@ -23,8 +34,8 @@ After registration, a full Excel quit and relaunch loaded `0.4-dev` automaticall
 The reopened [data and picture check workbook](out/SMF-Mac-Data-Picture-Checks-20261108.xlsx) returned all 11 PASS results.
 The StockCharts picture and native three-point chart remained visible.
 These worksheet checks overlap the earlier cases and do not increase the 66-case total.
-Worksheet calls with explicit positive `pRows` still return `#VALUE!`.
-The native macro history cases with explicit row counts passed.
+That build returned `#VALUE!` for the checked worksheet calls with explicit positive `pRows`.
+The installed `0.5-dev` add-in now passes the focused explicit-size worksheet controls.
 
 The previously verified `0.3-dev` build made the following changes.
 It adds direct table-cell recipe calls after an IBD lookup crashed Excel during the broader provider tests.
@@ -122,6 +133,8 @@ It does not include the old file-modification date.
 The actual standalone helper passed 24 tests against temporary files and a local HTTP server.
 These tests cover redirects, errors, Unicode, large pages, module-copy bytes, and element-file reads.
 We compared 464 existing public signatures across four numeric Mac configurations with the upstream source.
+The `0.5-dev` checks permit one exact Mac-only difference: `smfGetYahooHistory.pCols` is `Double`.
+The checks still require the upstream Windows declaration and every other argument and default.
 We examined active Mac branches for selected Windows dependencies.
 The HTML entity data passed independent reference checks.
 
@@ -180,7 +193,7 @@ The installation checks are:
 =RCHGetElementNumber("AAPL",4074)
 ```
 
-The loaded local add-in returns `mac.0.4-dev` as part of its version.
+The current verified local add-in returns `mac.0.5-dev` as part of its version.
 A new source build must return its recorded source version.
 The HTML check must return `42`.
 Fields 4072 and 4074 request the Finviz earnings date and price.
@@ -193,10 +206,21 @@ This close-price example omits the row and column overrides:
 =INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0),1,1)
 ```
 
-An explicit positive `pRows` still causes `#VALUE!` in worksheet calls after a fresh Excel launch.
-An invalid-period control also returned `#VALUE!` before HTTP retrieval.
-The native macro history cases with explicit row counts passed. The cause remains undetermined.
-The exact controls remain in the local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx).
+The `0.4-dev` explicit-row failure and its controls remain in the local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx).
+The corrected `0.5-dev` source also passed this explicit five-row, one-column call in the diagnostic workbook:
+
+```excel
+=INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0,0,5,1),1,1)
+```
+
+The [46 native controls](YAHOO-HISTORY-ROWCOUNT-RESULTS-20261108.md) cover worksheet dimensions, invalid-period diagnostics, live prices/volumes, ordering and macro calls.
+The packaged add-in also passed eight separate worksheet checks after a clean restart. Other argument combinations still require checks.
+
+If Excel reports a missing add-in, inspect its entry in **Tools > Excel Add-ins**.
+The recorded stale entry pointed to `/Applications/Microsoft Excel.app/SMF-Mac.xlam`.
+Remove that missing entry with **Delete from list**, then use **Browse** to select the complete absolute path to the repository's `mac/out/SMF-Mac.xlam`.
+Enable the add-in and check that `RCHGetElementNumber("Version")` reports `mac.0.5-dev` and that same directory.
+Quit Excel through its menu and reopen the workbook to confirm the registration persists.
 
 The last-request diagnostics are `SMFMacHTTPStatus()`, `SMFMacLastError()`, and `SMFMacLastURL()`.
 `SMFMacLastFileError()` reports the last element-file read error.
@@ -270,9 +294,9 @@ The clean packaging copy excludes diagnostic modules.
 
 The expected results are `6`, `55`, `PASS: 84 JSON checks`, `40`, `17`, `20`, `25`, `50`, `12`, and `5`.
 The last three groups passed in the isolated `0.4-dev` test workbook.
-The loaded add-in's core modules match that workbook.
+At the `0.4-dev` checkpoint, that add-in's core modules matched the passed workbook.
 The saved worksheet's 11 overlapping checks passed again after a clean Excel restart and workbook reopen.
-The explicit positive-row-count worksheet limitation remains unresolved.
+The `0.5-dev` source passed the focused row/column controls, and its packaged add-in passed eight worksheet checks after a clean restart.
 The tests do not establish correct results for every provider or recipe.
 
 The full-function developer scripts require local run metadata, retained evidence and explicit file paths.
