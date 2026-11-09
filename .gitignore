@@ -210,3 +210,6 @@ cython_debug/
 
 !/mac/TEST-RESULTS-20261108.md
 !/mac/TESTING-PLAN.md
+
+# Track the source and validation record for each bundled build.
+!/mac/built/*/BUILD-INFO.json

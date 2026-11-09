@@ -1,5 +1,9 @@
 # SMF native Mac development add-in
 
+To try the built add-in, download the [working branch](https://github.com/dnarain/SMF_Add-in/tree/dnarain/mac-native-support) with **Code > Download ZIP**.
+Unzip it and open [`mac/built/0.5-dev`](built/0.5-dev/README.md) for the add-in, three examples and installation instructions.
+Keep the bundle files together. The build is experimental. Seven provider checks still fail.
+
 This Mac port is experimental work in the [dnarain/SMF_Add-in fork](https://github.com/dnarain/SMF_Add-in).
 The working branch is `dnarain/mac-native-support`.
 There is no pull request for this Mac port. Further workbook and provider checks come first.

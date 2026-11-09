@@ -3,3 +3,6 @@
 
 # Preserve CRLF in class exports imported by Excel for Mac.
 *.cls text eol=crlf
+
+# Preserve bundled build files and their checksums byte for byte.
+mac/built/** -text

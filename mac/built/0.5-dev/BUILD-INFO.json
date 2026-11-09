@@ -1,0 +1,22 @@
+{
+  "version": "3.0.2024.07.30-mac.0.5-dev",
+  "source_commit": "6a7256f4c08e5a457f44431306290c636e37e3b2",
+  "checked_date": "2026-11-08",
+  "runtime": "Microsoft Excel 16.114 on Apple Silicon",
+  "vba_project_sha256": "3c283224e51c0740dd1175cc450af5a305d2b41f79975c2252ac0422da392b38",
+  "packaging_changes": [
+    "Removed author names and saved absolute paths from workbook XML.",
+    "Kept example add-in references relative to SMF-Mac.xlam.",
+    "Saved the add-in calculation setting as Automatic.",
+    "Refreshed all three examples in native Excel and updated the version expectation to 0.5-dev."
+  ],
+  "native_examples": {
+    "SMF-Mac-Checks-20261108.xlsx": "Version 0.5-dev; HTML 42; Finviz earnings text and numeric price.",
+    "SMF-Mac-Data-Picture-Checks-20261108.xlsx": "11 checks passed; StockCharts picture and native numeric chart visible.",
+    "SMF-Mac-History-Checks-20261108.xlsx": "8 checks passed; five-row, two-column history returned."
+  },
+  "definition_files": 14,
+  "helper_source": "SMFMac.applescript",
+  "limits": "Experimental build. Seven legacy provider checks remain unavailable or blocked. Other inputs require further checks.",
+  "retained_vba_metadata": "The unchanged VBA project retains the build Mac Microsoft Forms reference path and compiler-cache fixture paths. These paths are absent from active module source. A fresh Mac or separate user account remains untested."
+}
