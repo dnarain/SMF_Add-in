@@ -21,6 +21,9 @@ See the [fresh-checkout instructions](../../tests/full_function_suite/README.md)
 The four obsolete results are included in the 52 raw CHECK_FAILED rows. They do not provide option data.
 The [generated report](test-results.md), [all case results](all-case-results.csv), and [function results](function-results.csv) retain the exact assertions and outcomes.
 
+The [function reference](FUNCTION-STATUS.md) lists all 121 functions with their tested calls and limits.
+It separates live-data failures, obsolete functions, numbered fields and local-only checks.
+
 All 121 inventoried public `.bas` functions have a selected primary call: 108 passed, nine data calls failed and four returned obsolete status.
 A passing primary call does not establish every other call to that function. The report includes all cases for each function.
 

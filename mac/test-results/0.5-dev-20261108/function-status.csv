@@ -1,0 +1,122 @@
+function,status,selected_calls_passed,selected_calls_failed,worksheet_cases,scope,case_ids
+ConvertToIso,Local or controlled check passed,1,0,0,Selected check: 2024-01-15T20:00:00.000Z; requires the verified America/Los_Angeles host timezone,ConvertToIso
+ConvertToJson,Local or controlled check passed,1,0,0,"Selected check: [7,false,null]",ConvertToJson
+ConvertToUtc,Local or controlled check passed,1,0,0,Selected check: 2024-01-15 20:00:00 UTC; requires the verified America/Los_Angeles host timezone,ConvertToUtc
+DateOfHigh,Listed data call passed,2,0,0,Selected AAPL date-of-high checks passed using Yahoo history.,DateOfHigh; Derived_DateOfHigh_AAPL
+DecodeJsonString,Local or controlled check passed,1,0,0,Selected check: Collection with two Dictionary items named first and second,DecodeJsonString
+fnWait,Local or controlled check passed,1,0,0,Selected check: Empty return after at least0.9seconds,fnWait
+GetKeys,Local or controlled check passed,1,0,0,Selected check: Native array indexed 0..1 containing 0 and 01,GetKeys
+GetObjectProperty,Local or controlled check passed,1,0,0,Selected check: Collection containing 3 and 9 in that order,GetObjectProperty
+GetProperty,Local or controlled check passed,1,0,0,Selected check: Boolean False,GetProperty
+ParseIso,Local or controlled check passed,1,0,0,Selected check: 2024-02-29 00:00:00,ParseIso
+ParseJson,Local or controlled check passed,1,0,0,"Selected check: Dictionary with n=7, Boolean False, Null, and identifier text 1234567890123456789",ParseJson
+ParseUtc,Local or controlled check passed,1,0,0,Selected check: 2024-01-15 12:00:00 PST; requires the verified America/Los_Angeles host timezone,ParseUtc
+RCHCreateComment,Listed data call passed,15,0,15,"Text comments, local charts/images and two StockCharts image calls passed. All 15 selected calls passed.",RCHCreateComment; ImageComment_local_file; MacComment_numeric_constant; MacComment_numeric_nonpositive; MacComment_toggle_visibility; MacComment_text_only; MacComment_clear_none; MacComment_failed_update_clears_picture; MacComment_numeric_tiny_positive; MacComment_numeric_tiny_constant; MacComment_numeric_large_positive; ImageComment_c_stockcharts_com; ImageComment_stockcharts_com; ImageComment_ogres-crypt_com; ImageComment_loopback
+RCHExtractData,Local or controlled check passed,1,0,0,Selected check: 42 as a numeric result.,RCHExtractData
+RCHGetElementNumber,Partial by field,11,9,0,11 case assertions passed and nine failed. Status depends on the numbered field. See the field table.,RCHGetElementNumber; RCHGetElementNumber_Price; Extract_finviz_com; Extract_finance_google_com; Extract_finance_yahoo_com; Extract_query2_finance_yahoo_com; Extract_quotes_freerealtime_com; Extract_research_investors_com; Extract_research_tdameritrade_com; Extract_www_barchart_com; Extract_www_etfinvestmentoutlook_com; Extract_www_etfscreen_com; Extract_www_gurufocus_com; Extract_www_reuters_com; Extract_www_stockscores_com; Extract_www_zacks_com; Extract_investing_money_msn_com; Extract_dvd_netflix_com; Extract_core-api_barchart_com; Extract_www_advfn_com
+RCHGetHTMLTable,Local or controlled check passed,1,0,0,Selected check: The 2-by-2 table Label/42 and Earnings/Nov 20 AMC.,RCHGetHTMLTable
+RCHGetTableCell,Local or controlled check passed,1,0,0,Selected check: 42 as a numeric result.,RCHGetTableCell
+RCHGetURLData,Local or controlled check passed,1,0,0,Selected check: HTTP 200; exact body SMF fixture response,RCHGetURLData
+RCHGetURLData1,Local or controlled check passed,1,0,0,Selected check: HTTP 200; exact body SMF fixture response,RCHGetURLData1
+RCHGetURLData1Mac,Local or controlled check passed,1,0,0,Selected check: HTTP 200; exact body SMF fixture response,RCHGetURLData1Mac
+RCHGetURLData2,Local or controlled check passed,1,0,0,Selected check: HTTP 200; exact body SMF fixture response,RCHGetURLData2
+RCHGetURLData3,Local or controlled check passed,1,0,0,Selected check: HTTP 200; exact body SMF fixture response,RCHGetURLData3
+RCHGetURLData4,Local or controlled check passed,1,0,0,Selected check: HTTP 200; exact body SMF fixture response,RCHGetURLData4
+RCHGetWebData,Local or controlled check passed,1,0,0,Selected check: Label,RCHGetWebData
+RCHGetYahooHistory,Listed data call passed,2,0,0,Selected AAPL daily history with explicit fields returned dated prices and volume.,RCHGetYahooHistory; Repair_RCHHistory_AAPL_Live
+RCHGetYahooHistory2,Listed data call passed,6,0,0,"Selected AAPL/IBM history, date order, adjustment and output-size checks passed.",RCHGetYahooHistory2; Repair_History2_AAPL_Snapshot; Repair_History2_AAPL_Ascending; Repair_History2_AdjustmentRatio; Repair_History2_IBM_Live; Repair_History2_NoHeader_Bounded
+RCHGetYahooQuotes,Limited,2,0,0,"Only a supplied history-CSV URL with pItems="""" passed. The source labels the old ticker/quote-code mode obsolete.",RCHGetYahooQuotes; Repair_YahooQuotes_CSVMode_AAPL_Live
+RCHImageTable,Local or controlled check passed,1,0,0,Generated HTML image-table rows for two tickers. This function did not download or display the images.,RCHImageTable
+smfBuildYahooTimeSeriesURL,Local or controlled check passed,1,0,0,Built the selected Yahoo fundamentals URL. No provider data request was made by this case.,smfBuildYahooTimeSeriesURL
+smfCDec,Local or controlled check passed,1,0,0,Selected check: Double0.123456789,smfCDec
+smfChkJSONFieldType,Local or controlled check passed,1,0,0,Selected check: Numeric 1,smfChkJSONFieldType
+smfConvertData,Local or controlled check passed,1,0,0,Selected check: Double0.125,smfConvertData
+smfConvertYahooTicker,Local or controlled check passed,1,0,0,Selected check: CA:CMG,smfConvertYahooTicker
+smfDate2Unix,Local or controlled check passed,1,0,0,Selected check: 86400,smfDate2Unix
+smfEval,Local or controlled check passed,1,0,0,Selected check: 7,smfEval
+smfEvaluateTwice,Local or controlled check passed,1,0,0,Selected check: 3,smfEvaluateTwice
+smfGet888OptionQuote,Live call failed,1,1,0,Saved-input checks passed; the live OIC/iVolatility option request returned HTTP 404.,smfGet888OptionQuote; Live_smfGet888OptionQuote
+smfGetAConstants,Local or controlled check passed,1,0,0,Selected check: suite-fixed-constant,smfGetAConstants
+smfGetAData,Local or controlled check passed,1,0,0,Selected check: 32767 x characters,smfGetAData
+smfGetADVFNElement,Live call failed,0,1,0,The selected annual Year End Date lookup returned Error after HTTP 200. Numbered field 5196 passed separately.,smfGetADVFNElement
+smfGetaFiles,Local or controlled check passed,1,0,0,Selected check: A source-file record naming smf-elements-4.txt.,smfGetaFiles
+smfGetAParms,Local or controlled check passed,1,0,0,Selected check: The initialized FinViz definition containing the Earnings search marker.,smfGetAParms
+smfGetBarChartOptionQuote,Live call failed,1,1,0,Saved-input checks passed; the live Barchart API request timed out.,smfGetBarChartOptionQuote; Live_smfGetBarChartOptionQuote
+smfGetBigChartsOptionQuote,Live call failed,1,1,0,Saved-input checks passed; the live BigCharts option request returned HTTP 403.,smfGetBigChartsOptionQuote; Live_smfGetBigChartsOptionQuote
+smfGetCSVFile,Local or controlled check passed,1,0,0,"Selected check: Date/Close/Volume headers, then 100.5/1000 and 102.25/1200.",smfGetCSVFile
+smfGetEconData,Live call failed,0,1,0,The selected FRED DGS10 request timed out. No positive series result was recorded.,smfGetEconData
+smfGetGoogleHistoryCSV,Live call failed,0,1,0,The constructed URL contains unescaped date spaces. curl rejected the URL before HTTP.,smfGetGoogleHistoryCSV
+smfGetGoogleOptionQuote,Live call failed,1,1,0,Saved-input checks passed; the live Google request returned HTTP 200 but no usable option quote.,smfGetGoogleOptionQuote; Live_smfGetGoogleOptionQuote
+smfGetGuruFocusCSVItem,Live call failed,0,1,0,The selected revenue CSV URL returned HTTP 404; the function returned no revenue value.,smfGetGuruFocusCSVItem
+smfGetGuruFocusData,Limited,1,0,0,"Only item 1, company name, passed. Financial-ratio and historical-metric branches were not established. No GuruFocus login/token integration exists.",smfGetGuruFocusData
+smfGetGuruFocusItem,Live call failed,0,1,0,The selected AAPL TTM financial item returned Error after HTTP 200. Old page selectors need review.,smfGetGuruFocusItem
+smfGetMorningstarHistoryCSV,Live call failed,0,1,0,The selected request timed out connecting to the configured Morningstar history endpoint.,smfGetMorningstarHistoryCSV
+smfGetMSNHistory,Live call failed,0,1,0,The configured legacy MSN hostname failed DNS resolution; no history data returned.,smfGetMSNHistory
+smfGetMSNOptionQuote,Obsolete,0,1,0,Returns obsolete-status text before making a provider request.,smfGetMSNOptionQuote
+smfGetMWOptionQuote,Live call failed,1,1,0,Saved-input checks passed; the live MarketWatch option request returned HTTP 401.,smfGetMWOptionQuote; Live_smfGetMWOptionQuote
+smfGetNASDAQOptionQuote,Live call failed,1,1,0,Saved-input checks passed; the live Nasdaq option request returned HTTP 403.,smfGetNASDAQOptionQuote; Live_smfGetNASDAQOptionQuote
+smfGetOptionExpirations,Listed data call passed,4,0,0,Yahoo mode returned AAPL call expirations. Four-row and 50-row output checks passed. Other providers were not established.,smfGetOptionExpirations; Repair_OptionExpirations_FourRows; Live_smfGetOptionExpirations; Live_smfGetOptionExpirations_50Rows
+smfGetOptionExpiry,Local or controlled check passed,1,0,0,The local November 2026 monthly-expiration calculation returned November 20. This function does not fetch an option chain.,smfGetOptionExpiry
+smfGetOptionQuotes,Listed data call passed,2,0,0,Yahoo mode returned a bid for the selected AAPL call. Other quote fields and provider modes were not established.,smfGetOptionQuotes; Live_smfGetOptionQuotes
+smfGetOptionStrikes,Listed data call passed,2,0,0,Yahoo mode returned strikes for the selected AAPL expiry. Other provider modes were not established.,smfGetOptionStrikes; Live_smfGetOptionStrikes
+smfGetOX2OptionQuote,Obsolete,0,1,0,Returns obsolete-status text before making a provider request.,smfGetOX2OptionQuote
+smfGetOX3OptionQuote,Obsolete,0,1,0,Returns obsolete-status text before making a provider request.,smfGetOX3OptionQuote
+smfGetOXOptionQuote,Obsolete,0,1,0,Returns obsolete-status text before making a provider request.,smfGetOXOptionQuote
+smfGetTagContent,Local or controlled check passed,1,0,0,Selected check: Nov 20 AMC,smfGetTagContent
+smfGetWebPage,Local or controlled check passed,1,0,0,Selected check: Exact fixture HTML stored under mode0 URL key,smfGetWebPage
+smfGetYahooHistory,Limited,13,0,9,"Explicit field lists DC, DOHLUCV and DAUV passed. The omitted daily-history field-list default contains unsupported F/G, by source inspection.",smfGetYahooHistory; Repair_History_AAPL_Snapshot; Repair_History_AAPL_Ascending; Repair_History_IBM_AdjustedAlias; HistoryWorksheet_Rows5Cols1; HistoryWorksheet_Rows5Cols2; HistoryWorksheet_Rows5Cols0; HistoryWorksheet_Rows0Cols0; HistoryWorksheet_Rows1Cols1; HistoryWorksheet_NoneRows5Cols1; HistoryWorksheet_ColsFractionBelowHalf; HistoryWorksheet_ColsRoundHalfEven; HistoryWorksheet_ColsStringZero
+smfGetYahooHistoryCSV,Listed data call passed,2,0,0,Selected AAPL/IBM history-CSV calls returned dated OHLC and volume data.,smfGetYahooHistoryCSV; Repair_HistoryCSV_IBM_Live
+smfGetYahooHistoryCSVData,Listed data call passed,2,0,0,The supplied Yahoo history URL returned CSV with the expected dates/header. The omitted URL default was not tested.,smfGetYahooHistoryCSVData; Repair_HistoryCSVData_AAPL_Live
+smfGetYahooJSONData,Listed data call passed,1,0,0,AAPL financialData.targetMeanPrice returned a positive value. Other modules and fields were not established.,smfGetYahooJSONData
+smfGetYahooJSONField,Listed data call passed,1,0,0,AAPL price.regularMarketPrice.raw returned a positive value. Other JSON paths were not established.,smfGetYahooJSONField
+smfGetYahooOptionQuote,Listed data call passed,2,0,0,"The selected AAPL call bid passed. Ask, last price, other quote fields and other contracts need checks.",smfGetYahooOptionQuote; Live_smfGetYahooOptionQuote
+smfGetYahooOptionQuote1,Live call failed,1,1,0,Saved-input checks passed; the live legacy Yahoo HTML option request returned HTTP 404.,smfGetYahooOptionQuote1; Live_smfGetYahooOptionQuote1
+smfGetYahooOptionQuote2,Live call failed,1,1,0,Saved-input checks passed; the live legacy Yahoo HTML option request returned HTTP 404.,smfGetYahooOptionQuote2; Live_smfGetYahooOptionQuote2
+smfGetYahooPortfolioView,Listed data call passed,2,0,0,AAPL symbol and last-price fields passed. Other portfolio columns were not established.,smfGetYahooPortfolioView; Extract_query1_finance_yahoo_com
+SMFHighBetween,Listed data call passed,2,0,0,"Selected AAPL high, its date and range prices passed using Yahoo history.",SMFHighBetween; Derived_HighBetween_AAPL
+smfHTMLDecode,Local or controlled check passed,1,0,0,"Selected check: <b>""A&B""</b>",smfHTMLDecode
+smfInCellChart,Local or controlled check passed,1,0,1,Line mode created four worksheet shapes from local sample data. Other chart modes were not established.,smfInCellChart
+smfJoin,Local or controlled check passed,1,0,0,"Selected check: 1,2,3,4,5",smfJoin
+smfJSONExtractField,Local or controlled check passed,1,0,0,Selected check: Numeric 7 from the second array item,smfJSONExtractField
+smfJSONExtractField_x64,Local or controlled check passed,1,0,0,Selected check: Boolean False from the first array item,smfJSONExtractField_x64
+smfJSONExtractKeys,Local or controlled check passed,1,0,0,"Selected check: One-column array with rows 0, 1, and #N/A",smfJSONExtractKeys
+smfLastPrice,Listed data call passed,2,0,0,The selected dated AAPL closing price matched the available Yahoo-history reference.,smfLastPrice; Derived_LastPrice_AAPL
+smfLogInternetCalls,Local or controlled check passed,1,0,0,Selected check: Logging off; sLog=N,smfLogInternetCalls
+SMFLowBetween,Listed data call passed,2,0,0,"Selected AAPL low, its date and range prices passed using Yahoo history.",SMFLowBetween; Derived_LowBetween_AAPL
+SMFMacElementsSelfTest,Local or controlled check passed,1,0,0,Selected check: 3 element parsing checks.,SMFMacElementsSelfTest
+SMFMacEmptyRecipeSelfTest,Local or controlled check passed,1,0,0,"Selected check: 5 checks: empty values and empty error fallbacks in both Mac formula branches, plus unchanged HTTP state; private element state restored.",Repair_RCH_LiteralEmpty_NoHTTP
+smfMacFetch,URL dependent,9,22,0,"Controlled fetch passed. Of 30 external page-content checks, eight passed and 22 failed. Returned HTTP errors do not establish a downloader defect.",smfMacFetch; LiveSource_bigcharts_marketwatch_com; LiveSource_climbermel_github_io; LiveSource_core_api_barchart_com; LiveSource_data_moneycentral_msn_com; LiveSource_download_finance_yahoo_com; LiveSource_dvd_netflix_com; LiveSource_finance_google_com; LiveSource_finance_yahoo_com; LiveSource_finviz_com; LiveSource_fred_stlouisfed_org; LiveSource_investing_money_msn_com; LiveSource_oic_ivolatility_com; LiveSource_performance_morningstar_com; LiveSource_query_yahooapis_com; LiveSource_query1_finance_yahoo_com; LiveSource_query2_finance_yahoo_com; LiveSource_quotes_freerealtime_com; LiveSource_research_investors_com; LiveSource_research_tdameritrade_com; LiveSource_www_advfn_com; LiveSource_www_barchart_com; LiveSource_www_etfinvestmentoutlook_com; LiveSource_www_etfscreen_com; LiveSource_www_google_com; LiveSource_www_gurufocus_com; LiveSource_www_marketwatch_com; LiveSource_www_nasdaq_com; LiveSource_www_reuters_com; LiveSource_www_stockscores_com; LiveSource_www_zacks_com
+SMFMacHistoryCSVSelfTest,Local or controlled check passed,1,0,0,Selected check: 12 assertions; no live requests.,Repair_SMFMacHistoryCSVSelfTest
+smfMacHTMLSelfTest,Local or controlled check passed,1,0,0,Selected check: 55 HTML checks,smfMacHTMLSelfTest
+SMFMacHTTPStatus,Local or controlled check passed,1,0,0,Selected check: 207,SMFMacHTTPStatus
+SMFMacIntegrationSelfTest,Local or controlled check passed,1,0,0,Selected check: 25 integration checks,SMFMacIntegrationSelfTest
+SMFMacJSONSelfTest,Local or controlled check passed,1,0,0,Selected check: PASS: 84 JSON checks,SMFMacJSONSelfTest
+SMFMacLastError,Local or controlled check passed,1,0,0,Selected check: HTTP 403,SMFMacLastError
+SMFMacLastFileError,Local or controlled check passed,1,0,0,Selected check: empty string,SMFMacLastFileError
+SMFMacLastURL,Local or controlled check passed,1,0,0,Selected check: fixture://recorded-url,SMFMacLastURL
+SMFMacNestedRecipeSelfTest,Local or controlled check passed,1,0,0,Selected check: 50 assertions; no live requests.,Repair_SMFMacNestedRecipeSelfTest
+smfMacReadElementLocation,Local or controlled check passed,1,0,0,Selected check: Local followed by one LF,smfMacReadElementLocation
+smfMacReadElementText,Local or controlled check passed,1,0,0,Selected check: 19998;Fixture;Value;=1+2 followed by one LF,smfMacReadElementText
+smfMacReadResponse,Local or controlled check passed,1,0,0,Selected check: A<LF>B; status200; no transport error,smfMacReadResponse
+SMFMacRecipeSelfTest,Local or controlled check passed,1,0,0,Selected check: 20 zero-HTTP recipe checks,SMFMacRecipeSelfTest
+smfMacStripHTML,Local or controlled check passed,1,0,0,Selected check: 42&7,smfMacStripHTML
+SMFMacTableGuardSelfTest,Local or controlled check passed,1,0,0,Selected check: 17 table guard checks,SMFMacTableGuardSelfTest
+SMFMacTableRecipeSelfTest,Local or controlled check passed,1,0,0,Selected check: 40 table-recipe checks,SMFMacTableRecipeSelfTest
+SMFMacTransportSelfTest,Local or controlled check passed,1,0,0,Selected check: 6 deterministic transport checks,SMFMacTransportSelfTest
+smfMacTryNestedRecipe,Local or controlled check passed,2,0,0,"Selected check: True, Double42 in the output argument, and unchanged HTTP state.",Repair_NestedDispatcher_Direct; Repair_NestedDispatcher_RejectWhole
+smfMacTryTableCellRecipe,Local or controlled check passed,1,0,0,Selected check: True with numeric parsed value42; no HTTP request,smfMacTryTableCellRecipe
+smfMacTryTagContentRecipe,Local or controlled check passed,1,0,0,Selected check: True; parsed result numeric42,smfMacTryTagContentRecipe
+smfMacYahooChartCSV,Local or controlled check passed,1,0,0,"Selected check: Date,Open,High,Low,Close,Adj Close,Volume; Nov2 null open/adjusted/volume remain null, not0.",Repair_History_NullValues_CSV
+smfMacYahooDownloadCSV,Local or controlled check passed,2,0,0,Direct reversed-date and cached-CSV checks passed. Passed live CSV wrapper calls also used this helper indirectly.,Repair_History_ReversedDates_NoHTTP; Repair_DownloadCSV_AAPL_Snapshot
+smfMacYahooDownloadURL,Local or controlled check passed,2,0,0,Selected check: True for the exact Yahoo host; unchanged HTTP state.,Repair_DownloadURL_AcceptYahoo; Repair_DownloadURL_RejectSpoof
+smfPricesBetween,Listed data call passed,3,0,0,"Selected AAPL range summaries passed, including an ending date before the newest cached observation.",smfPricesBetween; Derived_PricesBetween_ThroughLatest; Derived_PricesBetween_BeforeLatest
+smfPricesByDates,Listed data call passed,2,0,0,Selected AAPL closing prices for two dates passed using Yahoo history.,smfPricesByDates; Derived_PricesByDates_AAPL
+smfRSITargetPrices,Live call failed,0,1,0,The legacy Yahoo quote dependency failed DNS resolution. The history call also inherits the unsupported F/G defaults.,smfRSITargetPrices
+smfStrExtr,Local or controlled check passed,1,0,0,Selected check: Double123.45,smfStrExtr
+smfStripHTML,Local or controlled check passed,1,0,0,Selected check: 7&8,smfStripHTML
+SMFTech,Local or controlled check passed,10,0,0,"Ten local indicator cases passed: SMA, EMA, ATR, CCI, MACD, OBV, ROC, RSI, ADL and STO. It needs supplied price data.",SMFTech; SMFTech_EMA; SMFTech_ATR; SMFTech_CCI; SMFTech_MACD; SMFTech_OBV; SMFTech_ROC; SMFTech_RSI; SMFTech_ADL; SMFTech_STO
+smfUnix2Date,Local or controlled check passed,1,0,0,Selected check: 1970-01-02 00:00:00 as Date,smfUnix2Date
+smfUnix2DateStr,Local or controlled check passed,1,0,0,Selected check: 1970-01-02 01:01:01,smfUnix2DateStr
+smfWord,Local or controlled check passed,1,0,0,Selected check: gamma,smfWord
+smfYahooAPIData,Live call failed,0,1,0,The legacy YQL hostname query.yahooapis.com failed DNS resolution; no data returned.,smfYahooAPIData
+smfYahooCodeDesc,Local or controlled check passed,1,0,0,The local l1 code lookup returned Last Trade. It does not retrieve a quote.,smfYahooCodeDesc
