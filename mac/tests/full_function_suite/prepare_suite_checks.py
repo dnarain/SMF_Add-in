@@ -99,7 +99,7 @@ def main():
         check(not (root / '.git').exists() and not (root / 'mac/diagnostics').exists(), 'Fresh-checkout test has ignored state')
         suite = (temp / 'suite with spaces').resolve()
         record = module.prepare(root, suite)
-        check(record['case_count'] == 526, 'Wrong reviewed case count')
+        check(record['case_count'] == 538, 'Wrong reviewed case count')
         check(record['expected_version'] == 'mac.0.7-dev', 'Missing expected version')
         check(record['native_execution_performed'] is False and record['external_network_performed'] is False, 'Preparation claimed execution')
         check(record['live_provider_substitutions'] is False, 'Preparation substituted live data')
@@ -171,7 +171,7 @@ def main():
         # The installed location finds --root from __file__, without cwd or Git.
         run = subprocess.run([sys.executable, str(base / 'prepare_suite.py'), '--suite', str(temp / 'cli-run')], cwd=temp, capture_output=True, text=True)
         check(run.returncode == 0, 'Fresh-checkout default-root CLI failed: ' + run.stderr)
-        check(json.loads(run.stdout)['case_count'] == 526, 'CLI case count differs')
+        check(json.loads(run.stdout)['case_count'] == 538, 'CLI case count differs')
     print('PASS: ' + str(checks) + ' portable preparation/loopback checks; no Excel or external network used.')
 
 

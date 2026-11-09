@@ -13,6 +13,36 @@ BUILDER = Path(__file__).with_name("build_suite.py")
 
 
 class GeneratorPathChecks(unittest.TestCase):
+    def test_literal_tabs_use_vbtab_without_changing_the_intended_text(self):
+        with tempfile.TemporaryDirectory(prefix='smf-generator-literal-tab-') as folder:
+            case = self.case('LiteralTabData')
+            case['declarations'] = ['Dim fixturePayload As String, fixtureOther As String']
+            original = '\t<strong>29 "quoted"</strong>\t\t'
+            unchanged = 'fixtureOther = "unchanged ""quoted"" & apostrophe\' text"'
+            case['setup'] = ['fixturePayload = "' + original.replace('"', '""') + '"',
+                             '\t' + unchanged]
+            case['expression'] = 'fixturePayload'
+            case['check'] = 'CStr(result) = vbTab & "<strong>29 ""quoted""</strong>" & vbTab & vbTab'
+            case_file, _ = self.custom_inputs(folder, case)
+            suite = Path(folder) / 'suite'
+            self.invoke(folder, ['--suite', suite, '--case-file', case_file,
+                                 '--local-http-base', 'http://127.0.0.1:1'])
+            source = (suite / 'modSMFFunctionSuite.bas').read_text()
+            assignment = next(line.strip() for line in source.splitlines() if line.strip().startswith('fixturePayload ='))
+            rhs = assignment.split('=', 1)[1].strip()
+            self.assertNotIn('\t', rhs)
+            self.assertEqual(rhs, '"" & vbTab & "<strong>29 ""quoted""</strong>" & vbTab & "" & vbTab & ""')
+            # Evaluate only emitted string constants/vbTab joins, independently of the converter.
+            terms = re.findall(r'"(?:[^"\n]|"")*"|vbTab|&', rhs)
+            self.assertEqual(''.join(terms).replace(' ', ''), rhs.replace(' ', ''))
+            self.assertTrue(all(term == '&' for term in terms[1::2]))
+            reconstructed = ''.join('\t' if term == 'vbTab' else term[1:-1].replace('""', '"')
+                                    for term in terms[::2])
+            self.assertEqual(reconstructed, original)
+            self.assertIn('\t' + unchanged, source)
+            saved = json.loads((suite / 'test-cases.json').read_text())[0]
+            self.assertEqual(saved['setup'], case['setup'])
+
     def test_results_append_measured_transport_counters_after_diagnostic_reset(self):
         with tempfile.TemporaryDirectory(prefix='smf-generator-measured-counters-') as folder:
             case_file, _ = self.custom_inputs(folder)
@@ -168,7 +198,7 @@ class GeneratorPathChecks(unittest.TestCase):
             suite = Path(folder) / "fresh" / "nested suite"
             self.invoke(folder, ["--suite", suite, "--local-http-base", "http://127.0.0.1:1"])
             manifest = json.loads((suite / "run-manifest.json").read_text())
-            self.assertEqual(manifest["case_count"], 526)
+            self.assertEqual(manifest["case_count"], 538)
             self.assertEqual(manifest["public_function_count"], 121)
             self.assertEqual(manifest["covered_public_function_count"], 121)
             history_cases = json.loads(Path(__file__).with_name("history_rowcount_cases.json").read_text())

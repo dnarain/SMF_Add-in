@@ -24,7 +24,7 @@ DEFAULT_CASE_FILES = (
     "repair_cases.json", "mac_picture_cases.json", "derived_history_cases.json",
     "history_rowcount_cases.json", "history_default_cases.json", "option_quote1_cases.json",
     "rsi_target_cases.json", "advfn_year_end_cases.json", "fred_access_cases.json", "fred_key_redaction_cases.json",
-    "not_supported_cases.json", "not_supported_field_cases.json",
+    "not_supported_cases.json", "not_supported_field_cases.json", "google_history_url_cases.json",
 )
 
 
@@ -44,6 +44,40 @@ def inventory():
 
 def quoted(value):
     return '"' + str(value).replace('"', '""').replace("\r", " ").replace("\n", " ") + '"'
+
+
+def explicit_vba_tabs(source):
+    """Represent literal TAB data with vbTab before VBE expands whitespace."""
+    result = []
+    position = 0
+    while position < len(source):
+        char = source[position]
+        if char == "'":
+            end = source.find("\n", position)
+            if end < 0:
+                end = len(source)
+            result.append(source[position:end])
+            position = end
+        elif char == '"':
+            end = position + 1
+            while end < len(source):
+                if source[end] in "\r\n":
+                    raise ValueError("A VBA quoted literal contains a physical line break")
+                if source[end] == '"':
+                    if end + 1 < len(source) and source[end + 1] == '"':
+                        end += 2
+                        continue
+                    end += 1
+                    break
+                end += 1
+            else:
+                raise ValueError("Unclosed VBA quoted literal")
+            result.append(source[position:end].replace("\t", '" & vbTab & "'))
+            position = end
+        else:
+            result.append(char)
+            position += 1
+    return "".join(result)
 
 
 def digest(payload):
@@ -550,7 +584,7 @@ def render_module(cases, metadata):
                 f'    If savedNumber <> 0 Then Err.Raise savedNumber, {quoted(case["id"])} & " [" & phase & "]", savedText',
                 f'    If cleanupNumber <> 0 Then Err.Raise cleanupNumber, {quoted(case["id"])} & " [CLEANUP]", cleanupText',
                 "End Sub"]
-    source = "\r\n".join(out) + "\r\n"
+    source = explicit_vba_tabs("\r\n".join(out) + "\r\n")
     if max(map(len, source.splitlines())) > 1023:
         raise ValueError("VBA physical line exceeds 1023 characters")
     if re.search(r"\{\{[A-Z_]+\}\}", source):

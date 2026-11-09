@@ -27,7 +27,7 @@ CASE_FILES = (
     'options_cases.json', 'repair_cases.json', 'mac_picture_cases.json',
     'derived_history_cases.json', 'history_rowcount_cases.json', 'history_default_cases.json', 'option_quote1_cases.json',
     'rsi_target_cases.json', 'advfn_year_end_cases.json', 'fred_access_cases.json', 'fred_key_redaction_cases.json',
-    'not_supported_cases.json', 'not_supported_field_cases.json',
+    'not_supported_cases.json', 'not_supported_field_cases.json', 'google_history_url_cases.json',
 )
 SOURCE_FILES = ('datasource_cases.json', 'datasource_extraction_cases.json',
                 'datasource_inventory_meta.json')
@@ -218,8 +218,8 @@ def prepare(root: Path, suite: Path):
         raise ValueError('Expected eight distinct tracked provider fragments')
     cases, case_inputs = load_cases(base)
     audit = fixture_audit(cases)
-    if len(cases) != 526:
-        raise ValueError('Expected 526 reviewed cases; found ' + str(len(cases)))
+    if len(cases) != 538:
+        raise ValueError('Expected 538 reviewed cases; found ' + str(len(cases)))
     suite.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.' + suite.name + '.prepare-', dir=suite.parent) as temporary:
         work = Path(temporary) / 'run'

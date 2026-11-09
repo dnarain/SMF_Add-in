@@ -72,8 +72,15 @@ Function smfGetGoogleHistoryCSV(ByVal pTicker As String, _
     
     '------------------> Get CSV file
     Dim sURL As String
+#If Mac Then
+    ' Encode each query value so dates, tickers and separators form one valid URL.
+    sURL = "http://finance.google.com/finance/historical?output=csv&q=" & smfMacGoogleHistoryQuery(UCase(pTicker)) & _
+           "&startdate=" & smfMacGoogleHistoryQuery(Format(dBegin, "mmm d, yyyy")) & _
+           "&enddate=" & smfMacGoogleHistoryQuery(Format(dEnd, "mmm d, yyyy"))
+#Else
     sURL = "http://finance.google.com/finance/historical?output=csv&q=" & UCase(pTicker) & _
            "&startdate=" & Format(dBegin, "mmm d, yyyy") & "&enddate=" & Format(dEnd, "mmm d, yyyy")
+#End If
     vData = smfGetCSVFile(sURL, ",", iRows, iCols)
 
 ErrorExit:
@@ -81,3 +88,45 @@ ErrorExit:
                    
    End Function
 
+
+#If Mac Then
+' Percent-encode UTF-8 query values without changing their characters or order.
+Private Function smfMacGoogleHistoryQuery(ByVal pValue As String) As String
+    Dim i As Long, code As Long, low As Long, result As String
+    For i = 1 To Len(pValue)
+        code = AscW(Mid$(pValue, i, 1)) And &HFFFF&
+        If code >= &HD800& And code <= &HDBFF& Then
+            If i = Len(pValue) Then Err.Raise 5, , "Incomplete Unicode ticker"
+            low = AscW(Mid$(pValue, i + 1, 1)) And &HFFFF&
+            If low < &HDC00& Or low > &HDFFF& Then Err.Raise 5, , "Invalid Unicode ticker"
+            code = &H10000 + (code - &HD800&) * &H400& + low - &HDC00&
+            i = i + 1
+        ElseIf code >= &HDC00& And code <= &HDFFF& Then
+            Err.Raise 5, , "Invalid Unicode ticker"
+        End If
+        Select Case code
+            Case 48 To 57, 65 To 90, 97 To 122, 45, 46, 95, 126
+                result = result & ChrW$(code)
+            Case 0 To &H7F&
+                result = result & smfMacGoogleHistoryByte(code)
+            Case 0 To &H7FF&
+                result = result & smfMacGoogleHistoryByte(&HC0& Or (code \ &H40&)) & _
+                         smfMacGoogleHistoryByte(&H80& Or (code And &H3F&))
+            Case 0 To &HFFFF&
+                result = result & smfMacGoogleHistoryByte(&HE0& Or (code \ &H1000&)) & _
+                         smfMacGoogleHistoryByte(&H80& Or ((code \ &H40&) And &H3F&)) & _
+                         smfMacGoogleHistoryByte(&H80& Or (code And &H3F&))
+            Case Else
+                result = result & smfMacGoogleHistoryByte(&HF0& Or (code \ &H40000)) & _
+                         smfMacGoogleHistoryByte(&H80& Or ((code \ &H1000&) And &H3F&)) & _
+                         smfMacGoogleHistoryByte(&H80& Or ((code \ &H40&) And &H3F&)) & _
+                         smfMacGoogleHistoryByte(&H80& Or (code And &H3F&))
+        End Select
+    Next i
+    smfMacGoogleHistoryQuery = result
+End Function
+
+Private Function smfMacGoogleHistoryByte(ByVal pByte As Long) As String
+    smfMacGoogleHistoryByte = "%" & Right$("0" & Hex$(pByte), 2)
+End Function
+#End If

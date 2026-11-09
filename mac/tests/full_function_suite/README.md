@@ -1,9 +1,9 @@
 # Run the SMF 0.7 native suite from a fresh checkout
 
 These tools prepare and read a disposable Excel test workbook. They do not change the packaged add-in or run Excel themselves.
-The reviewed specifications contain 526 total cases across 121 public Functions.
+The reviewed specifications contain 538 total cases across 121 public Functions.
 That total includes six explicitly tagged auxiliary Sub cases, which remain outside the Function inventory.
-Fifty cases enter a worksheet formula. Ten exercise RSI, ADVFN and FRED paths; eight check retired-mode errors or IFNA display.
+Fifty-one cases enter a worksheet formula. Ten exercise RSI, ADVFN and FRED paths; eight check retired-mode errors or IFNA display; one checks the encoded Google-history URL.
 These counts describe the inputs. The saved native results establish their outcomes.
 The existing history row/column and default-item worksheet cases remain included.
 The inventory contains 36 provider and diagnostic groups, including retained legacy endpoint diagnostics.
@@ -69,11 +69,11 @@ Generation does not execute any case. A case is not a pass until native Excel sa
 For a focused version-gate check, prepare another empty run folder.
 Add `--case-file mac/tests/full_function_suite/version_gate_cases.json` to that folder's build command.
 This optional one-case run checks the actual version and rejects version suffixes, path-only matches and malformed version text.
-It is separate from the default 526 cases.
+It is separate from the default 538 cases.
 
 To rerun the nine numeric-chart reuse cases, prepare another empty run folder.
 Pass `--case-file mac/tests/full_function_suite/numeric_chart_reuse_cases.json` to that folder's build command.
-Those nine checks run separately from the default 526 cases.
+Those nine checks run separately from the default 538 cases.
 
 ## Confirmed retired sources and fields
 
@@ -209,3 +209,7 @@ Keep generated workbooks, response bodies, headers and raw JSON in the private r
 Retain reviewed, redacted reports and CSV summaries under `mac/test-results` when documenting a run.
 Do not check in raw provider captures or local user paths.
 Shared JSON, Markdown and CSV outputs redact API keys and anonymous Yahoo cookie/crumb values. Keep the raw workbook and `native-results.private.json` local. Review reports before sharing them.
+
+## Google-history URL checks
+
+The Mac function percent-encodes ticker and date query values. Twelve cases check local validation, captured request URLs, a worksheet array, and loopback CSV/error handling. These cases do not establish a working Google historical-data feed. The separate financial-data assertion remains in the full suite.

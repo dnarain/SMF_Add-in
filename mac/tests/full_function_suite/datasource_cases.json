@@ -714,10 +714,10 @@
     "extra_probes": [
       {
         "id": "google_history_csv",
-        "url": "http://finance.google.com/finance/historical?output=csv&q=AAPL&startdate=Nov 5, 2026&enddate=Nov 6, 2026",
+        "url": "http://finance.google.com/finance/historical?output=csv&q=AAPL&startdate=Nov%205%2C%202026&enddate=Nov%206%2C%202026",
         "kind": "csv",
         "check": "Date,Open,High,Low,Close CSV header and numeric rows",
-        "source_note": "Raw spaces are intentionally preserved because this is the string assembled by SMF; record curl URL rejection rather than silently encoding it."
+        "source_note": "Mac query values are percent-encoded to avoid curl URL rejection. A valid HTTP response can still contain Google Finance HTML instead of historical CSV; require the CSV header and dated numeric rows."
       }
     ]
   },
