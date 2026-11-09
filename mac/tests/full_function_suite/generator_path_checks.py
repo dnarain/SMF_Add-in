@@ -134,20 +134,34 @@ class GeneratorPathChecks(unittest.TestCase):
             manifest = json.loads((suite / "run-manifest.json").read_text())
             self.assertEqual(manifest["assertions_with_nonshortcircuit_conversions"], [case["id"]])
 
-    def test_fresh_default_generation_has_239_cases_121_functions_and_nine_worksheet_cases(self):
+    def test_fresh_default_generation_has_reviewed_cases_functions_and_worksheet_regressions(self):
         with tempfile.TemporaryDirectory(prefix="smf-generator-default-") as folder:
             suite = Path(folder) / "fresh" / "nested suite"
             self.invoke(folder, ["--suite", suite, "--local-http-base", "http://127.0.0.1:1"])
             manifest = json.loads((suite / "run-manifest.json").read_text())
-            self.assertEqual(manifest["case_count"], 239)
+            self.assertEqual(manifest["case_count"], 292)
             self.assertEqual(manifest["public_function_count"], 121)
             self.assertEqual(manifest["covered_public_function_count"], 121)
-            self.assertEqual(manifest["worksheet_history_case_count"], 9)
+            history_cases = json.loads(Path(__file__).with_name("history_rowcount_cases.json").read_text())
+            worksheet_history_count = sum(case["id"].startswith("HistoryWorksheet_") for case in history_cases)
+            self.assertEqual(manifest["worksheet_history_case_count"], worksheet_history_count)
+            generated_cases = json.loads((suite / "test-cases.json").read_text())
+            generated_ids = {case["id"] for case in generated_cases}
+            inputs = {Path(item["file"]).name for item in manifest["case_inputs"]}
+            repair_cases = []
+            for name in ("history_default_cases.json", "option_quote1_cases.json"):
+                self.assertIn(name, inputs)
+                reviewed = json.loads(Path(__file__).with_name(name).read_text())
+                self.assertTrue({case["id"] for case in reviewed} <= generated_ids)
+                repair_cases.extend(reviewed)
+            self.assertEqual(len(repair_cases), 53)
+            history_steps = [step for case in history_cases + repair_cases for step in case.get("call_steps", [])]
+            self.assertTrue(any(".FormulaArray =" in step for case in repair_cases for step in case.get("call_steps", [])))
             self.assertTrue(manifest["full_function_coverage_required"])
             source = (suite / "modSMFFunctionSuite.bas").read_text()
             self.assertIn("Public Sub SMFRunFullSuite()", source)
             self.assertIn("Public Sub SMFTestStart(Optional", source)
-            self.assertIn("3.0.2024.07.30-mac.0.5-dev", source)
+            self.assertIn("3.0.2024.07.30-mac.0.6-dev", source)
             self.assertIn('control.Range("B3").Value2 = "BLOCKED_VERSION"', source)
             self.assertIn("ignoredHTTP = smfMacFetch(httpMarker)", source)
             self.assertIn('"HTTP reset marker", "HTTP case ID", "HTTP run ID", "HTTP observation"', source)
@@ -158,8 +172,8 @@ class GeneratorPathChecks(unittest.TestCase):
             resume = source.split("Public Sub SMFTestResume()", 1)[1].split("End Sub", 1)[0]
             self.assertLess(resume.index('"BLOCKED_INTERRUPTED"'), resume.index("ScheduleNext"))
             self.assertIn("no automatic retry", source)
-            self.assertEqual(source.count("historyCell.Formula2 = historyFormula"), 9)
-            self.assertEqual(source.count("historyCell.Calculate"), 9)
+            self.assertEqual(source.count("historyCell.Formula2 = historyFormula"), history_steps.count("historyCell.Formula2 = historyFormula"))
+            self.assertEqual(source.count("historyCell.Calculate"), history_steps.count("historyCell.Calculate"))
             self.assertLessEqual(max(map(len, source.splitlines())), 1023)
 
     def test_double_quote_output_paths_are_rejected_before_vba_is_generated(self):
@@ -240,9 +254,9 @@ class GeneratorPathChecks(unittest.TestCase):
 
     def test_generated_native_smoke_assertions_reject_version_suffix_and_path_matches(self):
         with tempfile.TemporaryDirectory(prefix="smf-generator-version-boundary-") as folder:
-            version = "3.0.2024.07.30-mac.0.5-dev"
+            version = "3.0.2024.07.30-mac.0.6-dev"
             prefix = "Stock Market Functions add-in, Version "
-            stale = prefix + "3.0.2024.07.30-mac.0.4-dev (/tmp/" + version + "; test)"
+            stale = prefix + "3.0.2024.07.30-mac.0.5-dev (/tmp/" + version + "; test)"
             suffixed = prefix + version + "-old (/tmp; test)"
             smoke = json.loads(Path(__file__).with_name("version_gate_cases.json").read_text())
             self.assertEqual(len(smoke), 1)

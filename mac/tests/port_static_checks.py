@@ -231,8 +231,10 @@ HISTORY_DECLARATION = (
     'Optional ByVal pCols As Integer = 0)'
 )
 HISTORY_LEGACY_SIGNATURE = normalized_signature(HISTORY_DECLARATION)
-HISTORY_MAC_SIGNATURE = normalized_signature(
-    HISTORY_DECLARATION.replace('pCols As Integer', 'pCols As Double', 1))
+HISTORY_MAC_DECLARATION = HISTORY_DECLARATION.replace(
+    'pCols As Integer', 'pCols As Double', 1).replace(
+    'pItems As String = "dohlcvufgxs"', 'pItems As String = "dohlcvu"', 1)
+HISTORY_MAC_SIGNATURE = normalized_signature(HISTORY_MAC_DECLARATION)
 HISTORY_MODULE = 'code/smfGetYahooHistory_.bas'
 HISTORY_NAME = 'function smfgetyahoohistory'
 
@@ -241,8 +243,8 @@ def public_signature_matches(relative: str, name: str, before: str, after: str,
                              constants: dict[str, int]) -> bool:
     if before == after:
         return True
-    # Only this exact Mac declaration may change one type. Names, defaults,
-    # argument order, ByVal modes, pRows, and the return declaration stay strict.
+    # Only this exact Mac declaration may change pCols to Double and the price
+    # field default to dohlcvu. Every other type/default and Windows stay strict.
     return (relative == HISTORY_MODULE and name == HISTORY_NAME
             and constants.get('mac', 0) != 0
             and before == HISTORY_LEGACY_SIGNATURE
@@ -260,7 +262,25 @@ def history_signature_problems(source: str) -> list[str]:
             expected = HISTORY_MAC_SIGNATURE if mac_value else HISTORY_LEGACY_SIGNATURE
             if HISTORY_NAME not in current or current[HISTORY_NAME][1] != expected:
                 problems.append(f'Mac={mac_value} Win64={win64}: '
-                                'history declaration changed beyond the platform pCols type')
+                                'history declaration changed beyond the Mac pCols/default allowance')
+    return problems
+
+
+def history_empty_default_problems(source: str) -> list[str]:
+    """Check the empty-field fallback independently of the argument default."""
+    problems = []
+    for mac_value in (0, 1, -1):
+        expected = 'dohlcvu' if mac_value else 'dohlcva'
+        constants = {'mac': mac_value, 'vba7': -1, 'win64': 0, 'win32': 0}
+        matches = []
+        for number, line in active_lines(source, constants):
+            match = re.fullmatch(
+                r'\s*If\s+pItems\s*=\s*""\s+Then\s+pItems\s*=\s*"([^"\r\n]*)"\s*',
+                without_comment(line), re.I)
+            if match:
+                matches.append((number, match[1]))
+        if len(matches) != 1 or matches[0][1] != expected:
+            problems.append(f'Mac={mac_value}: empty pItems must use {expected!r} exactly once')
     return problems
 
 
@@ -388,12 +408,20 @@ def self_tests() -> int:
          HISTORY_MAC_SIGNATURE.replace('pstartdate', 'pbegin'), 1, False),
         (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
          HISTORY_MAC_SIGNATURE + 'asvariant', 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('"dohlcvu"', '"dohlcvufgxs"'), 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('"dohlcvu"', '"dohlcva"'), 1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_MAC_SIGNATURE.replace('"dohlcvu"', '"dohlcvu "'), -1, False),
+        (HISTORY_MODULE, HISTORY_NAME, HISTORY_LEGACY_SIGNATURE,
+         HISTORY_LEGACY_SIGNATURE.replace('"dohlcvufgxs"', '"dohlcvu"'), 0, False),
     ]
     for relative, name, before, after, mac_value, expected in signature_fixtures:
         if public_signature_matches(relative, name, before, after, {'mac': mac_value}) != expected:
             raise AssertionError(f'History signature allowance fixture failed: {relative} {after}')
     history_fixture = ('#If Mac Then\n'
-                       + HISTORY_DECLARATION.replace('pCols As Integer', 'pCols As Double', 1)
+                       + HISTORY_MAC_DECLARATION
                        + '\n#Else\n' + HISTORY_DECLARATION + '\n#End If')
     if history_signature_problems(history_fixture):
         raise AssertionError('Valid Mac/Windows history declarations were rejected')
@@ -403,12 +431,30 @@ def self_tests() -> int:
         history_fixture.replace('pRows As Integer', 'pRows As Long'),
         history_fixture.replace('pCols As Double = 0', 'pCols As Double = 1', 1),
         history_fixture.replace('pStartDate', 'pBegin'),
+        history_fixture.replace('"dohlcvu"', '"dohlcvufgxs"', 1),
+        history_fixture.replace('"dohlcvu"', '"dohlcva"', 1),
+        history_fixture.replace('"dohlcvufgxs"', '"dohlcvu"', 1),
     ]
     for source in history_mutations:
         if not history_signature_problems(source):
             raise AssertionError('Changed history declaration was accepted')
+    fallback_fixture = ('#If Mac Then\n'
+                        'If pItems = "" Then pItems = "dohlcvu"\n'
+                        '#Else\nIf pItems = "" Then pItems = "dohlcva"\n#End If')
+    fallback_fixtures = [
+        (fallback_fixture, False),
+        (fallback_fixture.replace('"dohlcvu"', '"dohlcva"'), True),
+        (fallback_fixture.replace('"dohlcva"', '"dohlcvu"'), True),
+        (fallback_fixture.replace('"dohlcvu"', '"dohlcvu "'), True),
+        (fallback_fixture + '\nIf pItems = "" Then pItems = "dohlcvu"', True),
+        ('If pItems = "" Then pItems = "dohlcvu"', True),
+    ]
+    for source, expected in fallback_fixtures:
+        if bool(history_empty_default_problems(source)) != expected:
+            raise AssertionError('History empty-field fallback platform check failed')
     return (len(cases) + 14 + len(parameter_fixtures)
-            + len(signature_fixtures) + 1 + len(history_mutations))
+            + len(signature_fixtures) + 1 + len(history_mutations)
+            + len(fallback_fixtures))
 
 
 def mac_configurations():
@@ -494,6 +540,8 @@ def check(root: Path, baseline: str | None) -> int:
         try:
             failures.extend(f'{HISTORY_MODULE}: {problem}' for problem in
                             history_signature_problems(history_path.read_text(encoding='utf-8')))
+            failures.extend(f'{HISTORY_MODULE}: {problem}' for problem in
+                            history_empty_default_problems(history_path.read_text(encoding='utf-8')))
         except ValueError as error:
             failures.append(f'{HISTORY_MODULE}: {error}')
     for path in files:
@@ -543,7 +591,7 @@ def check(root: Path, baseline: str | None) -> int:
     print(f"Signature baseline: upstream {original['upstream_commit']} "
           f"({'local Git' if baseline is not None else 'bundled JSON; no Git required'}).")
     print("No selected Windows dependencies, MacScript calls, or duplicate public procedures found in active Mac code.")
-    print('History declaration checked: Mac pCols Double; Windows pCols Integer; all other arguments/defaults unchanged.')
+    print('History checked: Mac pCols Double and default/empty pItems dohlcvu; Windows signature and empty pItems dohlcva unchanged.')
     print("STATIC CHECK ONLY: VBA compilation, Excel calculation, and network access were not executed.")
     return 0
 

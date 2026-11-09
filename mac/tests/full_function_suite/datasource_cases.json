@@ -872,9 +872,9 @@
           "sLog = liveOptionsOldLog",
           "vError = liveOptionsOldError"
         ],
-        "domain": "finance.yahoo.com",
+        "domain": "query1.finance.yahoo.com",
         "probe_urls": [
-          "https://finance.yahoo.com/quote/AAPL261120C00350000"
+          "https://query1.finance.yahoo.com/v10/finance/quoteSummary/AAPL261120C00350000?modules=summaryDetail"
         ],
         "underlying": "AAPL",
         "expiration": "2026-11-20",

@@ -3,7 +3,7 @@
     "id": "StrictVersionGate_Smoke",
     "function": "RCHGetElementNumber",
     "group": "strict_version_gate",
-    "description": "Verify the actual 0.5 version and exact-token rejection boundaries in the generated private gate helper.",
+    "description": "Verify the actual 0.6 version and exact-token rejection boundaries in the generated private gate helper.",
     "declarations": [
       "Dim versionGateOK As Boolean"
     ],
@@ -12,15 +12,15 @@
     "object_result": false,
     "check_setup": [
       "versionGateOK = (SuiteVersionToken(CStr(result)) = ExpectedSMFVersion)",
-      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.5-dev-old (/tmp; test)\") <> ExpectedSMFVersion)",
-      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.4-dev (/tmp/3.0.2024.07.30-mac.0.5-dev; test)\") <> ExpectedSMFVersion)",
-      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Wrong prefix 3.0.2024.07.30-mac.0.5-dev (/tmp)\") = \"\")",
-      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.5-dev\") = \"\")",
+      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.6-dev-old (/tmp; test)\") <> ExpectedSMFVersion)",
+      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.5-dev (/tmp/3.0.2024.07.30-mac.0.6-dev; test)\") <> ExpectedSMFVersion)",
+      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Wrong prefix 3.0.2024.07.30-mac.0.6-dev (/tmp)\") = \"\")",
+      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.6-dev\") = \"\")",
       "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version  (/tmp)\") = \"\")",
-      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.5-dev (/tmp/folder (nested); test)\") = ExpectedSMFVersion)"
+      "versionGateOK = versionGateOK And (SuiteVersionToken(\"Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.6-dev (/tmp/folder (nested); test)\") = ExpectedSMFVersion)"
     ],
     "check": "versionGateOK",
-    "expected_text": "Actual 0.5 token matches; suffix, path-only expected text, wrong prefix, missing delimiter and empty token rejected; first delimiter used.",
+    "expected_text": "Actual 0.6 token matches; suffix, path-only expected text, wrong prefix, missing delimiter and empty token rejected; first delimiter used.",
     "cleanup": [],
     "network": false,
     "test_mode": "local_core",

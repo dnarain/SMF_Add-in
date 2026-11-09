@@ -224,11 +224,11 @@ class InterpretationTests(unittest.TestCase):
         self.assertTrue(report['summary']['evidence_errors'])
 
     def test_version_gate_requires_exact_full_version_before_path(self):
-        expected='3.0.2024.07.30-mac.0.5-dev'
+        expected='3.0.2024.07.30-mac.0.6-dev'
         prefix='Stock Market Functions add-in, Version '
         self.assertTrue(version_matches(expected,prefix+expected+' (/fixture)'))
         invalid=[prefix+expected+'-old (/fixture)',
-                 prefix+'3.0.2024.07.30-mac.0.4-dev (/path/'+expected+')',
+                 prefix+'3.0.2024.07.30-mac.0.5-dev (/path/'+expected+')',
                  prefix+expected,expected+' (/fixture)',
                  'Wrong prefix '+expected+' (/fixture)']
         for actual in invalid:

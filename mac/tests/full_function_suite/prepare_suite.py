@@ -21,11 +21,11 @@ import uuid
 import zipfile
 import zlib
 
-EXPECTED_VERSION = '3.0.2024.07.30-mac.0.5-dev'
+EXPECTED_VERSION = '3.0.2024.07.30-mac.0.6-dev'
 CASE_FILES = (
     'json_and_utils_cases.json', 'root_cases.json', 'provider_cases.json',
     'options_cases.json', 'repair_cases.json', 'mac_picture_cases.json',
-    'derived_history_cases.json', 'history_rowcount_cases.json',
+    'derived_history_cases.json', 'history_rowcount_cases.json', 'history_default_cases.json', 'option_quote1_cases.json',
 )
 SOURCE_FILES = ('datasource_cases.json', 'datasource_extraction_cases.json',
                 'datasource_inventory_meta.json')
@@ -167,7 +167,7 @@ def derive_workbook(source: Path, target: Path):
 def prepare(root: Path, suite: Path):
     root, suite = root.resolve(), suite.resolve()
     base = root / 'mac/tests/full_function_suite'
-    bundle = root / 'mac/built/0.5-dev'
+    bundle = root / 'mac/built/0.6-dev'
     source = bundle / 'SMF-Mac.xlam'
     required = [source, bundle / 'BUILD-INFO.json', bundle / 'SHA256SUMS',
                 bundle / 'SMFMac.applescript', bundle / 'install_helper.command',
@@ -210,8 +210,8 @@ def prepare(root: Path, suite: Path):
         raise ValueError('Expected eight distinct tracked provider fragments')
     cases, case_inputs = load_cases(base)
     audit = fixture_audit(cases)
-    if len(cases) != 239:
-        raise ValueError('Expected 239 reviewed cases; found ' + str(len(cases)))
+    if len(cases) != 292:
+        raise ValueError('Expected 292 reviewed cases; found ' + str(len(cases)))
     suite.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.' + suite.name + '.prepare-', dir=suite.parent) as temporary:
         work = Path(temporary) / 'run'
@@ -251,7 +251,7 @@ def prepare(root: Path, suite: Path):
         fixture_files = [{'path': str(path.relative_to(work)), 'bytes': path.stat().st_size,
                           'sha256': sha256(path.read_bytes())}
                          for path in sorted(fixtures.rglob('*')) if path.is_file()]
-        run_id = 'smf-0.5-' + uuid.uuid4().hex
+        run_id = 'smf-0.6-' + uuid.uuid4().hex
         commands = {
             'start_server': ['python3', str(base / 'fixture_server.py'), '--root', str(suite / 'fixtures'),
                              '--output', str(suite / 'server-config.json')],
@@ -262,7 +262,7 @@ def prepare(root: Path, suite: Path):
         }
         record = {'schema_version': 1, 'run_id': run_id,
                   'prepared_utc': datetime.now(timezone.utc).isoformat(),
-                  'suite': str(suite), 'repository': str(root), 'expected_version': 'mac.0.5-dev',
+                  'suite': str(suite), 'repository': str(root), 'expected_version': 'mac.0.6-dev',
                   'expected_full_version': EXPECTED_VERSION, 'source_commit': build.get('source_commit'),
                   'source_workbook': str(source), 'workbook': str(suite / workbook_name), **hashes,
                   'workbook_sha256_before_excel': sha256((work / workbook_name).read_bytes()),

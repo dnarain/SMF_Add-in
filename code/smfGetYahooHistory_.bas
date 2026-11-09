@@ -8,7 +8,7 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
                    Optional ByVal pStartDate As Variant = "", _
                    Optional ByVal pEndDate As Variant = "", _
                    Optional ByVal pPeriod As String = "d", _
-                   Optional ByVal pItems As String = "dohlcvufgxs", _
+                   Optional ByVal pItems As String = "dohlcvu", _
                    Optional ByVal pNames As Integer = 1, _
                    Optional ByVal pResort As Integer = 0, _
                    Optional ByVal pRows As Integer = 0, _
@@ -73,7 +73,11 @@ Function smfGetYahooHistory(ByVal pTicker As String, _
     
     '------------------> Set defaults, if necessary
     If pPeriod = "" Then pPeriod = "d"
+#If Mac Then
+    If pItems = "" Then pItems = "dohlcvu"
+#Else
     If pItems = "" Then pItems = "dohlcva"
+#End If
     
     '------------------> Null Return Item
     If pTicker = "None" Or pTicker = "" Then

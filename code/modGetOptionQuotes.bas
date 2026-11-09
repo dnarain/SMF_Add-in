@@ -1437,6 +1437,11 @@ Public Function smfGetYahooOptionQuote1(ByVal pTicker As Variant, _
                                        ByVal pExpiry As Variant, _
                                        ByVal pStrike As Variant, _
                                        ByVal pItem As Variant)
+#If Mac Then
+    ' Keep this compatibility entry on Yahoo; the newer function uses Yahoo JSON.
+    ' Its raw percent is already a fraction; its expiration uses Yahoo formatted text.
+    smfGetYahooOptionQuote1 = smfGetYahooOptionQuote(pTicker, pPutCall, pExpiry, pStrike, pItem)
+#Else
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quote from Yahoo
@@ -1518,6 +1523,7 @@ Public Function smfGetYahooOptionQuote1(ByVal pTicker As Variant, _
 ErrorExit:
     smfGetYahooOptionQuote1 = "Error"
 
+#End If
     End Function
 Public Function smfGetYahooOptionQuote2(ByVal pTicker As Variant, _
                                        ByVal pPutCall As Variant, _

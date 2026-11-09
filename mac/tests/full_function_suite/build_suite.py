@@ -18,11 +18,11 @@ REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "mac/tests"))
 from port_static_checks import active_lines, logical_lines, DECLARATION
 BASE = Path(__file__).resolve().parent
-EXPECTED_VERSION = "3.0.2024.07.30-mac.0.5-dev"
+EXPECTED_VERSION = "3.0.2024.07.30-mac.0.6-dev"
 DEFAULT_CASE_FILES = (
     "json_and_utils_cases.json", "root_cases.json", "provider_cases.json", "options_cases.json",
     "repair_cases.json", "mac_picture_cases.json", "derived_history_cases.json",
-    "history_rowcount_cases.json",
+    "history_rowcount_cases.json", "history_default_cases.json", "option_quote1_cases.json",
 )
 
 
@@ -557,7 +557,7 @@ def main():
                   and re.search(r"\b(?:CDbl|CLng|CInt|CDate|CStr)\s*\(", c["check"], re.I)]
         metadata = {
             "schema_version": 1,
-            "run_id": args.run_id or "smf-0.5-" + now.strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:10],
+            "run_id": args.run_id or "smf-0.6-" + now.strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:10],
             "generated_utc": now.isoformat(), "source_root": str(REPO), "suite_dir": str(suite),
             "expected_smf_version": args.expected_version, "local_http_base": base_url,
             "server_config": str(config_path) if config_path else None,

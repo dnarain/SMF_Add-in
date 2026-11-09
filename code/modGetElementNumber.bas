@@ -1,6 +1,6 @@
 Attribute VB_Name = "modGetElementNumber"
 #If Mac Then
-Const kVersion = "3.0.2024.07.30-mac.0.5-dev"       ' Mac worksheet history column argument fix in development
+Const kVersion = "3.0.2024.07.30-mac.0.6-dev"       ' Mac history defaults and Yahoo option compatibility repair
 #Else
 Const kVersion = "3.0.2024.07.30"                   ' Upstream Windows version
 #End If
