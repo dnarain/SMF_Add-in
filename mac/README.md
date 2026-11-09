@@ -11,15 +11,20 @@ All 25 regression/offline cases, 13 live data cases and 14 image/chart cases pas
 Seven additional [derived-history cases](tests/full_function_suite/derived_history_cases.json) passed against cached AAPL observations without HTTP requests.
 The two batches contain 66 cases: 59 PASS and seven provider CHECK_FAILED results.
 The [seven external provider fields](DATA-PICTURE-REPAIRS-20261108.md#seven-fields-still-blocked-or-unavailable) remain blocked or unavailable.
-The last verified `0.3-dev` add-in is preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
+The previous `0.3-dev` add-in is preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 The isolated workbook passed the 50 nested-recipe, 12 history-conversion and 25 captured-provider checks.
-The `0.4-dev` add-in save failed with Excel error `1004` for file permission.
-The zero-byte failed output is archived as `mac/out/SMF-Mac-0.4-dev-save-failed.xlam`. Do not load that file.
-The complete 15-file `0.3-dev` package has been restored to `mac/out`.
-`mac/out/SMF-Mac.xlam` is again the verified 634,949-byte `0.3-dev` file, with SHA-256 `0950924e9856f6f1b6a7361adb55f3c166d5ac2e9a55b13102a89aee630fe2b8`.
-The restored add-in remains unloaded. Excel remains in manual calculation mode, with the clean repair workbook open.
-The Mac locked before calculation and add-in loading could be restored.
-Mac unlock, file-access approval and the `0.4-dev` add-in build/loading checks remain pending.
+Excel built and loaded the valid `0.4-dev` file at `mac/out/SMF-Mac.xlam`.
+It is 713,180 bytes, with SHA-256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
+The file has the correct Excel add-in content type. Its 51 core modules match the passed 66-case snapshot.
+It contains no active diagnostic test modules, and its 14 adjacent definition files match `docs/Elements/` byte for byte.
+The add-in checkbox is enabled, and the source repair workbook is closed.
+Excel uses automatic calculation, the status bar is reset, and VBA project access is OFF.
+After registration, a full Excel quit and relaunch loaded `0.4-dev` automatically without an alert.
+The reopened [data and picture check workbook](out/SMF-Mac-Data-Picture-Checks-20261108.xlsx) returned all 11 PASS results.
+The StockCharts picture and native three-point chart remained visible.
+These worksheet checks overlap the earlier cases and do not increase the 66-case total.
+Worksheet calls with explicit positive `pRows` still return `#VALUE!`.
+The native macro history cases with explicit row counts passed.
 
 The previously verified `0.3-dev` build made the following changes.
 It adds direct table-cell recipe calls after an IBD lookup crashed Excel during the broader provider tests.
@@ -86,6 +91,9 @@ The 40 table-parser checks, 17 guard checks, 20 tag checks, and 25 integration c
 Save and load an `.xlam` only after the workbook checks pass.
 The optional builder save path is `mac/out/SMF-Mac.xlam`.
 The builder does not create the output folder or copy element files.
+The confirmed manual save used a fresh POSIX path in Excel's private cache, then `SaveCopyAs` to a previously absent output file.
+Earlier HFS-path and existing-target attempts returned error `1004`. The cause of those failures remains undetermined.
+The user authorized file access, and `GrantAccessToMultipleFiles` returned `True` before the successful save.
 
 ## Source changes
 
@@ -172,11 +180,23 @@ The installation checks are:
 =RCHGetElementNumber("AAPL",4074)
 ```
 
-The last verified local add-in returns `mac.0.3-dev` as part of its version.
-A new source build must return its recorded source version; the `0.4-dev` add-in build remains pending.
+The loaded local add-in returns `mac.0.4-dev` as part of its version.
+A new source build must return its recorded source version.
 The HTML check must return `42`.
 Fields 4072 and 4074 request the Finviz earnings date and price.
 Loading the add-in and retrieving live data are separate checks.
+
+The checked history formulas returned close, volume and date data when `pRows` was omitted or zero.
+This close-price example omits the row and column overrides:
+
+```excel
+=INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0),1,1)
+```
+
+An explicit positive `pRows` still causes `#VALUE!` in worksheet calls after a fresh Excel launch.
+An invalid-period control also returned `#VALUE!` before HTTP retrieval.
+The native macro history cases with explicit row counts passed. The cause remains undetermined.
+The exact controls remain in the local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx).
 
 The last-request diagnostics are `SMFMacHTTPStatus()`, `SMFMacLastError()`, and `SMFMacLastURL()`.
 `SMFMacLastFileError()` reports the last element-file read error.
@@ -249,7 +269,10 @@ The clean packaging copy excludes diagnostic modules.
 ```
 
 The expected results are `6`, `55`, `PASS: 84 JSON checks`, `40`, `17`, `20`, `25`, `50`, `12`, and `5`.
-The last three groups passed in the isolated `0.4-dev` test workbook. Final add-in verification remains pending.
+The last three groups passed in the isolated `0.4-dev` test workbook.
+The loaded add-in's core modules match that workbook.
+The saved worksheet's 11 overlapping checks passed again after a clean Excel restart and workbook reopen.
+The explicit positive-row-count worksheet limitation remains unresolved.
 The tests do not establish correct results for every provider or recipe.
 
 The full-function developer scripts require local run metadata, retained evidence and explicit file paths.

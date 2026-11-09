@@ -5,8 +5,9 @@ This record describes checks on November 7 and 8, 2026.
 ## Current state: November 8, 2026 — data and picture repairs
 
 The source version is `3.0.2024.07.30-mac.0.4-dev`.
-The last verified add-in remains the `0.3-dev` binary described below.
-The `0.4-dev` add-in has not been built or loaded yet.
+Excel saved and loaded the `0.4-dev` add-in at `out/SMF-Mac.xlam`.
+The file contains 713,180 bytes with SHA256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
+Excel loaded this add-in automatically after a clean quit and restart.
 
 The dedicated native repair workbook completed all 59 selected cases without an observed Excel exit.
 It recorded 52 passes and seven failed provider data checks.
@@ -28,20 +29,40 @@ It contains 987,635 bytes with SHA256 `224c8a29de15dd0caa36d2daecab7f094627d9099
 The agent removed five test modules and eight test worksheets from the separate add-in copy.
 That copy contains one blank worksheet and no live worksheet formulas.
 
-Excel refused the add-in SaveAs with error `1004` about write permission.
+Excel first refused the add-in SaveAs with error `1004` about write permission.
 The incomplete zero-byte output remains at `out/SMF-Mac-0.4-dev-save-failed.xlam` and must not be loaded.
-The agent restored the verified `0.3-dev` binary and its matching 14 element files to `out/`.
-The restored `out/SMF-Mac.xlam` has the `0.3-dev` size and SHA256 recorded below.
+The user explicitly approved persistent access to `out/SMF-Mac.xlam`.
+Excel returned `True` from `GrantAccessToMultipleFiles` for that file.
+Excel then saved a fresh add-in in its own cache with a POSIX path.
+`SaveCopyAs` succeeded after the agent moved the previous output file to a backup.
+These results do not establish the cause of the earlier save errors.
+
+The saved add-in contains all 51 core components and no active diagnostic test modules.
+All 51 decompressed VBA sources match the passed 66-case workbook.
+All 14 adjacent definition files match `docs/Elements`.
+The agent closed the source workbook before the separate worksheet checks.
 The previous add-in remains at `out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 Its matching element files and a second binary copy remain in `out/rollback-0.3-dev-before-data-picture-20261108/`.
-No `0.4-dev` add-in load is claimed.
-The Mac locked before the agent could reload the previous add-in and restore automatic calculation.
-The add-in remains unloaded and Excel calculation remains manual.
-Automatic approval rejected `GrantAccessToMultipleFiles` for the output file because the user had not explicitly approved persistent file access.
-The exact file-access request and Mac unlock request remain pending.
-VBA project access remained OFF throughout these repair checks.
 
-See [the repair notes](DATA-PICTURE-REPAIRS-20261108.md) for the fixes and remaining native checks.
+Excel first showed a file-format alert on restart, but the saved add-in opened directly.
+The Add-ins list then lacked an SMF entry.
+The agent registered the exact output file again through **Browse**.
+After a clean quit and restart, Excel loaded the add-in without that alert.
+Excel calculation is **Automatic**, and VBA project access remains OFF.
+
+The separate workbook `out/SMF-Mac-Data-Picture-Checks-20261108.xlsx` contains 11 passing worksheet checks.
+The StockCharts picture and the native numeric chart both reappeared after a clean Excel restart and workbook reopen.
+The workbook contains one embedded PNG, one native chart, and no saved error cells.
+These checks overlap the 66 earlier cases and do not establish that every SMF function works.
+
+One worksheet limitation remains in `smfGetYahooHistory`.
+A positive explicit `pRows` returns `#VALUE!`, including an invalid-period case that does not request data.
+The native macro history cases with explicit row counts passed.
+Worksheet calls with omitted row and column counts return the expected values.
+The exact probes remain in `diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx`.
+The cause remains unproved.
+
+See [the repair notes](DATA-PICTURE-REPAIRS-20261108.md) for the fixes and remaining limitations.
 The records below preserve earlier checkpoints.
 
 ## Earlier November 8 checkpoint: table-cell fix

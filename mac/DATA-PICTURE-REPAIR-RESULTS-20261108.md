@@ -1,7 +1,8 @@
 # Data and picture repair results — November 8, 2026
 
 This report records the saved test-workbook results for the `0.4-dev` source changes.
-Add-in build and loading results require separate evidence.
+The later add-in build, restart and saved-worksheet checks are recorded below.
+The following tables retain the original 59-case results.
 
 The selected run contains 59 cases. The harness recorded final statuses for 59.
 52 cases passed. 0 cases remain unfinished.
@@ -114,6 +115,39 @@ An observed PASS can establish a successful request for that case. It does not e
 | `MacComment_numeric_tiny_positive` | PASS | Chart result with one local numeric series containing exactly 1,98. | String: Chart; length=5; Mac Shape.Type=3; Visible=-1; Metadata=SMFCommentPicture/1 / J20 / SMF local numeric chart: 0.001,0.002; Series=1,98 |
 | `MacComment_numeric_tiny_constant` | PASS | Chart result with one local numeric series containing exactly 50,50. | String: Chart; length=5; Mac Shape.Type=3; Visible=-1; Metadata=SMFCommentPicture/1 / J20 / SMF local numeric chart: 0.005,0.005; Series=50,50 |
 | `MacComment_numeric_large_positive` | PASS | Chart result with one local numeric series containing exactly 1,98. | String: Chart; length=5; Mac Shape.Type=3; Visible=-1; Metadata=SMFCommentPicture/1 / J20 / SMF local numeric chart: 1000000000000,2000000000000; Series=1,98 |
+
+## Loaded add-in and saved worksheet
+
+Excel built and loaded `3.0.2024.07.30-mac.0.4-dev` from `mac/out/SMF-Mac.xlam`.
+The file is 713,180 bytes, with SHA-256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
+Its 51 core modules match the passed snapshot, and its 14 adjacent definition files match `docs/Elements/` byte for byte.
+
+The first restart reported a format error for the registered add-in. Opening the exact file succeeded.
+The agent registered that exact file again, quit Excel through its menu and relaunched it.
+Excel then loaded `0.4-dev` automatically without an alert. The cause of the first alert remains undetermined.
+The reopened [data and picture check workbook](out/SMF-Mac-Data-Picture-Checks-20261108.xlsx) returned all 11 PASS results.
+The StockCharts PNG and native three-point chart remained visible.
+The saved workbook contains one embedded PNG, one chart and no cached error cells.
+
+Seven separate [derived-history cases](tests/full_function_suite/derived_history_cases.json) also passed.
+The 59-case and seven-case batches contain 66 unique cases: 59 PASS and seven provider CHECK_FAILED results.
+The 11 worksheet checks overlap those cases and do not increase that total.
+The seven provider failures in the tables above remain unresolved.
+
+## Explicit worksheet row-count limitation
+
+The checked worksheet calls returned close (`C`), volume (`V`) and date (`D`) data with omitted or zero `pRows`.
+An invalid period returned a diagnostic with default row settings.
+An explicit positive `pRows` still returned `#VALUE!` after a fresh Excel launch.
+An invalid-period control also returned `#VALUE!` before HTTP retrieval.
+The native macro history cases with explicit row counts passed. The cause remains undetermined.
+The local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx) preserves the exact controls.
+
+This checked formula omits the row and column overrides:
+
+```excel
+=INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0),1,1)
+```
 
 ## Scope and evidence
 

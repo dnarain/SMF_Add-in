@@ -8,22 +8,32 @@ The four repaired fields passed live calls in the isolated native Excel workbook
 The [saved 59-case results](DATA-PICTURE-REPAIR-RESULTS-20261108.md) contain 52 passes and seven failed provider data checks.
 Seven additional [cached-history cases](tests/full_function_suite/derived_history_cases.json) passed.
 The two batches contain 66 cases: 59 PASS and seven provider CHECK_FAILED results.
-The `0.4-dev` add-in build remains pending after a file-permission save failure.
+Excel built and loaded the valid `0.4-dev` add-in.
+After a clean Excel restart and workbook reopen, all 11 overlapping worksheet checks passed.
+The explicit positive-`pRows` worksheet limitation remains unresolved.
 
 ## Current verification checkpoint
 
 The development source reports `3.0.2024.07.30-mac.0.4-dev`.
-The last verified `0.3-dev` add-in remains preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
+The previous `0.3-dev` add-in remains preserved at `mac/out/SMF-Mac-0.3-dev-before-data-picture-fix.xlam`.
 The agent imported eleven revised core modules into the isolated workbook across the repair and derived-history checks.
-The agent has not built or loaded a `0.4-dev` add-in.
-Excel returned error `1004` for file permission during the attempted add-in save.
-The zero-byte failed output is archived at `mac/out/SMF-Mac-0.4-dev-save-failed.xlam` and must not be loaded.
-The agent restored the complete 15-file `0.3-dev` package to `mac/out`.
-`mac/out/SMF-Mac.xlam` is the restored 634,949-byte `0.3-dev` file, with SHA-256 `0950924e9856f6f1b6a7361adb55f3c166d5ac2e9a55b13102a89aee630fe2b8`.
-The restored add-in remains unloaded. Excel remains in manual calculation mode, and the clean repair workbook remains open.
-The Mac locked before calculation and add-in loading could be restored.
-The agent prepared `GrantAccessToMultipleFiles` in the Immediate window, but automatic approval review rejected execution.
-That permission call did not run. Explicit file-access approval and Mac unlock remain pending.
+`mac/out/SMF-Mac.xlam` is the valid 713,180-byte `0.4-dev` file, with SHA-256 `ad7cf4d0a79dea7b28a57f0deb6945118e172ecd5b57efb6adbd81d375cbc18e`.
+Its Excel add-in content type is correct, and all 51 core modules match the passed 66-case snapshot.
+It contains no active diagnostic test modules. The 14 adjacent definition files match `docs/Elements/` byte for byte.
+The user explicitly authorized file access, and `GrantAccessToMultipleFiles` returned `True`.
+Excel saved the add-in to a fresh POSIX path in its private cache, then copied it to a previously absent output file with `SaveCopyAs`.
+Earlier HFS-path and existing-target attempts returned error `1004`. The cause of those failures remains undetermined.
+The zero-byte failed output remains archived at `mac/out/SMF-Mac-0.4-dev-save-failed.xlam` and must not be loaded.
+The `SmfMac` add-in checkbox is enabled, and the source repair workbook is closed.
+`Application.Calculation` is automatic (`-4105`), `Application.StatusBar` is `False`, and VBA project access is OFF.
+The first Excel restart reported a format error for the registered add-in. Opening the exact `mac/out/SMF-Mac.xlam` file succeeded.
+The Add-ins list then had no SMF entry. The agent browsed to that exact file and enabled it again.
+The agent quit Excel through its menu and relaunched it. Excel loaded `0.4-dev` automatically without an alert.
+The cause of the first restart's alert remains undetermined.
+The reopened [data and picture check workbook](out/SMF-Mac-Data-Picture-Checks-20261108.xlsx) returned all 11 PASS results.
+The StockCharts PNG and native three-point chart remained visible.
+The saved workbook contains one embedded PNG, one chart and no cached error cells.
+The 11 worksheet checks overlap earlier cases and do not increase the 66-case total.
 The previous add-in and its element files remain in the 15-file `mac/out/rollback-0.3-dev-before-data-picture-20261108/` copy.
 The complete 66-case workbook snapshot remains saved separately.
 The agent removed five diagnostic modules and eight test worksheets from the packaging copy, leaving one blank `Sheet1`.
@@ -129,6 +139,18 @@ These seven cases cover the captured observations and explicit inputs. They do n
 `smfRSITargetPrices` remains unfixed. It still requests the obsolete Yahoo quote CSV service.
 Its history call inherits `pItems="dohlcvufgxs"`, which includes the unsupported `F` and `G` items.
 
+The checked worksheet history calls returned close (`C`), volume (`V`) and date (`D`) data with omitted or zero `pRows`.
+An invalid period returned a diagnostic with default row settings.
+Explicit positive `pRows` returned `#VALUE!` after a fresh Excel launch.
+An invalid-period control also returned `#VALUE!` before HTTP retrieval.
+The native macro history cases with explicit row counts passed. The cause remains undetermined.
+The exact controls are preserved in the local [worksheet probe workbook](diagnostics/out/SMF-Mac-Worksheet-Probes-20261108.xlsx).
+This worksheet example omits the row and column overrides:
+
+```excel
+=INDEX(smfGetYahooHistory("AAPL",DATE(2026,11,2),DATE(2026,11,7),"d","C",0),1,1)
+```
+
 ## Picture findings
 
 The operator recorded these earlier native Excel probes before adding the private image-cache path:
@@ -156,6 +178,7 @@ The standalone probes do not establish that every `RCHCreateComment` mode works.
 | Full selected repair run | 59 cases | Complete: 52 PASS, 7 CHECK_FAILED |
 | [Additional cached-history cases](tests/full_function_suite/derived_history_cases.json) | 7 cases | Complete: 7 PASS |
 | Combined two batches | 66 cases | Complete: 59 PASS, 7 CHECK_FAILED |
+| Saved worksheet checks after clean restart and reopen | 11 overlapping checks | Complete: 11 PASS; excluded from unique-case totals |
 
 These counts describe different test sets. The 23 repair cases include the nested and history self-tests and six live calls.
 The seven cached-history cases are separate from the 59-case report.
