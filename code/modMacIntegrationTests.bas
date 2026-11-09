@@ -15,7 +15,7 @@ Public Function SMFMacIntegrationSelfTest() As Long
     actual = smfGetTagContent(html, "TD", 1, ">Missing", " ", " ", " ", 1, "Missing", 0)
     If CStr(actual) <> "Missing" Then Err.Raise 5, , "Missing field became a numeric value"
 #If Mac Then
-    If SMFMacElementsSelfTest() <> 3 Then Err.Raise 5, , "Element text fixture failed"
+    If SMFMacElementsSelfTest() <> 19 Then Err.Raise 5, , "Element text fixture failed"
     recipeChecks = SMFMacRecipeSelfTest()
 #End If
     SMFMacIntegrationSelfTest = 5 + recipeChecks

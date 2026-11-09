@@ -19,7 +19,8 @@ import sys
 import xml.etree.ElementTree as ET
 import zipfile
 
-RAW_STATUSES = frozenset({"PASS", "CHECK_FAILED", "RUNTIME_ERROR", "SETUP_ERROR",
+RAW_STATUSES = frozenset({"PASS", "CHECK_FAILED", "RUNTIME_ERROR", "CALL_ERROR",
+                          "CHECK_ERROR", "HARNESS_ERROR", "SETUP_ERROR",
                           "ASSERTION_ERROR", "CLEANUP_ERROR", "PENDING", "RUNNING"})
 FIELDS = dict(zip("ABCDEFGHIJKLMNOPQRS", [
     "id", "function", "group", "description", "expected", "status", "seconds",

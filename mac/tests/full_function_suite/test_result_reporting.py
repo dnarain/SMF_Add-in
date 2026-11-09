@@ -38,6 +38,33 @@ def inline(address, value):
 
 
 class ReaderTests(unittest.TestCase):
+    def test_saved_call_check_and_harness_errors_keep_phase_evidence(self):
+        statuses = ('CALL_ERROR', 'CHECK_ERROR', 'HARNESS_ERROR', 'UNRECOGNIZED_STATUS')
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / 'saved.xlsm'
+            rows = []
+            specs = []
+            for row, status in enumerate(statuses, 2):
+                name = 'case' + str(row)
+                rows.append('<row r="' + str(row) + '">'
+                            + inline('A' + str(row), name) + inline('B' + str(row), 'FunctionOne')
+                            + inline('F' + str(row), status)
+                            + '<c r="H' + str(row) + '" t="e"><v>#VALUE!</v></c>'
+                            + inline('I' + str(row), '5: ' + name + ' [CALL]: saved phase evidence')
+                            + '<c r="R' + str(row) + '"><v>0</v></c>'
+                            + '<c r="S' + str(row) + '"><v>0</v></c></row>')
+                specs.append({'id': name, 'function': 'FunctionOne', 'network': False})
+            workbook(path, ''.join(rows))
+            native = read(path)
+            self.assertEqual([row['raw_status'] for row in native['results']], list(statuses))
+            self.assertEqual(native['results'][0]['actual'], '#VALUE!')
+            self.assertIn('[CALL]: saved phase evidence', native['results'][0]['error'])
+            self.assertEqual(native['results'][0]['xml_cell_types']['actual'], 'e')
+            self.assertEqual(len(native['diagnostics']), 1)
+            self.assertIn('UNRECOGNIZED_STATUS', native['diagnostics'][0])
+            report = build_report(native, specs, [{'function': 'FunctionOne', 'visibility': 'Public'}], [], {})
+            self.assertEqual([row['interpreted_status'] for row in report['cases'][:3]], ['CODE_FAILURE'] * 3)
+
     def test_saved_transport_counter_columns_are_read_without_moving_existing_fields(self):
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / 'saved.xlsm'
