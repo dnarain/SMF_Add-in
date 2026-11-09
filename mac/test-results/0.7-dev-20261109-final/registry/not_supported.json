@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "reviewed": "2026-11-09",
+  "platform": "Mac",
+  "status": "Not Supported",
+  "excel_error": "#N/A",
+  "scope": "Confirmed obsolete SMF functions and modes; exact legacy URL paths only. HTTP failures alone do not add entries.",
+  "entries": [
+    {
+      "id": "msn-options",
+      "functions": [
+        "smfGetMSNOptionQuote",
+        "smfGetOptionQuotes"
+      ],
+      "mode": "MSN option quotes",
+      "provider": "MSN",
+      "reason": "SMF marks the MSN option quote function obsolete.",
+      "replacement": "Use a supported option source; positive Yahoo bid/ask prices still need verification.",
+      "evidence": [
+        "code/modGetOptionQuotes.bas: MSN obsolete return dated 2014-12-23"
+      ],
+      "retired_date": "2014-12-23"
+    },
+    {
+      "id": "optionsxpress-options",
+      "functions": [
+        "smfGetOXOptionQuote",
+        "smfGetOX2OptionQuote",
+        "smfGetOX3OptionQuote",
+        "smfGetOptionQuotes",
+        "smfGetOptionExpirations",
+        "smfGetOptionStrikes"
+      ],
+      "mode": "OX, OX2, OX3 quotes; OX expirations/strikes",
+      "provider": "OptionsXpress",
+      "reason": "SMF records that optionsXpress is no longer a valid data source.",
+      "replacement": "Yahoo expiration/strike modes remain available; quote availability needs separate verification.",
+      "evidence": [
+        "code/modGetOptionQuotes.bas: optionsXpress retirement dated 2017-10-10",
+        "code/modGetOptionExpirations.bas: OX dispatch disabled",
+        "code/modGetOptionStrikes.bas: retirement comment"
+      ],
+      "retired_date": "2017-10-10"
+    },
+    {
+      "id": "yahoo-quote-csv",
+      "functions": [
+        "RCHGetYahooQuotes"
+      ],
+      "mode": "Ticker/quote-code mode with nonempty pItems",
+      "provider": "Yahoo legacy quote CSV",
+      "reason": "SMF explicitly marks the old ticker/quote-code CSV mode obsolete.",
+      "replacement": "Keep CSV-URL mode with empty pItems, or use the supported Yahoo JSON/history functions.",
+      "evidence": [
+        "code/modGetYahooQuotes.bas: obsolete-mode notice dated 2023-03-01",
+        "docs/Documentation/doc-links/RCHGetYahooQuotes-Function_files/RCHGetYahooQuotes-Function.htm"
+      ],
+      "retired_date": "2023-03-01"
+    },
+    {
+      "id": "yahoo-yql",
+      "functions": [
+        "smfYahooAPIData"
+      ],
+      "mode": "All YQL feeds A-F",
+      "provider": "Yahoo YQL",
+      "reason": "Yahoo retired query.yahooapis.com YQL on 2019-01-03, as recorded in the SMF change log.",
+      "replacement": "Use supported Yahoo JSON/history functions for the fields they provide.",
+      "evidence": [
+        "code/modYahooAPIData.bas: shutdown notice dated 2023-05-28",
+        "docs/Documentation/doc-links/Change-Log_files/Change-Log.htm: 2022-12-11 entry"
+      ],
+      "retired_date": "2019-01-03"
+    },
+    {
+      "id": "google-option-chain",
+      "functions": [
+        "smfGetGoogleOptionQuote",
+        "smfGetOptionQuotes",
+        "smfGetOptionExpirations",
+        "smfGetOptionStrikes"
+      ],
+      "mode": "G/GOOGLE legacy option chain",
+      "provider": "Google legacy option chain",
+      "reason": "The SMF option-strike manual explicitly labels the Google option source obsolete.",
+      "replacement": "Yahoo expiration/strike modes remain available; positive option prices need separate verification.",
+      "evidence": [
+        "docs/Documentation/doc-links/smfGetOptionStrikes-Function_files/smfGetOptionStrikes-Function.htm: obsolete 8/G/OX modes",
+        "docs/Documentation/doc-links/smfGetOptionExpirations_files/smfGetOptionExpirations.htm: Yahoo-only source note"
+      ],
+      "retired_date": ""
+    },
+    {
+      "id": "oic-legacy-options",
+      "functions": [
+        "smfGet888OptionQuote",
+        "smfGetOptionQuotes",
+        "smfGetOptionExpirations",
+        "smfGetOptionStrikes"
+      ],
+      "mode": "8/888 legacy oic_adv_options.j path",
+      "provider": "OIC legacy option chain",
+      "reason": "The SMF option-strike manual explicitly labels source 8 obsolete; these calls use that same legacy endpoint.",
+      "replacement": "Yahoo expiration/strike modes remain available; other iVolatility services are outside this guard.",
+      "evidence": [
+        "docs/Documentation/doc-links/smfGetOptionStrikes-Function_files/smfGetOptionStrikes-Function.htm: obsolete 8/G/OX modes",
+        "code/modGetOptionQuotes.bas: smfGet888OptionQuote legacy endpoint"
+      ],
+      "retired_date": ""
+    }
+  ],
+  "url_rules": [
+    {
+      "id": "msn-options",
+      "host": "investing.money.msn.com",
+      "path": "/investments/equity-options/"
+    },
+    {
+      "id": "msn-options",
+      "host": "investing.money.msn.com",
+      "path": "/investments/equity-options"
+    },
+    {
+      "id": "optionsxpress-options",
+      "host": "www.optionsxpress.com",
+      "path": "/OXNetTools/Chains/index.aspx"
+    },
+    {
+      "id": "optionsxpress-options",
+      "host": "optionsxpress.com",
+      "path": "/OXNetTools/Chains/index.aspx"
+    },
+    {
+      "id": "yahoo-quote-csv",
+      "host": "download.finance.yahoo.com",
+      "path": "/d/quotes.csv"
+    },
+    {
+      "id": "yahoo-yql",
+      "host": "query.yahooapis.com",
+      "path": "/v1/public/yql"
+    },
+    {
+      "id": "yahoo-yql",
+      "host": "query.yahooapis.com",
+      "path": "/v1/public/yql/"
+    },
+    {
+      "id": "google-option-chain",
+      "host": "www.google.com",
+      "path": "/finance/option_chain"
+    },
+    {
+      "id": "google-option-chain",
+      "host": "finance.google.com",
+      "path": "/finance/option_chain"
+    },
+    {
+      "id": "oic-legacy-options",
+      "host": "oic.ivolatility.com",
+      "path": "/oic_adv_options.j"
+    }
+  ],
+  "numbered_fields": {
+    "mode": "Effective loaded definition, after metadata selectors and before evaluation",
+    "unsupported_literals": [
+      "Obsolete",
+      "Obsolete -- Web site no longer exists"
+    ],
+    "excluded_literals": [
+      "Obsolete -- No data found",
+      "Obsolete -- No longer available?",
+      "Obsolete -- Now only available to premium subscribers"
+    ],
+    "custom_override": "Inspect the current loaded recipe; never block by a historical field ID.",
+    "definition_loading": "Default local definitions require no network. User-selected Internet initialization remains separate and can fetch definition files before the field is known.",
+    "id": "obsolete-definition"
+  }
+}

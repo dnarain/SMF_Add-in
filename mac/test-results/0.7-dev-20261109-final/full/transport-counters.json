@@ -1,0 +1,4844 @@
+[
+  {
+    "id": "ParseJson",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ConvertToJson",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ParseUtc",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ConvertToUtc",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ParseIso",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ConvertToIso",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "DecodeJsonString",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GetProperty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GetObjectProperty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GetKeys",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfJSONExtractField",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfJSONExtractField_x64",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfChkJSONFieldType",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfJSONExtractKeys",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacJSONSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHGetURLData1Mac",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfMacFetch",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetURLData1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetURLData2",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetURLData3",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetURLData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetURLData4",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfMacReadResponse",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacHTTPStatus",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacLastError",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacLastURL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfMacTryTagContentRecipe",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfMacReadElementText",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacLastFileError",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfMacReadElementLocation",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacTransportSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfMacStripHTML",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfMacHTMLSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacIntegrationSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacRecipeSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfLogInternetCalls",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfCDec",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetWebPage",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetAData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "fnWait",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfStrExtr",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfEval",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfEvaluateTwice",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfJoin",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfWord",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfStripHTML",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfDate2Unix",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfUnix2Date",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfUnix2DateStr",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfHTMLDecode",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfConvertData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfConvertYahooTicker",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfMacTryTableCellRecipe",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacTableRecipeSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacTableGuardSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHExtractData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetCSVFile",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetElementNumber",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetElementNumber_Price",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFMacElementsSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetAParms",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetAConstants",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetaFiles",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHGetHTMLTable",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetTableCell",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetTagContent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHGetWebData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHImageTable",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_EMA",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_ATR",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_CCI",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_MACD",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_OBV",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_ROC",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_RSI",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_ADL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "SMFTech_STO",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfInCellChart",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHCreateComment",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetADVFNElement",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetEconData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetGuruFocusData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetGuruFocusItem",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetGuruFocusCSVItem",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetMSNHistory",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetYahooHistory",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RCHGetYahooHistory2",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooJSONField",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetYahooJSONData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfBuildYahooTimeSeriesURL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RCHGetYahooQuotes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfYahooCodeDesc",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfYahooAPIData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "DateOfHigh",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "SMFHighBetween",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "SMFLowBetween",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfLastPrice",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetGoogleHistoryCSV",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetMorningstarHistoryCSV",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetYahooHistoryCSV",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooHistoryCSVData",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooHistory",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooPortfolioView",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfPricesBetween",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfPricesByDates",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfRSITargetPrices",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "smfGetOptionExpirations",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetOptionExpiry",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetOptionStrikes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetOptionQuotes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGet888OptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetBarChartOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetBigChartsOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetGoogleOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetNASDAQOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetMWOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetMSNOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetOXOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetOX2OptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetOX3OptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooOptionQuote1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "smfGetYahooOptionQuote2",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_SMFMacNestedRecipeSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_SMFMacHistoryCSVSelfTest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History_AAPL_Snapshot",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History2_AAPL_Snapshot",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History_AAPL_Ascending",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History2_AAPL_Ascending",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History_IBM_AdjustedAlias",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History2_AdjustmentRatio",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_RCHHistory_AAPL_Live",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Repair_History2_IBM_Live",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Repair_HistoryCSV_IBM_Live",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Repair_YahooQuotes_CSVMode_AAPL_Live",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Repair_HistoryCSVData_AAPL_Live",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Repair_History_ReversedDates_NoHTTP",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History_NullValues_CSV",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_OptionExpirations_FourRows",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Repair_RCH_LiteralEmpty_NoHTTP",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_History2_NoHeader_Bounded",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_NestedDispatcher_Direct",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_NestedDispatcher_RejectWhole",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_DownloadURL_AcceptYahoo",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_DownloadURL_RejectSpoof",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_DownloadCSV_AAPL_Snapshot",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_HTMLDecode_Entity150",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Repair_HTMLDecode_Entity160",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ImageComment_local_file",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_numeric_constant",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_numeric_nonpositive",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_toggle_visibility",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_text_only",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_clear_none",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_failed_update_clears_picture",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_numeric_tiny_positive",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_numeric_tiny_constant",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "MacComment_numeric_large_positive",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_DateOfHigh_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_HighBetween_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_LowBetween_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_LastPrice_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_PricesByDates_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_PricesBetween_ThroughLatest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Derived_PricesBetween_BeforeLatest",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_Rows5Cols1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_Rows5Cols2",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_Rows5Cols0",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_Rows0Cols0",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_Rows1Cols1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_NoneRows5Cols1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_ColsFractionBelowHalf",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_ColsRoundHalfEven",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryWorksheet_ColsStringZero",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Omitted",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Empty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Explicit",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Explicit_OtherOrder",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Explicit_DC",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_NoHeaders",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Ascending",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_BoundedRows",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_BoundedColumns",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Reject_F",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Reject_G",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Worksheet_Omitted",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Worksheet_Empty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Worksheet_ScalarCaller",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_ArrayCaller_Omitted",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_ArrayCaller_Empty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "HistoryDefault_Live_Omitted",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "HistoryDefault_Live_Empty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "HistoryDefault_Live_ArrayCaller_Omitted",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "HistoryDefault_Live_ArrayCaller_Empty",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Option1_Field_A",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_B",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_C",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_O",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_P",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_V",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_I",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_L",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_S",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_X",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_Z",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Field_Percent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Put_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Trimmed_Call_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Fractional_Strike",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Mini_Symbol",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Index_Root_Trimmed",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Invalid_PutCall",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Invalid_Expiry",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Empty_Expiry",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Invalid_Strike",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Invalid_Item",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Empty_Item",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Zero_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Zero_Percent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Null_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Absent_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Null_Percent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Option1_Live_Call_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Option1_Live_Call_Ask",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Option1_Live_Put_Bid",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Option1_Live_Percent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Option1_Live_Expiry",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RSITarget_Alternating",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_IntradayBarExcluded",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_FinalBarExcluded",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_WeekendQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ExchangeDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_NoCurrentBar",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_Only21Completed",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_UpOnly",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_DownOnly",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_Flat",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_FlatThenUp",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_FlatThenDown",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_BuyThresholdEquality",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_SellThresholdEquality",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_NonpositiveTarget",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_OrderedRepeatedItems",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_Headers",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_TickerHeaders",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_SymbolHeaders",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_None",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_EmptyTicker",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_UnknownItems",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_EmptyItems",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ItemArrayError",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ZeroLowTrigger",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_HundredHighTrigger",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ReversedTriggers",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_EqualTriggers",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_UnusedTriggers",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_InvalidTicker",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_DefaultMissingBidAsk",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ExplicitZeroBidAsk",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_AvailableBidAsk",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_MismatchedBidAsk",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_StaleBidAsk",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_NullBidAsk",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_OptionalBarFallback",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_PriceWithoutHistory",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_PreviousCloseOnly",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_MissingPrice",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ZeroPrice",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_TextPrice",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_MissingTime",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_MissingOffset",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_WrongSymbol",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ChartError",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_InsufficientHistory",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_NullClose",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ZeroClose",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_NegativeClose",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_TextClose",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_DuplicateDates",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ReversedDates",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_FutureBar",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_OlderNullIgnored",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_WorksheetDefault",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_WorksheetHeaders",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_LiveCore",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RSITarget_LiveWorksheetCore",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "RSITarget_CapturedAAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ParseOptionFalseSuccess",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ParseOptionFalseMalformed",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ParseOptionTrueSuccess",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "RSITarget_ParseOptionTrueMalformed",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Captured_Annual_Header",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Unprefixed_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Normal_Cache_TH_Conversion",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Nested_Tags_Entity_Whitespace",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Year_End_Label_Alias",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_January",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_February",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_March",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_April",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_May",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_June",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_July",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_August",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_September",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_October",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_November",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_English_December",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Explicit_Older_Latest_Date",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Invalid_February_Day",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Invalid_Month",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Missing_Year_End_Label",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Quarterly_Container_Only",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Header_Year_Mismatch",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Missing_Year_Columns",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Additional_Header_Filter_Matches",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Additional_Header_Filter_Missing",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Fetch_Type_Cache_Key",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Error_Value_Preserved",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Other_Annual_Metric_Unchanged",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Other_Quarterly_Metric_Unchanged",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Earlier_Cell_Not_Invented",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Invalid_Period_Unchanged",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Worksheet_Controlled",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ADVFNYearEnd_Live_Unprefixed_AAPL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "ADVFNYearEnd_Live_Exchange_Qualified",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "ADVFNYearEnd_Worksheet_Live_Exchange_Qualified",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "FREDAccess_DateVariant",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_SerialDouble",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_ISOString",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_LocaleDateText",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_ByRefDateNormalization",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_FiscalDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_LeapDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_Zero",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_Positive",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_NegativeDecimal",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_Exponent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_LargeInteger",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MissingDot",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_EmptyObservations",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_WrongDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_DuplicateRows",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_NullValue",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_NumericJSONValue",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_BadNumber",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_CommaDecimal",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_BlankValue",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_BadExponent",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_InfiniteValue",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_ErrorObject",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MissingCollection",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_HTMLResponse",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_TruncatedJSON",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_TrailingHTML",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_CustomNumericError",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_CustomExcelError",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_InvalidISO",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_InvalidLabel",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_EmptyDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_InvalidID",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_EmptyID",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataTitle",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataSeriesID",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataSeasonalAdjustment",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataFrequency",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataUnits",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataDateRange",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataLastUpdated",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataNotes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataColonCase",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_TableHeader",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_Release",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_Source",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataWrongSeries",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MissingMetadataField",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_NullMetadataField",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_NumericMetadataField",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_EmptyMetadataField",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_EmptyNotes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_InvalidMetadataDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_InvalidIDHeader",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_CacheHole",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_WorksheetDate",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_WorksheetMissing",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_WorksheetMetadata",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_LiveDGS10",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "FREDAccess_LiveDGS2Serial",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "FREDAccess_LiveDGS10Units",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "FREDAccess_LiveDGS10Source",
+    "raw_status": "PASS",
+    "fetch_call_delta": "2",
+    "fetchurl_bridge_delta": "2",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 2,
+    "transport_requests_measured": 2
+  },
+  {
+    "id": "FREDAccess_LiveWorksheetDGS10",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "FREDAccess_MetadataNotesLF",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDAccess_MetadataNotesCR",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Scheme_Underscore",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Scheme_MixedCase",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Scheme_Hyphen",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Scheme_EncodedUnderscore",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Scheme_EncodedLetters",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Scheme_Repeated",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Method_Underscore",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Method_MixedCase",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Method_EncodedHyphen",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_Underscore",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_MixedCase",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_EncodedLetters",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_Repeated",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_Fragment",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_QuotedJSON",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_QuotedAssignment",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "FREDKey_Status0_EncodedSeparators",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Worksheet_smfGetMSNOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Worksheet_smfGetOXOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Worksheet_smfGetOX2OptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Worksheet_smfGetOX3OptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_YahooCSVLegacy",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_YahooCSVRange",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_YahooYQLFeedF",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Expirations_OX",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Strikes_OX",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Expirations_G",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Strikes_G",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Expirations_8",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Strikes_8",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Wrapper_MSN",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Wrapper_OX3",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Wrapper_G",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_Wrapper_8",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_WrapperCodes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_WrapperMixedYahoo",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_RegistryUnknown",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_RegistryKnown",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URL_msn-options",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URL_optionsxpress-options",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URL_yahoo-quote-csv",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URL_yahoo-yql",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URL_google-option-chain",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URL_oic-legacy-options",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URLLookalike1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URLLookalike2",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URLLookalike3",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_ExtractorErrorString",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_ExtractorErrorNumber",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_AllowedCSVURL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "NotSupported_ActiveAlias_smfGetOptionExpirations_B",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_ActiveAlias_smfGetOptionExpirations_N",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_ActiveAlias_smfGetOptionStrikes_B",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_ActiveAlias_smfGetOptionStrikes_N",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_StatusRows",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_WorksheetWrapperNamed",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_WorksheetWrapperCodes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_PrimedRetiredPage",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_YahooCSVRetiredURL",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_FieldStateOverrides",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_All288DefaultFields",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_FieldWorksheetNA",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_FieldIFNA",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_UninitializedStatus",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_StatusWorkbook",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "NotSupported_URLAuthorityBoundaries",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GoogleHistory_None",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GoogleHistory_EmptyTicker",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GoogleHistory_InvalidStart",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GoogleHistory_InvalidEnd",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GoogleHistory_ReversedDates",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "GoogleHistory_EncodedWorksheetBounds",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "GoogleHistory_EncodedTicker",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "GoogleHistory_LeapOneDay",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "GoogleHistory_CSVLoopbackBounds",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "GoogleHistory_CSVLoopbackSlice",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "GoogleHistory_CSVLoopbackDenied",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "GoogleHistory_CSVLoopbackNoDataText",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_bigcharts_marketwatch_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetBigChartsOptionQuote",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_climbermel_github_io",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_core_api_barchart_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetBarChartOptionQuote",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_data_moneycentral_msn_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_download_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "LiveSource_dvd_netflix_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_finance_google_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetYahooOptionQuote1",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetYahooOptionQuote2",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_finviz_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_fred_stlouisfed_org",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_investing_money_msn_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_oic_ivolatility_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Live_smfGet888OptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "LiveSource_performance_morningstar_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_query_yahooapis_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "LiveSource_query1_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetOptionExpirations",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetOptionStrikes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetOptionQuotes",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetYahooOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_query2_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_quotes_freerealtime_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_research_investors_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_research_tdameritrade_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_advfn_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_barchart_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_etfinvestmentoutlook_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_etfscreen_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_google_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Live_smfGetGoogleOptionQuote",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "LiveSource_www_gurufocus_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_marketwatch_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetMWOptionQuote",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "4",
+    "fetchurl_bridge_delta": "4",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 4,
+    "transport_requests_measured": 4
+  },
+  {
+    "id": "LiveSource_www_nasdaq_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Live_smfGetNASDAQOptionQuote",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_reuters_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_stockscores_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "LiveSource_www_zacks_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_finviz_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_finance_google_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_query2_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_quotes_freerealtime_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_research_investors_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_research_tdameritrade_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_barchart_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_etfinvestmentoutlook_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_etfscreen_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_gurufocus_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_reuters_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_stockscores_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_zacks_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_investing_money_msn_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_dvd_netflix_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_core-api_barchart_com",
+    "raw_status": "CHECK_FAILED",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_www_advfn_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "Extract_query1_finance_yahoo_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  },
+  {
+    "id": "ImageComment_c_stockcharts_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ImageComment_stockcharts_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ImageComment_ogres-crypt_com",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "ImageComment_loopback",
+    "raw_status": "PASS",
+    "fetch_call_delta": "0",
+    "fetchurl_bridge_delta": "0",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 0,
+    "transport_requests_measured": 0
+  },
+  {
+    "id": "Live_smfGetOptionExpirations_50Rows",
+    "raw_status": "PASS",
+    "fetch_call_delta": "1",
+    "fetchurl_bridge_delta": "1",
+    "transport_counter_state": "recorded",
+    "transport_calls_measured": 1,
+    "transport_requests_measured": 1
+  }
+]

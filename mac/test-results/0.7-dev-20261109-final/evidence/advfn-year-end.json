@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "http_status": 200,
+  "request_url": "https://www.advfn.com/p.php?pid=financials&symbol=NASDAQ:AAPL",
+  "effective_url": "https://www.advfn.com/stock-market/NASDAQ/AAPL/financials",
+  "response_body_sha256": "1d7ce466f34b47c8183d41b88e8f094c93621225a0e3a9d0725b6405e76eccf0",
+  "response_body_bytes": 168151,
+  "response_body_file": "response.body",
+  "content_type": "text/html; charset=utf-8",
+  "redirect_count": 1,
+  "curl_exit": 0,
+  "request_started_at": "2026-11-09T20:55:42.777257+00:00",
+  "verified_at": "2026-11-09T20:55:43.974895+00:00",
+  "extracted_at": "2026-11-09T20:56:20.605757+00:00",
+  "verification_method": "Independent Python standard-library HTMLParser extraction of TH cells in THEAD; no SMF VBA parser or worksheet values were used. One public GET followed one redirect; no login, credentials, or API key were supplied.",
+  "year_end_cells": [
+    {
+      "cell_text": "Year End September 26 2026",
+      "tag": "th",
+      "in_thead": true,
+      "class": "number-field-small sticky-col first-col small",
+      "source_line": 1351,
+      "source_column_zero_based": 24,
+      "source_character_offset": 97680,
+      "proof_snippet": "<th class=\"number-field-small sticky-col first-col small\">Year End September 26 2026</th>"
+    },
+    {
+      "cell_text": "Year End September 26 2026",
+      "tag": "th",
+      "in_thead": true,
+      "class": "number-field-small sticky-col first-col small",
+      "source_line": 1499,
+      "source_column_zero_based": 24,
+      "source_character_offset": 108421,
+      "proof_snippet": "<th class=\"number-field-small sticky-col first-col small\">Year End September 26 2026</th>"
+    },
+    {
+      "cell_text": "Year End September 26 2026",
+      "tag": "th",
+      "in_thead": true,
+      "class": "number-field-small sticky-col first-col small",
+      "source_line": 1649,
+      "source_column_zero_based": 24,
+      "source_character_offset": 119011,
+      "proof_snippet": "<th class=\"number-field-small sticky-col first-col small\">Year End September 26 2026</th>"
+    }
+  ],
+  "year_end_date": "2026-09-26",
+  "year_end_cell_count": 3,
+  "all_extracted_year_end_cells_agree": true
+}

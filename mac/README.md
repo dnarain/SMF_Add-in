@@ -1,16 +1,71 @@
 # SMF native Mac development add-in
 
 To try the built add-in, download the [working branch](https://github.com/dnarain/SMF_Add-in/tree/dnarain/mac-native-support) with **Code > Download ZIP**.
-Unzip it and open [`mac/built/0.6-dev`](built/0.6-dev/README.md) for the add-in, three examples and installation instructions.
-Keep the bundle files together. The build is experimental. See the [final 0.6 results](test-results/0.6-dev-20261108-final/README.md) for current failures and limits.
+Unzip it and open [`mac/built/0.7-dev`](built/0.7-dev/README.md) for the add-in, three examples and installation instructions.
+Keep the bundle files together. The build is experimental. See the [0.7 results](test-results/0.7-dev-20261109-final/README.md) for failed checks and limits.
 
 This Mac port is experimental work in the [dnarain/SMF_Add-in fork](https://github.com/dnarain/SMF_Add-in).
 The working branch is `dnarain/mac-native-support`.
 There is no pull request for this Mac port. Further workbook and provider checks come first.
 
-## Current 0.6 experimental build
+## Current 0.7 experimental build
 
-The current source version is `3.0.2024.07.30-mac.0.6-dev`, from commit `1cbbd104dd5e6696df9030d2aa261cfc630a8995`.
+The source version is `3.0.2024.07.30-mac.0.7-dev`, from commit `e7d788b4f0871e94dbe6e13131ca8d9b7ff0eb8a`.
+All of my changes in this fork were vibe-coded with AI agents.
+The native checks used one Apple silicon Mac with desktop Excel. Real-world workbook use is still limited.
+Other Mac configurations and Windows runtime behavior remain unverified.
+
+The [full native report](test-results/0.7-dev-20261109-final/README.md) records **538 cases: 502 PASS and 36 CHECK_FAILED**.
+All 51 worksheet-entry cases passed. The separate focused run records **246 PASS**, including all 19 focused worksheet cases.
+The full suite covers selected calls across 121 public Functions and includes six auxiliary Sub checks outside that inventory.
+Some passing cases check controlled fixtures or expected errors. These counts do not establish every provider, field or financial value.
+The 36 failed checks remain visible in the report and [function reference](test-results/0.7-dev-20261109-final/full/FUNCTION-STATUS.md).
+
+The Mac changes include FRED's official API, selected RSI targets and ADVFN's latest annual year-end date.
+Yahoo history, option compatibility, embedded pictures and native numeric charts have selected passing cases.
+Google-history query values are encoded correctly, but the current endpoint returns Finance HTML instead of historical CSV.
+Its financial-data check remains CHECK_FAILED. The URL repair establishes no working Google historical feed.
+See [provider changes](../PROVIDER-CHANGES.md) for the actual old/new URLs, tested inputs and remaining limits.
+
+Confirmed retired modes return Excel `#N/A` with a **Not Supported** reason.
+The [status CSV](NotSupported.csv) records six retired source groups and 288 explicitly obsolete default field definitions.
+All 44 retired-guard cases passed. They establish expected guard behavior and zero text-fetch bridge attempts for those cases.
+Supported modes remain separate, and valid custom definitions can replace obsolete defaults.
+The **SMF: Source Status** command shows the currently loaded status rows in a filtered Excel table.
+
+The [0.7 bundle](built/0.7-dev/README.md) contains 24 files, including the add-in, three examples and 14 definition files.
+All 51 core VBA components were checked against the reviewed source, including the 14 changed modules.
+The package preserves the passed native VBA bytes. `BUILD-INFO.json` records source, test and example evidence.
+`SHA256SUMS` lists the other 23 file hashes. The [0.6 bundle](built/0.6-dev/README.md) remains unchanged.
+
+The native input files passed a cold Excel restart after the previous process was confirmed closed.
+The add-in was opened directly in the new process. Basic checks returned four expected values; history returned eight PASS and a genuine five-row, two-column array.
+The data/picture example returned 11 PASS and zero FAIL. Excel showed Ready and Automatic calculation.
+The StockCharts image and numeric plot remained visible with the chart cell unselected.
+The data example was saved, closed and reopened in the same process, with both plots still visible.
+
+The final sanitized package was opened from its new folder in native Excel. The add-in and all three examples opened without a repair prompt.
+The basic example returned four expected values. History returned eight PASS and a five-row, two-column result.
+The data/picture example returned 11 PASS and zero FAIL, with both plots visible while unselected and Excel showing Ready.
+These observations used manual add-in loading. Unattended startup registration remains unverified.
+Packaging consolidated duplicate comment-author metadata without changing VBA. All 25 package checks passed.
+Fresh-checkout preparation and 70 local fixture checks also passed on the same Mac. A new Mac account remains untested.
+
+Unattended startup registration remains unverified.
+The cold session showed a missing SMF-Mac registration warning, and the add-in was then opened directly.
+Register the permanent add-in path through **Tools > Excel Add-ins > Browse**, then check its version after restarting Excel.
+The [macOS installation guide](../readme-macos.md) includes manual registration and stale-path recovery.
+
+The three live price/yield/target example checks verify numeric values or ranges.
+Those assertions do not independently verify accuracy, freshness or agreement with another provider.
+The ADVFN example date has separate source evidence; fixed historical comparisons remain unchanged.
+FRED requests require the user's private `smf-FRED-API-Key.txt` beside the loaded add-in or disposable test workbook.
+The package excludes that key. Public reports redact credential and anonymous-session values.
+Keep VBA project object-model access OFF for normal add-in use.
+
+## Earlier 0.6 experimental build
+
+The recorded 0.6 source version was `3.0.2024.07.30-mac.0.6-dev`, from commit `1cbbd104dd5e6696df9030d2aa261cfc630a8995`.
 The [built bundle](built/0.6-dev/README.md) contains the add-in, three examples and the unchanged helper installer.
 The [final native report](test-results/0.6-dev-20261108-final/README.md) records 292 cases: 238 PASS and 54 CHECK_FAILED.
 All 32 worksheet-entry cases and all 14 picture-group cases passed. Nine separate fresh-call numeric-reuse cases also passed.
@@ -147,7 +202,7 @@ The user authorized file access, and `GrantAccessToMultipleFiles` returned `True
 - `smfMacTryNestedRecipe` handles selected `DateValue`, `smfConvertData` and `smfStrExtr` calls around supported tag and Yahoo JSON calls.
 - Unsupported compound table-cell recipes return `pError` before the evaluator runs.
 - Mac `RCHCreateComment` uses an embedded worksheet picture or native numeric chart, with a cell note for text and diagnostics.
-- The Mac menu uses eleven flat buttons, including **SMF: Show/hide cell chart**, because popup access failed natively.
+- The Mac menu uses twelve flat buttons, including **SMF: Show/hide cell chart** and **SMF: Source Status**, after earlier popup access failed natively.
 
 Existing function names and numbered fields remain.
 The [four repaired field recipes](DATA-PICTURE-REPAIRS-20261108.md#four-recipe-changes) use current URLs or field markers from the same providers.
@@ -220,7 +275,7 @@ The installation checks are:
 =RCHGetElementNumber("AAPL",4074)
 ```
 
-The current verified local add-in returns `mac.0.6-dev` as part of its version.
+The 0.7 development add-in returns `mac.0.7-dev` as part of its version.
 A new source build must return its recorded source version.
 The HTML check must return `42`.
 Fields 4072 and 4074 request the Finviz earnings date and price.
@@ -246,7 +301,7 @@ The packaged add-in also passed eight separate worksheet checks after a clean re
 If Excel reports a missing add-in, inspect its entry in **Tools > Excel Add-ins**.
 The recorded stale entry pointed to `/Applications/Microsoft Excel.app/SMF-Mac.xlam`.
 Remove that missing entry with **Delete from list**, then use **Browse** to select the complete absolute path to the repository's `mac/out/SMF-Mac.xlam`.
-Enable the add-in and check that `RCHGetElementNumber("Version")` reports `mac.0.6-dev` and that same directory.
+Enable the add-in and check that `RCHGetElementNumber("Version")` reports `mac.0.7-dev` and that same directory.
 Quit Excel through its menu and reopen the workbook to confirm the registration persists.
 
 The last-request diagnostics are `SMFMacHTTPStatus()`, `SMFMacLastError()`, and `SMFMacLastURL()`.
@@ -333,5 +388,5 @@ The report scripts read saved results and separate HTTP evidence. They do not ru
 The recorded UTC fixtures assume the Mac timezone `America/Los_Angeles`.
 Replaying those checks requires the same timezone or explicit changes to the timezone expectations.
 Raw diagnostic output, captured pages and disposable test workbooks remain excluded from Git.
-The reviewed add-in and examples are tracked separately in `mac/built/0.6-dev` with build information and checksums.
+The 0.7 add-in and examples are tracked separately in `mac/built/0.7-dev` with build information and checksums. The earlier 0.6 bundle remains preserved.
 Reports for sharing must redact anonymous Yahoo cookie and crumb values from URLs and response details.

@@ -1,0 +1,372 @@
+{
+  "source_commit": "e7d788b4f0871e94dbe6e13131ca8d9b7ff0eb8a",
+  "source_fingerprint": "e8d82e4755d8d74dda22219cdf9f16f0d46a0b77b70cba3ea88b23ee6e3faaac",
+  "source_files": [
+    {
+      "file": "code/Dictionary.cls",
+      "run_source_sha256": "4e8a89ce173fec397f42226032650d29c7ebd402df8e8a13d9df89f06c6c6fb9",
+      "committed_bytes_sha256": "0affc4fd9a81283f8fcecafbd8ce11a940a18592be9cc341346b8d080c859025",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/JsonConverter.bas",
+      "run_source_sha256": "93d9bf9d3e2beb6e521ea7fa4ad8872ebe6aac2b46b309d38368c3bf70563e11",
+      "committed_bytes_sha256": "93d9bf9d3e2beb6e521ea7fa4ad8872ebe6aac2b46b309d38368c3bf70563e11",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modExtractData.bas",
+      "run_source_sha256": "232dc8a3c40a1daea08d35995631635410b65a99ee746349f847c189e991a21c",
+      "committed_bytes_sha256": "232dc8a3c40a1daea08d35995631635410b65a99ee746349f847c189e991a21c",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetAdvFNElement.bas",
+      "run_source_sha256": "f51e5c2d4ec1c16dbeffcfbc80e77ea1cda094920a52e9e79bb0a6b0926d74ef",
+      "committed_bytes_sha256": "f51e5c2d4ec1c16dbeffcfbc80e77ea1cda094920a52e9e79bb0a6b0926d74ef",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetCSVFile.bas",
+      "run_source_sha256": "0612c9fa8c131613a5b33851f9316150aedcecf544f706f1e832846ff46411e3",
+      "committed_bytes_sha256": "0612c9fa8c131613a5b33851f9316150aedcecf544f706f1e832846ff46411e3",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetEconData.bas",
+      "run_source_sha256": "a4632ee48b5e2c4287c9d520b4b7c9b1f72d91b3a090c355a09118188559b97b",
+      "committed_bytes_sha256": "a4632ee48b5e2c4287c9d520b4b7c9b1f72d91b3a090c355a09118188559b97b",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetElementNumber.bas",
+      "run_source_sha256": "134712e8161b1b5d9368ac4f71da7183c3e25d16c4f330f09d2a78b7e60cf79a",
+      "committed_bytes_sha256": "134712e8161b1b5d9368ac4f71da7183c3e25d16c4f330f09d2a78b7e60cf79a",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetGuruFocusData.bas",
+      "run_source_sha256": "9bcc7d99f201bd90b687b60de18f9a025c38a2fb98a0f24955af5083a2c5cfdc",
+      "committed_bytes_sha256": "9bcc7d99f201bd90b687b60de18f9a025c38a2fb98a0f24955af5083a2c5cfdc",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetGuruFocusItem.bas",
+      "run_source_sha256": "4b39c1854fb8e70905b703fe4cc4f74fd493f550818849556afec99b681aafdb",
+      "committed_bytes_sha256": "4b39c1854fb8e70905b703fe4cc4f74fd493f550818849556afec99b681aafdb",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetHTMLTable.bas",
+      "run_source_sha256": "910eea79dde435ec442022507cff5ae90bc90415a0ca115b8ffdcde0fa966a89",
+      "committed_bytes_sha256": "910eea79dde435ec442022507cff5ae90bc90415a0ca115b8ffdcde0fa966a89",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetMSNHistory.bas",
+      "run_source_sha256": "54062570c36024b4421f766af13f625f39de8060082235bd9646fa9ddb1f1e8d",
+      "committed_bytes_sha256": "54062570c36024b4421f766af13f625f39de8060082235bd9646fa9ddb1f1e8d",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetOptionExpirations.bas",
+      "run_source_sha256": "223615255afd083a606c3c1db293f84e22e6c41a56a15236b88cca2c0c69de4f",
+      "committed_bytes_sha256": "223615255afd083a606c3c1db293f84e22e6c41a56a15236b88cca2c0c69de4f",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetOptionExpiry.bas",
+      "run_source_sha256": "c1a9ecbe4f93ce8ac90e37bf04ea66222e84bf71d1506af9e68aaeccbcffe0a5",
+      "committed_bytes_sha256": "c1a9ecbe4f93ce8ac90e37bf04ea66222e84bf71d1506af9e68aaeccbcffe0a5",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetOptionQuotes.bas",
+      "run_source_sha256": "88de51cc8f96344958d382e84b18a11ffccae690bade616d3da45053c671bad5",
+      "committed_bytes_sha256": "88de51cc8f96344958d382e84b18a11ffccae690bade616d3da45053c671bad5",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetOptionStrikes.bas",
+      "run_source_sha256": "ebb74d8a870ce43376b43c01bff467eaf7ba450f18ab1648c3ed48cedfe5daa2",
+      "committed_bytes_sha256": "ebb74d8a870ce43376b43c01bff467eaf7ba450f18ab1648c3ed48cedfe5daa2",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetTableCell.bas",
+      "run_source_sha256": "432b2939046c5507578b0992220c0ffced7f0516329bc46ff1dd4da715c2654b",
+      "committed_bytes_sha256": "432b2939046c5507578b0992220c0ffced7f0516329bc46ff1dd4da715c2654b",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetTagContent.bas",
+      "run_source_sha256": "cf1e096062afa6465d07590287a3ea202661162e2e4134a5e49a57b771bc535e",
+      "committed_bytes_sha256": "cf1e096062afa6465d07590287a3ea202661162e2e4134a5e49a57b771bc535e",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetWebData.bas",
+      "run_source_sha256": "20ff33d5329cf672dde8b571527a4a1588e3514aed13cefebd0d2ba4926aa7fb",
+      "committed_bytes_sha256": "20ff33d5329cf672dde8b571527a4a1588e3514aed13cefebd0d2ba4926aa7fb",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetYahooHistory.bas",
+      "run_source_sha256": "59715b68c0cb4b44e55fd5aab316b6c2bd736e8e22cc7996611307d8d9ead35f",
+      "committed_bytes_sha256": "59715b68c0cb4b44e55fd5aab316b6c2bd736e8e22cc7996611307d8d9ead35f",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetYahooJSONData.bas",
+      "run_source_sha256": "791fd3b995cb55f1f6de21af1f9806ca153255e8a48f13043c144b36ddd8df87",
+      "committed_bytes_sha256": "791fd3b995cb55f1f6de21af1f9806ca153255e8a48f13043c144b36ddd8df87",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modGetYahooQuotes.bas",
+      "run_source_sha256": "e4f4d99bc201326a976408f336b0992147f020969fd61b88ab6780e702e38308",
+      "committed_bytes_sha256": "e4f4d99bc201326a976408f336b0992147f020969fd61b88ab6780e702e38308",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modInCellChart.bas",
+      "run_source_sha256": "bbbff21db99acbf3c9f49384ac4aea9c0639b7e6f0218e21ca0ec30674f665fd",
+      "committed_bytes_sha256": "bbbff21db99acbf3c9f49384ac4aea9c0639b7e6f0218e21ca0ec30674f665fd",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modJSONExtract.bas",
+      "run_source_sha256": "b7045048624c2e19b56667d66c6526daeaac402a5659f35b69f55dd647d1da80",
+      "committed_bytes_sha256": "b7045048624c2e19b56667d66c6526daeaac402a5659f35b69f55dd647d1da80",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modMacCode.bas",
+      "run_source_sha256": "596281f3546dc548afdd3b6d120b7684f5c0d75fa9430acd121d7e8280b0d835",
+      "committed_bytes_sha256": "2f3d2a9086ab1f46a500b4a717063d972bab2bbb41dd3d3e45ed0fdfce309800",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modMacHTML.bas",
+      "run_source_sha256": "472fe0d5749f6cd9eead8f7cee95d7b466ee82de37d767eee22ca83909d0dd00",
+      "committed_bytes_sha256": "472fe0d5749f6cd9eead8f7cee95d7b466ee82de37d767eee22ca83909d0dd00",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modMacIntegrationTests.bas",
+      "run_source_sha256": "6134185bbd43a13b45dcef7481dd725b503903798e914679a49792c02cc2632f",
+      "committed_bytes_sha256": "a272911f361061e9b04e215d027a633bb8df7fe0de67fd75741ee93ebb35998e",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modMacJSONTests.bas",
+      "run_source_sha256": "57b36fc375eebab9514db1f64fa6d3e94b416892698a4ef031e1c9a7d054fe25",
+      "committed_bytes_sha256": "57b36fc375eebab9514db1f64fa6d3e94b416892698a4ef031e1c9a7d054fe25",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modMenu.bas",
+      "run_source_sha256": "35212e0264ec0ed0617cdb8e4ed38fbd48d2e996429c0f27ee39f8f95d7250d0",
+      "committed_bytes_sha256": "35212e0264ec0ed0617cdb8e4ed38fbd48d2e996429c0f27ee39f8f95d7250d0",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modPictureInsert.bas",
+      "run_source_sha256": "9588a4cb566b2911d4143cc55db382e321acc3f651f46d4da08dd39c0bdcb4a5",
+      "committed_bytes_sha256": "9588a4cb566b2911d4143cc55db382e321acc3f651f46d4da08dd39c0bdcb4a5",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modPictureTable.bas",
+      "run_source_sha256": "eb2ae8a62165f9fad6f7c384a945509593c742417ec0ec86ed7296fc4c7676dc",
+      "committed_bytes_sha256": "eb2ae8a62165f9fad6f7c384a945509593c742417ec0ec86ed7296fc4c7676dc",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modPictureToggle.bas",
+      "run_source_sha256": "370e6eeb3121e22f811ebc86444b59d8eb246b5ba60c7093a87d3ce942de4e78",
+      "committed_bytes_sha256": "370e6eeb3121e22f811ebc86444b59d8eb246b5ba60c7093a87d3ce942de4e78",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modRSITargetPrices.bas",
+      "run_source_sha256": "076fe8f450cf7c1cd5f8de3a93e679fbe92740db78cb09af92104f1a358dbde3",
+      "committed_bytes_sha256": "076fe8f450cf7c1cd5f8de3a93e679fbe92740db78cb09af92104f1a358dbde3",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modTechnicalAnalysis.bas",
+      "run_source_sha256": "f9b4e2f7bebdd42f6769c0cd23b59ac18098cd07f2b54a543f138595a19967c2",
+      "committed_bytes_sha256": "f9b4e2f7bebdd42f6769c0cd23b59ac18098cd07f2b54a543f138595a19967c2",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modYahooAPIData.bas",
+      "run_source_sha256": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+      "committed_bytes_sha256": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/modZAdditional.bas",
+      "run_source_sha256": "12066c04608f4950317aa52e28597df98ee150a5a72460e639100897042632a7",
+      "committed_bytes_sha256": "12066c04608f4950317aa52e28597df98ee150a5a72460e639100897042632a7",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfConvertData_.bas",
+      "run_source_sha256": "f7deabf864872dd072f41dacbfaf7f5b8b281cdf1b89b144fa63683d67ef7805",
+      "committed_bytes_sha256": "f7deabf864872dd072f41dacbfaf7f5b8b281cdf1b89b144fa63683d67ef7805",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfConvertYahooTicker_.bas",
+      "run_source_sha256": "e423d193f18891931e97e5552746111f8c10c6bab37fc3d32813915bc57eceb5",
+      "committed_bytes_sha256": "e423d193f18891931e97e5552746111f8c10c6bab37fc3d32813915bc57eceb5",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfCreateComment_.bas",
+      "run_source_sha256": "18b331c4639490490bff1e5c72fc04d699c52a34c3ca993681f727ad89cc8e42",
+      "committed_bytes_sha256": "18b331c4639490490bff1e5c72fc04d699c52a34c3ca993681f727ad89cc8e42",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfDownloadTable_.bas",
+      "run_source_sha256": "2df5c45e55655df0a5581da7d254d8bc97d1d9535730613588896b21fe377153",
+      "committed_bytes_sha256": "2df5c45e55655df0a5581da7d254d8bc97d1d9535730613588896b21fe377153",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfGetGoogleHistoryCSV_.bas",
+      "run_source_sha256": "efb12036eaa0eb31481f9994ba58eff3648867fdb383fe6b3f92e397cb0b8467",
+      "committed_bytes_sha256": "efb12036eaa0eb31481f9994ba58eff3648867fdb383fe6b3f92e397cb0b8467",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfGetGuruFocusCSVItem_.bas",
+      "run_source_sha256": "d32a7a1022af2e0c9a54c627359d8cd4598138789eeb0fd7f882e23b5aedb7f0",
+      "committed_bytes_sha256": "d32a7a1022af2e0c9a54c627359d8cd4598138789eeb0fd7f882e23b5aedb7f0",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfGetMorningStarCSV_.bas",
+      "run_source_sha256": "3c781e2ed51344893a01d7a7c827fe0b5c7d7d12958e22b606ed2073447c6f8e",
+      "committed_bytes_sha256": "3c781e2ed51344893a01d7a7c827fe0b5c7d7d12958e22b606ed2073447c6f8e",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfGetYahooHistoryCSV_.bas",
+      "run_source_sha256": "a41ad5d560b27925fbdc13f72e1ec11fbc522187f7baf1e31128c8540cc79723",
+      "committed_bytes_sha256": "a41ad5d560b27925fbdc13f72e1ec11fbc522187f7baf1e31128c8540cc79723",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfGetYahooHistory_.bas",
+      "run_source_sha256": "13853d80b4813101001db587c8be65b7e02704fe367789a3a0b92a110e27ae7e",
+      "committed_bytes_sha256": "13853d80b4813101001db587c8be65b7e02704fe367789a3a0b92a110e27ae7e",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfGetYahooPortfolio_.bas",
+      "run_source_sha256": "68c48281897e04cf2978e08a216953786d0eebfc383cc8cb919ef78d501fe29f",
+      "committed_bytes_sha256": "68c48281897e04cf2978e08a216953786d0eebfc383cc8cb919ef78d501fe29f",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfPricesBetween_.bas",
+      "run_source_sha256": "1900924439b03dd4dc23fe0df9125f012cb3f2b6d173b232be25ec61e3b2603a",
+      "committed_bytes_sha256": "1900924439b03dd4dc23fe0df9125f012cb3f2b6d173b232be25ec61e3b2603a",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfPricesByDates_.bas",
+      "run_source_sha256": "f3b168af535359de2d526cf9e1b0d9fe11f2f6dac73b3f3344f5c0f48672be3f",
+      "committed_bytes_sha256": "f3b168af535359de2d526cf9e1b0d9fe11f2f6dac73b3f3344f5c0f48672be3f",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfUtilities_.bas",
+      "run_source_sha256": "75937f30c249086d9cca75f5240973706d7f1256489357a7e94b6d7a307f7ac8",
+      "committed_bytes_sha256": "75937f30c249086d9cca75f5240973706d7f1256489357a7e94b6d7a307f7ac8",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "file": "code/smfxDatabaseUpdate_.bas",
+      "run_source_sha256": "2a858a013da494aab8128a47916f155d39ecfed85e056719a31aabb405d5aea6",
+      "committed_bytes_sha256": "2a858a013da494aab8128a47916f155d39ecfed85e056719a31aabb405d5aea6",
+      "equal_after_CRLF_normalization": true
+    }
+  ],
+  "comparison": "Committed source and recorded working source differ only in permitted CRLF/LF endings, if any.",
+  "native_module_text_audit_performed_by_this_script": false,
+  "publication_text_changes": [
+    "Describe the tested source workbook without a fresh-checkout claim",
+    "Limit counter statements to the text-fetch handler"
+  ],
+  "exported_utc": "2026-11-09T21:59:00.072565+00:00",
+  "staging_script_sha256": "57a9af2b8698926cdacb2bf5c2fd1ebecc645ada19f126a459e121cdce6a731e",
+  "tools": {
+    "mac/tests/full_function_suite/read_results.py": "9fce2751b41c5619aaf86e2d611dec4c8ef497abbb42fbfd032566338a2cb1ba",
+    "mac/tests/full_function_suite/make_report.py": "6bf7825874477e6e553175c518e1873d42c47140d8e717b7274113a21268ea8e"
+  },
+  "runs": {
+    "focused": {
+      "planned_cases": 246,
+      "raw_case_counts": {
+        "PASS": 246
+      },
+      "interpreted_case_counts": {
+        "PASS": 215,
+        "NOT_SUPPORTED": 31
+      },
+      "original_case_specification_sha256": "c3eb6f1a4cb826e5c46f9ea3a8c93ca4d9bda6280af382b1bdc309021b3706df",
+      "original_run_manifest_sha256": "77bf29850a4d0935383b7e4eaf2b7f22b18e600f7a44081cbe7f4dcd6c55874d",
+      "saved_workbook_sha256": "f083b700d602ce34ff9dbf4cd757b70837580098fb300a820665d22acd7155da",
+      "saved_vba_sha256": "261fcd9081e2880dbccf70b4dbff87f58b9a6b637bbe4e7d78825a42a4f7c5ac",
+      "original_native_source_audit_sha256": "47ba8a66b97dc529d96f421e8a4cba7d533d1a3fdb58d2139f914b7e63e9297d",
+      "published_native_source_audit_sha256": "47ba8a66b97dc529d96f421e8a4cba7d533d1a3fdb58d2139f914b7e63e9297d",
+      "transport_counters_sha256": "594594faa347251d63af39aac6956a69859ff17130920a08946916ea778c2926",
+      "raw_workbook_published": false,
+      "redacted_case_copy_sha256": "784f3f7c0f8128ce9e134fc80123266445c75678c63b723ffff5b86ebdc43f0d"
+    },
+    "full": {
+      "planned_cases": 538,
+      "raw_case_counts": {
+        "PASS": 502,
+        "CHECK_FAILED": 36
+      },
+      "interpreted_case_counts": {
+        "PASS": 458,
+        "UNCLASSIFIED_FAIL": 14,
+        "PROVIDER_UNAVAILABLE": 22,
+        "NOT_SUPPORTED": 44
+      },
+      "original_case_specification_sha256": "17d8fb765dbaf3a9357d3b3d5ac9a377cb30c6c76ac8e4904cd6cb0ef6411cb3",
+      "original_run_manifest_sha256": "b4b58c497e3a256daa4af30ff1ef9eb599242501971e4d912bd19829b6e6f86e",
+      "saved_workbook_sha256": "392139b5c9de34eaf7399b8860e4b2203ca9c09b8d9eeed64ff557ea0bf8fd93",
+      "saved_vba_sha256": "7d309445abba5da5fe4bdded4e4652d47b992fc41b1158423e6cfc38d0df0b83",
+      "original_native_source_audit_sha256": "d1953b8fb9e15e27e64d6efdcbc0fade3eed7c544838686f41f35e9d9e83f168",
+      "published_native_source_audit_sha256": "d1953b8fb9e15e27e64d6efdcbc0fade3eed7c544838686f41f35e9d9e83f168",
+      "transport_counters_sha256": "780f9f2d66e116906b36e9124bb5c78252b1877c47274063511926a7f684a15e",
+      "raw_workbook_published": false,
+      "redacted_case_copy_sha256": "4a5acbc0330f8dcf551e0e7ec76def42eea5c59b68c16d11bdaddb7a751297ca"
+    }
+  },
+  "registry": {
+    "not_supported.json": {
+      "recorded_sha256": "9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8",
+      "published_sha256": "9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8"
+    },
+    "NotSupported.csv": {
+      "recorded_sha256": "4a427fa07bdab6e2f6f71ac881f8d87b2d0e4231615ca704ced9c5e870b38fdd",
+      "published_sha256": "4a427fa07bdab6e2f6f71ac881f8d87b2d0e4231615ca704ced9c5e870b38fdd"
+    }
+  },
+  "privacy": "Existing credential redactor plus path aliases; no private workbook, keyfile, HTTP body, or headers copied.",
+  "counter_implementation": {
+    "file": "code/modMacCode.bas",
+    "run_source_sha256": "596281f3546dc548afdd3b6d120b7684f5c0d75fa9430acd121d7e8280b0d835",
+    "committed_bytes_sha256": "2f3d2a9086ab1f46a500b4a717063d972bab2bbb41dd3d3e45ed0fdfce309800",
+    "equal_after_CRLF_normalization": true
+  }
+}

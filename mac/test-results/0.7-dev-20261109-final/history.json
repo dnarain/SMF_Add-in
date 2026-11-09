@@ -1,0 +1,77 @@
+[
+  {
+    "checkpoint": "First focused trial",
+    "planned_cases": 179,
+    "raw_counts": {
+      "PASS": 118,
+      "CHECK_FAILED": 7,
+      "RUNNING": 1,
+      "PENDING": 53
+    },
+    "note": "The operator stopped the run at a test compile error. Later work corrected precise-number parsing, worksheet date assertions, and the unavailable Error_Type test call."
+  },
+  {
+    "checkpoint": "Focused trial after those corrections",
+    "planned_cases": 183,
+    "raw_counts": {
+      "PASS": 181,
+      "CHECK_FAILED": 2
+    },
+    "note": "Two FRED metadata checks found extra carriage returns. A local FRED text correction and two newline checks followed."
+  },
+  {
+    "checkpoint": "Focused FRED newline checkpoint",
+    "planned_cases": 185,
+    "raw_counts": {
+      "PASS": 185
+    },
+    "note": "This completed checkpoint preceded the retired-source guard checks."
+  },
+  {
+    "checkpoint": "Earlier retired-source checkpoint",
+    "planned_cases": 234,
+    "raw_counts": {
+      "PASS": 234
+    },
+    "note": "This passed before a diagnostic self-test expectation changed from 3 to 19. The current export requires both later runs to use the final source."
+  },
+  {
+    "checkpoint": "First full-suite attempt",
+    "planned_cases": 526,
+    "raw_counts": {
+      "PASS": 144,
+      "CHECK_FAILED": 5,
+      "CALL_ERROR": 1,
+      "PENDING": 376
+    },
+    "note": "The operator stopped this attempt after 150 completed cases. Case 34 found the old diagnostic self-test expectation. This attempt was not a completed full run."
+  },
+  {
+    "checkpoint": "Earlier full run with 13 revised source modules",
+    "planned_cases": 526,
+    "raw_counts": {
+      "PASS": 490,
+      "CHECK_FAILED": 36
+    },
+    "source_audit": "FAILED",
+    "note": "Runtime finished. The native runner audit found a TAB literal replaced by three spaces during import. The operator rejected that source evidence and regenerated the runner with explicit vbTab."
+  },
+  {
+    "checkpoint": "Isolated Google checks, run3",
+    "planned_cases": 13,
+    "raw_counts": {
+      "PASS": 11,
+      "CHECK_FAILED": 2
+    },
+    "note": "The financial-data assertion received HTTP 200 HTML. A worksheet test also triggered two requests after formula assignment and Calculate. The test changed to conditional Calculate with strict 1/1 counters."
+  },
+  {
+    "checkpoint": "Isolated Google checks, run4",
+    "planned_cases": 13,
+    "raw_counts": {
+      "PASS": 12,
+      "CHECK_FAILED": 1
+    },
+    "note": "The strict worksheet 1/1 counter check passed. The financial-data assertion still failed on HTTP 200 HTML. These isolated checks do not establish full-suite completion."
+  }
+]

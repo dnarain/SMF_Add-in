@@ -1,0 +1,796 @@
+{
+  "version": "3.0.2024.07.30-mac.0.7-dev",
+  "source_commit": "e7d788b4f0871e94dbe6e13131ca8d9b7ff0eb8a",
+  "checked_date": "2026-11-09T22:31:29.488582+00:00",
+  "runtime": {
+    "excel": "16.114.4 (16.114.26110224)",
+    "macos": "27.0.1",
+    "architecture": "Apple silicon",
+    "observation_scope": "One Mac; native Excel UI and saved OOXML inspection"
+  },
+  "native_addin_sha256": "cb70736a240dbb308aa2afa32f2da3b6d8fde3449d1d18fc167f65239a4a81fb",
+  "vba_project_sha256": "f93d656eb9b6c69ccc3209f8414c35586ad74f727844490e174afd84ea3aa1ba",
+  "source_audit": {
+    "verdict": "PASS",
+    "scope": "Saved source/components only; native execution is separate evidence.",
+    "Windows_active_source_checks": [
+      {
+        "module": "modGetAdvFNElement.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modGetEconData.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modGetElementNumber.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modGetOptionExpirations.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modGetOptionQuotes.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modGetOptionStrikes.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modGetYahooQuotes.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modMacCode.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modMacIntegrationTests.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modMenu.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modRSITargetPrices.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "modYahooAPIData.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "smfGetGoogleHistoryCSV_.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": []
+      },
+      {
+        "module": "smfUtilities_.bas",
+        "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+        "Unicode_equivalent_replacements": [
+          {
+            "entity": "&#150;",
+            "old_literal_codepoint": 150,
+            "new_expression": "ChrW$(150)"
+          },
+          {
+            "entity": "&#160;",
+            "old_literal_codepoint": 160,
+            "new_expression": "ChrW$(160)"
+          }
+        ]
+      }
+    ],
+    "source_commit": "e7d788b4f0871e94dbe6e13131ca8d9b7ff0eb8a",
+    "target_sha256": "cb70736a240dbb308aa2afa32f2da3b6d8fde3449d1d18fc167f65239a4a81fb",
+    "target_vba_sha256": "f93d656eb9b6c69ccc3209f8414c35586ad74f727844490e174afd84ea3aa1ba",
+    "clean_workbook_sha256": "b5acdda40fc2fbc3c1c955eb222249a2c767c1cfa36f066b4a202a8345b28b8e",
+    "baseline_0_6_sha256": "f4b7a0f9a2a387c41dc20de2a5e09f695a6a5096f10580e86d4d17e23af5f366",
+    "component_count": 51,
+    "component_type_counts": {
+      "Module": 48,
+      "Class": 1,
+      "Document": 2,
+      "BaseClass": 0
+    },
+    "sources_byte_exact_to_0_6": 33,
+    "additional_identifier_case_only_changes": [
+      {
+        "module": "Dictionary.cls",
+        "all_quoted_literals_exact": true,
+        "changed_line_count": 5
+      },
+      {
+        "module": "JsonConverter.bas",
+        "all_quoted_literals_exact": true,
+        "changed_line_count": 1
+      },
+      {
+        "module": "modGetYahooHistory.bas",
+        "all_quoted_literals_exact": true,
+        "changed_line_count": 1
+      },
+      {
+        "module": "modJSONExtract.bas",
+        "all_quoted_literals_exact": true,
+        "changed_line_count": 3
+      }
+    ],
+    "intended_changed_source_count": 14,
+    "unrepaired_core_sources_equal_except_identifier_case": 37,
+    "all_sources_byte_exact_to_clean": true,
+    "changed_sources_match_commit": [
+      {
+        "module": "modGetAdvFNElement.bas",
+        "committed_source_sha256": "f51e5c2d4ec1c16dbeffcfbc80e77ea1cda094920a52e9e79bb0a6b0926d74ef",
+        "saved_source_raw_sha256": "d9a3c58c7977d39d417fd779d390898c96b823b5afd5acba1d03e2df89469d44",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modGetEconData.bas",
+        "committed_source_sha256": "a4632ee48b5e2c4287c9d520b4b7c9b1f72d91b3a090c355a09118188559b97b",
+        "saved_source_raw_sha256": "5d977e58ebf89d5b015ee6fa058d959cdf4b52bc4669a28262b00a618a6edbe3",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modGetElementNumber.bas",
+        "committed_source_sha256": "134712e8161b1b5d9368ac4f71da7183c3e25d16c4f330f09d2a78b7e60cf79a",
+        "saved_source_raw_sha256": "b2017c3e2fa39de7935c385330b6ffc35deab413925d1345715c7edb996a87e5",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modGetOptionExpirations.bas",
+        "committed_source_sha256": "223615255afd083a606c3c1db293f84e22e6c41a56a15236b88cca2c0c69de4f",
+        "saved_source_raw_sha256": "73203ee5494a63b1230a609316db2bae403bc12c5d14c0720a30278ba1dec7c6",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modGetOptionQuotes.bas",
+        "committed_source_sha256": "88de51cc8f96344958d382e84b18a11ffccae690bade616d3da45053c671bad5",
+        "saved_source_raw_sha256": "148583db26ca7015e182c19fcf342192495dbab418adef886cae3f3ccb1d8998",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modGetOptionStrikes.bas",
+        "committed_source_sha256": "ebb74d8a870ce43376b43c01bff467eaf7ba450f18ab1648c3ed48cedfe5daa2",
+        "saved_source_raw_sha256": "7bfd245481262e0cdd173a83bfe66d5373b481070ccca11677b306d66b1d238e",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modGetYahooQuotes.bas",
+        "committed_source_sha256": "e4f4d99bc201326a976408f336b0992147f020969fd61b88ab6780e702e38308",
+        "saved_source_raw_sha256": "4869c63f6fd668e1dc8631702a89ef075700ebddf6d6aa35bcd37e7c3dc16519",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modMacCode.bas",
+        "committed_source_sha256": "2f3d2a9086ab1f46a500b4a717063d972bab2bbb41dd3d3e45ed0fdfce309800",
+        "saved_source_raw_sha256": "b827368f5d2f8672a9a2982be3414c3f59a4e45f62deb4ea53d135320a595213",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modMacIntegrationTests.bas",
+        "committed_source_sha256": "a272911f361061e9b04e215d027a633bb8df7fe0de67fd75741ee93ebb35998e",
+        "saved_source_raw_sha256": "26d3baec7ef483628eec241a0c85bf458a23307bd57ad7284ce201e1a17a75ae",
+        "identifier_case_only": false,
+        "source_comparison": "Exact strings, identifier case and exact-equal/type-preserving diagnostic numeric formatting only.",
+        "exact_numeric_format_changes": [
+          {
+            "line": 12,
+            "token_index": 11,
+            "generated": "0.000000001",
+            "saved": "1E-09",
+            "absolute_delta": "0E-9"
+          },
+          {
+            "line": 14,
+            "token_index": 11,
+            "generated": "0.000000000001",
+            "saved": "1E-12",
+            "absolute_delta": "0E-12"
+          },
+          {
+            "line": 146,
+            "token_index": 5,
+            "generated": "123.456789#",
+            "saved": "123.456789",
+            "absolute_delta": "0.000000"
+          },
+          {
+            "line": 153,
+            "token_index": 5,
+            "generated": "123.456789#",
+            "saved": "123.456789",
+            "absolute_delta": "0.000000"
+          },
+          {
+            "line": 154,
+            "token_index": 5,
+            "generated": "123.456789#",
+            "saved": "123.456789",
+            "absolute_delta": "0.000000"
+          },
+          {
+            "line": 235,
+            "token_index": 14,
+            "generated": "0.000000001",
+            "saved": "1E-09",
+            "absolute_delta": "0E-9"
+          },
+          {
+            "line": 286,
+            "token_index": 7,
+            "generated": "0.0045#",
+            "saved": "0.0045",
+            "absolute_delta": "0.0000"
+          },
+          {
+            "line": 400,
+            "token_index": 14,
+            "generated": "0.000000001",
+            "saved": "1E-09",
+            "absolute_delta": "0E-9"
+          }
+        ],
+        "normalized_token_sha256": "2dd461d8d94830819348b2a62a509e10eca4ddc1c64efae1820dd6f2695f6dcf",
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modMenu.bas",
+        "committed_source_sha256": "35212e0264ec0ed0617cdb8e4ed38fbd48d2e996429c0f27ee39f8f95d7250d0",
+        "saved_source_raw_sha256": "180107f300023bfffc9da17259d03c8332d3733ed665e3dbfb81b1b4f7de1d07",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modRSITargetPrices.bas",
+        "committed_source_sha256": "076fe8f450cf7c1cd5f8de3a93e679fbe92740db78cb09af92104f1a358dbde3",
+        "saved_source_raw_sha256": "334fc81658aeb0f3878c3d5b8608ed37f0dc06101a851853fd455d76800707c7",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "modYahooAPIData.bas",
+        "committed_source_sha256": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+        "saved_source_raw_sha256": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "smfGetGoogleHistoryCSV_.bas",
+        "committed_source_sha256": "efb12036eaa0eb31481f9994ba58eff3648867fdb383fe6b3f92e397cb0b8467",
+        "saved_source_raw_sha256": "b4cd75221e95b663b54472e35ab2b71bcc3f457b994550731e1cdfc2f0e71914",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      },
+      {
+        "module": "smfUtilities_.bas",
+        "committed_source_sha256": "75937f30c249086d9cca75f5240973706d7f1256489357a7e94b6d7a307f7ac8",
+        "saved_source_raw_sha256": "1882fc67c8a16e17f20b8cee19fb8dfc47fd0395ac635dd3a4c13cb66742dc14",
+        "identifier_case_only": true,
+        "exact_numeric_format_changes": [],
+        "all_quoted_literals_exact": true
+      }
+    ],
+    "dictionary_default_item_attribute_zero": true,
+    "vba_project_sha256": "f93d656eb9b6c69ccc3209f8414c35586ad74f727844490e174afd84ea3aa1ba"
+  },
+  "source_provenance": {
+    "workspace_source_fingerprint": "e8d82e4755d8d74dda22219cdf9f16f0d46a0b77b70cba3ea88b23ee6e3faaac",
+    "source_files_sha256": {
+      "code/Dictionary.cls": "4e8a89ce173fec397f42226032650d29c7ebd402df8e8a13d9df89f06c6c6fb9",
+      "code/JsonConverter.bas": "93d9bf9d3e2beb6e521ea7fa4ad8872ebe6aac2b46b309d38368c3bf70563e11",
+      "code/modExtractData.bas": "232dc8a3c40a1daea08d35995631635410b65a99ee746349f847c189e991a21c",
+      "code/modGetAdvFNElement.bas": "f51e5c2d4ec1c16dbeffcfbc80e77ea1cda094920a52e9e79bb0a6b0926d74ef",
+      "code/modGetCSVFile.bas": "0612c9fa8c131613a5b33851f9316150aedcecf544f706f1e832846ff46411e3",
+      "code/modGetEconData.bas": "a4632ee48b5e2c4287c9d520b4b7c9b1f72d91b3a090c355a09118188559b97b",
+      "code/modGetElementNumber.bas": "134712e8161b1b5d9368ac4f71da7183c3e25d16c4f330f09d2a78b7e60cf79a",
+      "code/modGetGuruFocusData.bas": "9bcc7d99f201bd90b687b60de18f9a025c38a2fb98a0f24955af5083a2c5cfdc",
+      "code/modGetGuruFocusItem.bas": "4b39c1854fb8e70905b703fe4cc4f74fd493f550818849556afec99b681aafdb",
+      "code/modGetHTMLTable.bas": "910eea79dde435ec442022507cff5ae90bc90415a0ca115b8ffdcde0fa966a89",
+      "code/modGetMSNHistory.bas": "54062570c36024b4421f766af13f625f39de8060082235bd9646fa9ddb1f1e8d",
+      "code/modGetOptionExpirations.bas": "223615255afd083a606c3c1db293f84e22e6c41a56a15236b88cca2c0c69de4f",
+      "code/modGetOptionExpiry.bas": "c1a9ecbe4f93ce8ac90e37bf04ea66222e84bf71d1506af9e68aaeccbcffe0a5",
+      "code/modGetOptionQuotes.bas": "88de51cc8f96344958d382e84b18a11ffccae690bade616d3da45053c671bad5",
+      "code/modGetOptionStrikes.bas": "ebb74d8a870ce43376b43c01bff467eaf7ba450f18ab1648c3ed48cedfe5daa2",
+      "code/modGetTableCell.bas": "432b2939046c5507578b0992220c0ffced7f0516329bc46ff1dd4da715c2654b",
+      "code/modGetTagContent.bas": "cf1e096062afa6465d07590287a3ea202661162e2e4134a5e49a57b771bc535e",
+      "code/modGetWebData.bas": "20ff33d5329cf672dde8b571527a4a1588e3514aed13cefebd0d2ba4926aa7fb",
+      "code/modGetYahooHistory.bas": "59715b68c0cb4b44e55fd5aab316b6c2bd736e8e22cc7996611307d8d9ead35f",
+      "code/modGetYahooJSONData.bas": "791fd3b995cb55f1f6de21af1f9806ca153255e8a48f13043c144b36ddd8df87",
+      "code/modGetYahooQuotes.bas": "e4f4d99bc201326a976408f336b0992147f020969fd61b88ab6780e702e38308",
+      "code/modInCellChart.bas": "bbbff21db99acbf3c9f49384ac4aea9c0639b7e6f0218e21ca0ec30674f665fd",
+      "code/modJSONExtract.bas": "b7045048624c2e19b56667d66c6526daeaac402a5659f35b69f55dd647d1da80",
+      "code/modMacCode.bas": "596281f3546dc548afdd3b6d120b7684f5c0d75fa9430acd121d7e8280b0d835",
+      "code/modMacHTML.bas": "472fe0d5749f6cd9eead8f7cee95d7b466ee82de37d767eee22ca83909d0dd00",
+      "code/modMacIntegrationTests.bas": "6134185bbd43a13b45dcef7481dd725b503903798e914679a49792c02cc2632f",
+      "code/modMacJSONTests.bas": "57b36fc375eebab9514db1f64fa6d3e94b416892698a4ef031e1c9a7d054fe25",
+      "code/modMenu.bas": "35212e0264ec0ed0617cdb8e4ed38fbd48d2e996429c0f27ee39f8f95d7250d0",
+      "code/modPictureInsert.bas": "9588a4cb566b2911d4143cc55db382e321acc3f651f46d4da08dd39c0bdcb4a5",
+      "code/modPictureTable.bas": "eb2ae8a62165f9fad6f7c384a945509593c742417ec0ec86ed7296fc4c7676dc",
+      "code/modPictureToggle.bas": "370e6eeb3121e22f811ebc86444b59d8eb246b5ba60c7093a87d3ce942de4e78",
+      "code/modRSITargetPrices.bas": "076fe8f450cf7c1cd5f8de3a93e679fbe92740db78cb09af92104f1a358dbde3",
+      "code/modTechnicalAnalysis.bas": "f9b4e2f7bebdd42f6769c0cd23b59ac18098cd07f2b54a543f138595a19967c2",
+      "code/modYahooAPIData.bas": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+      "code/modZAdditional.bas": "12066c04608f4950317aa52e28597df98ee150a5a72460e639100897042632a7",
+      "code/smfConvertData_.bas": "f7deabf864872dd072f41dacbfaf7f5b8b281cdf1b89b144fa63683d67ef7805",
+      "code/smfConvertYahooTicker_.bas": "e423d193f18891931e97e5552746111f8c10c6bab37fc3d32813915bc57eceb5",
+      "code/smfCreateComment_.bas": "18b331c4639490490bff1e5c72fc04d699c52a34c3ca993681f727ad89cc8e42",
+      "code/smfDownloadTable_.bas": "2df5c45e55655df0a5581da7d254d8bc97d1d9535730613588896b21fe377153",
+      "code/smfGetGoogleHistoryCSV_.bas": "efb12036eaa0eb31481f9994ba58eff3648867fdb383fe6b3f92e397cb0b8467",
+      "code/smfGetGuruFocusCSVItem_.bas": "d32a7a1022af2e0c9a54c627359d8cd4598138789eeb0fd7f882e23b5aedb7f0",
+      "code/smfGetMorningStarCSV_.bas": "3c781e2ed51344893a01d7a7c827fe0b5c7d7d12958e22b606ed2073447c6f8e",
+      "code/smfGetYahooHistoryCSV_.bas": "a41ad5d560b27925fbdc13f72e1ec11fbc522187f7baf1e31128c8540cc79723",
+      "code/smfGetYahooHistory_.bas": "13853d80b4813101001db587c8be65b7e02704fe367789a3a0b92a110e27ae7e",
+      "code/smfGetYahooPortfolio_.bas": "68c48281897e04cf2978e08a216953786d0eebfc383cc8cb919ef78d501fe29f",
+      "code/smfPricesBetween_.bas": "1900924439b03dd4dc23fe0df9125f012cb3f2b6d173b232be25ec61e3b2603a",
+      "code/smfPricesByDates_.bas": "f3b168af535359de2d526cf9e1b0d9fe11f2f6dac73b3f3344f5c0f48672be3f",
+      "code/smfUtilities_.bas": "75937f30c249086d9cca75f5240973706d7f1256489357a7e94b6d7a307f7ac8",
+      "code/smfxDatabaseUpdate_.bas": "2a858a013da494aab8128a47916f155d39ecfed85e056719a31aabb405d5aea6"
+    },
+    "committed_blob_fingerprint": "7b5367a78425e62e80013229e5c5b1b9c03435de750bbae40ed7127e52b6c49c",
+    "committed_normalized_source_fingerprint": "7b5367a78425e62e80013229e5c5b1b9c03435de750bbae40ed7127e52b6c49c",
+    "all_workspace_sources_match_commit_except_line_endings": true,
+    "line_ending_only_differences": [
+      {
+        "module": "code/Dictionary.cls",
+        "committed_blob_sha256": "0affc4fd9a81283f8fcecafbd8ce11a940a18592be9cc341346b8d080c859025",
+        "workspace_source_sha256": "4e8a89ce173fec397f42226032650d29c7ebd402df8e8a13d9df89f06c6c6fb9",
+        "committed_CRLF_count": 0,
+        "workspace_CRLF_count": 456
+      },
+      {
+        "module": "code/modMacCode.bas",
+        "committed_blob_sha256": "2f3d2a9086ab1f46a500b4a717063d972bab2bbb41dd3d3e45ed0fdfce309800",
+        "workspace_source_sha256": "596281f3546dc548afdd3b6d120b7684f5c0d75fa9430acd121d7e8280b0d835",
+        "committed_CRLF_count": 0,
+        "workspace_CRLF_count": 621
+      },
+      {
+        "module": "code/modMacIntegrationTests.bas",
+        "committed_blob_sha256": "a272911f361061e9b04e215d027a633bb8df7fe0de67fd75741ee93ebb35998e",
+        "workspace_source_sha256": "6134185bbd43a13b45dcef7481dd725b503903798e914679a49792c02cc2632f",
+        "committed_CRLF_count": 0,
+        "workspace_CRLF_count": 405
+      }
+    ]
+  },
+  "full_suite": {
+    "run_id": "smf-0.7-google-full-run4",
+    "control_state": "DONE",
+    "expected_version": "3.0.2024.07.30-mac.0.7-dev",
+    "observed_version_token": "3.0.2024.07.30-mac.0.7-dev",
+    "version_verified": true,
+    "planned_cases": 538,
+    "saved_rows": 538,
+    "raw_case_counts": {
+      "PASS": 502,
+      "CHECK_FAILED": 36
+    },
+    "worksheet_entry_cases": 51,
+    "worksheet_entry_raw_counts": {
+      "PASS": 51
+    },
+    "interpreted_case_counts": {
+      "PASS": 458,
+      "UNCLASSIFIED_FAIL": 14,
+      "PROVIDER_UNAVAILABLE": 22,
+      "NOT_SUPPORTED": 44
+    },
+    "auxiliary_cases": 6,
+    "positive_live_extraction_passes": 63,
+    "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+    "support_registry_sha256": "9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8",
+    "status_table_sha256": "4a427fa07bdab6e2f6f71ac881f8d87b2d0e4231615ca704ced9c5e870b38fdd",
+    "not_supported_guard_case_ids": [
+      "smfYahooAPIData",
+      "smfGet888OptionQuote",
+      "smfGetGoogleOptionQuote",
+      "smfGetMSNOptionQuote",
+      "smfGetOXOptionQuote",
+      "smfGetOX2OptionQuote",
+      "smfGetOX3OptionQuote",
+      "NotSupported_Worksheet_smfGetMSNOptionQuote",
+      "NotSupported_Worksheet_smfGetOXOptionQuote",
+      "NotSupported_Worksheet_smfGetOX2OptionQuote",
+      "NotSupported_Worksheet_smfGetOX3OptionQuote",
+      "NotSupported_YahooCSVLegacy",
+      "NotSupported_YahooCSVRange",
+      "NotSupported_YahooYQLFeedF",
+      "NotSupported_Expirations_OX",
+      "NotSupported_Strikes_OX",
+      "NotSupported_Expirations_G",
+      "NotSupported_Strikes_G",
+      "NotSupported_Expirations_8",
+      "NotSupported_Strikes_8",
+      "NotSupported_Wrapper_MSN",
+      "NotSupported_Wrapper_OX3",
+      "NotSupported_Wrapper_G",
+      "NotSupported_Wrapper_8",
+      "NotSupported_WrapperCodes",
+      "NotSupported_URL_msn-options",
+      "NotSupported_URL_optionsxpress-options",
+      "NotSupported_URL_yahoo-quote-csv",
+      "NotSupported_URL_yahoo-yql",
+      "NotSupported_URL_google-option-chain",
+      "NotSupported_URL_oic-legacy-options",
+      "NotSupported_WorksheetWrapperNamed",
+      "NotSupported_WorksheetWrapperCodes",
+      "NotSupported_PrimedRetiredPage",
+      "NotSupported_YahooCSVRetiredURL",
+      "NotSupported_All288DefaultFields",
+      "NotSupported_FieldWorksheetNA",
+      "NotSupported_FieldIFNA",
+      "LiveSource_download_finance_yahoo_com",
+      "LiveSource_oic_ivolatility_com",
+      "Live_smfGet888OptionQuote",
+      "LiveSource_query_yahooapis_com",
+      "LiveSource_www_google_com",
+      "Live_smfGetGoogleOptionQuote"
+    ],
+    "auxiliary_case_ids": [
+      "NotSupported_RegistryUnknown",
+      "NotSupported_RegistryKnown",
+      "NotSupported_StatusRows",
+      "NotSupported_UninitializedStatus",
+      "NotSupported_StatusWorkbook",
+      "NotSupported_URLAuthorityBoundaries"
+    ]
+  },
+  "full_owner_source_audit": {
+    "verdict": "PASS",
+    "owner_sha256": "392139b5c9de34eaf7399b8860e4b2203ca9c09b8d9eeed64ff557ea0bf8fd93",
+    "owner_vba_sha256": "7d309445abba5da5fe4bdded4e4652d47b992fc41b1158423e6cfc38d0df0b83",
+    "clean_workbook_sha256": "b5acdda40fc2fbc3c1c955eb222249a2c767c1cfa36f066b4a202a8345b28b8e",
+    "clean_vba_sha256": "89059032aebc91a26c545eba801519782c9a9eecd35f83dcd3378974f1281779",
+    "component_count": 52,
+    "core_sources_byte_exact_to_clean": 51,
+    "core_sources_equal_except_identifier_case": 51,
+    "core_identifier_case_only_changes": [],
+    "additional_blank_document_modules": [],
+    "runner_generated_sha256": "0dc282ff3d175e7666c23b6e21e7f0249c2eefc4e64ce1fbfcaa0834d1b973dc",
+    "runner_saved_source_sha256": "2f070fa0b853b8bd3184ad662883ed00d27d9475edd10581408b80224cf79ec8",
+    "runner_comparison": {
+      "line_count": 37078,
+      "quoted_literal_count": 12846,
+      "all_executable_quoted_literals_exact": true,
+      "identifier_case_changed_lines": 4485,
+      "numeric_format_changes": 1225,
+      "maximum_numeric_literal_delta": "5E-13",
+      "description_encoding_changes": 13,
+      "unclassified_change_count": 0,
+      "normalized_token_sha256": "f80dc087bd7ef2567133eb555f51bd5aa4f3639943254a69b6ac114c86fe9242"
+    }
+  },
+  "focused_suite": {
+    "run_id": "smf-0.7-google-focused-run4",
+    "control_state": "DONE",
+    "expected_version": "3.0.2024.07.30-mac.0.7-dev",
+    "observed_version_token": "3.0.2024.07.30-mac.0.7-dev",
+    "version_verified": true,
+    "planned_cases": 246,
+    "saved_rows": 246,
+    "raw_case_counts": {
+      "PASS": 246
+    },
+    "worksheet_entry_cases": 19,
+    "worksheet_entry_raw_counts": {
+      "PASS": 19
+    },
+    "interpreted_case_counts": {
+      "PASS": 215,
+      "NOT_SUPPORTED": 31
+    },
+    "auxiliary_cases": 6,
+    "positive_live_extraction_passes": 9,
+    "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+    "support_registry_sha256": "9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8",
+    "status_table_sha256": "4a427fa07bdab6e2f6f71ac881f8d87b2d0e4231615ca704ced9c5e870b38fdd",
+    "not_supported_guard_case_ids": [
+      "NotSupported_Worksheet_smfGetMSNOptionQuote",
+      "NotSupported_Worksheet_smfGetOXOptionQuote",
+      "NotSupported_Worksheet_smfGetOX2OptionQuote",
+      "NotSupported_Worksheet_smfGetOX3OptionQuote",
+      "NotSupported_YahooCSVLegacy",
+      "NotSupported_YahooCSVRange",
+      "NotSupported_YahooYQLFeedF",
+      "NotSupported_Expirations_OX",
+      "NotSupported_Strikes_OX",
+      "NotSupported_Expirations_G",
+      "NotSupported_Strikes_G",
+      "NotSupported_Expirations_8",
+      "NotSupported_Strikes_8",
+      "NotSupported_Wrapper_MSN",
+      "NotSupported_Wrapper_OX3",
+      "NotSupported_Wrapper_G",
+      "NotSupported_Wrapper_8",
+      "NotSupported_WrapperCodes",
+      "NotSupported_URL_msn-options",
+      "NotSupported_URL_optionsxpress-options",
+      "NotSupported_URL_yahoo-quote-csv",
+      "NotSupported_URL_yahoo-yql",
+      "NotSupported_URL_google-option-chain",
+      "NotSupported_URL_oic-legacy-options",
+      "NotSupported_WorksheetWrapperNamed",
+      "NotSupported_WorksheetWrapperCodes",
+      "NotSupported_PrimedRetiredPage",
+      "NotSupported_YahooCSVRetiredURL",
+      "NotSupported_All288DefaultFields",
+      "NotSupported_FieldWorksheetNA",
+      "NotSupported_FieldIFNA"
+    ],
+    "auxiliary_case_ids": [
+      "NotSupported_RegistryUnknown",
+      "NotSupported_RegistryKnown",
+      "NotSupported_StatusRows",
+      "NotSupported_UninitializedStatus",
+      "NotSupported_StatusWorkbook",
+      "NotSupported_URLAuthorityBoundaries"
+    ]
+  },
+  "focused_owner_source_audit": {
+    "verdict": "PASS",
+    "owner_sha256": "f083b700d602ce34ff9dbf4cd757b70837580098fb300a820665d22acd7155da",
+    "owner_vba_sha256": "261fcd9081e2880dbccf70b4dbff87f58b9a6b637bbe4e7d78825a42a4f7c5ac",
+    "clean_workbook_sha256": "b5acdda40fc2fbc3c1c955eb222249a2c767c1cfa36f066b4a202a8345b28b8e",
+    "clean_vba_sha256": "89059032aebc91a26c545eba801519782c9a9eecd35f83dcd3378974f1281779",
+    "component_count": 52,
+    "core_sources_byte_exact_to_clean": 51,
+    "core_sources_equal_except_identifier_case": 51,
+    "core_identifier_case_only_changes": [],
+    "additional_blank_document_modules": [],
+    "runner_generated_sha256": "789a19122981e5a7048744eb98629bf26cb3ccbbba461ba745a221f74424d361",
+    "runner_saved_source_sha256": "5f616516770330799a620037a37e734e788dc0c862c6b186056af6f24731f6a5",
+    "runner_comparison": {
+      "line_count": 20751,
+      "quoted_literal_count": 6443,
+      "all_executable_quoted_literals_exact": true,
+      "identifier_case_changed_lines": 2043,
+      "numeric_format_changes": 383,
+      "maximum_numeric_literal_delta": "0E-13",
+      "description_encoding_changes": 2,
+      "unclassified_change_count": 0,
+      "normalized_token_sha256": "8a3111c1580659fc8b978290b6cc90a77e2a727357a1cf968fbdf46ab3cb7cc6"
+    }
+  },
+  "full_suite_evidence_hashes": {
+    "summary_sha256": "5b8030196a13cbe6109acd675af1f50401890f73a369cc316b3f29748372a4c2",
+    "manifest_sha256": "b4b58c497e3a256daa4af30ff1ef9eb599242501971e4d912bd19829b6e6f86e",
+    "report_data_sha256": "3ebe5eb70afa1baee4591b4277103998f37eb46483acbfedacab18aa002fbdd0",
+    "case_specification_sha256": "17d8fb765dbaf3a9357d3b3d5ac9a377cb30c6c76ac8e4904cd6cb0ef6411cb3"
+  },
+  "focused_suite_evidence_hashes": {
+    "summary_sha256": "9a110851ddd477188aeea30166f4bcb912c9725e672740c5f6da711e9779ffc0",
+    "manifest_sha256": "77bf29850a4d0935383b7e4eaf2b7f22b18e600f7a44081cbe7f4dcd6c55874d",
+    "report_data_sha256": "07282d49cc28738c54b279384abfc0178a3351a5f054c881e0c15185f67e55cf",
+    "case_specification_sha256": "c3eb6f1a4cb826e5c46f9ea3a8c93ca4d9bda6280af382b1bdc309021b3706df"
+  },
+  "native_examples": {
+    "SMF-Mac-Checks-20261109.xlsx": {
+      "sha256": "ae19880a2af23c4c02fd7e062e612a0e8f0f2ff40b0122f83a818e86ad8db62b",
+      "version_observed": "3.0.2024.07.30-mac.0.7-dev",
+      "native_recalculated_saved": true,
+      "saved_closed_reopened_ready": true,
+      "observation_method": "Native Excel recalculation/save/reopen, visible results and Ready status; saved OOXML formula/cache inspection",
+      "native_checks_good": 4
+    },
+    "SMF-Mac-Data-Picture-Checks-20261109.xlsx": {
+      "sha256": "eb33e9483ea0e8c45bf878414b56e707ec7e0ee975b35ad99b6b7b72c84aa52e",
+      "version_observed": "3.0.2024.07.30-mac.0.7-dev",
+      "native_recalculated_saved": true,
+      "saved_closed_reopened_ready": true,
+      "observation_method": "Native Excel recalculation/save/reopen, visible results and Ready status; saved OOXML formula/cache inspection",
+      "stockcharts_picture_visible": true,
+      "numeric_chart_visible": true,
+      "numeric_chart_plot_visible": true,
+      "data_checks_passed": 11,
+      "data_checks_failed": 0,
+      "expected_input_changes": [
+        {
+          "cell": "C5",
+          "check_cell": "D5",
+          "old_expected_value": "342.37",
+          "new_expected_value": "Current positive price",
+          "old_formula": "",
+          "new_formula": "",
+          "old_check_formula": "IF(ABS(B5-C5)<0.005,\"PASS\",\"FAIL\")",
+          "new_check_formula": "IFERROR(IF(AND(ISNUMBER(B5),B5>0),\"PASS\",\"FAIL\"),\"FAIL\")",
+          "reason_category": "live_market_values",
+          "changed_at": "2026-11-09T14:05:19-08:00",
+          "reason": "Live market values change. Check the numeric value or permitted range without freezing an earlier market snapshot."
+        },
+        {
+          "cell": "C6",
+          "check_cell": "D6",
+          "old_expected_value": "3.3999999999999998E-3",
+          "new_expected_value": "Yield fraction from 0 to 1",
+          "old_formula": "",
+          "new_formula": "",
+          "old_check_formula": "IF(ABS(B6-C6)<0.00000001,\"PASS\",\"FAIL\")",
+          "new_check_formula": "IFERROR(IF(AND(ISNUMBER(B6),B6>=0,B6<=1),\"PASS\",\"FAIL\"),\"FAIL\")",
+          "reason_category": "live_market_values",
+          "changed_at": "2026-11-09T14:05:19-08:00",
+          "reason": "Live market values change. Check the numeric value or permitted range without freezing an earlier market snapshot."
+        },
+        {
+          "cell": "C7",
+          "check_cell": "D7",
+          "old_expected_value": "338.68",
+          "new_expected_value": "Current positive target",
+          "old_formula": "",
+          "new_formula": "",
+          "old_check_formula": "IF(ABS(B7-C7)<0.005,\"PASS\",\"FAIL\")",
+          "new_check_formula": "IFERROR(IF(AND(ISNUMBER(B7),B7>0),\"PASS\",\"FAIL\"),\"FAIL\")",
+          "reason_category": "live_market_values",
+          "changed_at": "2026-11-09T14:05:19-08:00",
+          "reason": "Live market values change. Check the numeric value or permitted range without freezing an earlier market snapshot."
+        },
+        {
+          "cell": "C9",
+          "old_formula": "TEXT(DATE(2025,9,27),\"yyyy-mm-dd\")",
+          "new_formula": "TEXT(DATE(2026,9,26),\"yyyy-mm-dd\")",
+          "old_expected_value": "2025-09-27",
+          "new_expected_value": "2026-09-26",
+          "source_url": "https://www.advfn.com/p.php?pid=financials&symbol=NASDAQ:AAPL",
+          "source_evidence_sha256": "fb9d5009aff64add7d0d0f57fc337c0dc443b0b93402d37e0066a742d01b3ac7",
+          "source_body_sha256": "1d7ce466f34b47c8183d41b88e8f094c93621225a0e3a9d0725b6405e76eccf0",
+          "verified_at": "2026-11-09T20:55:43.974895+00:00",
+          "reason": "Update only the new0.7comparison to the independently verified latest AAPL fiscal date; preserve the0.6comparison."
+        }
+      ],
+      "live_check_scope": "C5/C6/C7 establish numeric values/ranges only; no independent accuracy, freshness or provider agreement is asserted."
+    },
+    "SMF-Mac-History-Checks-20261109.xlsx": {
+      "sha256": "6f900cc61b6f106ce1c86da4a30ea8126bb48e3779f6f5639b4eb483561a7fd9",
+      "version_observed": "3.0.2024.07.30-mac.0.7-dev",
+      "native_recalculated_saved": true,
+      "saved_closed_reopened_ready": true,
+      "observation_method": "Native Excel recalculation/save/reopen, visible results and Ready status; saved OOXML formula/cache inspection",
+      "native_checks_passed": 8,
+      "B2_array_entered": true,
+      "history_array_range": "A13:B17",
+      "history_rows": 5,
+      "history_columns": 2,
+      "array_evidence": "B2.HasArray was true in native helper; saved B2 and A13:B17 have array formula records; native returned-rows and returned-columns checks PASS",
+      "private_helper_limitation": "CurrentArray introspection raised1004 after worksheet checks; native results and saved array records were checked separately"
+    }
+  },
+  "native_example_receipt_sha256": "da92235d51ffc1edbe4c2105e9982c8705918870a6116b57ff98c6ef64dc2cb5",
+  "cold_reopen": {
+    "status": "PASS",
+    "version": "3.0.2024.07.30-mac.0.7-dev",
+    "checked_at": "2026-11-09T22:31:29.488582+00:00",
+    "runtime": {
+      "excel": "16.114.4 (16.114.26110224)",
+      "macos": "27.0.1",
+      "architecture": "Apple silicon",
+      "observation_scope": "One Mac; native Excel UI and saved OOXML inspection"
+    },
+    "opened_after_excel_restart": true,
+    "automatic_calculation": true,
+    "excel_ready": true,
+    "excel_process_unchanged_during_reopen": true,
+    "only_visible_workbook": true,
+    "live_stockcharts_formula": true,
+    "live_numeric_chart_formula": true,
+    "stockcharts_picture_visible": true,
+    "numeric_chart_plot_visible": true,
+    "data_checks_passed": 11,
+    "data_checks_failed": 0,
+    "calculation_observation": "Excel status bar Ready after smfForceRecalculation returned",
+    "calculation_state_enum_read": false,
+    "calculation_state_enum_value": null,
+    "excel_process_before_reopen": 80784,
+    "excel_process_after_reopen": 80784,
+    "launch_method": "Excel was quit normally and observed not running; fresh Excel process then explicitly opened the native add-in and data/picture example",
+    "startup_registration_verified": false
+  },
+  "cold_reopen_receipt_sha256": "01211589875988f01c175b4c30aa2df0632e75da6d0d4d6f32ce1c5f98dbb9a5",
+  "advfn_source_evidence_sha256": "fb9d5009aff64add7d0d0f57fc337c0dc443b0b93402d37e0066a742d01b3ac7",
+  "definition_files": 14,
+  "helper_source": "SMFMac.applescript",
+  "packaging_changes": {
+    "SMF-Mac.xlam": [
+      "xl/workbook.xml",
+      "docProps/core.xml"
+    ],
+    "SMF-Mac-Checks-20261109.xlsx": [
+      "xl/workbook.xml",
+      "xl/externalLinks/externalLink1.xml",
+      "docProps/core.xml",
+      "xl/externalLinks/_rels/externalLink1.xml.rels"
+    ],
+    "SMF-Mac-Data-Picture-Checks-20261109.xlsx": [
+      "xl/workbook.xml",
+      "xl/externalLinks/externalLink1.xml",
+      "xl/comments1.xml",
+      "docProps/core.xml",
+      "xl/externalLinks/_rels/externalLink1.xml.rels"
+    ],
+    "SMF-Mac-History-Checks-20261109.xlsx": [
+      "xl/workbook.xml",
+      "xl/externalLinks/externalLink1.xml",
+      "docProps/core.xml",
+      "xl/externalLinks/_rels/externalLink1.xml.rels"
+    ]
+  },
+  "unsupported_registry_sha256": "9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8",
+  "status_table_sha256": "4a427fa07bdab6e2f6f71ac881f8d87b2d0e4231615ca704ced9c5e870b38fdd",
+  "not_supported_registry": {
+    "registry_sha256": "9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8",
+    "source_groups": 6,
+    "exact_url_rules": 10,
+    "default_fields": 288,
+    "status_rows": 294,
+    "mode": "check",
+    "result": "PASS",
+    "csv_sha256": "4a427fa07bdab6e2f6f71ac881f8d87b2d0e4231615ca704ced9c5e870b38fdd",
+    "generator_sha256": "f37364654754b8167f7497b87b20359d5b7191c5c28092311c5228911831ada7",
+    "csv_filename": "NotSupported.csv",
+    "embedded_registry_and_csv_verified": true,
+    "scope": "Shipped definitions; current custom definitions can replace defaults."
+  },
+  "preserved_0_6_rollback_files_sha256": {
+    "BUILD-INFO.json": "2ba2bdf96a3eb39f97514d310d9d96bb21ed14c8f2fe803311d52b1fef3f1627",
+    "README.md": "ee5c8c5778bc600f103dd6ec9b042ed66d26de91c80e27a5c6e3bb29be42200e",
+    "SHA256SUMS": "0630f9467d09ee68e887d8c4a1527454b97ccee61749c1db5a593a9f2833dafd",
+    "SMF-Mac-Checks-20261108.xlsx": "af09ba3ec9275f2eca1ec777759601bda3da46de802fd401bf2f7294d470fa4d",
+    "SMF-Mac-Data-Picture-Checks-20261108.xlsx": "0e3b6fa381ab874a034d8b5eede478817bd856b5660cb058ba49f85df347c3e3",
+    "SMF-Mac-History-Checks-20261108.xlsx": "9aec1b96d9b7f8a4f2b35dc2da1291cd8d9d4ca912dd4aad9ca65bcd925e8339",
+    "SMF-Mac.xlam": "f4b7a0f9a2a387c41dc20de2a5e09f695a6a5096f10580e86d4d17e23af5f366",
+    "SMFMac.applescript": "49749f16ab479056a65af2f67152a74d8070ef0b6aea647534b1e0c36ae7bba9",
+    "install_helper.command": "5d59e46477a534dd90ae4a7cc7a4af87afba4d4671ce976e03cb914846bb0e1e",
+    "smf-elements-0.txt": "de76f73e0c16b61d00199d38584e853d02f71a71bcaedbc343da6db46f6c2db0",
+    "smf-elements-1.txt": "e648fbcd1ba66f9235768ec3bbc48d749be57f2e4578fbc0cfe75158640d74da",
+    "smf-elements-2.txt": "69988cc4f4b6a4cfb2a2c243305278e63797f194c490bb7ec1b4200091645897",
+    "smf-elements-20-FinViz_v2.txt": "12f69c1a83807480c2f80db330b5675e0bd009ef1bd512adc6249c1cfa4b6c4b",
+    "smf-elements-20.txt": "c19a3ed950a12bdefccde8732324abfbc6138857d978a0c55293f86de93a4c8d",
+    "smf-elements-22.txt": "3e85e52b21804450378d9fb4510abc9234c06cfe0e40290e7f45c2918a0e3eb9",
+    "smf-elements-3.txt": "e874387e440c0885ccff4f7b9c9f914ecac762ea181201e385ef657133e80e02",
+    "smf-elements-4.txt": "5d65bceebed145fc4439c4dc3a1bcf6126acad50530e93ea3c3ea597d623b207",
+    "smf-elements-5.txt": "a90f34c0afd65f5b266af7b1b1c79b0b1ac217d0749b9784a429c811ea730656",
+    "smf-elements-6.txt": "ac269d9847f1f70e2cb17cde23e97711c99c5303237ebdac7a3217c9779f2c07",
+    "smf-elements-7.txt": "d0d09d4b01c54a90f2c887a4cb093fc6a234f621bb6c682206d9cb771be9e44c",
+    "smf-elements-8.txt": "d6f1b1321a7696ebf6cbcc20a3e2beebd9a576fa06ed6f4a92acf067205d1098",
+    "smf-elements-9.txt": "b5eb1316de40ceaefd9a60b5cfb0c3e28c65ad8526deb0288fcd2fa30ab32352",
+    "smf-elements-info.txt": "851956693cd7ced4fc2b4ccf6ad035db919ecb335d3f8517bcf5adf79907800e"
+  },
+  "credential_file_included": false,
+  "retained_vba_metadata": "VBA project bytes stay unchanged; reference and compiler-cache path metadata is not sanitized.",
+  "limits": "Experimental build. See full-suite remaining failures. A fresh Mac and separate user account remain untested."
+}

@@ -16,3 +16,8 @@ mac/test-results/0.6-dev-20261108-final/*.csv -text whitespace=-blank-at-eol
 
 # Keep original whitespace in the byte-verified bundled element definitions.
 mac/built/0.6-dev/smf-elements-*.txt whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+
+# Preserve the reviewed 0.7 report bytes and source excerpts used by checksums.
+mac/test-results/0.7-dev-20261109-final/** -text
+mac/test-results/0.7-dev-20261109-final/**/*.csv whitespace=-blank-at-eol
+mac/built/0.7-dev/smf-elements-*.txt whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

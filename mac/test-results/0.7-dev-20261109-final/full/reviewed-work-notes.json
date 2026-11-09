@@ -1,0 +1,8 @@
+{
+  "smfGetGoogleHistoryCSV": {
+    "applies_when": [
+      "Live call failed"
+    ],
+    "work_remaining": "Establish an available historical-data source or endpoint; the encoded legacy URL now returns Google Finance HTML instead of CSV."
+  }
+}

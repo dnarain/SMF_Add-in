@@ -1,0 +1,32 @@
+{
+  "verdict": "PASS",
+  "owner_sha256": "392139b5c9de34eaf7399b8860e4b2203ca9c09b8d9eeed64ff557ea0bf8fd93",
+  "owner_vba_sha256": "7d309445abba5da5fe4bdded4e4652d47b992fc41b1158423e6cfc38d0df0b83",
+  "clean_workbook_sha256": "b5acdda40fc2fbc3c1c955eb222249a2c767c1cfa36f066b4a202a8345b28b8e",
+  "clean_vba_sha256": "89059032aebc91a26c545eba801519782c9a9eecd35f83dcd3378974f1281779",
+  "component_count": 52,
+  "core_sources_byte_exact_to_clean": 51,
+  "core_sources_equal_except_identifier_case": 51,
+  "core_identifier_case_only_changes": [],
+  "additional_blank_document_modules": [],
+  "runner_generated_sha256": "0dc282ff3d175e7666c23b6e21e7f0249c2eefc4e64ce1fbfcaa0834d1b973dc",
+  "runner_saved_source_sha256": "2f070fa0b853b8bd3184ad662883ed00d27d9475edd10581408b80224cf79ec8",
+  "runner_comparison": {
+    "line_count": 37078,
+    "quoted_literal_count": 12846,
+    "all_executable_quoted_literals_exact": true,
+    "identifier_case_changed_lines": 4485,
+    "numeric_format_changes": 1225,
+    "maximum_numeric_literal_delta": "5E-13",
+    "description_encoding_changes": 13,
+    "unclassified_change_count": 0,
+    "normalized_token_sha256": "f80dc087bd7ef2567133eb555f51bd5aa4f3639943254a69b6ac114c86fe9242"
+  },
+  "scope": "Saved owner source/components and generated runner; native result outcomes are separate evidence.",
+  "source_commit": "e7d788b4f0871e94dbe6e13131ca8d9b7ff0eb8a",
+  "source_fingerprint": "e8d82e4755d8d74dda22219cdf9f16f0d46a0b77b70cba3ea88b23ee6e3faaac",
+  "clean_source_commit_audit_sha256": "95581dba2cc00b6ef0d294d4150a2fc32cd3d48f0428817003c6160cf9e69125",
+  "clean_intended_changed_source_count": 14,
+  "manifest_sha256": "b4b58c497e3a256daa4af30ff1ef9eb599242501971e4d912bd19829b6e6f86e",
+  "report_summary_sha256": "5b8030196a13cbe6109acd675af1f50401890f73a369cc316b3f29748372a4c2"
+}

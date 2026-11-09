@@ -1,0 +1,1339 @@
+[
+  {
+    "function": "ParseJson",
+    "visibility": "Public",
+    "file": "code/JsonConverter.bas",
+    "line": 172,
+    "signature": "Public Function ParseJson(ByVal JsonString As String) As Object"
+  },
+  {
+    "function": "ConvertToJson",
+    "visibility": "Public",
+    "file": "code/JsonConverter.bas",
+    "line": 205,
+    "signature": "Public Function ConvertToJson(ByVal JsonValue As Variant, Optional ByVal Whitespace As Variant, Optional ByVal json_CurrentIndentation As Long = 0) As String"
+  },
+  {
+    "function": "json_ParseObject",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 467,
+    "signature": "Private Function json_ParseObject(json_String As String, ByRef json_Index As Long) As Dictionary"
+  },
+  {
+    "function": "json_ParseArray",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 499,
+    "signature": "Private Function json_ParseArray(json_String As String, ByRef json_Index As Long) As Collection"
+  },
+  {
+    "function": "json_ParseValue",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 523,
+    "signature": "Private Function json_ParseValue(json_String As String, ByRef json_Index As Long) As Variant"
+  },
+  {
+    "function": "json_ParseString",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 554,
+    "signature": "Private Function json_ParseString(json_String As String, ByRef json_Index As Long) As String"
+  },
+  {
+    "function": "json_ParseNumber",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 614,
+    "signature": "Private Function json_ParseNumber(json_String As String, ByRef json_Index As Long) As Variant"
+  },
+  {
+    "function": "json_ParseKey",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 647,
+    "signature": "Private Function json_ParseKey(json_String As String, ByRef json_Index As Long) As String"
+  },
+  {
+    "function": "json_IsUndefined",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 675,
+    "signature": "Private Function json_IsUndefined(ByVal json_Value As Variant) As Boolean"
+  },
+  {
+    "function": "json_Encode",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 688,
+    "signature": "Private Function json_Encode(ByVal json_Text As Variant) As String"
+  },
+  {
+    "function": "json_Peek",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 749,
+    "signature": "Private Function json_Peek(json_String As String, ByVal json_Index As Long, Optional json_NumberOfCharacters As Long = 1) As String"
+  },
+  {
+    "function": "json_StringIsLargeNumber",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 762,
+    "signature": "Private Function json_StringIsLargeNumber(json_String As Variant) As Boolean"
+  },
+  {
+    "function": "json_ParseErrorMessage",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 790,
+    "signature": "Private Function json_ParseErrorMessage(json_String As String, ByRef json_Index As Long, ErrorMessage As String)"
+  },
+  {
+    "function": "json_BufferToString",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 866,
+    "signature": "Private Function json_BufferToString(ByRef json_Buffer As String, ByVal json_BufferPosition As Long) As String"
+  },
+  {
+    "function": "ParseUtc",
+    "visibility": "Public",
+    "file": "code/JsonConverter.bas",
+    "line": 903,
+    "signature": "Public Function ParseUtc(utc_UtcDate As Date) As Date"
+  },
+  {
+    "function": "ConvertToUtc",
+    "visibility": "Public",
+    "file": "code/JsonConverter.bas",
+    "line": 932,
+    "signature": "Public Function ConvertToUtc(utc_LocalDate As Date) As Date"
+  },
+  {
+    "function": "ParseIso",
+    "visibility": "Public",
+    "file": "code/JsonConverter.bas",
+    "line": 961,
+    "signature": "Public Function ParseIso(utc_IsoString As String) As Date"
+  },
+  {
+    "function": "ConvertToIso",
+    "visibility": "Public",
+    "file": "code/JsonConverter.bas",
+    "line": 1039,
+    "signature": "Public Function ConvertToIso(utc_LocalDate As Date) As String"
+  },
+  {
+    "function": "utc_ConvertDate",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 1056,
+    "signature": "Private Function utc_ConvertDate(utc_Value As Date, Optional utc_ConvertToUtc As Boolean = False) As Date"
+  },
+  {
+    "function": "utc_ExecuteInShell",
+    "visibility": "Private",
+    "file": "code/JsonConverter.bas",
+    "line": 1087,
+    "signature": "Private Function utc_ExecuteInShell(utc_ShellCommand As String) As utc_ShellResult"
+  },
+  {
+    "function": "RCHExtractData",
+    "visibility": "Public",
+    "file": "code/modExtractData.bas",
+    "line": 2,
+    "signature": "Public Function RCHExtractData(ByVal pSource As String, ByVal pElement As String, ByVal pFind1 As String, ByVal pFind2 As String, ByVal pFind3 As String, ByVal pFind4 As String, ByVal pRows As Integer, ByVal pEnd As String, ByVal pCells As Integer, ByVal pLook As Integer) As Variant"
+  },
+  {
+    "function": "smfGetADVFNElement",
+    "visibility": "Public",
+    "file": "code/modGetAdvFNElement.bas",
+    "line": 3,
+    "signature": "Function smfGetADVFNElement(ByVal pTicker As String, ByVal pPeriod As String, ByVal pCells As Integer, Optional ByVal pFind1 As String = \"\", Optional ByVal pFind2 As String = \"\", Optional ByVal pError As Variant = \"Error\", Optional ByVal pType As Integer = 0) As Variant"
+  },
+  {
+    "function": "smfMacADVFNLatestYearEnd",
+    "visibility": "Private",
+    "file": "code/modGetAdvFNElement.bas",
+    "line": 117,
+    "signature": "Private Function smfMacADVFNLatestYearEnd(ByVal pTicker As String, ByVal pFind2 As String, ByVal pError As Variant, ByVal pType As Integer) As Variant"
+  },
+  {
+    "function": "smfMacADVFNAnnualHeader",
+    "visibility": "Private",
+    "file": "code/modGetAdvFNElement.bas",
+    "line": 170,
+    "signature": "Private Function smfMacADVFNAnnualHeader(ByVal pHTML As String, ByVal pSection As String) As String"
+  },
+  {
+    "function": "smfMacADVFNParseYearEnd",
+    "visibility": "Private",
+    "file": "code/modGetAdvFNElement.bas",
+    "line": 216,
+    "signature": "Private Function smfMacADVFNParseYearEnd(ByVal pText As String, ByRef pDate As Date) As Boolean"
+  },
+  {
+    "function": "smfMacADVFNText",
+    "visibility": "Private",
+    "file": "code/modGetAdvFNElement.bas",
+    "line": 247,
+    "signature": "Private Function smfMacADVFNText(ByVal pText As String) As String"
+  },
+  {
+    "function": "smfGetCSVFile",
+    "visibility": "Public",
+    "file": "code/modGetCSVFile.bas",
+    "line": 2,
+    "signature": "Public Function smfGetCSVFile(pURL As String, Optional ByVal pDelimiter As String = \",\", Optional ByVal pDim1 As Integer = 0, Optional ByVal pDim2 As Integer = 0)"
+  },
+  {
+    "function": "smfGetEconData",
+    "visibility": "Public",
+    "file": "code/modGetEconData.bas",
+    "line": 8,
+    "signature": "Function smfGetEconData(pID As String, pDate As Variant, Optional pError As Variant = \"Error\")"
+  },
+  {
+    "function": "smfMacFREDValue",
+    "visibility": "Private",
+    "file": "code/modGetEconData.bas",
+    "line": 58,
+    "signature": "Private Function smfMacFREDValue(ByVal pID As String, ByRef pDate As Variant, ByVal pError As Variant) As Variant"
+  },
+  {
+    "function": "smfMacFREDText",
+    "visibility": "Private",
+    "file": "code/modGetEconData.bas",
+    "line": 141,
+    "signature": "Private Function smfMacFREDText(ByVal pObject As Object, ByVal pField As String, Optional ByVal pAllowEmpty As Boolean = False) As String"
+  },
+  {
+    "function": "smfMacFREDDate",
+    "visibility": "Private",
+    "file": "code/modGetEconData.bas",
+    "line": 150,
+    "signature": "Private Function smfMacFREDDate(ByVal pValue As Variant, ByRef pISO As String) As Boolean"
+  },
+  {
+    "function": "smfMacFREDNumber",
+    "visibility": "Private",
+    "file": "code/modGetEconData.bas",
+    "line": 176,
+    "signature": "Private Function smfMacFREDNumber(ByVal pText As String, ByRef pNumber As Double) As Boolean"
+  },
+  {
+    "function": "smfMacFREDRequest",
+    "visibility": "Private",
+    "file": "code/modGetEconData.bas",
+    "line": 216,
+    "signature": "Private Function smfMacFREDRequest(ByVal pRoute As String) As Object"
+  },
+  {
+    "function": "smfMacFREDReadKey",
+    "visibility": "Private",
+    "file": "code/modGetEconData.bas",
+    "line": 274,
+    "signature": "Private Function smfMacFREDReadKey() As String"
+  },
+  {
+    "function": "RCHGetElementNumber",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 17,
+    "signature": "Public Function RCHGetElementNumber(ByVal pTicker As String, Optional ByVal pItem As Integer = 1, Optional ByVal pError As Variant = \"Error\", Optional ByVal pFile As String = \"\")"
+  },
+  {
+    "function": "RCHSpecialExtraction",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 375,
+    "signature": "Private Function RCHSpecialExtraction(pLookup As String, Optional pTicker As String = \"\")"
+  },
+  {
+    "function": "SMFMacElementsSelfTest",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 774,
+    "signature": "Public Function SMFMacElementsSelfTest() As Long"
+  },
+  {
+    "function": "smfGetAParms",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 857,
+    "signature": "Public Function smfGetAParms(p1 As Integer)"
+  },
+  {
+    "function": "smfGetAConstants",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 861,
+    "signature": "Public Function smfGetAConstants(p1 As Integer)"
+  },
+  {
+    "function": "smfGetaFiles",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 868,
+    "signature": "Public Function smfGetaFiles(p1 As Integer)"
+  },
+  {
+    "function": "MacRecipeCallsTableCell",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 877,
+    "signature": "Private Function MacRecipeCallsTableCell(ByVal pExpression As String) As Boolean"
+  },
+  {
+    "function": "SMFMacTableGuardSelfTest",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 920,
+    "signature": "Public Function SMFMacTableGuardSelfTest() As Long"
+  },
+  {
+    "function": "SMFMacEmptyRecipeSelfTest",
+    "visibility": "Public",
+    "file": "code/modGetElementNumber.bas",
+    "line": 987,
+    "signature": "Public Function SMFMacEmptyRecipeSelfTest() As Long"
+  },
+  {
+    "function": "smfUnsupportedRegistry",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 1028,
+    "signature": "Private Function smfUnsupportedRegistry() As Collection"
+  },
+  {
+    "function": "smfUnsupportedRoutes",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 1100,
+    "signature": "Private Function smfUnsupportedRoutes() As Collection"
+  },
+  {
+    "function": "smfUnsupportedURLParts",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 1148,
+    "signature": "Private Function smfUnsupportedURLParts(ByVal pURL As String, ByRef pHost As String, ByRef pPath As String) As Boolean"
+  },
+  {
+    "function": "smfLiteralUnsupportedReason",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 1184,
+    "signature": "Private Function smfLiteralUnsupportedReason(ByVal pExpression As String, ByRef pReason As String) As Boolean"
+  },
+  {
+    "function": "smfUnsupportedFieldSelfChecks",
+    "visibility": "Private",
+    "file": "code/modGetElementNumber.bas",
+    "line": 1272,
+    "signature": "Private Function smfUnsupportedFieldSelfChecks() As Long"
+  },
+  {
+    "function": "smfGetGuruFocusData",
+    "visibility": "Public",
+    "file": "code/modGetGuruFocusData.bas",
+    "line": 4,
+    "signature": "Function smfGetGuruFocusData(ByVal pTicker As String, ByVal pItem As Integer, Optional ByVal pPeriod As String = \"C\", Optional ByVal pOffset As Integer = 0, Optional ByVal pError As Variant = \"Error\", Optional ByVal pType As Integer = 0) As Variant"
+  },
+  {
+    "function": "smfGetGuruFocusItem",
+    "visibility": "Public",
+    "file": "code/modGetGuruFocusItem.bas",
+    "line": 4,
+    "signature": "Function smfGetGuruFocusItem(ByVal pTicker As String, ByVal pItem As Integer, Optional ByVal pPeriod As String = \"TTM\", Optional ByVal pOffset As Integer = 0, Optional ByVal pError As Variant = \"Error\", Optional ByVal pType As Integer = 0) As Variant"
+  },
+  {
+    "function": "RCHGetHTMLTable",
+    "visibility": "Public",
+    "file": "code/modGetHTMLTable.bas",
+    "line": 3,
+    "signature": "Public Function RCHGetHTMLTable(ByVal pURL As String, ByVal pFind1 As String, Optional ByVal pDir1 As Integer = -1, Optional ByVal pFind2 As String = \"\", Optional ByVal pDir2 As Integer = 1, Optional ByVal pRowOnly As Boolean = False, Optional ByVal pDim1 As Integer = 0, Optional ByVal pDim2 As Integer = 0, Optional ByVal pType As Integer = 0, Optional ByVal pCalc As Integer = 1)"
+  },
+  {
+    "function": "smfGetMSNHistory",
+    "visibility": "Public",
+    "file": "code/modGetMSNHistory.bas",
+    "line": 2,
+    "signature": "Public Function smfGetMSNHistory(pTicker As String, Optional pStartYear As Integer = 1900, Optional pStartMonth As Integer = 1, Optional pEndYear As Integer = 2100, Optional pEndMonth As Integer = 12, Optional pItems As String = \"DOHLCV\", Optional pNames As Integer = 1, Optional pResort As Integer = 0, Optional pDim1 As Integer = 0, Optional pDim2 As Integer = 0)"
+  },
+  {
+    "function": "smfGetOptionExpirations",
+    "visibility": "Public",
+    "file": "code/modGetOptionExpirations.bas",
+    "line": 3,
+    "signature": "Function smfGetOptionExpirations(ByVal pTicker As String, Optional ByVal pSource As String = \"Yahoo\", Optional ByVal pPutCall As String = \"X\", Optional ByVal pStrike As Double = 0, Optional ByVal pRows As Integer = 0, Optional ByVal pCols As Integer = 0, Optional ByVal pType As Integer = 0, Optional ByVal pPeriod As String = \"A\" )"
+  },
+  {
+    "function": "smfGetOptionExpiry",
+    "visibility": "Public",
+    "file": "code/modGetOptionExpiry.bas",
+    "line": 3,
+    "signature": "Public Function smfGetOptionExpiry(Optional ByVal pYear As Integer = 0, Optional ByVal pMonth As Integer = 0, Optional ByVal pType As String = \"M\")"
+  },
+  {
+    "function": "smfGetOptionQuotes",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 3,
+    "signature": "Public Function smfGetOptionQuotes(ByVal pTickers As Variant, ByVal pItems As Variant, Optional ByVal pHeader As Integer = 0, Optional ByVal pSource As String = \"Y\", Optional ByVal pDim1 As Integer = 0, Optional ByVal pDim2 As Integer = 0)"
+  },
+  {
+    "function": "smfGet888OptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 255,
+    "signature": "Public Function smfGet888OptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetBarChartOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 407,
+    "signature": "Public Function smfGetBarChartOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetBigChartsOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 495,
+    "signature": "Public Function smfGetBigChartsOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant, Optional ByVal pHistory As Variant = \"\")"
+  },
+  {
+    "function": "smfGetGoogleOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 607,
+    "signature": "Public Function smfGetGoogleOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetMSNOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 700,
+    "signature": "Public Function smfGetMSNOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetNASDAQOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 842,
+    "signature": "Public Function smfGetNASDAQOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant, Optional ByVal pHistory As Variant = \"\")"
+  },
+  {
+    "function": "smfGetMWOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 960,
+    "signature": "Public Function smfGetMWOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetOXOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 1082,
+    "signature": "Public Function smfGetOXOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetOX2OptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 1196,
+    "signature": "Public Function smfGetOX2OptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetOX3OptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 1291,
+    "signature": "Public Function smfGetOX3OptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetYahooOptionQuote",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 1388,
+    "signature": "Public Function smfGetYahooOptionQuote(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetYahooOptionQuote1",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 1475,
+    "signature": "Public Function smfGetYahooOptionQuote1(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetYahooOptionQuote2",
+    "visibility": "Public",
+    "file": "code/modGetOptionQuotes.bas",
+    "line": 1568,
+    "signature": "Public Function smfGetYahooOptionQuote2(ByVal pTicker As Variant, ByVal pPutCall As Variant, ByVal pExpiry As Variant, ByVal pStrike As Variant, ByVal pItem As Variant)"
+  },
+  {
+    "function": "smfGetOptionStrikes",
+    "visibility": "Public",
+    "file": "code/modGetOptionStrikes.bas",
+    "line": 3,
+    "signature": "Function smfGetOptionStrikes(ByVal pTicker As String, Optional ByVal pExpiry As Variant = 0, Optional ByVal pPutCall As String = \"P\", Optional ByVal pSource As String = \"Y\", Optional ByVal pSymbols As Integer = 0, Optional ByVal pRows As Integer = 0, Optional ByVal pCols As Integer = 0, Optional ByVal pType As Integer = 0)"
+  },
+  {
+    "function": "RCHGetTableCell",
+    "visibility": "Public",
+    "file": "code/modGetTableCell.bas",
+    "line": 2,
+    "signature": "Public Function RCHGetTableCell(ByVal pURL As String, ByVal pCells As Integer, Optional ByVal pFind1 As String = \"<BODY\", Optional ByVal pFind2 As String = \" \", Optional ByVal pFind3 As String = \" \", Optional ByVal pFind4 As String = \" \", Optional ByVal pRows As Integer = 0, Optional ByVal pEnd As String = \"</BODY\", Optional ByVal pLook As Integer = 0, Optional ByVal pError As Variant = \"Error\", Optional ByVal pType As Integer = 0) As Variant"
+  },
+  {
+    "function": "smfGetTagContent",
+    "visibility": "Public",
+    "file": "code/modGetTagContent.bas",
+    "line": 2,
+    "signature": "Public Function smfGetTagContent(ByVal pURL As String, ByVal pTag As String, Optional ByVal pTags As Integer = 1, Optional ByVal pFind1 As String = \"<\", Optional ByVal pFind2 As String = \" \", Optional ByVal pFind3 As String = \" \", Optional ByVal pFind4 As String = \" \", Optional ByVal pConv As Integer = 0, Optional ByVal pError As Variant = \"Error\", Optional ByVal pType As Integer = 0, Optional ByVal pLen As Integer = 32767, Optional ByVal pTag2 As String = \" \") As Variant"
+  },
+  {
+    "function": "RCHGetWebData",
+    "visibility": "Public",
+    "file": "code/modGetWebData.bas",
+    "line": 2,
+    "signature": "Public Function RCHGetWebData(ByVal pURL As String, Optional ByVal pPos As Variant = 1, Optional ByVal pLen As Integer = 32767, Optional ByVal pOffset As Integer = 0, Optional ByVal pUseIE As Integer = 0) As Variant"
+  },
+  {
+    "function": "RCHGetYahooHistory",
+    "visibility": "Public",
+    "file": "code/modGetYahooHistory.bas",
+    "line": 2,
+    "signature": "Public Function RCHGetYahooHistory(pTicker As String, Optional pStartYear As Integer = 1950, Optional pStartMonth As Integer = 1, Optional pStartDay As Integer = 1, Optional pEndYear As Integer = 2030, Optional pEndMonth As Integer = 12, Optional pEndDay As Integer = 31, Optional pPeriod As String = \"d\", Optional pItems As String = \"DOHLCVU\", Optional pNames As Integer = 1, Optional pAdjust As Integer = 1, Optional pResort As Integer = 0, Optional pDim1 As Integer = 20000, Optional pDim2 As Integer = 7)"
+  },
+  {
+    "function": "RCHGetYahooHistory2",
+    "visibility": "Public",
+    "file": "code/modGetYahooHistory.bas",
+    "line": 103,
+    "signature": "Public Function RCHGetYahooHistory2(pTicker As String, Optional pStartYear As Integer = 0, Optional pStartMonth As Integer = 0, Optional pStartDay As Integer = 0, Optional pEndYear As Integer = 0, Optional pEndMonth As Integer = 0, Optional pEndDay As Integer = 0, Optional pPeriod As String = \"d\", Optional pItems As String = \"DOHLCVA\", Optional pNames As Integer = 1, Optional pAdjust As Integer = 0, Optional pResort As Integer = 0, Optional pDim1 As Integer = 0, Optional pDim2 As Integer = 0)"
+  },
+  {
+    "function": "smfGetYahooJSONField",
+    "visibility": "Public",
+    "file": "code/modGetYahooJSONData.bas",
+    "line": 2,
+    "signature": "Public Function smfGetYahooJSONField(ByVal pTicker As String, ByVal pModule As String, ByVal pField As String, Optional ByVal pStart As Double = 0)"
+  },
+  {
+    "function": "smfGetYahooJSONData",
+    "visibility": "Public",
+    "file": "code/modGetYahooJSONData.bas",
+    "line": 61,
+    "signature": "Public Function smfGetYahooJSONData(ByVal pTicker As String, ByVal pModule As String, ByVal pField As String, Optional ByVal pPeriod As Integer = 1, Optional ByVal pProcess As String = \"raw\", Optional ByVal pEndDate As Integer = 0)"
+  },
+  {
+    "function": "smfBuildYahooTimeSeriesURL",
+    "visibility": "Public",
+    "file": "code/modGetYahooJSONData.bas",
+    "line": 129,
+    "signature": "Public Function smfBuildYahooTimeSeriesURL(ByVal pTicker As String, ByVal pModule As String)"
+  },
+  {
+    "function": "RCHGetYahooQuotes",
+    "visibility": "Public",
+    "file": "code/modGetYahooQuotes.bas",
+    "line": 2,
+    "signature": "Public Function RCHGetYahooQuotes(ByVal pTickers As Variant, Optional ByVal pItems As Variant = \"sl1d1t1c1ohgv\", Optional ByVal pServerID As String = \"\", Optional ByVal pRefresh As Variant = 0, Optional ByVal pHeader As Integer = 0, Optional ByVal pDim1 As Integer = 0, Optional ByVal pDim2 As Integer = 0, Optional ByVal pDelimiter As String = \",\")"
+  },
+  {
+    "function": "smfYahooCodeDesc",
+    "visibility": "Public",
+    "file": "code/modGetYahooQuotes.bas",
+    "line": 236,
+    "signature": "Function smfYahooCodeDesc(pCode As String)"
+  },
+  {
+    "function": "smfInCellChart",
+    "visibility": "Public",
+    "file": "code/modInCellChart.bas",
+    "line": 2,
+    "signature": "Function smfInCellChart(pVector As Variant, Optional pType As String = \"Line\", Optional pColor As Long = 203) As String"
+  },
+  {
+    "function": "DecodeJsonString",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 25,
+    "signature": "Public Function DecodeJsonString(ByVal JsonString As String)"
+  },
+  {
+    "function": "GetProperty",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 33,
+    "signature": "Public Function GetProperty(ByVal jsonObject As Object, ByVal propertyName As String) As Variant"
+  },
+  {
+    "function": "GetObjectProperty",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 48,
+    "signature": "Public Function GetObjectProperty(ByVal jsonObject As Object, ByVal propertyName As String) As Object"
+  },
+  {
+    "function": "GetKeys",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 63,
+    "signature": "Public Function GetKeys(ByVal jsonObject As Object) As String()"
+  },
+  {
+    "function": "smfJSONExtractField",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 104,
+    "signature": "Function smfJSONExtractField(pJSONData As String, pJSONFields As String)"
+  },
+  {
+    "function": "smfJSONExtractField_x64",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 139,
+    "signature": "Function smfJSONExtractField_x64(pJSONData As String, pFieldNames As String)"
+  },
+  {
+    "function": "smfChkJSONFieldType",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 201,
+    "signature": "Function smfChkJSONFieldType(pField)"
+  },
+  {
+    "function": "smfJSONExtractKeys",
+    "visibility": "Public",
+    "file": "code/modJSONExtract.bas",
+    "line": 219,
+    "signature": "Function smfJSONExtractKeys(pJSONData As String, pFieldName As String)"
+  },
+  {
+    "function": "smfJSONPortableNode",
+    "visibility": "Private",
+    "file": "code/modJSONExtract.bas",
+    "line": 256,
+    "signature": "Private Function smfJSONPortableNode(ByVal pJSONData As String, ByVal pPath As String, ByRef pNode As Object, ByRef pValue As Variant) As Boolean"
+  },
+  {
+    "function": "smfJSONPortableProperty",
+    "visibility": "Private",
+    "file": "code/modJSONExtract.bas",
+    "line": 279,
+    "signature": "Private Function smfJSONPortableProperty(ByVal pNode As Object, ByVal pName As String, ByRef pChild As Object, ByRef pValue As Variant) As Boolean"
+  },
+  {
+    "function": "RCHGetURLData1Mac",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 18,
+    "signature": "Public Function RCHGetURLData1Mac(ByVal pURL As String, Optional ByVal pUseIE As Integer = 0) As String"
+  },
+  {
+    "function": "smfMacFetch",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 27,
+    "signature": "Public Function smfMacFetch(ByVal pURL As String, Optional ByVal pMethod As String = \"GET\") As String"
+  },
+  {
+    "function": "smfMacRedactAPIKey",
+    "visibility": "Private",
+    "file": "code/modMacCode.bas",
+    "line": 79,
+    "signature": "Private Function smfMacRedactAPIKey(ByVal pText As String) As String"
+  },
+  {
+    "function": "smfMacReadResponse",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 189,
+    "signature": "Public Function smfMacReadResponse(ByVal pResponse As String) As String"
+  },
+  {
+    "function": "SMFMacHTTPStatus",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 225,
+    "signature": "Public Function SMFMacHTTPStatus() As Long"
+  },
+  {
+    "function": "SMFMacLastError",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 229,
+    "signature": "Public Function SMFMacLastError() As String"
+  },
+  {
+    "function": "SMFMacLastURL",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 233,
+    "signature": "Public Function SMFMacLastURL() As String"
+  },
+  {
+    "function": "smfMacTryTagContentRecipe",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 247,
+    "signature": "Public Function smfMacTryTagContentRecipe(ByVal pExpression As String, ByRef pValue As Variant) As Boolean"
+  },
+  {
+    "function": "smfMacTryTableCellRecipe",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 292,
+    "signature": "Public Function smfMacTryTableCellRecipe(ByVal pExpression As String, ByRef pValue As Variant) As Boolean"
+  },
+  {
+    "function": "smfMacTryNestedRecipe",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 347,
+    "signature": "Public Function smfMacTryNestedRecipe(ByVal pExpression As String, ByRef pValue As Variant, Optional ByVal pError As Variant = \"Error\") As Boolean"
+  },
+  {
+    "function": "smfMacNestedRecipeNode",
+    "visibility": "Private",
+    "file": "code/modMacCode.bas",
+    "line": 364,
+    "signature": "Private Function smfMacNestedRecipeNode(ByVal pExpression As String, ByVal pExecute As Boolean, ByRef pValue As Variant, ByVal pDepth As Long, ByRef pCalls As Long) As Boolean"
+  },
+  {
+    "function": "smfMacNestedArguments",
+    "visibility": "Private",
+    "file": "code/modMacCode.bas",
+    "line": 430,
+    "signature": "Private Function smfMacNestedArguments(ByVal pText As String, ByRef pTokens() As String, ByRef pCount As Long) As Boolean"
+  },
+  {
+    "function": "smfMacRecipeArguments",
+    "visibility": "Private",
+    "file": "code/modMacCode.bas",
+    "line": 475,
+    "signature": "Private Function smfMacRecipeArguments(ByVal pText As String, ByRef pTokens() As String, ByRef pCount As Long) As Boolean"
+  },
+  {
+    "function": "smfMacRecipeLiteral",
+    "visibility": "Private",
+    "file": "code/modMacCode.bas",
+    "line": 511,
+    "signature": "Private Function smfMacRecipeLiteral(ByVal pToken As String, ByRef pValue As Variant) As Boolean"
+  },
+  {
+    "function": "smfMacRecipeIsNumber",
+    "visibility": "Private",
+    "file": "code/modMacCode.bas",
+    "line": 539,
+    "signature": "Private Function smfMacRecipeIsNumber(ByVal pToken As String) As Boolean"
+  },
+  {
+    "function": "smfMacReadElementText",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 573,
+    "signature": "Public Function smfMacReadElementText(ByVal pFolder As String, ByVal pSuffix As String) As String"
+  },
+  {
+    "function": "SMFMacLastFileError",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 587,
+    "signature": "Public Function SMFMacLastFileError() As String"
+  },
+  {
+    "function": "smfMacReadElementLocation",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 591,
+    "signature": "Public Function smfMacReadElementLocation(ByVal pFolder As String) As String"
+  },
+  {
+    "function": "SMFMacTransportSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacCode.bas",
+    "line": 605,
+    "signature": "Public Function SMFMacTransportSelfTest() As Long"
+  },
+  {
+    "function": "smfMacStripHTML",
+    "visibility": "Public",
+    "file": "code/modMacHTML.bas",
+    "line": 20,
+    "signature": "Public Function smfMacStripHTML(ByVal pString As String) As String"
+  },
+  {
+    "function": "smfMacHTMLReadTag",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 83,
+    "signature": "Private Function smfMacHTMLReadTag(ByVal pHTML As String, ByVal pAt As Long, ByRef pEnd As Long, ByRef pName As String, ByRef pClosing As Boolean, ByRef pSelfClosing As Boolean) As Boolean"
+  },
+  {
+    "function": "smfMacHTMLIsSpace",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 245,
+    "signature": "Private Function smfMacHTMLIsSpace(ByVal pChar As String) As Boolean"
+  },
+  {
+    "function": "smfMacHTMLIsLetter",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 252,
+    "signature": "Private Function smfMacHTMLIsLetter(ByVal pChar As String) As Boolean"
+  },
+  {
+    "function": "smfMacHTMLIsNameChar",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 257,
+    "signature": "Private Function smfMacHTMLIsNameChar(ByVal pChar As String) As Boolean"
+  },
+  {
+    "function": "smfMacHTMLReadEntity",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 263,
+    "signature": "Private Function smfMacHTMLReadEntity(ByVal pHTML As String, ByVal pAt As Long, ByRef pEnd As Long, ByRef pValue As String) As Boolean"
+  },
+  {
+    "function": "smfMacHTMLDigit",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 316,
+    "signature": "Private Function smfMacHTMLDigit(ByVal pChar As String, ByVal pRadix As Long) As Long"
+  },
+  {
+    "function": "smfMacHTMLNamedEntity",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 329,
+    "signature": "Private Function smfMacHTMLNamedEntity(ByVal pName As String, ByRef pValue As String) As Boolean"
+  },
+  {
+    "function": "smfMacHTMLUnicode",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 367,
+    "signature": "Private Function smfMacHTMLUnicode(ByVal pCodePoint As Long) As String"
+  },
+  {
+    "function": "smfMacHTMLSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacHTML.bas",
+    "line": 414,
+    "signature": "Public Function smfMacHTMLSelfTest() As Long"
+  },
+  {
+    "function": "smfMacHTMLVisible",
+    "visibility": "Private",
+    "file": "code/modMacHTML.bas",
+    "line": 485,
+    "signature": "Private Function smfMacHTMLVisible(ByVal pText As String) As String"
+  },
+  {
+    "function": "SMFMacIntegrationSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacIntegrationTests.bas",
+    "line": 4,
+    "signature": "Public Function SMFMacIntegrationSelfTest() As Long"
+  },
+  {
+    "function": "SMFMacRecipeSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacIntegrationTests.bas",
+    "line": 24,
+    "signature": "Public Function SMFMacRecipeSelfTest() As Long"
+  },
+  {
+    "function": "smfMacFixtureQuote",
+    "visibility": "Private",
+    "file": "code/modMacIntegrationTests.bas",
+    "line": 95,
+    "signature": "Private Function smfMacFixtureQuote(ByVal pText As String) As String"
+  },
+  {
+    "function": "SMFMacTableRecipeSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacIntegrationTests.bas",
+    "line": 101,
+    "signature": "Public Function SMFMacTableRecipeSelfTest() As Long"
+  },
+  {
+    "function": "SMFMacNestedRecipeSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacIntegrationTests.bas",
+    "line": 245,
+    "signature": "Public Function SMFMacNestedRecipeSelfTest() As Long"
+  },
+  {
+    "function": "SMFMacJSONSelfTest",
+    "visibility": "Public",
+    "file": "code/modMacJSONTests.bas",
+    "line": 8,
+    "signature": "Public Function SMFMacJSONSelfTest() As String"
+  },
+  {
+    "function": "RCHImageTable",
+    "visibility": "Public",
+    "file": "code/modPictureTable.bas",
+    "line": 2,
+    "signature": "Function RCHImageTable(pTickers As Variant, Optional ByVal pBreaks As Integer = -1, Optional ByVal pChart As String = \"6\")"
+  },
+  {
+    "function": "smfRSITargetPrices",
+    "visibility": "Public",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 3,
+    "signature": "Public Function smfRSITargetPrices(ByVal pTicker As String, Optional ByVal pLoTrigger As Integer = 20, Optional ByVal pHiTrigger As Integer = 80, Optional ByVal pItems As Variant = \"010203040506070809101112\")"
+  },
+  {
+    "function": "smfMacRSITargetPrices",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 86,
+    "signature": "Private Function smfMacRSITargetPrices(ByVal ticker As String, ByVal lowTrigger As Integer, ByVal highTrigger As Integer, ByVal requestedItems As Variant) As Variant"
+  },
+  {
+    "function": "smfMacRSIParseJSON",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 227,
+    "signature": "Private Function smfMacRSIParseJSON(ByVal payload As String) As Object"
+  },
+  {
+    "function": "smfMacRSIItemIndex",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 246,
+    "signature": "Private Function smfMacRSIItemIndex(ByVal code As String) As Long"
+  },
+  {
+    "function": "smfMacRSITicker",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 255,
+    "signature": "Private Function smfMacRSITicker(ByVal ticker As String) As String"
+  },
+  {
+    "function": "smfMacRSINumber",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 270,
+    "signature": "Private Function smfMacRSINumber(ByVal value As Variant, ByRef number As Double) As Boolean"
+  },
+  {
+    "function": "smfMacRSIDate",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 281,
+    "signature": "Private Function smfMacRSIDate(ByVal stamp As Double, ByVal offset As Double) As Date"
+  },
+  {
+    "function": "smfMacRSIRatio",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 288,
+    "signature": "Private Function smfMacRSIRatio(ByVal gain As Double, ByVal loss As Double) As Double"
+  },
+  {
+    "function": "smfMacRSIHistory",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 296,
+    "signature": "Private Function smfMacRSIHistory(ByVal snapshot As Object, ByVal quoteDate As Date, ByVal offset As Double, ByVal requiredCloses As Long, ByRef previousClose As Double, ByRef averageGain As Double, ByRef averageLoss As Double, ByRef bars As Object, ByRef currentBar As Long) As Boolean"
+  },
+  {
+    "function": "smfMacRSIOptionalNumber",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 355,
+    "signature": "Private Function smfMacRSIOptionalNumber(ByVal data As Object, ByVal field As String, ByVal positive As Boolean) As Variant"
+  },
+  {
+    "function": "smfMacRSIBarNumber",
+    "visibility": "Private",
+    "file": "code/modRSITargetPrices.bas",
+    "line": 370,
+    "signature": "Private Function smfMacRSIBarNumber(ByVal bars As Object, ByVal field As String, ByVal row As Long, ByVal positive As Boolean) As Variant"
+  },
+  {
+    "function": "SMFTech",
+    "visibility": "Public",
+    "file": "code/modTechnicalAnalysis.bas",
+    "line": 9,
+    "signature": "Function SMFTech(pDataRange As Variant, pIndicator As String, Optional pParm1 As Variant = \"\", Optional pParm2 As Variant = \"\", Optional pParm3 As Variant = \"\", Optional pParm4 As Variant = \"\", Optional pParm5 As Variant = \"\", Optional pParm6 As Variant = \"\")"
+  },
+  {
+    "function": "smfYahooAPIData",
+    "visibility": "Public",
+    "file": "code/modYahooAPIData.bas",
+    "line": 3,
+    "signature": "Function smfYahooAPIData(pTicker As String, Optional pItem As String = \"LastTradePriceOnly\", Optional pFeed As String = \"a\", Optional pOptionSymbol As String = \"\")"
+  },
+  {
+    "function": "DateOfHigh",
+    "visibility": "Public",
+    "file": "code/modZAdditional.bas",
+    "line": 4,
+    "signature": "Public Function DateOfHigh(pTicker As String, pDays As Integer)"
+  },
+  {
+    "function": "SMFHighBetween",
+    "visibility": "Public",
+    "file": "code/modZAdditional.bas",
+    "line": 19,
+    "signature": "Public Function SMFHighBetween(pTicker As String, pBegDate As Variant, pEndDate As Variant)"
+  },
+  {
+    "function": "SMFLowBetween",
+    "visibility": "Public",
+    "file": "code/modZAdditional.bas",
+    "line": 42,
+    "signature": "Public Function SMFLowBetween(pTicker As String, pBegDate As Variant, pEndDate As Variant)"
+  },
+  {
+    "function": "smfLastPrice",
+    "visibility": "Public",
+    "file": "code/modZAdditional.bas",
+    "line": 65,
+    "signature": "Public Function smfLastPrice(pTicker As String, pEndDate As Variant) As Variant"
+  },
+  {
+    "function": "smfConvertData",
+    "visibility": "Public",
+    "file": "code/smfConvertData_.bas",
+    "line": 2,
+    "signature": "Public Function smfConvertData(ByVal pData As String, Optional ByVal pConv As Integer = 0)"
+  },
+  {
+    "function": "smfConvertYahooTicker",
+    "visibility": "Public",
+    "file": "code/smfConvertYahooTicker_.bas",
+    "line": 2,
+    "signature": "Function smfConvertYahooTicker(ByVal pTicker As String, ByVal pSource As String) As String"
+  },
+  {
+    "function": "RCHCreateComment",
+    "visibility": "Public",
+    "file": "code/smfCreateComment_.bas",
+    "line": 2,
+    "signature": "Public Function RCHCreateComment(pTicker As String, Optional ByVal pChoice As Integer = 1, Optional ByVal pWidth As Integer = 0, Optional ByVal pHeight As Integer = 0, Optional ByVal pVisible As Integer = 0, Optional ByVal pTop As Integer = 1, Optional ByVal pLeft As Integer = 1, Optional ByVal pScale As Single = 1#, Optional ByVal pText As String = \"\", Optional ByVal pReturn As String = \"Chart\")"
+  },
+  {
+    "function": "smfMacCreateComment",
+    "visibility": "Private",
+    "file": "code/smfCreateComment_.bas",
+    "line": 139,
+    "signature": "Private Function smfMacCreateComment(ByVal caller As Variant, ByVal ticker As String, ByVal choice As Integer, ByVal width As Integer, ByVal height As Integer, ByVal visible As Integer, ByVal offsetTop As Integer, ByVal offsetLeft As Integer, ByVal pictureScale As Single, ByVal noteText As String, ByVal returnText As String) As Variant"
+  },
+  {
+    "function": "smfMacCommentPictureName",
+    "visibility": "Private",
+    "file": "code/smfCreateComment_.bas",
+    "line": 293,
+    "signature": "Private Function smfMacCommentPictureName(ByVal target As Range) As String"
+  },
+  {
+    "function": "smfMacExistingNumericChart",
+    "visibility": "Private",
+    "file": "code/smfCreateComment_.bas",
+    "line": 297,
+    "signature": "Private Function smfMacExistingNumericChart(ByVal target As Range) As ChartObject"
+  },
+  {
+    "function": "smfMacCommentImageURL",
+    "visibility": "Private",
+    "file": "code/smfCreateComment_.bas",
+    "line": 335,
+    "signature": "Private Function smfMacCommentImageURL(ByVal ticker As String, ByVal choice As Integer, ByRef width As Integer, ByRef height As Integer, ByVal pictureScale As Single) As String"
+  },
+  {
+    "function": "smfMacNumericChartValues",
+    "visibility": "Private",
+    "file": "code/smfCreateComment_.bas",
+    "line": 384,
+    "signature": "Private Function smfMacNumericChartValues(ByVal ticker As String) As Variant"
+  },
+  {
+    "function": "smfGetGoogleHistoryCSV",
+    "visibility": "Public",
+    "file": "code/smfGetGoogleHistoryCSV_.bas",
+    "line": 4,
+    "signature": "Function smfGetGoogleHistoryCSV(ByVal pTicker As String, Optional ByVal pStartDate As Variant = \"\", Optional ByVal pEndDate As Variant = \"\", Optional ByVal pPeriod As String = \"d\", Optional ByVal pRows As Integer = 10000, Optional ByVal pCols As Integer = 7)"
+  },
+  {
+    "function": "smfMacGoogleHistoryQuery",
+    "visibility": "Private",
+    "file": "code/smfGetGoogleHistoryCSV_.bas",
+    "line": 94,
+    "signature": "Private Function smfMacGoogleHistoryQuery(ByVal pValue As String) As String"
+  },
+  {
+    "function": "smfMacGoogleHistoryByte",
+    "visibility": "Private",
+    "file": "code/smfGetGoogleHistoryCSV_.bas",
+    "line": 129,
+    "signature": "Private Function smfMacGoogleHistoryByte(ByVal pByte As Long) As String"
+  },
+  {
+    "function": "smfGetGuruFocusCSVItem",
+    "visibility": "Public",
+    "file": "code/smfGetGuruFocusCSVItem_.bas",
+    "line": 3,
+    "signature": "Function smfGetGuruFocusCSVItem(ByVal pTicker As String, ByVal pItem As String, Optional ByVal pPeriod As Variant = \"TTM\", Optional ByVal pError As Variant = \"Error\", Optional ByVal pType As Integer = 0) As Variant"
+  },
+  {
+    "function": "smfGetMorningstarHistoryCSV",
+    "visibility": "Public",
+    "file": "code/smfGetMorningStarCSV_.bas",
+    "line": 4,
+    "signature": "Function smfGetMorningstarHistoryCSV(ByVal pTicker As String, Optional ByVal pStartDate As Variant = \"\", Optional ByVal pEndDate As Variant = \"\", Optional ByVal pPeriod As String = \"d\", Optional ByVal pRows As Integer = 10000, Optional ByVal pCols As Integer = 7)"
+  },
+  {
+    "function": "smfGetYahooHistoryCSV",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 4,
+    "signature": "Function smfGetYahooHistoryCSV(ByVal pTicker As String, Optional ByVal pStartDate As Variant = \"\", Optional ByVal pEndDate As Variant = \"\", Optional ByVal pPeriod As String = \"d\", Optional ByVal pRows As Integer = 10000, Optional ByVal pCols As Integer = 7)"
+  },
+  {
+    "function": "smfGetYahooHistoryCSVData",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 98,
+    "signature": "Function smfGetYahooHistoryCSVData(Optional ByRef pURL As String = \"https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb=\"[redacted]"
+  },
+  {
+    "function": "smfMacYahooDownloadURL",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 151,
+    "signature": "Public Function smfMacYahooDownloadURL(ByVal pURL As String) As Boolean"
+  },
+  {
+    "function": "smfMacYahooDownloadCSV",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 164,
+    "signature": "Public Function smfMacYahooDownloadCSV(ByVal pURL As String) As String"
+  },
+  {
+    "function": "smfMacYahooChartCSV",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 208,
+    "signature": "Public Function smfMacYahooChartCSV(ByVal pJSON As String, Optional ByVal pEvent As String = \"history\") As String"
+  },
+  {
+    "function": "SMFMacHistoryCSVSelfTest",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 284,
+    "signature": "Public Function SMFMacHistoryCSVSelfTest() As Long"
+  },
+  {
+    "function": "MacHistoryInteger",
+    "visibility": "Private",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 333,
+    "signature": "Private Function MacHistoryInteger(ByVal value As String) As Boolean"
+  },
+  {
+    "function": "MacHistoryDate",
+    "visibility": "Private",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 344,
+    "signature": "Private Function MacHistoryDate(ByVal stamp As Double, ByVal offset As Double) As String"
+  },
+  {
+    "function": "MacHistoryNumber",
+    "visibility": "Private",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 348,
+    "signature": "Private Function MacHistoryNumber(ByVal value As Variant) As String"
+  },
+  {
+    "function": "MacHistoryJSONNumber",
+    "visibility": "Private",
+    "file": "code/smfGetYahooHistoryCSV_.bas",
+    "line": 365,
+    "signature": "Private Function MacHistoryJSONNumber(ByVal value As String) As Boolean"
+  },
+  {
+    "function": "smfGetYahooHistory",
+    "visibility": "Public",
+    "file": "code/smfGetYahooHistory_.bas",
+    "line": 7,
+    "signature": "Function smfGetYahooHistory(ByVal pTicker As String, Optional ByVal pStartDate As Variant = \"\", Optional ByVal pEndDate As Variant = \"\", Optional ByVal pPeriod As String = \"d\", Optional ByVal pItems As String = \"dohlcvu\", Optional ByVal pNames As Integer = 1, Optional ByVal pResort As Integer = 0, Optional ByVal pRows As Integer = 0, Optional ByVal pCols As Double = 0)"
+  },
+  {
+    "function": "smfGetYahooPortfolioView",
+    "visibility": "Public",
+    "file": "code/smfGetYahooPortfolio_.bas",
+    "line": 3,
+    "signature": "Public Function smfGetYahooPortfolioView(ByVal pTickers As Variant, Optional ByVal pItems As Variant = \"01020304050607080910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091\", Optional ByVal pMultiple As String = \"N\", Optional ByVal pHeader As Integer = 0, Optional ByVal pDim1 As Integer = 0, Optional ByVal pDim2 As Integer = 0)"
+  },
+  {
+    "function": "smfPricesBetween",
+    "visibility": "Public",
+    "file": "code/smfPricesBetween_.bas",
+    "line": 2,
+    "signature": "Public Function smfPricesBetween(ByVal pTicker As String, Optional ByVal pBegDate As Variant, Optional ByVal pEndDate As Variant, Optional ByVal pItems As Variant = \"01020304050607080910111213\")"
+  },
+  {
+    "function": "smfPricesByDates",
+    "visibility": "Public",
+    "file": "code/smfPricesByDates_.bas",
+    "line": 2,
+    "signature": "Public Function smfPricesByDates(ByVal pTicker As String, ParamArray pDates() As Variant)"
+  },
+  {
+    "function": "smfLogInternetCalls",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 14,
+    "signature": "Public Function smfLogInternetCalls(pLog As String)"
+  },
+  {
+    "function": "RCHGetURLData1",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 90,
+    "signature": "Public Function RCHGetURLData1(pURL As String, Optional ByVal pType As String = \"GET\") As String"
+  },
+  {
+    "function": "RCHGetURLData2",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 131,
+    "signature": "Public Function RCHGetURLData2(pURL As String) As String"
+  },
+  {
+    "function": "RCHGetURLData3",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 174,
+    "signature": "Public Function RCHGetURLData3(pURL As String) As String"
+  },
+  {
+    "function": "RCHGetURLData",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 195,
+    "signature": "Public Function RCHGetURLData(ByVal pURL As String, Optional ByVal pUseIE As Integer = 0) As String"
+  },
+  {
+    "function": "smfCDec",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 240,
+    "signature": "Public Function smfCDec(ByVal pString As String) As Variant"
+  },
+  {
+    "function": "smfGetWebPage",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 261,
+    "signature": "Public Function smfGetWebPage(ByVal pURL As String, Optional ByVal pUseIE As Integer = 0, Optional ByVal pConvType As Integer = 0) As String"
+  },
+  {
+    "function": "smfGetAData",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 339,
+    "signature": "Public Function smfGetAData(p1 As Integer, p2 As Integer)"
+  },
+  {
+    "function": "fnWait",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 360,
+    "signature": "Public Function fnWait(iSeconds As Integer)"
+  },
+  {
+    "function": "smfStrExtr",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 368,
+    "signature": "Function smfStrExtr(pString As String, pStart As String, pEnd As String, Optional pConvert As Integer = 0)"
+  },
+  {
+    "function": "smfEval",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 405,
+    "signature": "Function smfEval(pData As String)"
+  },
+  {
+    "function": "smfEvaluateTwice",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 413,
+    "signature": "Function smfEvaluateTwice(pData As String)"
+  },
+  {
+    "function": "smfJoin",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 422,
+    "signature": "Function smfJoin(myRange As Range, myDelimiter As String)"
+  },
+  {
+    "function": "smfWord",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 433,
+    "signature": "Public Function smfWord(ByVal pHaystack As String, ByVal pOccurrence As Long, Optional ByVal pDelimiter As String = \" \", Optional ByVal pConvert As Integer = 0, Optional ByVal pReverse As Integer = 0)"
+  },
+  {
+    "function": "smfStripHTML",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 470,
+    "signature": "Public Function smfStripHTML(ByVal sHTML As String) As String"
+  },
+  {
+    "function": "smfDate2Unix",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 484,
+    "signature": "Public Function smfDate2Unix(ByVal pDate As Date) As Long"
+  },
+  {
+    "function": "smfUnix2Date",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 492,
+    "signature": "Public Function smfUnix2Date(pUnixDate As Long) As Date"
+  },
+  {
+    "function": "smfUnix2DateStr",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 500,
+    "signature": "Public Function smfUnix2DateStr(pUnixDate As Long, Optional pFormat As String = \"yyyy-mm-dd\")"
+  },
+  {
+    "function": "smfHTMLDecode",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 532,
+    "signature": "Public Function smfHTMLDecode(pString As String) As String"
+  },
+  {
+    "function": "RCHGetURLData4",
+    "visibility": "Public",
+    "file": "code/smfUtilities_.bas",
+    "line": 551,
+    "signature": "Public Function RCHGetURLData4(pURL As String)"
+  }
+]

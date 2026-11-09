@@ -1,0 +1,61 @@
+{
+  "generated_utc": "2026-11-09T21:58:59.508061+00:00",
+  "run_id": "smf-0.7-google-full-run4",
+  "control_state": "DONE",
+  "expected_version": "3.0.2024.07.30-mac.0.7-dev",
+  "observed_version": "Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.7-dev ({{PRIVATE_NATIVE_RUN}}; Macintosh (ARM) Version 27.0.1 (Build 26A434); 16.114; ; Local; 1)",
+  "observed_version_token": "3.0.2024.07.30-mac.0.7-dev",
+  "version_verified": true,
+  "workbook": "{{FULL_OWNER}}",
+  "workbook_sha256": "392139b5c9de34eaf7399b8860e4b2203ca9c09b8d9eeed64ff557ea0bf8fd93",
+  "workbook_vba_sha256": "7d309445abba5da5fe4bdded4e4652d47b992fc41b1158423e6cfc38d0df0b83",
+  "planned_cases": 538,
+  "saved_rows": 538,
+  "raw_case_counts": {
+    "PASS": 502,
+    "CHECK_FAILED": 36
+  },
+  "planned_case_status_counts": {
+    "PASS": 502,
+    "CHECK_FAILED": 36
+  },
+  "interpreted_case_counts": {
+    "PASS": 458,
+    "UNCLASSIFIED_FAIL": 14,
+    "PROVIDER_UNAVAILABLE": 22,
+    "NOT_SUPPORTED": 44
+  },
+  "public_functions": 121,
+  "auxiliary_cases": 6,
+  "primary_raw_counts": {
+    "PASS": 116,
+    "CHECK_FAILED": 5
+  },
+  "primary_interpreted_counts": {
+    "PASS": 109,
+    "NOT_SUPPORTED": 7,
+    "UNCLASSIFIED_FAIL": 2,
+    "PROVIDER_UNAVAILABLE": 3
+  },
+  "source_groups": 36,
+  "inventoried_endpoints": 54,
+  "positive_live_extraction_passes": 63,
+  "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+  "positive_provider_image_checks": 2,
+  "worksheet_entry_cases": 51,
+  "worksheet_entry_raw_counts": {
+    "PASS": 51
+  },
+  "evidence_errors": [],
+  "warnings": [],
+  "scope": "Inventoried public .bas Functions and selected cases only; Subs, Dictionary members, private functions, and every possible argument/provider field are not claimed covered.",
+  "separate_http_probe_records": 58,
+  "separate_http_status_counts": {
+    "403": 2,
+    "0": 18,
+    "200": 24,
+    "404": 7,
+    "401": 6,
+    "202": 1
+  }
+}

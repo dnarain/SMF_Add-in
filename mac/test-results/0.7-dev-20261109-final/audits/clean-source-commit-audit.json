@@ -1,0 +1,300 @@
+{
+  "verdict": "PASS",
+  "scope": "Saved source/components only; native execution is separate evidence.",
+  "Windows_active_source_checks": [
+    {
+      "module": "modGetAdvFNElement.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modGetEconData.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modGetElementNumber.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modGetOptionExpirations.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modGetOptionQuotes.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modGetOptionStrikes.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modGetYahooQuotes.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modMacCode.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modMacIntegrationTests.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modMenu.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modRSITargetPrices.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "modYahooAPIData.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "smfGetGoogleHistoryCSV_.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": []
+    },
+    {
+      "module": "smfUtilities_.bas",
+      "other_active_lines_exact_ignoring_comments_blank_lines_outer_whitespace": true,
+      "Unicode_equivalent_replacements": [
+        {
+          "entity": "&#150;",
+          "old_literal_codepoint": 150,
+          "new_expression": "ChrW$(150)"
+        },
+        {
+          "entity": "&#160;",
+          "old_literal_codepoint": 160,
+          "new_expression": "ChrW$(160)"
+        }
+      ]
+    }
+  ],
+  "source_commit": "e7d788b4f0871e94dbe6e13131ca8d9b7ff0eb8a",
+  "target_sha256": "b5acdda40fc2fbc3c1c955eb222249a2c767c1cfa36f066b4a202a8345b28b8e",
+  "target_vba_sha256": "89059032aebc91a26c545eba801519782c9a9eecd35f83dcd3378974f1281779",
+  "clean_workbook_sha256": "b5acdda40fc2fbc3c1c955eb222249a2c767c1cfa36f066b4a202a8345b28b8e",
+  "baseline_0_6_sha256": "f4b7a0f9a2a387c41dc20de2a5e09f695a6a5096f10580e86d4d17e23af5f366",
+  "component_count": 51,
+  "component_type_counts": {
+    "Module": 48,
+    "Class": 1,
+    "Document": 2,
+    "BaseClass": 0
+  },
+  "sources_byte_exact_to_0_6": 33,
+  "additional_identifier_case_only_changes": [
+    {
+      "module": "Dictionary.cls",
+      "all_quoted_literals_exact": true,
+      "changed_line_count": 5
+    },
+    {
+      "module": "JsonConverter.bas",
+      "all_quoted_literals_exact": true,
+      "changed_line_count": 1
+    },
+    {
+      "module": "modGetYahooHistory.bas",
+      "all_quoted_literals_exact": true,
+      "changed_line_count": 1
+    },
+    {
+      "module": "modJSONExtract.bas",
+      "all_quoted_literals_exact": true,
+      "changed_line_count": 3
+    }
+  ],
+  "intended_changed_source_count": 14,
+  "unrepaired_core_sources_equal_except_identifier_case": 37,
+  "all_sources_byte_exact_to_clean": true,
+  "changed_sources_match_commit": [
+    {
+      "module": "modGetAdvFNElement.bas",
+      "committed_source_sha256": "f51e5c2d4ec1c16dbeffcfbc80e77ea1cda094920a52e9e79bb0a6b0926d74ef",
+      "saved_source_raw_sha256": "d9a3c58c7977d39d417fd779d390898c96b823b5afd5acba1d03e2df89469d44",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modGetEconData.bas",
+      "committed_source_sha256": "a4632ee48b5e2c4287c9d520b4b7c9b1f72d91b3a090c355a09118188559b97b",
+      "saved_source_raw_sha256": "5d977e58ebf89d5b015ee6fa058d959cdf4b52bc4669a28262b00a618a6edbe3",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modGetElementNumber.bas",
+      "committed_source_sha256": "134712e8161b1b5d9368ac4f71da7183c3e25d16c4f330f09d2a78b7e60cf79a",
+      "saved_source_raw_sha256": "b2017c3e2fa39de7935c385330b6ffc35deab413925d1345715c7edb996a87e5",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modGetOptionExpirations.bas",
+      "committed_source_sha256": "223615255afd083a606c3c1db293f84e22e6c41a56a15236b88cca2c0c69de4f",
+      "saved_source_raw_sha256": "73203ee5494a63b1230a609316db2bae403bc12c5d14c0720a30278ba1dec7c6",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modGetOptionQuotes.bas",
+      "committed_source_sha256": "88de51cc8f96344958d382e84b18a11ffccae690bade616d3da45053c671bad5",
+      "saved_source_raw_sha256": "148583db26ca7015e182c19fcf342192495dbab418adef886cae3f3ccb1d8998",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modGetOptionStrikes.bas",
+      "committed_source_sha256": "ebb74d8a870ce43376b43c01bff467eaf7ba450f18ab1648c3ed48cedfe5daa2",
+      "saved_source_raw_sha256": "7bfd245481262e0cdd173a83bfe66d5373b481070ccca11677b306d66b1d238e",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modGetYahooQuotes.bas",
+      "committed_source_sha256": "e4f4d99bc201326a976408f336b0992147f020969fd61b88ab6780e702e38308",
+      "saved_source_raw_sha256": "4869c63f6fd668e1dc8631702a89ef075700ebddf6d6aa35bcd37e7c3dc16519",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modMacCode.bas",
+      "committed_source_sha256": "2f3d2a9086ab1f46a500b4a717063d972bab2bbb41dd3d3e45ed0fdfce309800",
+      "saved_source_raw_sha256": "b827368f5d2f8672a9a2982be3414c3f59a4e45f62deb4ea53d135320a595213",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modMacIntegrationTests.bas",
+      "committed_source_sha256": "a272911f361061e9b04e215d027a633bb8df7fe0de67fd75741ee93ebb35998e",
+      "saved_source_raw_sha256": "26d3baec7ef483628eec241a0c85bf458a23307bd57ad7284ce201e1a17a75ae",
+      "identifier_case_only": false,
+      "source_comparison": "Exact strings, identifier case and exact-equal/type-preserving diagnostic numeric formatting only.",
+      "exact_numeric_format_changes": [
+        {
+          "line": 12,
+          "token_index": 11,
+          "generated": "0.000000001",
+          "saved": "1E-09",
+          "absolute_delta": "0E-9"
+        },
+        {
+          "line": 14,
+          "token_index": 11,
+          "generated": "0.000000000001",
+          "saved": "1E-12",
+          "absolute_delta": "0E-12"
+        },
+        {
+          "line": 146,
+          "token_index": 5,
+          "generated": "123.456789#",
+          "saved": "123.456789",
+          "absolute_delta": "0.000000"
+        },
+        {
+          "line": 153,
+          "token_index": 5,
+          "generated": "123.456789#",
+          "saved": "123.456789",
+          "absolute_delta": "0.000000"
+        },
+        {
+          "line": 154,
+          "token_index": 5,
+          "generated": "123.456789#",
+          "saved": "123.456789",
+          "absolute_delta": "0.000000"
+        },
+        {
+          "line": 235,
+          "token_index": 14,
+          "generated": "0.000000001",
+          "saved": "1E-09",
+          "absolute_delta": "0E-9"
+        },
+        {
+          "line": 286,
+          "token_index": 7,
+          "generated": "0.0045#",
+          "saved": "0.0045",
+          "absolute_delta": "0.0000"
+        },
+        {
+          "line": 400,
+          "token_index": 14,
+          "generated": "0.000000001",
+          "saved": "1E-09",
+          "absolute_delta": "0E-9"
+        }
+      ],
+      "normalized_token_sha256": "2dd461d8d94830819348b2a62a509e10eca4ddc1c64efae1820dd6f2695f6dcf",
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modMenu.bas",
+      "committed_source_sha256": "35212e0264ec0ed0617cdb8e4ed38fbd48d2e996429c0f27ee39f8f95d7250d0",
+      "saved_source_raw_sha256": "180107f300023bfffc9da17259d03c8332d3733ed665e3dbfb81b1b4f7de1d07",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modRSITargetPrices.bas",
+      "committed_source_sha256": "076fe8f450cf7c1cd5f8de3a93e679fbe92740db78cb09af92104f1a358dbde3",
+      "saved_source_raw_sha256": "334fc81658aeb0f3878c3d5b8608ed37f0dc06101a851853fd455d76800707c7",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "modYahooAPIData.bas",
+      "committed_source_sha256": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+      "saved_source_raw_sha256": "7f8362a28793359ba0f3c6dfc23297c03f2272a024e2fea60b9b354a3e1cecf2",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "smfGetGoogleHistoryCSV_.bas",
+      "committed_source_sha256": "efb12036eaa0eb31481f9994ba58eff3648867fdb383fe6b3f92e397cb0b8467",
+      "saved_source_raw_sha256": "b4cd75221e95b663b54472e35ab2b71bcc3f457b994550731e1cdfc2f0e71914",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    },
+    {
+      "module": "smfUtilities_.bas",
+      "committed_source_sha256": "75937f30c249086d9cca75f5240973706d7f1256489357a7e94b6d7a307f7ac8",
+      "saved_source_raw_sha256": "1882fc67c8a16e17f20b8cee19fb8dfc47fd0395ac635dd3a4c13cb66742dc14",
+      "identifier_case_only": true,
+      "exact_numeric_format_changes": [],
+      "all_quoted_literals_exact": true
+    }
+  ],
+  "dictionary_default_item_attribute_zero": true,
+  "vba_project_sha256": "89059032aebc91a26c545eba801519782c9a9eecd35f83dcd3378974f1281779"
+}

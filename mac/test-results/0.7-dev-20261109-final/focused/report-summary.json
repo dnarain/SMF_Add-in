@@ -1,0 +1,56 @@
+{
+  "generated_utc": "2026-11-09T21:58:59.430299+00:00",
+  "run_id": "smf-0.7-google-focused-run4",
+  "control_state": "DONE",
+  "expected_version": "3.0.2024.07.30-mac.0.7-dev",
+  "observed_version": "Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.7-dev ({{PRIVATE_NATIVE_RUN}}; Macintosh (ARM) Version 27.0.1 (Build 26A434); 16.114; ; Local; 1)",
+  "observed_version_token": "3.0.2024.07.30-mac.0.7-dev",
+  "version_verified": true,
+  "workbook": "{{FOCUSED_OWNER}}",
+  "workbook_sha256": "f083b700d602ce34ff9dbf4cd757b70837580098fb300a820665d22acd7155da",
+  "workbook_vba_sha256": "261fcd9081e2880dbccf70b4dbff87f58b9a6b637bbe4e7d78825a42a4f7c5ac",
+  "planned_cases": 246,
+  "saved_rows": 246,
+  "raw_case_counts": {
+    "PASS": 246
+  },
+  "planned_case_status_counts": {
+    "PASS": 246
+  },
+  "interpreted_case_counts": {
+    "PASS": 215,
+    "NOT_SUPPORTED": 31
+  },
+  "public_functions": 121,
+  "auxiliary_cases": 6,
+  "primary_raw_counts": {
+    "MISSING": 105,
+    "PASS": 16
+  },
+  "primary_interpreted_counts": {
+    "UNTESTED": 105,
+    "NOT_SUPPORTED": 6,
+    "PASS": 10
+  },
+  "source_groups": 36,
+  "inventoried_endpoints": 54,
+  "positive_live_extraction_passes": 9,
+  "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+  "positive_provider_image_checks": 0,
+  "worksheet_entry_cases": 19,
+  "worksheet_entry_raw_counts": {
+    "PASS": 19
+  },
+  "evidence_errors": [],
+  "warnings": [],
+  "scope": "Inventoried public .bas Functions and selected cases only; Subs, Dictionary members, private functions, and every possible argument/provider field are not claimed covered.",
+  "separate_http_probe_records": 58,
+  "separate_http_status_counts": {
+    "403": 2,
+    "0": 18,
+    "200": 24,
+    "404": 7,
+    "401": 6,
+    "202": 1
+  }
+}
