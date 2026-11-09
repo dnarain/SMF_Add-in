@@ -1,0 +1,28 @@
+{
+  "functions": 121,
+  "unique_function_names": 121,
+  "cases": 292,
+  "pass": 238,
+  "check_failed": 54,
+  "worksheet_cases": 32,
+  "category_counts": {
+    "Local or controlled check passed": 77,
+    "Listed data call passed": 17,
+    "Partial by field": 1,
+    "Limited": 2,
+    "Live call failed": 19,
+    "Obsolete": 4,
+    "URL dependent": 1
+  },
+  "input_report_sha256": "551402a37c3c0275f51da431250a9baec48f23a9e46118bdb68b9f3502f68516",
+  "source_commit_recorded_in_raw_report": null,
+  "source_commit_sidecar_required": true,
+  "source_commit_supplied_by_parent": "1cbbd104dd5e6696df9030d2aa261cfc630a8995",
+  "all_case_ids_preserved": true,
+  "old05_reports_unchanged": true,
+  "output_sha256": {
+    "FUNCTION-STATUS.md": "cea8b3c81268aebfb014540e04fad63c8867ab057942b06fb18bd53a5f83a043",
+    "function-status.csv": "a29da81c8a5aed4a4a0a485455aebc67c2dba2ab3bdbcbe86536f01184b70fac"
+  },
+  "public_paths_redacted": true
+}

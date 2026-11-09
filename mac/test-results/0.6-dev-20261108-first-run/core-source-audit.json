@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS_WITH_DOCUMENTED_VBE_RUNNER_FORMATTING",
+  "scope": "Saved full-run workbook source/component audit and binding to the completed native report. Core source identity is separate from runner formatting differences.",
+  "source_commit": "b2c1be344c11f76b678f54171a6eafdf93e490f3",
+  "workbook_file": "SMF-Full-0.6-complete.xlsm",
+  "workbook_bytes": 1510487,
+  "workbook_sha256": "cae8f293976c593fa305fa8a66fb64b690e844c9ef54c6951eabb633c2df3b02",
+  "workbook_vba_sha256": "dab2a72de16296717c2e0d5e1ccddad656dcb5f8a94db68af909c16c13aa63d1",
+  "clean_workbook_file": "SMF-Clean-0.6.xlsm",
+  "clean_workbook_sha256": "a84bc8bf92bde804fe73edc8d87e713120e66e6f7266215813e465a52977412d",
+  "clean_vba_sha256": "a9210a6968960173931613fe0e0222f6ca76d9cf22c8b99c3f1c260c3865e352",
+  "component_count": 56,
+  "component_type_counts": {
+    "standardModules": 49,
+    "classModules": 1,
+    "documentModules": 6,
+    "baseClasses": 0
+  },
+  "core_components": 51,
+  "core_sources_byte_exact_to_clean_0_6": 51,
+  "changed_core_source_count": 0,
+  "missing_component_count": 0,
+  "added_components": [
+    "Sheet2.cls",
+    "Sheet3.cls",
+    "Sheet4.cls",
+    "Sheet5.cls",
+    "modSMFFunctionSuite.bas"
+  ],
+  "additional_document_modules_attribute_only": true,
+  "dictionary_class_and_default_item_attribute_zero": true,
+  "changed_production_modules_match_source_commit": [
+    {
+      "module": "modGetElementNumber.bas",
+      "committed_source_sha256": "440256d486a65d587338d87ca32b25dd2bcc2927792b356331641be64d684d30",
+      "source_equal_with_identifier_case_only": true,
+      "all_quoted_source_literals_exact": true
+    },
+    {
+      "module": "modGetOptionQuotes.bas",
+      "committed_source_sha256": "a38ace63c450060df460d349870793150bc4a9ed08d155af82a8681847d5acd7",
+      "source_equal_with_identifier_case_only": true,
+      "all_quoted_source_literals_exact": true
+    },
+    {
+      "module": "smfGetYahooHistory_.bas",
+      "committed_source_sha256": "13853d80b4813101001db587c8be65b7e02704fe367789a3a0b92a110e27ae7e",
+      "source_equal_with_identifier_case_only": true,
+      "all_quoted_source_literals_exact": true
+    }
+  ],
+  "runner_generated_sha256": "dd369586dc82ca1da844f911592fd2358c649d827ceddc88fd7de132c7c83b2c",
+  "runner_saved_raw_source_sha256": "b9688c07c3323eba371207d19a4604dd7b1f53b55ce54bf4bd01c5da7d7f2605",
+  "runner_comparison": {
+    "line_count": 16595,
+    "case_only_changed_line_count": 2487,
+    "whitespace_only_changed_line_count": 0,
+    "numeric_literal_format_changes": 842,
+    "numeric_value_preserving_format_changes": 562,
+    "numeric_literals_rounded_to_15_significant_digits": 280,
+    "redundant_double_suffix_removals": 357,
+    "maximum_numeric_literal_delta": "5E-13",
+    "quoted_source_literal_count": 6607,
+    "descriptive_metadata_encoding_changes": 11,
+    "encoding_change_scope": "Only worksheet scenario/expected-description assignments in columns 4 and 5; UTF-8 to Mac Roman byte mapping verified.",
+    "all_other_quoted_literals_exact": true,
+    "unclassified_change_count": 0,
+    "normalized_token_streams_equal": true,
+    "normalized_token_stream_sha256": "a87945999fd95a81d2c02cc15d9095f264e994ee9c64e8631c39a78afd266f88"
+  },
+  "report_binding": {
+    "report_summary_sha256": "f46deff434fb7b9a89c7c4c84e8ec3c80eb6b3b0b89b36b017567367a56f9843",
+    "report_data_sha256": "5b2e677857298b9fd6921dff30b818b062c7dc635b21dcc5ac834594485103b5",
+    "saved_state": "DONE",
+    "strict_version_verified": true,
+    "raw_case_counts": {
+      "PASS": 238,
+      "CHECK_FAILED": 54
+    },
+    "planned_cases": 292,
+    "saved_rows": 292,
+    "worksheet_entry_cases": 32,
+    "worksheet_entry_raw_counts": {
+      "PASS": 32
+    },
+    "new_repair_cases": {
+      "history_default_cases.json": {
+        "cases": 20,
+        "PASS": 20
+      },
+      "option_quote1_cases.json": {
+        "cases": 33,
+        "PASS": 33
+      }
+    },
+    "evidence_errors": [],
+    "input_bindings": {
+      "case_specification_sha256": "dc7272e5f8e8748859c901ebe11231d26aff03d45665f8c8ef9a6792ab42697e",
+      "workbook_case_specification_verified": true,
+      "manifest_case_specification_verified": true,
+      "recorded_source_fingerprint": "90c64e14fd415ab4f547b3e1e7dc9c9eacccd47cb2cfd29e3af2f482c5a00950",
+      "manifest_source_fingerprint": "90c64e14fd415ab4f547b3e1e7dc9c9eacccd47cb2cfd29e3af2f482c5a00950",
+      "source_fingerprint_verified": true
+    }
+  },
+  "issues": []
+}

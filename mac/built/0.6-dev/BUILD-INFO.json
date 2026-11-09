@@ -1,0 +1,242 @@
+{
+  "version": "3.0.2024.07.30-mac.0.6-dev",
+  "source_commit": "1cbbd104dd5e6696df9030d2aa261cfc630a8995",
+  "checked_date": "2026-11-09T08:17Z",
+  "runtime": "Microsoft Excel 16.114; Macintosh (ARM) Version 27.0.1 (Build 26A434)",
+  "vba_project_sha256": "ac7cfb3b36ed31957cf435b43a9a0df6c1e8c17abce85305ee93a48d3f1679a1",
+  "native_addin_sha256": "46c15901c8634ef8c6cdcaf846ceaf1f1be87885932480e3964581e06c441870",
+  "source_audit": {
+    "component_count": 51,
+    "unchanged_sources_byte_exact_to_0_5": 47,
+    "changed_sources_match_source_commit": [
+      "modGetElementNumber.bas",
+      "modGetOptionQuotes.bas",
+      "smfCreateComment_.bas",
+      "smfGetYahooHistory_.bas"
+    ],
+    "all_saved_sources_byte_exact_to_clean_workbook": true,
+    "dictionary_default_item_attribute_zero": true,
+    "vba_project_sha256": "ac7cfb3b36ed31957cf435b43a9a0df6c1e8c17abce85305ee93a48d3f1679a1"
+  },
+  "definition_files": 14,
+  "helper_source": "SMFMac.applescript",
+  "native_examples": {
+    "SMF-Mac-Checks-20261108.xlsx": {
+      "sha256": "af8ebd14dc94374d623719084d9b2650e097175be288536ca4d427f86d22df03",
+      "version_observed": "3.0.2024.07.30-mac.0.6-dev",
+      "native_recalculated_saved": true,
+      "saved_closed_reopened_ready": true,
+      "observation_method": "Root agent GUI observations in native Excel; saved-file values and hashes independently read without opening Excel.",
+      "saved_values": {
+        "B1": "Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.6-dev",
+        "B2": "42",
+        "B3": "Nov 02 AMC",
+        "B4": "342.37"
+      },
+      "native_checks_good": 4
+    },
+    "SMF-Mac-Data-Picture-Checks-20261108.xlsx": {
+      "sha256": "ed88e0d1da66bc363ec7ab32465f20396d6743ab1d1b64a1a2dfd9c093c723cf",
+      "version_observed": "3.0.2024.07.30-mac.0.6-dev",
+      "native_recalculated_saved": true,
+      "saved_closed_reopened_ready": true,
+      "observation_method": "Root agent GUI observations in native Excel; saved-file values and hashes independently read without opening Excel.",
+      "stockcharts_picture_visible": true,
+      "numeric_chart_visible": true,
+      "numeric_chart_plot_visible": true,
+      "plot_observation": "Both pictures/plots visible with the numeric chart unselected and not obscured by the instruction note.",
+      "data_checks_passed": 10,
+      "data_checks_failed": 1,
+      "live_expectation_drift": {
+        "provider": "ADVFN",
+        "element": 5196,
+        "actual_cell": "B9",
+        "expected_cell": "C9",
+        "result_cell": "D9",
+        "actual_value": "2026-09-26",
+        "expected_value": "2025-09-27",
+        "source_date": "2026-09-26",
+        "source_date_verified": true,
+        "original_expected_cell_preserved": true,
+        "source_url": "https://www.advfn.com/p.php?pid=financials&symbol=NASDAQ:AAPL",
+        "source_final_url": "https://www.advfn.com/stock-market/NASDAQ/AAPL/financials",
+        "source_request_utc": "2026-11-09T08:11:50.015994+00:00",
+        "verified_at": "2026-11-09T08:20:07.002514+00:00",
+        "source_evidence_sha256": "619574a2664fd124507607d04b0060a0a66509d8bd97fde570d747a843612ff0",
+        "source_body_sha256": "8989c3af6cafd26d33b01a26fd47a8be3de279f4712d47bff99384e21ea9ffeb",
+        "verification_method": "Read the independent HTTP200 evidence and its three Year End September26 2026 table cells; compare the saved B9 date and unchanged C9 expectation."
+      },
+      "saved_check_results": {
+        "D2": "PASS",
+        "D3": "PASS",
+        "D4": "PASS",
+        "D5": "PASS",
+        "D6": "PASS",
+        "D7": "PASS",
+        "D8": "PASS",
+        "D9": "FAIL",
+        "D10": "PASS",
+        "D11": "PASS",
+        "D12": "PASS",
+        "D13": "FAIL"
+      }
+    },
+    "SMF-Mac-History-Checks-20261108.xlsx": {
+      "sha256": "a141c9770a17598902b8cb4ed26ac61f3af3f741aaf723600295cc2fb3a2a581",
+      "version_observed": "3.0.2024.07.30-mac.0.6-dev",
+      "native_recalculated_saved": true,
+      "saved_closed_reopened_ready": true,
+      "observation_method": "Root agent GUI observations in native Excel; saved-file values and hashes independently read without opening Excel.",
+      "native_checks_passed": 8,
+      "saved_check_results": {
+        "D2": "PASS",
+        "D3": "PASS",
+        "D4": "PASS",
+        "D5": "PASS",
+        "D6": "PASS",
+        "D7": "PASS",
+        "D8": "PASS",
+        "D9": "PASS"
+      },
+      "B2_array_entered": true,
+      "history_array_range": "A13:B17",
+      "history_rows": 5,
+      "history_columns": 2,
+      "history_date_serials": [
+        46332,
+        46331,
+        46330,
+        46329,
+        46328
+      ]
+    }
+  },
+  "full_suite": {
+    "run_id": "smf-0.6-full-final-20261108",
+    "control_state": "DONE",
+    "expected_version": "3.0.2024.07.30-mac.0.6-dev",
+    "observed_version_token": "3.0.2024.07.30-mac.0.6-dev",
+    "version_verified": true,
+    "planned_cases": 292,
+    "saved_rows": 292,
+    "raw_case_counts": {
+      "PASS": 238,
+      "CHECK_FAILED": 54
+    },
+    "worksheet_entry_cases": 32,
+    "worksheet_entry_raw_counts": {
+      "PASS": 32
+    }
+  },
+  "full_suite_summary_sha256": "edcdf4990aa47b8d63cbe6c6b4053caf9b42be0531de657e4e9b2a74cd139700",
+  "source_fingerprint": "8c7028f8eddc6017698a12d54a44b4886669e835a9554c8f33d35ef1ebad2ec3",
+  "workspace_sources_match_commit_except_line_endings": true,
+  "source_provenance": {
+    "workspace_source_fingerprint": "8c7028f8eddc6017698a12d54a44b4886669e835a9554c8f33d35ef1ebad2ec3",
+    "committed_blob_fingerprint": "28b2c5dcec7a686c5371e851b7347e3bd6ffc9cfba2ebaf4e8cea66886dad592",
+    "committed_normalized_source_fingerprint": "28b2c5dcec7a686c5371e851b7347e3bd6ffc9cfba2ebaf4e8cea66886dad592",
+    "all_workspace_sources_match_commit_except_line_endings": true,
+    "line_ending_only_differences": [
+      {
+        "module": "code/Dictionary.cls",
+        "committed_blob_sha256": "0affc4fd9a81283f8fcecafbd8ce11a940a18592be9cc341346b8d080c859025",
+        "workspace_source_sha256": "4e8a89ce173fec397f42226032650d29c7ebd402df8e8a13d9df89f06c6c6fb9",
+        "committed_CRLF_count": 0,
+        "workspace_CRLF_count": 456
+      },
+      {
+        "module": "code/modMacCode.bas",
+        "committed_blob_sha256": "8a89d05b22d52a4f14757d04738d727d775700e229e28a6646e34159a9047962",
+        "workspace_source_sha256": "0438880fc75f859640fa57ad35f65b97eddb30333c470962325bcc0b2f265282",
+        "committed_CRLF_count": 0,
+        "workspace_CRLF_count": 476
+      },
+      {
+        "module": "code/modMacIntegrationTests.bas",
+        "committed_blob_sha256": "23090aecd78457c2a3a3e2d61493b1008910a531b49af588c819303f00e64f43",
+        "workspace_source_sha256": "6ee6752f3cc39f25bf42f16c7db4f4d5d88bad76a9f57a614dfc4cd465650a95",
+        "committed_CRLF_count": 0,
+        "workspace_CRLF_count": 405
+      }
+    ]
+  },
+  "full_run_manifest_sha256": "45e9f60ea985bbbb4bac1da531ffababadeb16e394f7d1a6bfdafda22654b1c8",
+  "focused_run_manifest_sha256": "c0a343677f3a09544e635096a06353973a8947cb33a9cd34870ef5b72477975c",
+  "focused_suite": {
+    "run_id": "smf-0.6-numeric-reuse-run2-20261108",
+    "control_state": "DONE",
+    "observed_version_token": "3.0.2024.07.30-mac.0.6-dev",
+    "planned_cases": 9,
+    "saved_rows": 9,
+    "raw_case_counts": {
+      "PASS": 9
+    }
+  },
+  "focused_suite_summary_sha256": "76b745602e5545ba689293978a468e2b41fc71c1b355a9c8c49095e7f1555551",
+  "cold_reopen": {
+    "checked_at": "2026-11-09T08:17Z",
+    "runtime": "Microsoft Excel 16.114; Macintosh (ARM) Version 27.0.1 (Build 26A434)",
+    "opened_after_excel_restart": true,
+    "automatic_calculation": true,
+    "calculation_observation": "Excel status bar Ready after smfForceRecalculation returned",
+    "calculation_state_enum_read": false,
+    "calculation_state_enum_value": null,
+    "excel_ready": true,
+    "excel_process_unchanged_during_reopen": true,
+    "only_visible_workbook": true,
+    "live_stockcharts_formula": true,
+    "live_numeric_chart_formula": true,
+    "data_checks_passed": 10,
+    "data_checks_failed": 1,
+    "stockcharts_picture_visible": true,
+    "numeric_chart_plot_visible": true,
+    "live_expectation_drift": {
+      "provider": "ADVFN",
+      "element": 5196,
+      "actual_cell": "B9",
+      "expected_cell": "C9",
+      "result_cell": "D9",
+      "actual_value": "2026-09-26",
+      "expected_value": "2025-09-27",
+      "source_date": "2026-09-26",
+      "source_date_verified": true,
+      "original_expected_cell_preserved": true,
+      "source_url": "https://www.advfn.com/p.php?pid=financials&symbol=NASDAQ:AAPL",
+      "source_final_url": "https://www.advfn.com/stock-market/NASDAQ/AAPL/financials",
+      "source_request_utc": "2026-11-09T08:11:50.015994+00:00",
+      "verified_at": "2026-11-09T08:20:07.002514+00:00",
+      "source_evidence_sha256": "619574a2664fd124507607d04b0060a0a66509d8bd97fde570d747a843612ff0",
+      "source_body_sha256": "8989c3af6cafd26d33b01a26fd47a8be3de279f4712d47bff99384e21ea9ffeb",
+      "verification_method": "Read the independent HTTP200 evidence and its three Year End September26 2026 table cells; compare the saved B9 date and unchanged C9 expectation."
+    }
+  },
+  "cold_reopen_receipt_sha256": "f1d82698f07c02e0dfd57136415473c2930d75879025495eea5ccf841e5bccd1",
+  "advfn_source_evidence_sha256": "619574a2664fd124507607d04b0060a0a66509d8bd97fde570d747a843612ff0",
+  "packaging_changes": {
+    "SMF-Mac.xlam": [
+      "xl/workbook.xml",
+      "docProps/core.xml"
+    ],
+    "SMF-Mac-Checks-20261108.xlsx": [
+      "xl/workbook.xml",
+      "xl/externalLinks/externalLink1.xml",
+      "docProps/core.xml",
+      "xl/externalLinks/_rels/externalLink1.xml.rels"
+    ],
+    "SMF-Mac-Data-Picture-Checks-20261108.xlsx": [
+      "xl/workbook.xml",
+      "xl/externalLinks/externalLink1.xml",
+      "xl/comments1.xml",
+      "docProps/core.xml",
+      "xl/externalLinks/_rels/externalLink1.xml.rels"
+    ],
+    "SMF-Mac-History-Checks-20261108.xlsx": [
+      "xl/workbook.xml",
+      "xl/externalLinks/externalLink1.xml",
+      "docProps/core.xml",
+      "xl/externalLinks/_rels/externalLink1.xml.rels"
+    ]
+  },
+  "limits": "Experimental build. The full-suite report records remaining provider failures. A fresh Mac and separate user account remain untested.",
+  "retained_vba_metadata": "The unchanged VBA project retains Forms-reference and compiler-cache paths; workbook XML excludes saved home-folder paths."
+}

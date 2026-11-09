@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "run_id": "smf-0.6-full-20261108",
+  "version": "3.0.2024.07.30-mac.0.6-dev",
+  "applied_source_commit": "b2c1be344c11f76b678f54171a6eafdf93e490f3",
+  "reporter_commit": "cf096e220d87baaf154e007adf43de1695acec9c",
+  "raw_report_source_commit": null,
+  "source_commit_note": "The owner derives from the preserved 0.5 binary with reviewed modules replaced manually. This sidecar supplies the applied source commit without altering the native preparation/report bindings.",
+  "manually_replaced_sources": [
+    {
+      "file": "code/modGetElementNumber.bas",
+      "sha256_at_source_commit": "440256d486a65d587338d87ca32b25dd2bcc2927792b356331641be64d684d30"
+    },
+    {
+      "file": "code/modGetOptionQuotes.bas",
+      "sha256_at_source_commit": "a38ace63c450060df460d349870793150bc4a9ed08d155af82a8681847d5acd7"
+    },
+    {
+      "file": "code/smfGetYahooHistory_.bas",
+      "sha256_at_source_commit": "13853d80b4813101001db587c8be65b7e02704fe367789a3a0b92a110e27ae7e"
+    }
+  ],
+  "native_snapshot": {
+    "workbook_sha256": "cae8f293976c593fa305fa8a66fb64b690e844c9ef54c6951eabb633c2df3b02",
+    "workbook_vba_sha256": "dab2a72de16296717c2e0d5e1ccddad656dcb5f8a94db68af909c16c13aa63d1",
+    "raw_case_counts": {
+      "PASS": 238,
+      "CHECK_FAILED": 54
+    },
+    "worksheet_entry_cases": 32
+  },
+  "case_specification_sha256": "dc7272e5f8e8748859c901ebe11231d26aff03d45665f8c8ef9a6792ab42697e",
+  "source_fingerprint": "90c64e14fd415ab4f547b3e1e7dc9c9eacccd47cb2cfd29e3af2f482c5a00950",
+  "original_private_report_sha256": "5b2e677857298b9fd6921dff30b818b062c7dc635b21dcc5ac834594485103b5",
+  "core_audit_scope": "Saved full-run workbook source/component audit and binding to the completed native report. Core source identity is separate from runner formatting differences.",
+  "core_audit_verdict": "PASS_WITH_DOCUMENTED_VBE_RUNNER_FORMATTING",
+  "public_copy_transform": "Anonymous Yahoo session values and local absolute paths are redacted. Raw native evidence and its hashes remain unchanged.",
+  "first_to_final_raw_status_changes": 0,
+  "first_to_final_case_count": 292,
+  "final_cold_addin_receipt": "later reopens failed twice; preserved separately",
+  "release_status": "0.6 not released"
+}

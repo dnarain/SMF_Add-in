@@ -9,3 +9,10 @@ mac/built/** -text
 
 # Preserve captured CSV response excerpts, including trailing spaces.
 mac/test-results/0.5-dev-20261108/*.csv -text whitespace=-blank-at-eol
+
+# Preserve reviewed 0.6 CSV response excerpts and their trailing spaces.
+mac/test-results/0.6-dev-20261108-first-run/*.csv -text whitespace=-blank-at-eol
+mac/test-results/0.6-dev-20261108-final/*.csv -text whitespace=-blank-at-eol
+
+# Keep original whitespace in the byte-verified bundled element definitions.
+mac/built/0.6-dev/smf-elements-*.txt whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

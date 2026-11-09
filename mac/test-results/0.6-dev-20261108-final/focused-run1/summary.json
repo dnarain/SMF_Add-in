@@ -1,0 +1,56 @@
+{
+  "run_id": "smf-0.6-numeric-reuse-20261108",
+  "counts": {
+    "PASS": 5,
+    "CHECK_FAILED": 4
+  },
+  "case_count": 9,
+  "cases": [
+    {
+      "id": "NumericReuse_same_formula_identity",
+      "raw_status": "PASS",
+      "actual": "String: Chart; length=5; Initial Shape.ID=3; final Shape.ID=3; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    },
+    {
+      "id": "NumericReuse_changed_arguments",
+      "raw_status": "PASS",
+      "actual": "String: Updated; length=7; Initial Shape.ID=5; final Shape.ID=5; series=1; values=1,33,66; note=updated note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    },
+    {
+      "id": "NumericReuse_extra_series_removed",
+      "raw_status": "CHECK_FAILED",
+      "actual": "String: Chart; length=5; Initial Shape.ID=7; final Shape.ID=7; series=2; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    },
+    {
+      "id": "NumericReuse_empty_series_restored",
+      "raw_status": "CHECK_FAILED",
+      "actual": "String: Chart; length=5; Initial Shape.ID=9; final Shape.ID=9; series=0; values=0,0,0; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    },
+    {
+      "id": "NumericReuse_none_clears_chart",
+      "raw_status": "PASS",
+      "actual": "String: None; length=4; Initial Shape.ID=11; final Shape.ID=0; series=0; values=0,0,0; note="
+    },
+    {
+      "id": "NumericReuse_invalid_width_clears_chart",
+      "raw_status": "PASS",
+      "actual": "String: Error; length=5; Initial Shape.ID=13; final Shape.ID=0; series=0; values=0,0,0; note=SMF chart unavailable: Checking chart arguments: The chart arguments are invalid"
+    },
+    {
+      "id": "NumericReuse_unowned_collision_preserved",
+      "raw_status": "CHECK_FAILED",
+      "actual": "String: Chart; length=5; Initial Shape.ID=15; final Shape.ID=15; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    },
+    {
+      "id": "NumericReuse_wrong_cell_not_reused",
+      "raw_status": "CHECK_FAILED",
+      "actual": "String: Chart; length=5; Initial Shape.ID=17; final Shape.ID=17; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    },
+    {
+      "id": "NumericReuse_wrong_type_not_reused",
+      "raw_status": "PASS",
+      "actual": "String: Chart; length=5; Initial Shape.ID=18; final Shape.ID=20; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu."
+    }
+  ],
+  "scope": "Separate numeric-chart focus. These counts are not added to either 292-case full-run total."
+}

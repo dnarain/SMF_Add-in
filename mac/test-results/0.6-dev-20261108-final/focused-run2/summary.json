@@ -1,0 +1,55 @@
+{
+  "run_id": "smf-0.6-numeric-reuse-run2-20261108",
+  "counts": {
+    "PASS": 9
+  },
+  "case_count": 9,
+  "cases": [
+    {
+      "id": "NumericReuse_same_formula_identity",
+      "raw_status": "PASS",
+      "actual": "String: Chart; length=5; Initial Shape.ID=3; final Shape.ID=3; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu.; pre-mutation=temporary note mutation; metadata=SMFCommentPicture/1\nJ26\nSMF local numeric chart: 1,2,3; points=3"
+    },
+    {
+      "id": "NumericReuse_changed_arguments",
+      "raw_status": "PASS",
+      "actual": "String: Updated; length=7; Initial Shape.ID=5; final Shape.ID=5; series=1; values=1,33,66; note=updated note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu.; pre-mutation=; metadata=SMFCommentPicture/1\nJ26\nSMF local numeric chart: 1,2,3,4; points=4"
+    },
+    {
+      "id": "NumericReuse_extra_series_removed",
+      "raw_status": "PASS",
+      "actual": "String: Recalculated; length=12; Initial Shape.ID=7; final Shape.ID=7; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu.; pre-mutation=series=2; metadata=SMFCommentPicture/1\nJ26\nSMF local numeric chart: 1,2,3; points=3"
+    },
+    {
+      "id": "NumericReuse_empty_series_restored",
+      "raw_status": "PASS",
+      "actual": "String: Recalculated; length=12; Initial Shape.ID=9; final Shape.ID=9; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu.; pre-mutation=series=0; metadata=SMFCommentPicture/1\nJ26\nSMF local numeric chart: 1,2,3; points=3"
+    },
+    {
+      "id": "NumericReuse_none_clears_chart",
+      "raw_status": "PASS",
+      "actual": "String: None; length=4; Initial Shape.ID=11; final Shape.ID=0; series=0; values=0,0,0; note=; pre-mutation=; metadata=; points=0"
+    },
+    {
+      "id": "NumericReuse_invalid_width_clears_chart",
+      "raw_status": "PASS",
+      "actual": "String: Error; length=5; Initial Shape.ID=13; final Shape.ID=0; series=0; values=0,0,0; note=SMF chart unavailable: Checking chart arguments: The chart arguments are invalid; pre-mutation=; metadata=; points=0"
+    },
+    {
+      "id": "NumericReuse_unowned_collision_preserved",
+      "raw_status": "PASS",
+      "actual": "String: Error; length=5; Initial Shape.ID=15; final Shape.ID=15; series=1; values=1,50,98; note=original note\nSMF chart unavailable: Removing the previous chart: 5: Another worksheet object uses this chart name; pre-mutation=Unowned fixture chart; metadata=Unowned fixture chart; points=3"
+    },
+    {
+      "id": "NumericReuse_wrong_cell_not_reused",
+      "raw_status": "PASS",
+      "actual": "String: Recalculated; length=12; Initial Shape.ID=17; final Shape.ID=19; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu.; pre-mutation=SMFCommentPicture/1\nK26\nSMF local numeric chart: 1,2,3; metadata=SMFCommentPicture/1\nJ26\nSMF local numeric chart: 1,2,3; points=3"
+    },
+    {
+      "id": "NumericReuse_wrong_type_not_reused",
+      "raw_status": "PASS",
+      "actual": "String: Chart; length=5; Initial Shape.ID=20; final Shape.ID=22; series=1; values=1,50,98; note=original note\nSMF stores this chart on the worksheet. Select this cell and use SMF: Show/Hide Cell Chart in the cell menu.; pre-mutation=; metadata=SMFCommentPicture/1\nJ26\nSMF local numeric chart: 1,2,3; points=3"
+    }
+  ],
+  "scope": "Separate numeric-chart focus. These counts are not added to either 292-case full-run total."
+}

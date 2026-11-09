@@ -1,0 +1,21 @@
+{
+  "requested_utc": "2026-11-09T08:11:50.015994+00:00",
+  "request_url": "https://www.advfn.com/p.php?pid=financials&symbol=NASDAQ:AAPL",
+  "final_url": "https://www.advfn.com/stock-market/NASDAQ/AAPL/financials",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "response_body_bytes": 168100,
+  "response_body_sha256": "8989c3af6cafd26d33b01a26fd47a8be3de279f4712d47bff99384e21ea9ffeb",
+  "year_end_label": "Year End September 26 2026",
+  "matching_cells": 3,
+  "annual_columns": [
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "request_authentication": "None. No cookies, credentials or login supplied.",
+  "retained_content": "Only the fiscal-date label and year columns. Headers, session fields and full body omitted.",
+  "scope": "This verifies the current ADVFN page header used by element5196. It does not independently verify company financial statements."
+}

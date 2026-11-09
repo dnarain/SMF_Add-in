@@ -1,0 +1,152 @@
+function,pattern,reason
+ConvertToIso,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+ConvertToJson,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+ConvertToUtc,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+DateOfHigh,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+DecodeJsonString,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+fnWait,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+GetKeys,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+GetObjectProperty,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+GetProperty,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+ParseIso,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+ParseJson,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+ParseUtc,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHExtractData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetElementNumber,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetHTMLTable,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetTableCell,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetURLData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetURLData1,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetURLData1Mac,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetURLData2,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetURLData3,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetURLData4,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetWebData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetYahooHistory,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetYahooHistory2,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHGetYahooQuotes,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHImageTable,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+RCHImageTable,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfBuildYahooTimeSeriesURL,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfBuildYahooTimeSeriesURL,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfCDec,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfChkJSONFieldType,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfConvertData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfConvertYahooTicker,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfDate2Unix,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfEval,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfEvaluateTwice,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGet888OptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGet888OptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetAConstants,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetAData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetADVFNElement,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetaFiles,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetAParms,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetBarChartOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetBarChartOptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetBigChartsOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetBigChartsOptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetCSVFile,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetEconData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetEconData,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetGoogleHistoryCSV,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetGoogleHistoryCSV,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetGoogleOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetGoogleOptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetGuruFocusCSVItem,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetGuruFocusCSVItem,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetGuruFocusData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetGuruFocusItem,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetGuruFocusItem,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetMorningstarHistoryCSV,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetMorningstarHistoryCSV,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetMSNHistory,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetMSNHistory,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetMSNOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetMSNOptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetMWOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetMWOptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetNASDAQOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetNASDAQOptionQuote,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetOptionExpirations,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetOptionExpiry,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetOptionQuotes,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetOptionStrikes,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetOX2OptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetOX3OptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetOXOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetTagContent,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetWebPage,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetWebPage,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetYahooHistoryCSV,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooHistoryCSVData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooJSONData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooJSONField,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooOptionQuote,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooOptionQuote1,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooOptionQuote2,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfGetYahooOptionQuote2,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfGetYahooPortfolioView,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFHighBetween,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfHTMLDecode,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfJoin,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfJSONExtractField,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfJSONExtractField_x64,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfJSONExtractKeys,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfLastPrice,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfLogInternetCalls,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFLowBetween,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacElementsSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacEmptyRecipeSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacFetch,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacHistoryCSVSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacHTMLSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacHTTPStatus,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacIntegrationSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacJSONSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacLastError,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacLastFileError,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacLastURL,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacNestedRecipeSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacReadElementLocation,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacReadElementText,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacReadResponse,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacRecipeSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacStripHTML,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacTableGuardSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacTableRecipeSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFMacTransportSelfTest,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacTryNestedRecipe,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacTryTableCellRecipe,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacTryTagContentRecipe,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacYahooChartCSV,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacYahooDownloadCSV,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfMacYahooDownloadURL,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfPricesBetween,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfPricesByDates,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfRSITargetPrices,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfStrExtr,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfStripHTML,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+SMFTech,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfUnix2Date,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfUnix2DateStr,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfWord,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfYahooAPIData,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+smfYahooAPIData,positive provider data/image,No passing positive provider-data/image check for the selected inputs
+smfYahooCodeDesc,worksheet evaluation,No completed worksheet-entry case; VBA calls do not establish worksheet argument/array behavior
+,source endpoint: https://c.stockcharts.com/c-sc/sc?s=AAPL&p=D&yr=0&mn=6&dy=0&i=t94339682869&r=4806,No case-bound request to this exact inventoried URL was recorded
+,"source endpoint: http://finance.google.com/finance/historical?output=csv&q=AAPL&startdate=Nov 5, 2026&enddate=Nov 6, 2026",No case-bound request to this exact inventoried URL was recorded
+,"source endpoint: http://ogres-crypt.com/php/chart.php?d=1,50,98",No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://query1.finance.yahoo.com/v1/test/getcrumb,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://query1.finance.yahoo.com/v7/finance/download/AAPL?period1=1793836800&period2=1794009600&interval=1d&events=history,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://query1.finance.yahoo.com/v7/finance/download/MMM?period1=1493610466&period2=1496202466&interval=1d&events=history&crumb=[redacted] case-bound request to this exact inventoried URL was recorded
+,"source endpoint: https://query1.finance.yahoo.com/v7/finance/quote?fields=symbol,longName,shortName,regularMarketPrice,regularMarketTime,regularMarketChange,regularMarketDayHigh,regularMarketDayLow,regularMarketPrice,regularMarketOpen,regularMarketVolume,averageDailyVolume3Month,marketCap,bid,ask,dividendYield,dividendsPerShare,exDividendDate,trailingPE,priceToSales,targetPriceMean&formatted=false&symbols=AAPL",No case-bound request to this exact inventoried URL was recorded
+,"source endpoint: https://query1.finance.yahoo.com/v6/finance/quote?fields=symbol,longName,shortName,regularMarketPrice,regularMarketTime,regularMarketChange,regularMarketDayHigh,regularMarketDayLow,regularMarketPrice,regularMarketOpen,regularMarketVolume,averageDailyVolume3Month,marketCap,bid,ask,dividendYield,dividendsPerShare,exDividendDate,trailingPE,priceToSales,targetPriceMean&formatted=false&symbols=AAPL",No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://query1.finance.yahoo.com/v2/finance/news?count=20&symbols=AAPL&start=0,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/AAPL?merge=false&padTimeSeries=true&period1=493590046&period2=1794164399&type=annualTotalRevenue&lang=en-US&region=US,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: http://stockcharts.com/c-sc/sc?s=AAPL&p=D&b=3&g=0&id=t08330678207&r=4815,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://www.advfn.com/p.php?pid=financials&mode=quarterly_reports&symbol=AAPL,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://www.advfn.com/p.php?pid=financialgraphs&a0=13&a1=[redacted] case-bound request to this exact inventoried URL was recorded
+,source endpoint: http://www.marketwatch.com/investing/fund/AAPL/options?countrycode=US&showAll=True,No case-bound request to this exact inventoried URL was recorded
+,source endpoint: https://fc.yahoo.com,No case-bound request to this exact inventoried URL was recorded

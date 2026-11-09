@@ -226,3 +226,30 @@ cython_debug/
 
 # macOS Finder metadata
 .DS_Store
+
+# Reviewed 0.6 reports. Native workbooks, captures and private JSON remain local.
+!/mac/test-results/0.6-dev-20261108-first-run/
+!/mac/test-results/0.6-dev-20261108-first-run/*.md
+!/mac/test-results/0.6-dev-20261108-first-run/*.csv
+!/mac/test-results/0.6-dev-20261108-first-run/report-data.json
+!/mac/test-results/0.6-dev-20261108-first-run/report-summary.json
+!/mac/test-results/0.6-dev-20261108-first-run/function-reference-checks.json
+!/mac/test-results/0.6-dev-20261108-first-run/provenance.json
+!/mac/test-results/0.6-dev-20261108-first-run/core-source-audit.json
+!/mac/test-results/0.6-dev-20261108-final/
+!/mac/test-results/0.6-dev-20261108-final/*.md
+!/mac/test-results/0.6-dev-20261108-final/*.csv
+!/mac/test-results/0.6-dev-20261108-final/report-data.json
+!/mac/test-results/0.6-dev-20261108-final/report-summary.json
+!/mac/test-results/0.6-dev-20261108-final/function-reference-checks.json
+!/mac/test-results/0.6-dev-20261108-final/provenance.json
+!/mac/test-results/0.6-dev-20261108-final/core-source-audit.json
+!/mac/test-results/0.6-dev-20261108-final/cold-addin-receipt.json
+!/mac/test-results/0.6-dev-20261108-final/advfn-year-end-evidence.json
+!/mac/test-results/0.6-dev-20261108-final/native-addin-source-audit.json
+!/mac/test-results/0.6-dev-20261108-final/focused-run1/
+!/mac/test-results/0.6-dev-20261108-final/focused-run1/summary.json
+!/mac/test-results/0.6-dev-20261108-final/focused-run2/
+!/mac/test-results/0.6-dev-20261108-final/focused-run2/summary.json
+!/mac/test-results/0.6-dev-20261108-final/fresh-checkout-validation-summary.json
+!/mac/test-results/0.6-dev-20261108-final/installed-addin-receipt.json

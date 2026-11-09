@@ -1,0 +1,10 @@
+{
+  "checks_passed": 63,
+  "scope": "Fresh-checkout preparation and local loopback checks on the same Mac. This is not a full native rerun in the newly derived workbook or a new-macOS-account test.",
+  "default_cases": 292,
+  "public_functions": 121,
+  "worksheet_entries": 32,
+  "case_ids_match_native": true,
+  "derived_workbook_vba_sha256": "ac7cfb3b36ed31957cf435b43a9a0df6c1e8c17abce85305ee93a48d3f1679a1",
+  "proof_sha256": "5f28accf3f3bfb54f876f26302fb49544e29ad3111df5acd7445c6748d3f41f9"
+}

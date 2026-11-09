@@ -1,0 +1,61 @@
+{
+  "generated_utc": "2026-11-09T07:53:31.234645+00:00",
+  "run_id": "smf-0.6-full-final-20261108",
+  "control_state": "DONE",
+  "expected_version": "3.0.2024.07.30-mac.0.6-dev",
+  "observed_version": "Stock Market Functions add-in, Version 3.0.2024.07.30-mac.0.6-dev ([final-run]; Macintosh (ARM) Version 27.0.1 (Build 26A434); 16.114; ; Local; 1)",
+  "observed_version_token": "3.0.2024.07.30-mac.0.6-dev",
+  "version_verified": true,
+  "workbook": "[final-run]/SMF-Chart-Final.xlsm",
+  "workbook_sha256": "14ed9c3af4e9733deefbde7fac3129dcea888006cd8e47a189b763289132e5a6",
+  "workbook_vba_sha256": "31066426d87e287f55c29c3df295f4061b47c7cd295bc48da229e3b86e67bec9",
+  "planned_cases": 292,
+  "saved_rows": 292,
+  "raw_case_counts": {
+    "PASS": 238,
+    "CHECK_FAILED": 54
+  },
+  "planned_case_status_counts": {
+    "PASS": 238,
+    "CHECK_FAILED": 54
+  },
+  "interpreted_case_counts": {
+    "PASS": 238,
+    "UNCLASSIFIED_FAIL": 20,
+    "PROVIDER_UNAVAILABLE": 29,
+    "CODE_FAILURE": 1,
+    "OBSOLETE": 4
+  },
+  "public_functions": 121,
+  "primary_raw_counts": {
+    "PASS": 108,
+    "CHECK_FAILED": 13
+  },
+  "primary_interpreted_counts": {
+    "PASS": 108,
+    "UNCLASSIFIED_FAIL": 3,
+    "PROVIDER_UNAVAILABLE": 5,
+    "CODE_FAILURE": 1,
+    "OBSOLETE": 4
+  },
+  "source_groups": 35,
+  "inventoried_endpoints": 53,
+  "positive_live_extraction_passes": 48,
+  "positive_live_extraction_passes_description": "Passing provider-data/image assertions for selected inputs, including cached values. This is not a count of fresh requests or independently verified fields.",
+  "positive_provider_image_checks": 2,
+  "worksheet_entry_cases": 32,
+  "worksheet_entry_raw_counts": {
+    "PASS": 32
+  },
+  "evidence_errors": [],
+  "warnings": [],
+  "scope": "Inventoried public .bas Functions and selected cases only; Subs, Dictionary members, private functions, and every possible argument/provider field are not claimed covered.",
+  "input_bindings": {
+    "case_specification_sha256": "75196b800984e07692881ed64dff7d3bd498e7bb9d7dbcc6fab6e6dd1c53086f",
+    "workbook_case_specification_verified": true,
+    "manifest_case_specification_verified": true,
+    "recorded_source_fingerprint": "8c7028f8eddc6017698a12d54a44b4886669e835a9554c8f33d35ef1ebad2ec3",
+    "manifest_source_fingerprint": "8c7028f8eddc6017698a12d54a44b4886669e835a9554c8f33d35ef1ebad2ec3",
+    "source_fingerprint_verified": true
+  }
+}

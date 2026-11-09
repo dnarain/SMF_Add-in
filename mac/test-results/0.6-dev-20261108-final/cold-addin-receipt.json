@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "source": "Native Excel operator readback",
+  "candidate_source_commit": "1cbbd104dd5e6696df9030d2aa261cfc630a8995",
+  "candidate_comment_module_sha256": "18b331c4639490490bff1e5c72fc04d699c52a34c3ca993681f727ad89cc8e42",
+  "fresh_excel_started_local": "2026-11-09T00:10:47-08:00",
+  "basic_example": {
+    "checks_passed": 4,
+    "outcome": "expected values returned"
+  },
+  "history_example": {
+    "checks_passed": 8,
+    "genuine_array_entry": true,
+    "saved_closed_reopened": true
+  },
+  "data_picture_example": {
+    "checks_passed": 10,
+    "checks_failed": 1,
+    "stockcharts_picture_visible": true,
+    "numeric_plot_visible_with_cell_unselected": true,
+    "calculation": "Automatic",
+    "status_bar": "Ready",
+    "explicit_force_recalculation_completed": true,
+    "saved_closed_reopened": true,
+    "failed_comparison": {
+      "cell": "D9",
+      "actual_cell": "B9",
+      "expected_cell": "C9",
+      "element": 5196,
+      "ticker": "NASDAQ:AAPL",
+      "actual_date": "2026-09-26",
+      "unchanged_expected_date": "2025-09-27",
+      "status": "FAIL",
+      "current_provider_header_verified": true,
+      "expectation_edited": false
+    },
+    "same_process_during_reopen": true
+  },
+  "scope": "The same Mac, Excel installation and installed helper. These observations do not establish sustained use or a fresh-account installation.",
+  "public_bundle_copy": "mac/built/0.6-dev; byte-verified against the reviewed 23-file package",
+  "standard_local_installation": "completed; installed startup, examples, Automatic calculation and VBA project access OFF observed",
+  "unexpected_excel_restart_observed": false,
+  "helper_changed": false,
+  "portable_same_mac_recheck": {
+    "observed_utc_approximate": "2026-11-09T08:26:00Z",
+    "source": "Native Excel operator readback from the reviewed bundle in a different folder",
+    "addin_loaded_from_copied_folder": true,
+    "data_picture": {
+      "PASS": 10,
+      "FAIL": 1,
+      "stockcharts_visible": true,
+      "numeric_visible_with_cell_unselected": true,
+      "Ready": true,
+      "saved_changes": false,
+      "reopened_again_same_result": true
+    },
+    "history": {
+      "PASS": 8,
+      "genuine_array_5_by_2": true,
+      "version": "mac.0.6-dev"
+    },
+    "basic": {
+      "expected_values": 4,
+      "version": "mac.0.6-dev"
+    },
+    "closed_without_saving": true,
+    "normal_excel_quit": true,
+    "package_files_unchanged": true
+  },
+  "installed_receipt": "installed-addin-receipt.json"
+}

@@ -1,0 +1,16 @@
+{
+  "component_count": 51,
+  "unchanged_sources_byte_exact_to_0_5": 47,
+  "changed_sources_match_source_commit": [
+    "modGetElementNumber.bas",
+    "modGetOptionQuotes.bas",
+    "smfCreateComment_.bas",
+    "smfGetYahooHistory_.bas"
+  ],
+  "all_saved_sources_byte_exact_to_clean_workbook": true,
+  "dictionary_default_item_attribute_zero": true,
+  "vba_project_sha256": "ac7cfb3b36ed31957cf435b43a9a0df6c1e8c17abce85305ee93a48d3f1679a1",
+  "native_calcPr": {
+    "calcId": "191029"
+  }
+}

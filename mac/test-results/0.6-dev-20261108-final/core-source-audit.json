@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS",
+  "scope": "Saved clean workbook components/source only; native compilation, focused cases, full-suite rerun and cold reopen require separate evidence.",
+  "target_file": "SMF-Clean-0.6-final.xlsm",
+  "target_sha256": "606f9ddc73e4b005c600e67afa3a7875ec5cbdb0e3270b09ce67e4fe8d329089",
+  "target_bytes": 665212,
+  "target_vba_sha256": "b92f82ecf861a4da41a45fb7be05f93bd47043b093fbdc7a4fe78ab55c2df284",
+  "component_count": 51,
+  "component_type_counts": {
+    "standardModules": 48,
+    "classModules": 1,
+    "documentModules": 2,
+    "baseClasses": 0
+  },
+  "prior_clean_workbook_sha256": "b1c755514a4483d4ba873ff111c915b6479d70c2633ba595f33865ce4a5755c7",
+  "prior_clean_0_6_sources_byte_exact": 50,
+  "only_changed_module_from_prior_clean_0_6": "smfCreateComment_.bas",
+  "base_artifact": "mac/built/0.5-dev/SMF-Mac.xlam",
+  "base_sha256": "87688efae75ca2274ba750840cb796f66abd6d5c593ea250e5ba09e50903ce31",
+  "base_0_5_sources_byte_exact": 47,
+  "changed_core_sources": [
+    "modGetElementNumber.bas",
+    "modGetOptionQuotes.bas",
+    "smfCreateComment_.bas",
+    "smfGetYahooHistory_.bas"
+  ],
+  "changed_sources_equal_to_repository_with_identifier_case_only": true,
+  "all_changed_quoted_literals_exact": true,
+  "dictionary_class_and_default_item_attribute_zero": true,
+  "unclassified_changes": 0,
+  "case_only_changed_line_count": 64,
+  "module_checks": [
+    {
+      "module": "modGetElementNumber.bas",
+      "repository_source_sha256": "440256d486a65d587338d87ca32b25dd2bcc2927792b356331641be64d684d30",
+      "saved_source_raw_sha256": "bb7bc787fca05fe069c17cb35af8aae4944ad541ec75a827ce7c2d14707e19a6",
+      "case_insensitive_source_equal": true,
+      "all_quoted_source_literals_exact": true,
+      "quoted_literal_count": 344,
+      "case_only_changed_line_count": 14
+    },
+    {
+      "module": "modGetOptionQuotes.bas",
+      "repository_source_sha256": "a38ace63c450060df460d349870793150bc4a9ed08d155af82a8681847d5acd7",
+      "saved_source_raw_sha256": "f7c563567fd3c983d8118e2af5b9ae2ce4a30f91b1b744cd67d6ac6c9967cab0",
+      "case_insensitive_source_equal": true,
+      "all_quoted_source_literals_exact": true,
+      "quoted_literal_count": 1211,
+      "case_only_changed_line_count": 4
+    },
+    {
+      "module": "smfCreateComment_.bas",
+      "repository_source_sha256": "18b331c4639490490bff1e5c72fc04d699c52a34c3ca993681f727ad89cc8e42",
+      "saved_source_raw_sha256": "5e7015b589663dceabd147f96e45eb5771cd928efbb5044870e7db9066274770",
+      "case_insensitive_source_equal": true,
+      "all_quoted_source_literals_exact": true,
+      "quoted_literal_count": 131,
+      "case_only_changed_line_count": 44
+    },
+    {
+      "module": "smfGetYahooHistory_.bas",
+      "repository_source_sha256": "13853d80b4813101001db587c8be65b7e02704fe367789a3a0b92a110e27ae7e",
+      "saved_source_raw_sha256": "7d4593c6b13d4d429c3c3efd4ab61c784f26af32ecba618e04e8d979ad23ac47",
+      "case_insensitive_source_equal": true,
+      "all_quoted_source_literals_exact": true,
+      "quoted_literal_count": 90,
+      "case_only_changed_line_count": 2
+    }
+  ]
+}

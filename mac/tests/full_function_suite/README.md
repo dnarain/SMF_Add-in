@@ -1,8 +1,8 @@
-# Run the SMF 0.5 native suite from a fresh checkout
+# Run the SMF 0.6 native suite from a fresh checkout
 
 These tools prepare and read a disposable Excel test workbook. They do not change the packaged add-in or run Excel themselves.
-The reviewed set contains 239 cases for 121 public functions.
-It includes 25 worksheet-entry cases, with nine history row/column regressions.
+The reviewed set contains 292 cases for 121 public functions.
+It includes 32 worksheet-entry cases, with nine history row/column regressions and seven history-default worksheet cases.
 The checked-in datasource inventory contains 35 domains. It does not enumerate arbitrary caller-supplied URLs.
 
 Run the commands below from the repository root. Use Python 3 and native Excel on Mac.
@@ -17,7 +17,7 @@ SMF_SUITE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/smf-full-suite.XXXXXX")"
 python3 mac/tests/full_function_suite/prepare_suite.py --suite "$SMF_SUITE_DIR"
 ```
 
-The preparer uses tracked inputs, including `mac/built/0.5-dev/SMF-Mac.xlam`.
+The preparer uses tracked inputs, including `mac/built/0.6-dev/SMF-Mac.xlam`.
 It creates `SMF-Full-Suite.xlsm` by changing only the workbook content type. Every VBA-project byte remains unchanged.
 It copies 14 definition files, the reviewed case specifications, provider fragments and the required local fixtures.
 It records source hashes and a run ID in `preparation.json`. It refuses a nonempty run folder.
@@ -53,7 +53,7 @@ python3 mac/tests/full_function_suite/build_suite.py \
   --suite "$SMF_SUITE_DIR" \
   --server-config "$SMF_SUITE_DIR/server-config.json" \
   --run-id "$SMF_RUN_ID" \
-  --expected-version 3.0.2024.07.30-mac.0.5-dev
+  --expected-version 3.0.2024.07.30-mac.0.6-dev
 ```
 
 The generator writes `modSMFFunctionSuite.bas`, `test-cases.json`, `function-inventory.json` and `run-manifest.json`.
@@ -63,7 +63,11 @@ Generation does not execute any case. A case is not a pass until native Excel sa
 For a focused version-gate check, prepare another empty run folder.
 Add `--case-file mac/tests/full_function_suite/version_gate_cases.json` to that folder's build command.
 This optional one-case run checks the actual version and rejects version suffixes, path-only matches and malformed version text.
-It is separate from the default 239 cases.
+It is separate from the default 292 cases.
+
+To rerun the nine numeric-chart reuse cases, prepare another empty run folder.
+Pass `--case-file mac/tests/full_function_suite/numeric_chart_reuse_cases.json` to that folder's build command.
+Those nine checks run separately from the default 292 cases.
 
 ## 4. Run in native Excel
 
@@ -130,7 +134,7 @@ Provider-unavailable classifications require the native case's recorded HTTP att
 The separate HTTP probes appear in their own table and never override a native case's classification.
 
 The suite covers the selected public-function calls, not every private function, numbered field, argument combination or provider field.
-See the [final full-suite report](../../test-results/0.5-dev-20261108/README.md) for current failed cases and their evidence.
+See the [final full-suite report](../../test-results/0.6-dev-20261108-final/README.md) for current failed cases and their evidence.
 Earlier passing counts do not establish the outcome of this fresh run.
 
 ## Finish and retain evidence

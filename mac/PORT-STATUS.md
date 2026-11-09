@@ -1,8 +1,29 @@
 # Mac port status
 
-This record describes checks on November 7 and 8, 2026.
+This record describes checks on November 7, 8 and 9, 2026.
 
-## Current state: November 8, 2026 — full fresh-checkout suite
+## Current 0.6 experimental build
+
+The current source version is `3.0.2024.07.30-mac.0.6-dev`, from commit `1cbbd104dd5e6696df9030d2aa261cfc630a8995`.
+The [built bundle](built/0.6-dev/README.md) contains the add-in, three examples and the unchanged helper installer.
+The [final native report](test-results/0.6-dev-20261108-final/README.md) records 292 cases: 238 PASS and 54 CHECK_FAILED.
+All 32 worksheet-entry cases and all 14 picture-group cases passed. Nine separate fresh-call numeric-reuse cases also passed.
+Both the production numeric-only ZOrder change and the revised fresh-entry case controls preceded those nine passes.
+The first 0.6 full run and the later two chart-reopen restarts remain preserved separately.
+
+The revised candidate passed cold Excel restart, portable-folder reopen and normal installed-add-in startup checks.
+Basic checks returned four expected values. History returned eight PASS and a genuine 5-by-2 array after reopen.
+Data/picture returned ten PASS and one FAIL, with both the StockCharts image and unselected numeric plot visible.
+ADVFN field 5196 returned `2026-09-26` against the unchanged `2025-09-27` comparison value.
+A current unauthenticated provider request verified the newer year-end header. The comparison remains FAIL.
+
+The normal `mac/out/SMF-Mac.xlam` installation now loads 0.6 automatically after an Excel restart.
+Excel showed Ready and Automatic calculation. VBA project access remained OFF; the operator made no security change.
+The helper and all 14 adjacent definition files remain unchanged. The prior 0.5 add-in and examples remain preserved.
+The reviewed bundle and reports are saved in this fork checkout for continued testing.
+See the [chart checks](CHART-RECHECK-STATUS-20261108.md) and the final report for the observed limits.
+
+## Earlier November 8 checkpoint: 0.5-dev full fresh-checkout suite
 
 The [final run 2 report](test-results/0.5-dev-20261108/README.md) records the 239-case suite for 121 public functions.
 The cases include nine worksheet regressions; the datasource inventory contains 35 domains.
