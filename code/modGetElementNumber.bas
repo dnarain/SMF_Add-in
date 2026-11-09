@@ -1,6 +1,6 @@
 Attribute VB_Name = "modGetElementNumber"
 #If Mac Then
-Const kVersion = "3.0.2024.07.30-mac.0.6-dev"       ' Mac history defaults and Yahoo option compatibility repair
+Const kVersion = "3.0.2024.07.30-mac.0.7-dev"       ' Mac data repairs and confirmed retired-source guards
 #Else
 Const kVersion = "3.0.2024.07.30"                   ' Upstream Windows version
 #End If
@@ -193,6 +193,9 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
     Dim sTicker1 As String
     Dim sTicker2 As String
     Dim vTemp As Variant
+#If Mac Then
+    Dim unsupportedReason As String
+#End If
 
     On Error GoTo ErrorExit
     vError = pError
@@ -255,6 +258,11 @@ Public Function RCHGetElementNumber(ByVal pTicker As String, _
        Case sTicker1 = "P-END": RCHGetElementNumber = aParm(9): Exit Function
        Case sTicker1 = "P-LOOK": RCHGetElementNumber = aParm(10): Exit Function
        Case sTicker1 = "P-TYPE": RCHGetElementNumber = aParm(11): Exit Function
+#If Mac Then
+       Case smfLiteralUnsupportedReason(CStr(aParm(2)), unsupportedReason)
+            RCHGetElementNumber = CVErr(xlErrNA)
+            Exit Function
+#End If
        Case aParm(0) = "AdvFN-A" And Left(aParm(2), 1) <> "="
             RCHGetElementNumber = smfGetADVFNElement(sTicker1, "A", aParm(3), aParm(4), aParm(5), pError)
        Case aParm(0) = "AdvFN-Q" And Left(aParm(2), 1) <> "="
@@ -778,7 +786,7 @@ Public Function SMFMacElementsSelfTest() As Long
     If aParms(19999) <> "FinViz;Fixture;=SUM(1,2)" Then Err.Raise 5, , "Element definition parsing failed"
     If aFiles(19999) <> "fixture.txt (Mac helper)" Then Err.Raise 5, , "Element filename was lost"
     If aConstants(99) <> "value" Then Err.Raise 5, , "Constant parsing failed"
-    SMFMacElementsSelfTest = 3
+    SMFMacElementsSelfTest = 3 + smfUnsupportedFieldSelfChecks()
 RestoreState:
     aParms(19999) = oldParm
     aFiles(19999) = oldFile
@@ -1011,4 +1019,335 @@ Failed:
     errorNumber = Err.Number: errorText = Err.Description
     Resume RestoreState
 End Function
+#End If
+
+#If Mac Then
+' BEGIN GENERATED UNSUPPORTED SOURCES
+' Generated from mac/not_supported.json; run mac/build_not_supported.py --write.
+' Registry SHA256: 9086a5e9cf0fccdcf93a7c60302fd5c3e01c39d3755fe4b2d824efb731a539a8
+Private Function smfUnsupportedRegistry() As Collection
+    Dim rows As Collection
+    Set rows = New Collection
+    rows.Add _
+        Array( _
+            "msn-options", _
+            "smfGetMSNOptionQuote, smfGetOptionQuotes", _
+            "MSN option quotes", _
+            "MSN", _
+            "Not Supported", _
+            "SMF marks the MSN option quote function obsolete.", _
+            "Use a supported option source; positive Yahoo bid/ask prices still need verification.", _
+            "code/modGetOptionQuotes.bas: MSN obsolete return dated 2014-12-23", _
+            "2026-11-09")
+    rows.Add _
+        Array( _
+            "optionsxpress-options", _
+            "smfGetOXOptionQuote, smfGetOX2OptionQuote, smfGetOX3OptionQuote, smfGetOptionQuotes, smfGetOptionExpirations, smfGetOptionStrikes", _
+            "OX, OX2, OX3 quotes; OX expirations/strikes", _
+            "OptionsXpress", _
+            "Not Supported", _
+            "SMF records that optionsXpress is no longer a valid data source.", _
+            "Yahoo expiration/strike modes remain available; quote availability needs separate verification.", _
+            "code/modGetOptionQuotes.bas: optionsXpress retirement dated 2017-10-10; code/modGetOptionExpirations.bas: OX dispatch disabled; code/modGetOptionStrikes.bas: retirement comment", _
+            "2026-11-09")
+    rows.Add _
+        Array( _
+            "yahoo-quote-csv", _
+            "RCHGetYahooQuotes", _
+            "Ticker/quote-code mode with nonempty pItems", _
+            "Yahoo legacy quote CSV", _
+            "Not Supported", _
+            "SMF explicitly marks the old ticker/quote-code CSV mode obsolete.", _
+            "Keep CSV-URL mode with empty pItems, or use the supported Yahoo JSON/history functions.", _
+            "code/modGetYahooQuotes.bas: obsolete-mode notice dated 2023-03-01; docs/Documentation/doc-links/RCHGetYahooQuotes-Function_files/RCHGetYahooQuotes-Function.htm", _
+            "2026-11-09")
+    rows.Add _
+        Array( _
+            "yahoo-yql", _
+            "smfYahooAPIData", _
+            "All YQL feeds A-F", _
+            "Yahoo YQL", _
+            "Not Supported", _
+            "Yahoo retired query.yahooapis.com YQL on 2019-01-03, as recorded in the SMF change log.", _
+            "Use supported Yahoo JSON/history functions for the fields they provide.", _
+            "code/modYahooAPIData.bas: shutdown notice dated 2023-05-28; docs/Documentation/doc-links/Change-Log_files/Change-Log.htm: 2022-12-11 entry", _
+            "2026-11-09")
+    rows.Add _
+        Array( _
+            "google-option-chain", _
+            "smfGetGoogleOptionQuote, smfGetOptionQuotes, smfGetOptionExpirations, smfGetOptionStrikes", _
+            "G/GOOGLE legacy option chain", _
+            "Google legacy option chain", _
+            "Not Supported", _
+            "The SMF option-strike manual explicitly labels the Google option source obsolete.", _
+            "Yahoo expiration/strike modes remain available; positive option prices need separate verification.", _
+            "docs/Documentation/doc-links/smfGetOptionStrikes-Function_files/smfGetOptionStrikes-Function.htm: obsolete 8/G/OX modes; docs/Documentation/doc-links/smfGetOptionExpirations_files/smfGetOptionExpirations.htm: Yahoo-only source note", _
+            "2026-11-09")
+    rows.Add _
+        Array( _
+            "oic-legacy-options", _
+            "smfGet888OptionQuote, smfGetOptionQuotes, smfGetOptionExpirations, smfGetOptionStrikes", _
+            "8/888 legacy oic_adv_options.j path", _
+            "OIC legacy option chain", _
+            "Not Supported", _
+            "The SMF option-strike manual explicitly labels source 8 obsolete; these calls use that same legacy endpoint.", _
+            "Yahoo expiration/strike modes remain available; other iVolatility services are outside this guard.", _
+            "docs/Documentation/doc-links/smfGetOptionStrikes-Function_files/smfGetOptionStrikes-Function.htm: obsolete 8/G/OX modes; code/modGetOptionQuotes.bas: smfGet888OptionQuote legacy endpoint", _
+            "2026-11-09")
+    Set smfUnsupportedRegistry = rows
+End Function
+
+Private Function smfUnsupportedRoutes() As Collection
+    Dim rows As Collection
+    Set rows = New Collection
+    rows.Add Array("msn-options", "investing.money.msn.com", "/investments/equity-options/")
+    rows.Add Array("msn-options", "investing.money.msn.com", "/investments/equity-options")
+    rows.Add Array("optionsxpress-options", "www.optionsxpress.com", "/OXNetTools/Chains/index.aspx")
+    rows.Add Array("optionsxpress-options", "optionsxpress.com", "/OXNetTools/Chains/index.aspx")
+    rows.Add Array("yahoo-quote-csv", "download.finance.yahoo.com", "/d/quotes.csv")
+    rows.Add Array("yahoo-yql", "query.yahooapis.com", "/v1/public/yql")
+    rows.Add Array("yahoo-yql", "query.yahooapis.com", "/v1/public/yql/")
+    rows.Add Array("google-option-chain", "www.google.com", "/finance/option_chain")
+    rows.Add Array("google-option-chain", "finance.google.com", "/finance/option_chain")
+    rows.Add Array("oic-legacy-options", "oic.ivolatility.com", "/oic_adv_options.j")
+    Set smfUnsupportedRoutes = rows
+End Function
+' END GENERATED UNSUPPORTED SOURCES
+Public Sub smfUnsupportedValue(ByVal pID As String, ByRef pValue As Variant)
+    Dim rows As Collection, row As Variant
+    Set rows = smfUnsupportedRegistry()
+    For Each row In rows
+        If StrComp(CStr(row(0)), pID, vbBinaryCompare) = 0 Then
+            pValue = CVErr(xlErrNA)
+            Exit Sub
+        End If
+    Next row
+    Err.Raise 5, "smfUnsupportedValue", "Unknown unsupported-source ID"
+End Sub
+
+Public Sub smfUnsupportedURL(ByVal pURL As String, ByRef pID As String, ByRef pReason As String)
+    Dim host As String, path As String, routes As Collection, rows As Collection
+    Dim route As Variant, row As Variant
+    pID = "": pReason = ""
+    If Not smfUnsupportedURLParts(pURL, host, path) Then Exit Sub
+    Set routes = smfUnsupportedRoutes()
+    For Each route In routes
+        If StrComp(host, CStr(route(1)), vbTextCompare) = 0 And _
+                StrComp(path, CStr(route(2)), vbTextCompare) = 0 Then
+            Set rows = smfUnsupportedRegistry()
+            For Each row In rows
+                If CStr(row(0)) = CStr(route(0)) Then
+                    pID = CStr(row(0)): pReason = CStr(row(5))
+                    Exit Sub
+                End If
+            Next row
+        End If
+    Next route
+End Sub
+
+Private Function smfUnsupportedURLParts(ByVal pURL As String, ByRef pHost As String, ByRef pPath As String) As Boolean
+    Dim schemeAt As Long, authorityAt As Long, pathAt As Long, endAt As Long, pos As Long
+    Dim authority As String, character As String
+    schemeAt = InStr(1, pURL, "://", vbBinaryCompare)
+    If schemeAt = 0 Then Exit Function
+    If LCase$(Left$(pURL, schemeAt - 1)) <> "http" And _
+            LCase$(Left$(pURL, schemeAt - 1)) <> "https" Then Exit Function
+    authorityAt = schemeAt + 3
+    endAt = Len(pURL) + 1
+    For pos = authorityAt To Len(pURL)
+        character = Mid$(pURL, pos, 1)
+        If character = "/" Or character = "?" Or character = "#" Then endAt = pos: Exit For
+    Next pos
+    authority = Mid$(pURL, authorityAt, endAt - authorityAt)
+    pos = InStrRev(authority, "@")
+    If pos > 0 Then authority = Mid$(authority, pos + 1)
+    If Left$(authority, 1) = "[" Then Exit Function
+    pos = InStr(1, authority, ":", vbBinaryCompare)
+    If pos > 0 Then authority = Left$(authority, pos - 1)
+    If Right$(authority, 1) = "." Then authority = Left$(authority, Len(authority) - 1)
+    If Len(authority) = 0 Then Exit Function
+    pHost = LCase$(authority)
+    pPath = "/"
+    If endAt <= Len(pURL) Then
+        If Mid$(pURL, endAt, 1) = "/" Then
+            pathAt = endAt: endAt = Len(pURL) + 1
+            For pos = pathAt To Len(pURL)
+                character = Mid$(pURL, pos, 1)
+                If character = "?" Or character = "#" Then endAt = pos: Exit For
+            Next pos
+            pPath = Mid$(pURL, pathAt, endAt - pathAt)
+        End If
+    End If
+    smfUnsupportedURLParts = True
+End Function
+
+Private Function smfLiteralUnsupportedReason(ByVal pExpression As String, ByRef pReason As String) As Boolean
+    Dim expression As String, literal As String, pos As Long, character As String, quoted As Boolean
+    pReason = ""
+    expression = Trim$(pExpression)
+    If Left$(expression, 1) = "=" Then
+        expression = Trim$(Mid$(expression, 2))
+        If Left$(expression, 1) <> Chr$(34) Then Exit Function
+    End If
+    If Left$(expression, 1) = Chr$(34) Then
+        If Len(expression) < 2 Or Right$(expression, 1) <> Chr$(34) Then Exit Function
+        pos = 2
+        Do While pos < Len(expression)
+            character = Mid$(expression, pos, 1)
+            If character = Chr$(34) Then
+                If pos + 1 >= Len(expression) Then Exit Function
+                If Mid$(expression, pos + 1, 1) <> Chr$(34) Then Exit Function
+                pos = pos + 1
+            End If
+            literal = literal & character
+            pos = pos + 1
+        Loop
+    Else
+        literal = expression
+    End If
+    Select Case LCase$(literal)
+        Case "obsolete": pReason = "The effective loaded SMF definition explicitly marks this field obsolete."
+        Case "obsolete -- web site no longer exists": pReason = "The effective loaded SMF definition records that the source web site no longer exists."
+        Case Else: Exit Function
+    End Select
+    smfLiteralUnsupportedReason = True
+End Function
+
+Public Sub smfUnsupportedRows(ByRef pRows As Variant)
+    Dim records As Collection, record As Variant, i As Long, j As Long, reason As String
+    Set records = smfUnsupportedRegistry()
+    If iInit <> 0 Then
+        For i = 1 To kElements
+            If Len(aParms(i)) > 0 Then
+                Dim parts As Variant
+                parts = Split(aParms(i), ";")
+                If UBound(parts) >= 2 Then
+                    If smfLiteralUnsupportedReason(CStr(parts(2)), reason) Then
+                        records.Add Array("field-" & CStr(i), "RCHGetElementNumber field " & CStr(i) & ": " & CStr(parts(1)), _
+                            "Current loaded numbered definition", CStr(parts(0)), "Not Supported", reason, _
+                            "Supply a replacement definition or use another supported source.", aFiles(i), "2026-11-09")
+                    End If
+                End If
+            End If
+        Next i
+    Else
+        records.Add Array("definition-scope", "RCHGetElementNumber", "Definition inventory", "Local/Internet as configured", _
+            "Not Loaded", "This table reads memory only. Numbered-field rows appear after SMF loads definitions.", _
+            "The shipped-default snapshot is mac/NotSupported.csv.", "No definition initialization was requested.", "2026-11-09")
+    End If
+    ReDim pRows(1 To records.Count + 1, 1 To 9)
+    record = Array("ID", "Function or field", "Mode", "Provider", "Status", "Reason", "Replacement", "Evidence", "Reviewed")
+    For j = 0 To 8: pRows(1, j + 1) = record(j): Next j
+    i = 1
+    For Each record In records
+        i = i + 1
+        For j = 0 To 8: pRows(i, j + 1) = record(j): Next j
+    Next record
+End Sub
+
+Public Sub smfShowSourceStatus()
+    Dim rows As Variant, book As Workbook, sheet As Worksheet, table As ListObject
+    smfUnsupportedRows rows
+    Set book = Application.Workbooks.Add(xlWBATWorksheet)
+    Set sheet = book.Worksheets(1)
+    sheet.Name = "SMFSourceStatus"
+    With sheet
+        .Range("A1").Resize(UBound(rows, 1), UBound(rows, 2)).NumberFormat = "@"
+        .Range("A1").Resize(UBound(rows, 1), UBound(rows, 2)).Value2 = rows
+        .Rows(1).Font.Bold = True
+        Set table = .ListObjects.Add(xlSrcRange, .Range("A1:I" & CStr(UBound(rows, 1))), , xlYes)
+        table.Name = "SMFSourceStatusTable"
+        table.ShowAutoFilter = True
+        .Columns("A").ColumnWidth = 28
+        .Columns("B").ColumnWidth = 42
+        .Columns("C:D").ColumnWidth = 28
+        .Columns("E").ColumnWidth = 18
+        .Columns("F:H").ColumnWidth = 58
+        .Columns("I").ColumnWidth = 14
+        .UsedRange.WrapText = True
+        .UsedRange.Rows.AutoFit
+    End With
+End Sub
+
+Private Function smfUnsupportedFieldSelfChecks() As Long
+    Dim oldParm As String, oldFile As String, oldInit As Integer, oldError As Variant
+    Dim value As Variant, rows As Variant, selectors As Variant, expected As Variant, literal As Variant
+    Dim callsBefore As Double, requestsBefore As Double, callsAfter As Double, requestsAfter As Double
+    Dim count As Long, i As Long, found As Boolean, errorNumber As Long, errorText As String
+    oldParm = aParms(19999): oldFile = aFiles(19999): oldInit = iInit
+    If IsObject(vError) Then Set oldError = vError Else oldError = vError
+    On Error GoTo Failed
+    iInit = 1
+    aParms(19999) = "Fixture;Retired fixture;=""Obsolete"""
+    aFiles(19999) = "unsupported-field-fixture.txt"
+    SMFMacRequestCounts callsBefore, requestsBefore
+    value = RCHGetElementNumber("AAPL", 19999, "CUSTOM_FALLBACK", "NO_WORKBOOK_LOOKUP")
+    smfUnsupportedAssertNA value
+    count = count + 1
+    selectors = Array("DEFINITION", "SOURCE", "ELEMENT", "ELEMENTFILE", "WEB PAGE", "P-URL")
+    expected = Array(aParms(19999), "Fixture", "Retired fixture", aFiles(19999), "=""Obsolete""", "=""Obsolete""")
+    For i = 0 To UBound(selectors)
+        value = RCHGetElementNumber(CStr(selectors(i)), 19999)
+        If VarType(value) <> vbString Then Err.Raise 5, , "Retired-field metadata lost its String type"
+        If CStr(value) <> CStr(expected(i)) Then Err.Raise 5, , "Retired-field metadata changed"
+        count = count + 1
+    Next i
+    aParms(19999) = "Fixture;Retired fixture;=""Obsolete -- Web site no longer exists"""
+    value = RCHGetElementNumber("AAPL", 19999)
+    smfUnsupportedAssertNA value
+    count = count + 1
+    For Each literal In Array("Obsolete -- No data found", "Obsolete -- No longer available?", _
+            "Obsolete -- Now only available to premium subscribers")
+        aParms(19999) = "Fixture;Retired fixture;=" & Chr$(34) & CStr(literal) & Chr$(34)
+        value = RCHGetElementNumber("AAPL", 19999)
+        If VarType(value) <> vbString Then Err.Raise 5, , "An uncertain/premium definition was disabled"
+        If CStr(value) <> CStr(literal) Then Err.Raise 5, , "An uncertain/premium definition changed"
+        count = count + 1
+    Next literal
+    aParms(19999) = "Fixture;Conditional fixture;=IF(1=1,""Obsolete"",42)"
+    value = RCHGetElementNumber("AAPL", 19999)
+    If VarType(value) <> vbString Then Err.Raise 5, , "A conditional definition was disabled"
+    If CStr(value) <> "Obsolete" Then Err.Raise 5, , "A conditional definition changed"
+    count = count + 1
+    aParms(19999) = "Fixture;Retired fixture;=""Obsolete"""
+    smfUnsupportedRows rows
+    found = False
+    For i = 2 To UBound(rows, 1)
+        If CStr(rows(i, 1)) = "field-19999" Then
+            found = True
+            If CStr(rows(i, 5)) <> "Not Supported" Then Err.Raise 5, , "Retired field missing its status"
+            If CStr(rows(i, 8)) <> aFiles(19999) Then Err.Raise 5, , "Retired-field file metadata changed"
+        End If
+    Next i
+    If Not found Then Err.Raise 5, , "The table omitted an effective retired definition"
+    count = count + 1
+    aParms(19999) = "Fixture;Replacement fixture;=1+2"
+    value = RCHGetElementNumber("AAPL", 19999)
+    If Not IsNumeric(value) Then Err.Raise 5, , "A working replacement definition was disabled"
+    If CDbl(value) <> 3 Then Err.Raise 5, , "A working replacement definition returned the wrong value"
+    count = count + 1
+    smfUnsupportedRows rows
+    For i = 2 To UBound(rows, 1)
+        If CStr(rows(i, 1)) = "field-19999" Then Err.Raise 5, , "The table retained a replaced field"
+    Next i
+    count = count + 1
+    SMFMacRequestCounts callsAfter, requestsAfter
+    If callsAfter <> callsBefore Or requestsAfter <> requestsBefore Then Err.Raise 5, , "A retired-field check reached the downloader"
+    count = count + 1
+    smfUnsupportedFieldSelfChecks = count
+Restore:
+    aParms(19999) = oldParm: aFiles(19999) = oldFile: iInit = oldInit
+    If IsObject(oldError) Then Set vError = oldError Else vError = oldError
+    If errorNumber <> 0 Then Err.Raise errorNumber, "smfUnsupportedFieldSelfChecks", errorText
+    Exit Function
+Failed:
+    errorNumber = Err.Number: errorText = Err.Description
+    Resume Restore
+End Function
+
+Private Sub smfUnsupportedAssertNA(ByVal pValue As Variant)
+    If Not IsError(pValue) Then Err.Raise 5, , "A retired field did not return an Excel error"
+    If CStr(pValue) <> CStr(CVErr(xlErrNA)) Then Err.Raise 5, , "A retired field returned a different Excel error"
+End Sub
+
 #End If

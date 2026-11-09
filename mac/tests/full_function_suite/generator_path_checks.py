@@ -13,6 +13,35 @@ BUILDER = Path(__file__).with_name("build_suite.py")
 
 
 class GeneratorPathChecks(unittest.TestCase):
+    def test_results_append_measured_transport_counters_after_diagnostic_reset(self):
+        with tempfile.TemporaryDirectory(prefix='smf-generator-measured-counters-') as folder:
+            case_file, _ = self.custom_inputs(folder)
+            suite = Path(folder) / 'suite'
+            self.invoke(folder, ['--suite', suite, '--case-file', case_file,
+                                 '--local-http-base', 'http://127.0.0.1:1'])
+            source = (suite / 'modSMFFunctionSuite.bas').read_text()
+            headers = re.search(r'ws.Range\("A1:S1"\).Value = Array\(([^\r\n]+)\)', source)[1]
+            actual = re.findall(r'"([^"]*)"', headers)
+            self.assertEqual(actual[:17], ['Case', 'Function', 'Group', 'Description', 'Expected',
+                                          'Status', 'Seconds', 'Actual', 'Error', 'Last HTTP status',
+                                          'Last HTTP URL', 'Last HTTP error', 'Finished',
+                                          'HTTP reset marker', 'HTTP case ID', 'HTTP run ID', 'HTTP observation'])
+            self.assertEqual(actual[17:], ['Fetch call delta', 'FetchURL bridge delta'])
+            run = source.split('Public Sub SMFTestRunNext()', 1)[1].split('End Sub', 1)[0]
+            reset = run.index('ignoredHTTP = smfMacFetch(httpMarker)')
+            before = run.index('Call SMFMacRequestCounts(fetchCallsBefore, fetchRequestsBefore)')
+            dispatch = run.index('Select Case n')
+            after = run.index('Call SMFMacRequestCounts(fetchCallsAfter, fetchRequestsAfter)')
+            self.assertLess(reset, before)
+            self.assertLess(before, dispatch)
+            self.assertLess(dispatch, after)
+            self.assertIn('ws.Cells(row, 18).Value2 = fetchCallDelta', run)
+            self.assertIn('ws.Cells(row, 19).Value2 = fetchRequestDelta', run)
+            self.assertIn('ws.Range(ws.Cells(row, 7), ws.Cells(row, 19)).ClearContents', run)
+            self.assertIn('ElseIf fetchRequestDelta = 0 Then\n        ws.Cells(row, 17).Value2 = "NONE"', run.replace('\r\n', '\n'))
+            self.assertIn('fetchRequestDelta > fetchCallDelta', run)
+            self.assertIn('"INVALID_COUNTER"', run)
+
     def case(self, case_id="Generator_AbsoluteFixturePath"):
         return {
             "id": case_id, "function": "RCHCreateComment", "group": "generator_fixture",
@@ -139,7 +168,7 @@ class GeneratorPathChecks(unittest.TestCase):
             suite = Path(folder) / "fresh" / "nested suite"
             self.invoke(folder, ["--suite", suite, "--local-http-base", "http://127.0.0.1:1"])
             manifest = json.loads((suite / "run-manifest.json").read_text())
-            self.assertEqual(manifest["case_count"], 292)
+            self.assertEqual(manifest["case_count"], 526)
             self.assertEqual(manifest["public_function_count"], 121)
             self.assertEqual(manifest["covered_public_function_count"], 121)
             history_cases = json.loads(Path(__file__).with_name("history_rowcount_cases.json").read_text())
@@ -155,13 +184,21 @@ class GeneratorPathChecks(unittest.TestCase):
                 self.assertTrue({case["id"] for case in reviewed} <= generated_ids)
                 repair_cases.extend(reviewed)
             self.assertEqual(len(repair_cases), 53)
+            for name, expected_count in (("rsi_target_cases.json", 64),
+                                         ("advfn_year_end_cases.json", 36),
+                                         ("fred_access_cases.json", 66),
+                                         ("fred_key_redaction_cases.json", 17)):
+                self.assertIn(name, inputs)
+                reviewed = json.loads(Path(__file__).with_name(name).read_text())
+                self.assertEqual(len(reviewed), expected_count)
+                self.assertTrue({case["id"] for case in reviewed} <= generated_ids)
             history_steps = [step for case in history_cases + repair_cases for step in case.get("call_steps", [])]
             self.assertTrue(any(".FormulaArray =" in step for case in repair_cases for step in case.get("call_steps", [])))
             self.assertTrue(manifest["full_function_coverage_required"])
             source = (suite / "modSMFFunctionSuite.bas").read_text()
             self.assertIn("Public Sub SMFRunFullSuite()", source)
             self.assertIn("Public Sub SMFTestStart(Optional", source)
-            self.assertIn("3.0.2024.07.30-mac.0.6-dev", source)
+            self.assertIn("3.0.2024.07.30-mac.0.7-dev", source)
             self.assertIn('control.Range("B3").Value2 = "BLOCKED_VERSION"', source)
             self.assertIn("ignoredHTTP = smfMacFetch(httpMarker)", source)
             self.assertIn('"HTTP reset marker", "HTTP case ID", "HTTP run ID", "HTTP observation"', source)
@@ -254,13 +291,15 @@ class GeneratorPathChecks(unittest.TestCase):
 
     def test_generated_native_smoke_assertions_reject_version_suffix_and_path_matches(self):
         with tempfile.TemporaryDirectory(prefix="smf-generator-version-boundary-") as folder:
-            version = "3.0.2024.07.30-mac.0.6-dev"
+            version = "3.0.2024.07.30-mac.0.7-dev"
             prefix = "Stock Market Functions add-in, Version "
             stale = prefix + "3.0.2024.07.30-mac.0.5-dev (/tmp/" + version + "; test)"
             suffixed = prefix + version + "-old (/tmp; test)"
             smoke = json.loads(Path(__file__).with_name("version_gate_cases.json").read_text())
             self.assertEqual(len(smoke), 1)
-            case = smoke[0]
+            # Keep the tracked historical fixture unchanged; exercise the current default
+            # with a private copy of its suffix/path boundary assertions.
+            case = json.loads(json.dumps(smoke[0]).replace("3.0.2024.07.30-mac.0.6-dev", version))
             self.assertEqual(case["expression"], 'RCHGetElementNumber("Version")')
             self.assertIs(case["network"], False)
             self.assertEqual(case["check"], "versionGateOK")

@@ -77,11 +77,13 @@ def main():
         root = temp / 'checkout'
         base = root / 'mac/tests/full_function_suite'
         base.mkdir(parents=True)
-        bundle = root / 'mac/built/0.6-dev'
+        bundle = root / 'mac/built/0.7-dev'
         bundle.mkdir(parents=True)
-        for name in ['SMF-Mac.xlam', 'BUILD-INFO.json', 'SHA256SUMS', 'SMFMac.applescript', 'install_helper.command']:
-            shutil.copy2(args.root / 'mac/built/0.6-dev' / name, bundle / name)
-        for definition in (args.root / 'mac/built/0.6-dev').glob('smf-elements-*.txt'):
+        for name in ['SMF-Mac.xlam', 'BUILD-INFO.json', 'SHA256SUMS', 'SMFMac.applescript', 'install_helper.command', 'NotSupported.csv']:
+            shutil.copy2(args.root / 'mac/built/0.7-dev' / name, bundle / name)
+        for name in ['not_supported.json', 'NotSupported.csv']:
+            shutil.copy2(args.root / 'mac' / name, root / 'mac' / name)
+        for definition in (args.root / 'mac/built/0.7-dev').glob('smf-elements-*.txt'):
             shutil.copy2(definition, bundle / definition.name)
         for name in module.CASE_FILES + module.SOURCE_FILES + ('build_suite.py',):
             shutil.copy2(args.root / 'mac/tests/full_function_suite' / name, base / name)
@@ -97,8 +99,8 @@ def main():
         check(not (root / '.git').exists() and not (root / 'mac/diagnostics').exists(), 'Fresh-checkout test has ignored state')
         suite = (temp / 'suite with spaces').resolve()
         record = module.prepare(root, suite)
-        check(record['case_count'] == 292, 'Wrong reviewed case count')
-        check(record['expected_version'] == 'mac.0.6-dev', 'Missing expected version')
+        check(record['case_count'] == 526, 'Wrong reviewed case count')
+        check(record['expected_version'] == 'mac.0.7-dev', 'Missing expected version')
         check(record['native_execution_performed'] is False and record['external_network_performed'] is False, 'Preparation claimed execution')
         check(record['live_provider_substitutions'] is False, 'Preparation substituted live data')
         source = bundle / 'SMF-Mac.xlam'
@@ -169,7 +171,7 @@ def main():
         # The installed location finds --root from __file__, without cwd or Git.
         run = subprocess.run([sys.executable, str(base / 'prepare_suite.py'), '--suite', str(temp / 'cli-run')], cwd=temp, capture_output=True, text=True)
         check(run.returncode == 0, 'Fresh-checkout default-root CLI failed: ' + run.stderr)
-        check(json.loads(run.stdout)['case_count'] == 292, 'CLI case count differs')
+        check(json.loads(run.stdout)['case_count'] == 526, 'CLI case count differs')
     print('PASS: ' + str(checks) + ' portable preparation/loopback checks; no Excel or external network used.')
 
 

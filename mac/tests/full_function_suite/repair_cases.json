@@ -1298,5 +1298,59 @@
       "fixture_seeded": true,
       "payload_sha256": "c422361e8bfddc8fbce89ad3bfee3bcc86a3658f74b5b21e76728c00cfd3c8e2"
     }
+  },
+  {
+    "id": "Repair_HTMLDecode_Entity150",
+    "function": "smfHTMLDecode",
+    "module": "smfUtilities_.bas",
+    "group": "repair_local",
+    "description": "Decode decimal HTML entity&#150; into exactly one Unicode character after native VBA import.",
+    "declarations": [
+      "Dim decodeMatch As Boolean, decodeCode As String"
+    ],
+    "setup": [],
+    "expression": "smfHTMLDecode(\"&#150;\")",
+    "object_result": false,
+    "check_setup": [
+      "decodeMatch = (VarType(result) = vbString)",
+      "decodeCode = \"not one character\"",
+      "If decodeMatch Then",
+      "decodeMatch = (CStr(result) = ChrW$(150))",
+      "If Len(CStr(result)) = 1 Then decodeCode = CStr(AscW(CStr(result)))",
+      "End If"
+    ],
+    "check": "decodeMatch",
+    "result_details": "\"Unicode code unit=\" & decodeCode",
+    "expected_text": "VarType vbString and result exactly ChrW$(150); catches imported MacRoman literal corruption; no HTTP.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "local_core"
+  },
+  {
+    "id": "Repair_HTMLDecode_Entity160",
+    "function": "smfHTMLDecode",
+    "module": "smfUtilities_.bas",
+    "group": "repair_local",
+    "description": "Decode decimal HTML entity&#160; into exactly one Unicode character after native VBA import.",
+    "declarations": [
+      "Dim decodeMatch As Boolean, decodeCode As String"
+    ],
+    "setup": [],
+    "expression": "smfHTMLDecode(\"&#160;\")",
+    "object_result": false,
+    "check_setup": [
+      "decodeMatch = (VarType(result) = vbString)",
+      "decodeCode = \"not one character\"",
+      "If decodeMatch Then",
+      "decodeMatch = (CStr(result) = ChrW$(160))",
+      "If Len(CStr(result)) = 1 Then decodeCode = CStr(AscW(CStr(result)))",
+      "End If"
+    ],
+    "check": "decodeMatch",
+    "result_details": "\"Unicode code unit=\" & decodeCode",
+    "expected_text": "VarType vbString and result exactly ChrW$(160); catches imported MacRoman literal corruption; no HTTP.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "local_core"
   }
 ]

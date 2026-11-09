@@ -145,7 +145,7 @@
     "id": "smfGet888OptionQuote",
     "function": "smfGet888OptionQuote",
     "group": "options",
-    "description": "smfGet888OptionQuote builds the padded AAPL contract key and extracts a positive bid from its offline table.",
+    "description": "smfGet888OptionQuote returns typed #N/A for its retired source before transport or cached-market-data parsing.",
     "declarations": [
       "Dim optionsOldKeys(1 To 1) As String",
       "Dim optionsOldBodies(1 To 1) As String",
@@ -155,7 +155,9 @@
       "Dim optionsOldVError As Variant",
       "Dim optionsBeforeURL As String",
       "Dim optionsBeforeError As String",
-      "Dim optionsBeforeStatus As Long"
+      "Dim optionsBeforeStatus As Long",
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
     ],
     "setup": [
       "For optionsCacheIndex = 1 To 1",
@@ -172,12 +174,13 @@
       "optionsBeforeStatus = SMFMacHTTPStatus()",
       "sWebCache = \"Y\"",
       "aData(1, 1) = \"0:http://oic.ivolatility.com/oic_adv_options.j?exp_date=-1&ticker=AAPL\"",
-      "aData(1, 2) = \"<body><table><tr><td>AAPL  261120C00150000</td><td>1.00</td><td>1.25</td><td>1.50</td></tr></table></body>\""
+      "aData(1, 2) = \"<body><table><tr><td>AAPL  261120C00150000</td><td>1.00</td><td>1.25</td><td>1.50</td></tr></table></body>\"",
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
     ],
     "expression": "smfGet888OptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 150, \"B\")",
     "object_result": false,
-    "check": "(IsNumeric(result) And Val(CStr(result)) > 0 And Abs(Val(CStr(result)) - 1.25) < 0.000000001) And SMFMacLastURL() = optionsBeforeURL And SMFMacLastError() = optionsBeforeError And SMFMacHTTPStatus() = optionsBeforeStatus",
-    "expected_text": "Numeric bid 1.25",
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA); zero fetch-entry and fetchURL-bridge deltas; deliberate NotSupported behavior, not a financial feed.",
     "cleanup": [
       "For optionsCacheIndex = 1 To 1",
       "aData(optionsCacheIndex, 1) = optionsOldKeys(optionsCacheIndex)",
@@ -192,8 +195,21 @@
     "underlying": "AAPL",
     "expiration": "2026-11-20",
     "live_provider_tested": false,
-    "fixture_source": "In-memory provider response in the normal SMF page cache",
-    "coverage_note": "Checks URL construction and parsing against an offline response. This does not establish working live provider retrieval."
+    "coverage_note": "The source is explicitly retired. A passing guard check does not establish a working provider.",
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "oic-legacy-options",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "result_details": "\"Fetch-entry delta=\" & CStr(supportCallsAfter - supportCallsBefore) & \"; fetchURL-bridge delta=\" & CStr(supportRequestsAfter - supportRequestsBefore)",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "smfGetBarChartOptionQuote",
@@ -307,7 +323,7 @@
     "id": "smfGetGoogleOptionQuote",
     "function": "smfGetGoogleOptionQuote",
     "group": "options",
-    "description": "smfGetGoogleOptionQuote matches the AAPL call symbol in an offline legacy Google response and extracts bid.",
+    "description": "smfGetGoogleOptionQuote returns typed #N/A for its retired source before transport or cached-market-data parsing.",
     "declarations": [
       "Dim optionsOldKeys(1 To 1) As String",
       "Dim optionsOldBodies(1 To 1) As String",
@@ -317,7 +333,9 @@
       "Dim optionsOldVError As Variant",
       "Dim optionsBeforeURL As String",
       "Dim optionsBeforeError As String",
-      "Dim optionsBeforeStatus As Long"
+      "Dim optionsBeforeStatus As Long",
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
     ],
     "setup": [
       "For optionsCacheIndex = 1 To 1",
@@ -334,12 +352,13 @@
       "optionsBeforeStatus = SMFMacHTTPStatus()",
       "sWebCache = \"Y\"",
       "aData(1, 1) = \"0:http://www.google.com/finance/option_chain?output=json&q=AAPL&expd=20&expm=11&expy=2026\"",
-      "aData(1, 2) = \"calls:[{s:\"\"AAPL261120C00150000\"\",b:\"\"1.25\"\",a:\"\"1.50\"\"}]\""
+      "aData(1, 2) = \"calls:[{s:\"\"AAPL261120C00150000\"\",b:\"\"1.25\"\",a:\"\"1.50\"\"}]\"",
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
     ],
     "expression": "smfGetGoogleOptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 150, \"B\")",
     "object_result": false,
-    "check": "(IsNumeric(result) And Val(CStr(result)) > 0 And Abs(Val(CStr(result)) - 1.25) < 0.000000001) And SMFMacLastURL() = optionsBeforeURL And SMFMacLastError() = optionsBeforeError And SMFMacHTTPStatus() = optionsBeforeStatus",
-    "expected_text": "Numeric bid 1.25",
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA); zero fetch-entry and fetchURL-bridge deltas; deliberate NotSupported behavior, not a financial feed.",
     "cleanup": [
       "For optionsCacheIndex = 1 To 1",
       "aData(optionsCacheIndex, 1) = optionsOldKeys(optionsCacheIndex)",
@@ -354,8 +373,21 @@
     "underlying": "AAPL",
     "expiration": "2026-11-20",
     "live_provider_tested": false,
-    "fixture_source": "In-memory provider response in the normal SMF page cache",
-    "coverage_note": "Checks URL construction and parsing against an offline response. This does not establish working live provider retrieval."
+    "coverage_note": "The source is explicitly retired. A passing guard check does not establish a working provider.",
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "google-option-chain",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "result_details": "\"Fetch-entry delta=\" & CStr(supportCallsAfter - supportCallsBefore) & \"; fetchURL-bridge delta=\" & CStr(supportRequestsAfter - supportRequestsBefore)",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "smfGetNASDAQOptionQuote",
@@ -473,77 +505,145 @@
     "id": "smfGetMSNOptionQuote",
     "function": "smfGetMSNOptionQuote",
     "group": "options",
-    "description": "smfGetMSNOptionQuote receives a legitimate AAPL bid request; its hardcoded obsolete response must fail the positive quote requirement.",
-    "declarations": [],
-    "setup": [],
+    "description": "smfGetMSNOptionQuote returns typed #N/A for its retired source before transport or cached-market-data parsing.",
+    "declarations": [
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
+    ],
+    "setup": [
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
+    ],
     "expression": "smfGetMSNOptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 150, \"B\")",
     "object_result": false,
-    "check": "IsNumeric(result) And Val(CStr(result)) > 0",
-    "expected_text": "A positive numeric bid is required; the current hardcoded obsolete response is an expected failure, not a working feed.",
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA); zero fetch-entry and fetchURL-bridge deltas; deliberate NotSupported behavior, not a financial feed.",
     "cleanup": [],
     "underlying": "AAPL",
     "expiration": "2026-11-20",
     "live_provider_tested": false,
-    "expected_obsolete": true,
-    "known_current_response": "Obsolete",
-    "coverage_note": "The function currently returns obsolete-status text. This case must fail the positive-data assertion and does not establish working provider retrieval."
+    "coverage_note": "The source is explicitly retired. A passing guard check does not establish a working provider.",
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "msn-options",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "result_details": "\"Fetch-entry delta=\" & CStr(supportCallsAfter - supportCallsBefore) & \"; fetchURL-bridge delta=\" & CStr(supportRequestsAfter - supportRequestsBefore)",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "smfGetOXOptionQuote",
     "function": "smfGetOXOptionQuote",
     "group": "options",
-    "description": "smfGetOXOptionQuote receives a legitimate AAPL bid request; its hardcoded obsolete response must fail the positive quote requirement.",
-    "declarations": [],
-    "setup": [],
+    "description": "smfGetOXOptionQuote returns typed #N/A for its retired source before transport or cached-market-data parsing.",
+    "declarations": [
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
+    ],
+    "setup": [
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
+    ],
     "expression": "smfGetOXOptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 150, \"B\")",
     "object_result": false,
-    "check": "IsNumeric(result) And Val(CStr(result)) > 0",
-    "expected_text": "A positive numeric bid is required; the current hardcoded obsolete response is an expected failure, not a working feed.",
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA); zero fetch-entry and fetchURL-bridge deltas; deliberate NotSupported behavior, not a financial feed.",
     "cleanup": [],
     "underlying": "AAPL",
     "expiration": "2026-11-20",
     "live_provider_tested": false,
-    "expected_obsolete": true,
-    "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
-    "coverage_note": "The function currently returns obsolete-status text. This case must fail the positive-data assertion and does not establish working provider retrieval."
+    "coverage_note": "The source is explicitly retired. A passing guard check does not establish a working provider.",
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "optionsxpress-options",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "result_details": "\"Fetch-entry delta=\" & CStr(supportCallsAfter - supportCallsBefore) & \"; fetchURL-bridge delta=\" & CStr(supportRequestsAfter - supportRequestsBefore)",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "smfGetOX2OptionQuote",
     "function": "smfGetOX2OptionQuote",
     "group": "options",
-    "description": "smfGetOX2OptionQuote receives a legitimate AAPL bid request; its hardcoded obsolete response must fail the positive quote requirement.",
-    "declarations": [],
-    "setup": [],
+    "description": "smfGetOX2OptionQuote returns typed #N/A for its retired source before transport or cached-market-data parsing.",
+    "declarations": [
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
+    ],
+    "setup": [
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
+    ],
     "expression": "smfGetOX2OptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 150, \"B\")",
     "object_result": false,
-    "check": "IsNumeric(result) And Val(CStr(result)) > 0",
-    "expected_text": "A positive numeric bid is required; the current hardcoded obsolete response is an expected failure, not a working feed.",
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA); zero fetch-entry and fetchURL-bridge deltas; deliberate NotSupported behavior, not a financial feed.",
     "cleanup": [],
     "underlying": "AAPL",
     "expiration": "2026-11-20",
     "live_provider_tested": false,
-    "expected_obsolete": true,
-    "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
-    "coverage_note": "The function currently returns obsolete-status text. This case must fail the positive-data assertion and does not establish working provider retrieval."
+    "coverage_note": "The source is explicitly retired. A passing guard check does not establish a working provider.",
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "optionsxpress-options",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "result_details": "\"Fetch-entry delta=\" & CStr(supportCallsAfter - supportCallsBefore) & \"; fetchURL-bridge delta=\" & CStr(supportRequestsAfter - supportRequestsBefore)",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "smfGetOX3OptionQuote",
     "function": "smfGetOX3OptionQuote",
     "group": "options",
-    "description": "smfGetOX3OptionQuote receives a legitimate AAPL bid request; its hardcoded obsolete response must fail the positive quote requirement.",
-    "declarations": [],
-    "setup": [],
+    "description": "smfGetOX3OptionQuote returns typed #N/A for its retired source before transport or cached-market-data parsing.",
+    "declarations": [
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
+    ],
+    "setup": [
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
+    ],
     "expression": "smfGetOX3OptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 150, \"B\")",
     "object_result": false,
-    "check": "IsNumeric(result) And Val(CStr(result)) > 0",
-    "expected_text": "A positive numeric bid is required; the current hardcoded obsolete response is an expected failure, not a working feed.",
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA); zero fetch-entry and fetchURL-bridge deltas; deliberate NotSupported behavior, not a financial feed.",
     "cleanup": [],
     "underlying": "AAPL",
     "expiration": "2026-11-20",
     "live_provider_tested": false,
-    "expected_obsolete": true,
-    "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
-    "coverage_note": "The function currently returns obsolete-status text. This case must fail the positive-data assertion and does not establish working provider retrieval."
+    "coverage_note": "The source is explicitly retired. A passing guard check does not establish a working provider.",
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "optionsxpress-options",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "result_details": "\"Fetch-entry delta=\" & CStr(supportCallsAfter - supportCallsBefore) & \"; fetchURL-bridge delta=\" & CStr(supportRequestsAfter - supportRequestsBefore)",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "smfGetYahooOptionQuote",

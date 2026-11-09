@@ -450,19 +450,38 @@
       {
         "id": "LiveSource_download_finance_yahoo_com",
         "function": "smfMacFetch",
-        "group": "live_datasources",
-        "description": "Retrieve the exact configured SMF endpoint and require its expected content markers.",
-        "declarations": [],
-        "setup": [],
+        "group": "not_supported_guard",
+        "description": "Verify the registered retired route is rejected before any fetchURL bridge call.",
+        "declarations": [
+          "Dim retiredCallsBefore As Double, retiredRequestsBefore As Double, retiredCallsAfter As Double, retiredRequestsAfter As Double",
+          "Dim retiredCheck As Boolean"
+        ],
+        "setup": [
+          "Call SMFMacRequestCounts(retiredCallsBefore, retiredRequestsBefore)"
+        ],
         "expression": "smfMacFetch(\"https://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=sl1&e=.ignore\", \"GET\")",
         "object_result": false,
-        "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"AAPL\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
-        "expected_text": "HTTP200 and source markers: AAPL",
+        "check": "retiredCheck And retiredCallsAfter - retiredCallsBefore = 1 And retiredRequestsAfter = retiredRequestsBefore",
+        "expected_text": "Internal String transport rejection; Not Supported; zero fetchURL bridge attempts. No provider data is asserted.",
         "cleanup": [],
-        "coverage_note": "Live endpoint-content test; a marker PASS does not verify every numbered field or legacy parser on this provider.",
+        "coverage_note": "A guard PASS establishes an explicit unsupported result and no network-helper call; it does not establish a working provider.",
         "live_provider_tested": false,
         "execution_status": "not_run",
-        "test_mode": "live_endpoint_request"
+        "test_mode": "unsupported_guard",
+        "pre_retirement_assertion": {
+          "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"AAPL\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
+          "expected_text": "HTTP200 and source markers: AAPL",
+          "network": null,
+          "group": "live_datasources"
+        },
+        "check_setup": [
+          "Call SMFMacRequestCounts(retiredCallsAfter, retiredRequestsAfter)",
+          "retiredCheck = False",
+          "If VarType(result) = vbString Then retiredCheck = (Left$(CStr(result), Len(\"Error -- Not Supported --\")) = \"Error -- Not Supported --\" And SMFMacHTTPStatus() = 0)"
+        ],
+        "network": false,
+        "expected_not_supported": true,
+        "support_id": "yahoo-quote-csv"
       }
     ]
   },
@@ -1089,7 +1108,7 @@
   {
     "id": "fred.stlouisfed.org",
     "domain": "fred.stlouisfed.org",
-    "kind": "runtime_data",
+    "kind": "legacy_endpoint_diagnostic",
     "representative_url": "https://fred.stlouisfed.org/data/DGS10",
     "mode": "GET",
     "probe_urls": [
@@ -1121,7 +1140,7 @@
     ],
     "reference_count": 1,
     "additional_reference_count": 0,
-    "notes": "The actual legacy URL is /data/DGS10; do not replace with a modern FRED API when reporting the SMF result. Input is an economic series, not AAPL.",
+    "notes": "The public /data/DGS10 endpoint is retained as an explicit legacy transport diagnostic and remains the Windows path. Mac smfGetEconData now uses api.stlouisfed.org with a private local key; report those API function results separately.",
     "native_cases": [
       {
         "id": "LiveSource_fred_stlouisfed_org",
@@ -1289,25 +1308,44 @@
       {
         "id": "LiveSource_oic_ivolatility_com",
         "function": "smfMacFetch",
-        "group": "live_datasources",
-        "description": "Retrieve the exact configured SMF endpoint and require its expected content markers.",
-        "declarations": [],
-        "setup": [],
+        "group": "not_supported_guard",
+        "description": "Verify the registered retired route is rejected before any fetchURL bridge call.",
+        "declarations": [
+          "Dim retiredCallsBefore As Double, retiredRequestsBefore As Double, retiredCallsAfter As Double, retiredRequestsAfter As Double",
+          "Dim retiredCheck As Boolean"
+        ],
+        "setup": [
+          "Call SMFMacRequestCounts(retiredCallsBefore, retiredRequestsBefore)"
+        ],
         "expression": "smfMacFetch(\"http://oic.ivolatility.com/oic_adv_options.j?exp_date=-1&ticker=AAPL\", \"GET\")",
         "object_result": false,
-        "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"350\", vbTextCompare) > 0 And InStr(1, CStr(result), \"bid\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
-        "expected_text": "HTTP200 and source markers: 350, bid",
+        "check": "retiredCheck And retiredCallsAfter - retiredCallsBefore = 1 And retiredRequestsAfter = retiredRequestsBefore",
+        "expected_text": "Internal String transport rejection; Not Supported; zero fetchURL bridge attempts. No provider data is asserted.",
         "cleanup": [],
-        "coverage_note": "Live endpoint-content test; a marker PASS does not verify every numbered field or legacy parser on this provider.",
+        "coverage_note": "A guard PASS establishes an explicit unsupported result and no network-helper call; it does not establish a working provider.",
         "live_provider_tested": false,
         "execution_status": "not_run",
-        "test_mode": "live_endpoint_request"
+        "test_mode": "unsupported_guard",
+        "pre_retirement_assertion": {
+          "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"350\", vbTextCompare) > 0 And InStr(1, CStr(result), \"bid\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
+          "expected_text": "HTTP200 and source markers: 350, bid",
+          "network": null,
+          "group": "live_datasources"
+        },
+        "check_setup": [
+          "Call SMFMacRequestCounts(retiredCallsAfter, retiredRequestsAfter)",
+          "retiredCheck = False",
+          "If VarType(result) = vbString Then retiredCheck = (Left$(CStr(result), Len(\"Error -- Not Supported --\")) = \"Error -- Not Supported --\" And SMFMacHTTPStatus() = 0)"
+        ],
+        "network": false,
+        "expected_not_supported": true,
+        "support_id": "oic-legacy-options"
       },
       {
         "id": "Live_smfGet888OptionQuote",
         "function": "smfGet888OptionQuote",
-        "group": "live_options",
-        "description": "Fetch a positive AAPL November 20 $350 call bid through smfGet888OptionQuote; retain a failed or obsolete provider result as a failure.",
+        "group": "not_supported_guard",
+        "description": "Verify the registered retired route is rejected before any fetchURL bridge call.",
         "declarations": [
           "Dim liveOptionsOldKeys(1 To kPages) As String",
           "Dim liveOptionsOldBodies(1 To kPages) As String",
@@ -1315,7 +1353,9 @@
           "Dim liveOptionsIndex As Long",
           "Dim liveOptionsOldCacheMode As String",
           "Dim liveOptionsOldLog As String",
-          "Dim liveOptionsOldError As Variant"
+          "Dim liveOptionsOldError As Variant",
+          "Dim retiredCallsBefore As Double, retiredRequestsBefore As Double, retiredCallsAfter As Double, retiredRequestsAfter As Double",
+          "Dim retiredCheck As Boolean"
         ],
         "setup": [
           "For liveOptionsIndex = 1 To kPages",
@@ -1330,12 +1370,13 @@
           "liveOptionsOldError = vError",
           "Erase aData",
           "sWebCache = \"Y\"",
-          "sLog = \"N\""
+          "sLog = \"N\"",
+          "Call SMFMacRequestCounts(retiredCallsBefore, retiredRequestsBefore)"
         ],
         "expression": "smfGet888OptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 350, \"B\")",
         "object_result": false,
-        "check": "(IsNumeric(result) And Val(CStr(result)) > 0) And SMFMacHTTPStatus() = 200",
-        "expected_text": "A positive numeric bid and HTTP200",
+        "check": "retiredCheck And retiredCallsAfter - retiredCallsBefore = 0 And retiredRequestsAfter = retiredRequestsBefore",
+        "expected_text": "Typed Excel#N/A; Not Supported; zero fetchURL bridge attempts. No provider data is asserted.",
         "cleanup": [
           "For liveOptionsIndex = 1 To kPages",
           "aData(liveOptionsIndex, 1) = liveOptionsOldKeys(liveOptionsIndex)",
@@ -1360,9 +1401,23 @@
         "live_provider_tested": false,
         "execution_status": "not_run",
         "fixture_source": null,
-        "coverage_note": "Actual provider request: no response fixture is seeded. The SMF page cache is cleared for this case, reused only within the call, and restored afterward. This metadata describes a planned live case; execution_status remains not_run until the native harness records a result.",
-        "test_mode": "live_provider_request",
-        "requires_live_provider_request": true
+        "coverage_note": "A guard PASS establishes an explicit unsupported result and no network-helper call; it does not establish a working provider.",
+        "test_mode": "unsupported_guard",
+        "requires_live_provider_request": true,
+        "pre_retirement_assertion": {
+          "check": "(IsNumeric(result) And Val(CStr(result)) > 0) And SMFMacHTTPStatus() = 200",
+          "expected_text": "A positive numeric bid and HTTP200",
+          "network": null,
+          "group": "live_options"
+        },
+        "check_setup": [
+          "Call SMFMacRequestCounts(retiredCallsAfter, retiredRequestsAfter)",
+          "retiredCheck = False",
+          "If IsError(result) Then retiredCheck = (CStr(result) = CStr(CVErr(xlErrNA)))"
+        ],
+        "network": false,
+        "expected_not_supported": true,
+        "support_id": "oic-legacy-options"
       }
     ]
   },
@@ -1493,19 +1548,38 @@
       {
         "id": "LiveSource_query_yahooapis_com",
         "function": "smfMacFetch",
-        "group": "live_datasources",
-        "description": "Retrieve the exact configured SMF endpoint and require its expected content markers.",
-        "declarations": [],
-        "setup": [],
+        "group": "not_supported_guard",
+        "description": "Verify the registered retired route is rejected before any fetchURL bridge call.",
+        "declarations": [
+          "Dim retiredCallsBefore As Double, retiredRequestsBefore As Double, retiredCallsAfter As Double, retiredRequestsAfter As Double",
+          "Dim retiredCheck As Boolean"
+        ],
+        "setup": [
+          "Call SMFMacRequestCounts(retiredCallsBefore, retiredRequestsBefore)"
+        ],
         "expression": "smfMacFetch(\"http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22AAPL%22%29&diagnostics=false&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys\", \"GET\")",
         "object_result": false,
-        "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"LastTradePriceOnly\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
-        "expected_text": "HTTP200 and source markers: LastTradePriceOnly",
+        "check": "retiredCheck And retiredCallsAfter - retiredCallsBefore = 1 And retiredRequestsAfter = retiredRequestsBefore",
+        "expected_text": "Internal String transport rejection; Not Supported; zero fetchURL bridge attempts. No provider data is asserted.",
         "cleanup": [],
-        "coverage_note": "Live endpoint-content test; a marker PASS does not verify every numbered field or legacy parser on this provider.",
+        "coverage_note": "A guard PASS establishes an explicit unsupported result and no network-helper call; it does not establish a working provider.",
         "live_provider_tested": false,
         "execution_status": "not_run",
-        "test_mode": "live_endpoint_request"
+        "test_mode": "unsupported_guard",
+        "pre_retirement_assertion": {
+          "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"LastTradePriceOnly\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
+          "expected_text": "HTTP200 and source markers: LastTradePriceOnly",
+          "network": null,
+          "group": "live_datasources"
+        },
+        "check_setup": [
+          "Call SMFMacRequestCounts(retiredCallsAfter, retiredRequestsAfter)",
+          "retiredCheck = False",
+          "If VarType(result) = vbString Then retiredCheck = (Left$(CStr(result), Len(\"Error -- Not Supported --\")) = \"Error -- Not Supported --\" And SMFMacHTTPStatus() = 0)"
+        ],
+        "network": false,
+        "expected_not_supported": true,
+        "support_id": "yahoo-yql"
       }
     ]
   },
@@ -2916,25 +2990,44 @@
       {
         "id": "LiveSource_www_google_com",
         "function": "smfMacFetch",
-        "group": "live_datasources",
-        "description": "Retrieve the exact configured SMF endpoint and require its expected content markers.",
-        "declarations": [],
-        "setup": [],
+        "group": "not_supported_guard",
+        "description": "Verify the registered retired route is rejected before any fetchURL bridge call.",
+        "declarations": [
+          "Dim retiredCallsBefore As Double, retiredRequestsBefore As Double, retiredCallsAfter As Double, retiredRequestsAfter As Double",
+          "Dim retiredCheck As Boolean"
+        ],
+        "setup": [
+          "Call SMFMacRequestCounts(retiredCallsBefore, retiredRequestsBefore)"
+        ],
         "expression": "smfMacFetch(\"http://www.google.com/finance/option_chain?output=json&q=AAPL&expd=20&expm=11&expy=2026\", \"GET\")",
         "object_result": false,
-        "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"calls\", vbTextCompare) > 0 And InStr(1, CStr(result), \"puts\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
-        "expected_text": "HTTP200 and source markers: calls, puts",
+        "check": "retiredCheck And retiredCallsAfter - retiredCallsBefore = 1 And retiredRequestsAfter = retiredRequestsBefore",
+        "expected_text": "Internal String transport rejection; Not Supported; zero fetchURL bridge attempts. No provider data is asserted.",
         "cleanup": [],
-        "coverage_note": "Live endpoint-content test; a marker PASS does not verify every numbered field or legacy parser on this provider.",
+        "coverage_note": "A guard PASS establishes an explicit unsupported result and no network-helper call; it does not establish a working provider.",
         "live_provider_tested": false,
         "execution_status": "not_run",
-        "test_mode": "live_endpoint_request"
+        "test_mode": "unsupported_guard",
+        "pre_retirement_assertion": {
+          "check": "SMFMacHTTPStatus() = 200 And InStr(1, CStr(result), \"calls\", vbTextCompare) > 0 And InStr(1, CStr(result), \"puts\", vbTextCompare) > 0 And InStr(1, CStr(result), \"captcha\", vbTextCompare) = 0 And InStr(1, CStr(result), \"Access Denied\", vbTextCompare) = 0",
+          "expected_text": "HTTP200 and source markers: calls, puts",
+          "network": null,
+          "group": "live_datasources"
+        },
+        "check_setup": [
+          "Call SMFMacRequestCounts(retiredCallsAfter, retiredRequestsAfter)",
+          "retiredCheck = False",
+          "If VarType(result) = vbString Then retiredCheck = (Left$(CStr(result), Len(\"Error -- Not Supported --\")) = \"Error -- Not Supported --\" And SMFMacHTTPStatus() = 0)"
+        ],
+        "network": false,
+        "expected_not_supported": true,
+        "support_id": "google-option-chain"
       },
       {
         "id": "Live_smfGetGoogleOptionQuote",
         "function": "smfGetGoogleOptionQuote",
-        "group": "live_options",
-        "description": "Fetch a positive AAPL November 20 $350 call bid through smfGetGoogleOptionQuote; retain a failed or obsolete provider result as a failure.",
+        "group": "not_supported_guard",
+        "description": "Verify the registered retired route is rejected before any fetchURL bridge call.",
         "declarations": [
           "Dim liveOptionsOldKeys(1 To kPages) As String",
           "Dim liveOptionsOldBodies(1 To kPages) As String",
@@ -2942,7 +3035,9 @@
           "Dim liveOptionsIndex As Long",
           "Dim liveOptionsOldCacheMode As String",
           "Dim liveOptionsOldLog As String",
-          "Dim liveOptionsOldError As Variant"
+          "Dim liveOptionsOldError As Variant",
+          "Dim retiredCallsBefore As Double, retiredRequestsBefore As Double, retiredCallsAfter As Double, retiredRequestsAfter As Double",
+          "Dim retiredCheck As Boolean"
         ],
         "setup": [
           "For liveOptionsIndex = 1 To kPages",
@@ -2957,12 +3052,13 @@
           "liveOptionsOldError = vError",
           "Erase aData",
           "sWebCache = \"Y\"",
-          "sLog = \"N\""
+          "sLog = \"N\"",
+          "Call SMFMacRequestCounts(retiredCallsBefore, retiredRequestsBefore)"
         ],
         "expression": "smfGetGoogleOptionQuote(\"AAPL\", \"C\", DateSerial(2026, 11, 20), 350, \"B\")",
         "object_result": false,
-        "check": "(IsNumeric(result) And Val(CStr(result)) > 0) And SMFMacHTTPStatus() = 200",
-        "expected_text": "A positive numeric bid and HTTP200",
+        "check": "retiredCheck And retiredCallsAfter - retiredCallsBefore = 0 And retiredRequestsAfter = retiredRequestsBefore",
+        "expected_text": "Typed Excel#N/A; Not Supported; zero fetchURL bridge attempts. No provider data is asserted.",
         "cleanup": [
           "For liveOptionsIndex = 1 To kPages",
           "aData(liveOptionsIndex, 1) = liveOptionsOldKeys(liveOptionsIndex)",
@@ -2987,9 +3083,23 @@
         "live_provider_tested": false,
         "execution_status": "not_run",
         "fixture_source": null,
-        "coverage_note": "Actual provider request: no response fixture is seeded. The SMF page cache is cleared for this case, reused only within the call, and restored afterward. This metadata describes a planned live case; execution_status remains not_run until the native harness records a result.",
-        "test_mode": "live_provider_request",
-        "requires_live_provider_request": true
+        "coverage_note": "A guard PASS establishes an explicit unsupported result and no network-helper call; it does not establish a working provider.",
+        "test_mode": "unsupported_guard",
+        "requires_live_provider_request": true,
+        "pre_retirement_assertion": {
+          "check": "(IsNumeric(result) And Val(CStr(result)) > 0) And SMFMacHTTPStatus() = 200",
+          "expected_text": "A positive numeric bid and HTTP200",
+          "network": null,
+          "group": "live_options"
+        },
+        "check_setup": [
+          "Call SMFMacRequestCounts(retiredCallsAfter, retiredRequestsAfter)",
+          "retiredCheck = False",
+          "If IsError(result) Then retiredCheck = (CStr(result) = CStr(CVErr(xlErrNA)))"
+        ],
+        "network": false,
+        "expected_not_supported": true,
+        "support_id": "google-option-chain"
       }
     ]
   },
@@ -3816,6 +3926,27 @@
     "reference_count": 1,
     "additional_reference_count": 0,
     "notes": "Additional configured sAdvFNPrefix=ca case requested by root; defaultwww case remains. This does not change the production setting.",
+    "native_cases": []
+  },
+  {
+    "id": "api.stlouisfed.org",
+    "domain": "api.stlouisfed.org",
+    "kind": "runtime_data",
+    "representative_url": "https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05",
+    "mode": "GET",
+    "probe_urls": [],
+    "references": [
+      {
+        "file": "code/modGetEconData.bas",
+        "line": 217,
+        "function": "smfGetEconData",
+        "url_literal": "https://api.stlouisfed.org/fred/",
+        "via_private_helper": "smfMacFREDRequest"
+      }
+    ],
+    "reference_count": 1,
+    "additional_reference_count": 0,
+    "notes": "Official Mac FRED API path. smfGetEconData appends the local API key only at request time; diagnostics redact it. Existing FRED access cases verify exact observations, metadata and a worksheet formula. This keyless representative URL is descriptive, not an authenticated probe.",
     "native_cases": []
   }
 ]

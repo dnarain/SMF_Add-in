@@ -4,7 +4,7 @@
   "option_expiry": "2026-11-20",
   "option_strike": 350,
   "runtime_domains": 35,
-  "source_scope": "Active native Mac code plus effective numeric definitions loaded from smf-elements0..22 and constants. Comments, documentation URLs, and obsolete definition rows are excluded. Runtime reachability is separately classified.",
+  "source_scope": "Active native Mac code and loaded numeric definitions, plus explicitly retained legacy endpoint diagnostics. The public FRED /data route is a separate legacy diagnostic; the Mac function now uses the official API.",
   "dynamic_destinations": [
     {
       "template": "https://<sAdvFNPrefix>.advfn.com",
@@ -126,7 +126,7 @@
         "investing.money.msn.com",
         "moneycentral.msn.com"
       ],
-      "reason": "The function unconditionally returns Obsolete and exits before either legacy URL block.",
+      "reason": "Mac guard returns Excel#N/A before legacy parsing or transport. The status table records Not Supported.",
       "known_current_response": "Obsolete",
       "live_provider_tested": false,
       "reachable": false,
@@ -143,7 +143,7 @@
       "domains": [
         "www.optionsxpress.com"
       ],
-      "reason": "The function unconditionally returns an obsolete-status string and exits before its legacy chain URL.",
+      "reason": "Mac guard returns Excel#N/A before legacy parsing or transport. The status table records Not Supported.",
       "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
       "live_provider_tested": false,
       "reachable": false,
@@ -157,7 +157,7 @@
       "domains": [
         "www.optionsxpress.com"
       ],
-      "reason": "The function unconditionally returns an obsolete-status string and exits before its legacy chain URL.",
+      "reason": "Mac guard returns Excel#N/A before legacy parsing or transport. The status table records Not Supported.",
       "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
       "live_provider_tested": false,
       "reachable": false,
@@ -172,7 +172,7 @@
       "domains": [
         "www.optionsxpress.com"
       ],
-      "reason": "The function unconditionally returns an obsolete-status string and exits before its legacy chain URL.",
+      "reason": "Mac guard returns Excel#N/A before legacy parsing or transport. The status table records Not Supported.",
       "known_current_response": "Obsolete -- OptionsXpress is no longer a valid data source",
       "live_provider_tested": false,
       "reachable": false,
@@ -209,6 +209,11 @@
       ]
     }
   ],
-  "source_inventory_note": "datasource_cases.json is an array of35default/configured provider groups and42 planned native cases. ca.advfn.com is an explicit configured-prefix case. No live case is marked executed before results are recorded.",
-  "informational_comment_links_note": "Copyright/license/tutorial links in comments (GitHub,VBA-tools,StackOverflow,Microsoft documentation,IETF,code.google.com,etc.) are not runtime fetch destinations and are not probed."
+  "source_inventory_note": "datasource_cases.json has 36 provider/diagnostic groups and 42 direct endpoint cases. Mac FRED API extraction uses the separate smfGetEconData access cases with the private local key. Runtime host count remains 35 because the API replaces the public FRED host in the Mac function.",
+  "informational_comment_links_note": "Copyright/license/tutorial links in comments (GitHub,VBA-tools,StackOverflow,Microsoft documentation,IETF,code.google.com,etc.) are not runtime fetch destinations and are not probed.",
+  "retirement_registry": {
+    "file": "mac/not_supported.json",
+    "status_table": "mac/NotSupported.csv",
+    "scope": "Six registered obsolete source groups and288default literal-obsolete fields; four uncertain/premium-only fields excluded. Runtime field guards inspect effective loaded recipes."
+  }
 }

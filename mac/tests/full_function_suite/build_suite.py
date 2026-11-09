@@ -18,11 +18,13 @@ REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "mac/tests"))
 from port_static_checks import active_lines, logical_lines, DECLARATION
 BASE = Path(__file__).resolve().parent
-EXPECTED_VERSION = "3.0.2024.07.30-mac.0.6-dev"
+EXPECTED_VERSION = "3.0.2024.07.30-mac.0.7-dev"
 DEFAULT_CASE_FILES = (
     "json_and_utils_cases.json", "root_cases.json", "provider_cases.json", "options_cases.json",
     "repair_cases.json", "mac_picture_cases.json", "derived_history_cases.json",
     "history_rowcount_cases.json", "history_default_cases.json", "option_quote1_cases.json",
+    "rsi_target_cases.json", "advfn_year_end_cases.json", "fred_access_cases.json", "fred_key_redaction_cases.json",
+    "not_supported_cases.json", "not_supported_field_cases.json",
 )
 
 
@@ -89,6 +91,17 @@ def load_cases(case_file):
     return cases, inputs
 
 
+def auxiliary_procedures():
+    names = set()
+    constants = {"mac": 1, "vba7": -1, "win64": 0, "win32": 0}
+    for path in (REPO / "code").glob("*.bas"):
+        for _, line in logical_lines(active_lines(path.read_text(), constants)):
+            match = DECLARATION.match(line)
+            if match and match[2].lower() == "sub" and (match[1] or "Public").lower() == "public":
+                names.add(match[3].lower())
+    return names
+
+
 def validate_cases(cases, public, require_all):
     if not isinstance(cases, list) or not cases:
         raise ValueError("The case file must contain a nonempty JSON array")
@@ -103,6 +116,20 @@ def validate_cases(cases, public, require_all):
         for field in ("declarations", "setup", "call_steps", "check_setup", "cleanup"):
             if not isinstance(case.get(field, []), list) or not all(isinstance(x, str) for x in case.get(field, [])):
                 raise ValueError(f"{case['id']}: {field} must contain VBA source strings")
+    auxiliary = auxiliary_procedures()
+    registry = json.loads((REPO / "mac/not_supported.json").read_text())
+    support_ids = {entry["id"] for entry in registry["entries"]} | {registry["numbered_fields"]["id"]}
+    for case in cases:
+        if case["function"].lower() not in public:
+            if not (case.get("auxiliary") is True and case.get("procedure_kind") == "Sub"
+                    and case["function"].lower() in auxiliary):
+                raise ValueError("Case does not identify a public Function or explicit auxiliary Sub: " + case["id"])
+        if case.get("expected_not_supported"):
+            selected = set(case.get("support_ids", []))
+            if case.get("support_id"):
+                selected.add(case["support_id"])
+            if not selected or not selected <= support_ids:
+                raise ValueError("Unknown or missing retirement registry ID: " + case["id"])
     if len({case["id"].casefold() for case in cases}) != len(cases):
         raise ValueError("Duplicate case IDs")
     covered = {case["function"].lower() for case in cases}
@@ -357,8 +384,9 @@ Public Sub SMFTestStart(Optional ByVal firstCase As Long = 1, Optional ByVal las
     Set inputs = SuiteSheet("TestInputs")
     Set control = SuiteSheet("TestControl")
     ws.Cells.ClearContents
-    ws.Range("A1:Q" & CStr(SuiteCount + 1)).NumberFormat = "@"
-    ws.Range("A1:Q1").Value = Array("Case", "Function", "Group", "Description", "Expected", "Status", "Seconds", "Actual", "Error", "Last HTTP status", "Last HTTP URL", "Last HTTP error", "Finished", "HTTP reset marker", "HTTP case ID", "HTTP run ID", "HTTP observation")
+    ws.Range("A1:S" & CStr(SuiteCount + 1)).NumberFormat = "@"
+    ws.Range("R2:S" & CStr(SuiteCount + 1)).NumberFormat = "0"
+    ws.Range("A1:S1").Value = Array("Case", "Function", "Group", "Description", "Expected", "Status", "Seconds", "Actual", "Error", "Last HTTP status", "Last HTTP URL", "Last HTTP error", "Finished", "HTTP reset marker", "HTTP case ID", "HTTP run ID", "HTTP observation", "Fetch call delta", "FetchURL bridge delta")
     For i = 1 To 5: inputs.Cells(i, 1).Value2 = i: Next i
     inputs.Range("J20").ColumnWidth = 30: inputs.Range("J20").RowHeight = 60
     control.Range("A1:A3").Value = Application.Transpose(Array("Next case", "Last case", "State"))
@@ -378,6 +406,8 @@ Public Sub SMFTestRunNext()
     Dim ws As Worksheet, control As Worksheet, n As Long, row As Long, started As Double
     Dim result As Variant, obj As Object, ok As Boolean, detail As String
     Dim httpMarker As String, ignoredHTTP As String, httpURL As String, failure As String
+    Dim fetchCallsBefore As Double, fetchRequestsBefore As Double
+    Dim fetchCallsAfter As Double, fetchRequestsAfter As Double, fetchCallDelta As Double, fetchRequestDelta As Double
     On Error GoTo RunnerFailed
     If mExecuting Then Exit Sub
     mScheduled = False
@@ -400,7 +430,8 @@ Public Sub SMFTestRunNext()
     mExecuting = True
     httpMarker = "smf-test-case:" & SuiteRunID & ":" & CStr(n)
     ignoredHTTP = smfMacFetch(httpMarker)
-    ws.Range(ws.Cells(row, 7), ws.Cells(row, 17)).ClearContents
+    Call SMFMacRequestCounts(fetchCallsBefore, fetchRequestsBefore)
+    ws.Range(ws.Cells(row, 7), ws.Cells(row, 19)).ClearContents
     ws.Cells(row, 14).Value2 = httpMarker
     ws.Cells(row, 6).Value2 = "RUNNING"
     SuiteJournal n, "RUNNING", "Saved before SETUP/CALL/CHECK"
@@ -425,6 +456,11 @@ CaseFailed:
     Resume Finished
 Finished:
     On Error GoTo RunnerFailed
+    Call SMFMacRequestCounts(fetchCallsAfter, fetchRequestsAfter)
+    fetchCallDelta = fetchCallsAfter - fetchCallsBefore
+    fetchRequestDelta = fetchRequestsAfter - fetchRequestsBefore
+    ws.Cells(row, 18).Value2 = fetchCallDelta
+    ws.Cells(row, 19).Value2 = fetchRequestDelta
     ws.Cells(row, 7).Value2 = CStr((Timer - started + 86400#) - 86400# * Int((Timer - started + 86400#) / 86400#))
     ws.Cells(row, 8).Value2 = Left$(SummarizeValue(result, obj) & IIf(Len(detail) > 0, "; " & detail, ""), 2000)
     ws.Cells(row, 10).Value2 = CStr(SMFMacHTTPStatus())
@@ -432,7 +468,12 @@ Finished:
     ws.Cells(row, 11).Value2 = httpURL
     ws.Cells(row, 12).Value2 = SMFMacLastError()
     ws.Cells(row, 13).Value2 = Format$(Now, "yyyy-mm-dd hh:nn:ss")
-    If httpURL <> httpMarker And (LCase$(Left$(httpURL, 7)) = "http://" Or LCase$(Left$(httpURL, 8)) = "https://") Then
+    If fetchCallDelta < 0 Or fetchRequestDelta < 0 Or fetchRequestDelta > fetchCallDelta Or _
+            fetchCallDelta <> Fix(fetchCallDelta) Or fetchRequestDelta <> Fix(fetchRequestDelta) Then
+        ws.Cells(row, 17).Value2 = "INVALID_COUNTER"
+    ElseIf fetchRequestDelta = 0 Then
+        ws.Cells(row, 17).Value2 = "NONE"
+    ElseIf httpURL <> httpMarker And (LCase$(Left$(httpURL, 7)) = "http://" Or LCase$(Left$(httpURL, 8)) = "https://") Then
         ws.Cells(row, 15).Value2 = ws.Cells(row, 1).Value2
         ws.Cells(row, 16).Value2 = SuiteRunID
         ws.Cells(row, 17).Value2 = "REQUEST"
@@ -552,12 +593,14 @@ def main():
             if path.suffix.lower() in {".bas", ".cls"} and path.name != "exportMods.bas":
                 source_files[path.relative_to(REPO).as_posix()] = digest(path.read_bytes())
         fingerprint = digest(json.dumps(source_files, sort_keys=True).encode())
+        registry_payload = (REPO / "mac/not_supported.json").read_bytes()
+        status_payload = (REPO / "mac/NotSupported.csv").read_bytes()
         now = datetime.now(timezone.utc)
         unsafe = [c["id"] for c in cases if re.search(r"\b(?:And|Or)\b", c["check"], re.I)
                   and re.search(r"\b(?:CDbl|CLng|CInt|CDate|CStr)\s*\(", c["check"], re.I)]
         metadata = {
             "schema_version": 1,
-            "run_id": args.run_id or "smf-0.6-" + now.strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:10],
+            "run_id": args.run_id or "smf-0.7-" + now.strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:10],
             "generated_utc": now.isoformat(), "source_root": str(REPO), "suite_dir": str(suite),
             "expected_smf_version": args.expected_version, "local_http_base": base_url,
             "server_config": str(config_path) if config_path else None,
@@ -566,6 +609,8 @@ def main():
             "covered_public_function_count": len(public & {c["function"].lower() for c in cases}),
             "full_function_coverage_required": not bool(case_file),
             "source_files_sha256": source_files, "source_fingerprint": fingerprint,
+            "support_registry_sha256": digest(registry_payload), "status_table_sha256": digest(status_payload),
+            "auxiliary_case_count": sum(c.get("auxiliary") is True for c in cases),
             "case_specification_sha256": digest(case_payload),
             "generator_sha256": digest(Path(__file__).read_bytes()),
             "worksheet_history_case_count": sum(c["id"].startswith("HistoryWorksheet_") for c in cases),
@@ -581,6 +626,8 @@ def main():
         source = render_module(cases, metadata)
         metadata["generated_module_sha256"] = digest(source.encode("utf-8"))
         suite.mkdir(parents=True, exist_ok=True)
+        (suite / "not-supported-registry.json").write_bytes(registry_payload)
+        (suite / "NotSupported.csv").write_bytes(status_payload)
         (suite / "modSMFFunctionSuite.bas").write_bytes(source.encode("utf-8"))
         (suite / "test-cases.json").write_bytes(case_payload)
         (suite / "function-inventory.json").write_text(json.dumps(functions, indent=2) + "\n")

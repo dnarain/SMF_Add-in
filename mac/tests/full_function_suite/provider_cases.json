@@ -26,14 +26,19 @@
     "id": "smfGetEconData",
     "function": "smfGetEconData",
     "group": "market",
-    "description": "Read the FRED daily 10-year Treasury yield observation for 2026-11-06.",
+    "description": "Read the independently published FRED DGS10 observation for 2026-11-05.",
     "setup": [],
-    "expression": "smfGetEconData(\"DGS10\", DateSerial(2026, 11, 6), \"Error\")",
+    "expression": "smfGetEconData(\"DGS10\", DateSerial(2026, 11, 5), \"Error\")",
     "object_result": false,
-    "check": "IsUsableMarketResult(result) And IsNumeric(result) And Val(CStr(result)) > 0 And Val(CStr(result)) < 100",
-    "expected_text": "A numeric DGS10 yield greater than 0 and less than 100; an unavailable observation or returned error is not a pass.",
-    "provider_notes": "Uses the public /data/DGS10 HTML page. The function changes its ByRef pDate argument to yyyy-mm-dd internally; a DateSerial temporary avoids changing suite state.",
-    "module": "modGetEconData.bas"
+    "check": "VarType(result) = vbDouble And Abs(CDbl(result) - 4.84#) < 0.000000001",
+    "expected_text": "A Double equal to the published DGS10=4.84 for 2026-11-05; exact date, no earlier-observation fallback.",
+    "provider_notes": "Mac uses the official FRED API and the local sibling smf-FRED-API-Key.txt. The public /data/DGS10 request remains a separate legacy endpoint diagnostic. The ByRef date becomes yyyy-mm-dd internally.",
+    "module": "modGetEconData.bas",
+    "previous_0_6_expression": "smfGetEconData(\"DGS10\", DateSerial(2026, 11, 6), \"Error\")",
+    "input_change_note": "0.6 asked for 2026-11-06. The current public DGS10 page independently publishes 2026-11-05=4.84. This 0.7 primary test now uses that published date; the old 0.6 report is preserved.",
+    "source_reference": "https://fred.stlouisfed.org/series/DGS10",
+    "domain": "api.stlouisfed.org",
+    "network": true
   },
   {
     "id": "smfGetGuruFocusData",
@@ -200,15 +205,35 @@
     "id": "smfYahooAPIData",
     "function": "smfYahooAPIData",
     "group": "market",
-    "description": "Exercise the actual deprecated Yahoo YQL quote API entry with AAPL and LastTradePriceOnly.",
-    "setup": [],
+    "description": "The retired Yahoo YQL function returns typed #N/A before any transport call.",
+    "setup": [
+      "Call SMFMacRequestCounts(supportCallsBefore, supportRequestsBefore)"
+    ],
     "expression": "smfYahooAPIData(\"AAPL\", \"LastTradePriceOnly\", \"a\", \"\")",
     "object_result": false,
-    "check": "IsUsableMarketResult(result) And IsNumeric(result) And Val(CStr(result)) > 0",
-    "expected_text": "A positive numeric AAPL quote. A provider/DNS failure or returned error must be reported as unavailable, not passed.",
-    "provider_notes": "The module explicitly says query.yahooapis.com was shut down and marks this function deprecated on 2023-05-28. A legitimate call is still included to document its actual behavior.",
-    "requirements": "The retired public Yahoo YQL endpoint must exist; a paid credential cannot repair an endpoint that no longer operates.",
-    "module": "modYahooAPIData.bas"
+    "check": "supportPrimaryOK",
+    "expected_text": "Typed CVErr(xlErrNA), with zero fetch-entry and fetchURL-bridge deltas.",
+    "provider_notes": "Yahoo YQL is explicitly retired; no provider request is expected.",
+    "requirements": "No network or credentials required for the retired-source guard.",
+    "module": "modYahooAPIData.bas",
+    "declarations": [
+      "Dim supportCallsBefore As Double, supportRequestsBefore As Double, supportCallsAfter As Double, supportRequestsAfter As Double",
+      "Dim supportPrimaryOK As Boolean"
+    ],
+    "check_setup": [
+      "supportPrimaryOK = IsError(result)",
+      "If supportPrimaryOK Then supportPrimaryOK = (CStr(result) = CStr(CVErr(xlErrNA)))",
+      "Call SMFMacRequestCounts(supportCallsAfter, supportRequestsAfter)",
+      "If supportCallsAfter <> supportCallsBefore Or supportRequestsAfter <> supportRequestsBefore Then supportPrimaryOK = False"
+    ],
+    "expected_not_supported": true,
+    "support_id": "yahoo-yql",
+    "network": false,
+    "test_mode": "offline_not_supported",
+    "coverage_note": "The guard is checked; a passing assertion is not a working quote feed.",
+    "transport_counters_checked": true,
+    "transport_calls_expected": 0,
+    "transport_requests_expected": 0
   },
   {
     "id": "DateOfHigh",
@@ -395,7 +420,9 @@
     "object_result": false,
     "check": "ArrayHasData(result) And IsNumeric(ArrayCell(result, 1, 1)) And Val(CStr(ArrayCell(result, 1, 1))) >= 0 And Val(CStr(ArrayCell(result, 1, 1))) <= 100 And Val(CStr(ArrayCell(result, 1, 4))) > 0",
     "expected_text": "A numeric RSI from 0 through 100 and a positive last price. Error and -- sentinel-only output is not a pass.",
-    "provider_notes": "This function internally requests roughly 40 days/22 rows. It depends on obsolete RCHGetYahooQuotes ticker mode and calls smfGetYahooHistory with its default item string; those dependencies can fail even if the separate local RSI calculation works.",
-    "module": "modRSITargetPrices.bas"
+    "provider_notes": "Mac uses the Yahoo v8 daily chart snapshot for regular price and 21 prior completed-session closes. This core selection does not request optional bid/ask. Windows keeps the old quote path.",
+    "module": "modRSITargetPrices.bas",
+    "domain": "query1.finance.yahoo.com",
+    "network": true
   }
 ]

@@ -1,0 +1,666 @@
+[
+  {
+    "id": "FREDKey_Scheme_Underscore",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"fred-key-test://fixture?series_id=DGS10&api_key=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Only HTTP and HTTPS URLs are supported\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Scheme_MixedCase",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"fred-key-test://fixture?series_id=DGS10&ApI_KeY=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Only HTTP and HTTPS URLs are supported\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Scheme_Hyphen",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"fred-key-test://fixture?series_id=DGS10&api-key=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Only HTTP and HTTPS URLs are supported\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Scheme_EncodedUnderscore",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"fred-key-test://fixture?series_id=DGS10&api%5Fkey=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Only HTTP and HTTPS URLs are supported\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Scheme_EncodedLetters",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"fred-key-test://fixture?series_id=DGS10&%61%70%69%5F%6B%65%79=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Only HTTP and HTTPS URLs are supported\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Scheme_Repeated",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"fred-key-test://fixture?series_id=DGS10&api_key=FREDKEYSENTINEL_A&APIKEY=FREDKEYSENTINEL_B&api-key=FREDKEYSENTINEL_C&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Only HTTP and HTTPS URLs are supported\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Method_Underscore",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&api_key=FREDKEYSENTINEL_A&file_type=json&units=lin\", \"REDACTION_ONLY\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Unsupported request method\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Method_MixedCase",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&APIKEY=FREDKEYSENTINEL_A&file_type=json&units=lin\", \"REDACTION_ONLY\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Unsupported request method\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Method_EncodedHyphen",
+    "function": "smfMacFetch",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Requests rejected before the AppleScript call redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacFetch(\"https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&api%2Dkey=FREDKEYSENTINEL_A&file_type=json&units=lin\", \"REDACTION_ONLY\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = SMFMacLastURL()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Unsupported request method\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_Underscore",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 response errors redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure at https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&api_key=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_MixedCase",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 response errors redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure at https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&APIKEY=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_EncodedLetters",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 response errors redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure at https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&%61pi%5Fkey=FREDKEYSENTINEL_A&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_Repeated",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 response errors redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure at https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&api_key=FREDKEYSENTINEL_A&api-key=FREDKEYSENTINEL_B&APIKEY=FREDKEYSENTINEL_C&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_Fragment",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 response errors redact fake API-key values and preserve harmless parameters.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure at https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&api-key=FREDKEYSENTINEL_A&file_type=json&units=lin#chart\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"#chart\", vbBinaryCompare) = 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in the returned error or diagnostics; [redacted] is present; series_id=DGS10/file_type=json/units=lin remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_QuotedJSON",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 synthetic errors redact quoted or encoded API-key values while preserving neighboring harmless values.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure {\"\"api_key\"\":\"\"FREDKEYSENTINEL_JSON\"\",\"\"series_id\"\":\"\"DGS10\"\",\"\"file_type\"\":\"\"json\"\",\"\"units\"\":\"\"lin\"\"}\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"\"\"series_id\"\":\"\"DGS10\"\"\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"\"\"file_type\"\":\"\"json\"\"\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"\"\"units\"\":\"\"lin\"\"\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in returned error or diagnostics; [redacted] remains; neighboring series/format/units values remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_QuotedAssignment",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 synthetic errors redact quoted or encoded API-key values while preserving neighboring harmless values.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure API-KEY = 'FREDKEYSENTINEL_QUOTED'; series_id=DGS10&file_type=json&units=lin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id=DGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type=json\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units=lin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in returned error or diagnostics; [redacted] remains; neighboring series/format/units values remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  },
+  {
+    "id": "FREDKey_Status0_EncodedSeparators",
+    "function": "smfMacReadResponse",
+    "module": "modMacCode.bas",
+    "group": "fred_key_redaction",
+    "description": "Status0 synthetic errors redact quoted or encoded API-key values while preserving neighboring harmless values.",
+    "declarations": [
+      "Dim redactionText As String, redactionCurrent As String, redactionOK As Boolean"
+    ],
+    "setup": [],
+    "expression": "smfMacReadResponse(\"SMFHTTP/1\" & vbLf & \"0\" & vbLf & \"Synthetic transport failure https://api.stlouisfed.org/fred/series%3Fapi_key%3DFREDKEYSENTINEL_ENCODED%26series_id%3DDGS10%26file_type%3Djson%26units%3Dlin\")",
+    "object_result": false,
+    "check_setup": [
+      "redactionOK = VarType(result) = vbString",
+      "If redactionOK Then",
+      "redactionText = CStr(result) & vbLf & SMFMacLastError() & vbLf & SMFMacLastURL()",
+      "redactionCurrent = CStr(result) & vbLf & SMFMacLastError()",
+      "If Left$(CStr(result), 9) <> \"Error -- \" Then redactionOK = False",
+      "If InStr(1, redactionText, \"FREDKEYSENTINEL\", vbTextCompare) <> 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"[redacted]\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"series_id%3DDGS10\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"file_type%3Djson\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, redactionCurrent, \"units%3Dlin\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "If InStr(1, CStr(result), \"Synthetic transport failure\", vbBinaryCompare) = 0 Then redactionOK = False",
+      "Else",
+      "redactionOK = False",
+      "End If",
+      "If SMFMacHTTPStatus() <> 0 Then redactionOK = False"
+    ],
+    "check": "redactionOK",
+    "expected_text": "No fake API-key value in returned error or diagnostics; [redacted] remains; neighboring series/format/units values remain; status0; no network.",
+    "cleanup": [],
+    "network": false,
+    "test_mode": "offline_transport_validation",
+    "fixture": {
+      "kind": "synthetic",
+      "purpose": "Only fake sentinel credentials; invalid scheme or method prevents a real HTTP request."
+    }
+  }
+]

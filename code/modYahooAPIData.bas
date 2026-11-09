@@ -4,6 +4,12 @@ Function smfYahooAPIData(pTicker As String, _
          Optional pItem As String = "LastTradePriceOnly", _
          Optional pFeed As String = "a", _
          Optional pOptionSymbol As String = "")
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "yahoo-yql", macUnsupportedValue
+    smfYahooAPIData = macUnsupportedValue
+    Exit Function
+#End If
                                     
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to access Yahoo API feeds

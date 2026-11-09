@@ -10,6 +10,10 @@ Private mHTTPStatus As Long
 Private mHTTPError As String
 Private mHTTPURL As String
 Private mFileError As String
+#If Mac Then
+Private mMacFetchCalls As Double
+Private mMacFetchRequests As Double
+#End If
 
 Public Function RCHGetURLData1Mac(ByVal pURL As String, _
                                 Optional ByVal pUseIE As Integer = 0) As String
@@ -22,9 +26,16 @@ End Function
 
 Public Function smfMacFetch(ByVal pURL As String, Optional ByVal pMethod As String = "GET") As String
     Dim response As String, errorNumber As Long, errorText As String
+#If Mac Then
+    mMacFetchCalls = mMacFetchCalls + 1#
+#End If
     mHTTPStatus = 0
     mHTTPError = vbNullString
+#If Mac Then
+    mHTTPURL = smfMacRedactAPIKey(pURL)
+#Else
     mHTTPURL = pURL
+#End If
     On Error GoTo RequestError
 
     If InStr(pURL, vbCr) > 0 Or InStr(pURL, vbLf) > 0 Then
@@ -38,6 +49,14 @@ Public Function smfMacFetch(ByVal pURL As String, Optional ByVal pMethod As Stri
         Err.Raise vbObjectError + 2102, "smfMacFetch", "Unsupported request method"
     End If
 #If Mac Then
+    Dim unsupportedID As String, unsupportedReason As String
+    Call smfUnsupportedURL(pURL, unsupportedID, unsupportedReason)
+    If Len(unsupportedID) > 0 Then
+        mHTTPError = "Not Supported -- " & unsupportedReason
+        smfMacFetch = "Error -- " & mHTTPError
+        Exit Function
+    End If
+    mMacFetchRequests = mMacFetchRequests + 1#
     response = AppleScriptTask("SMFMac.scpt", "fetchURL", pMethod & vbLf & pURL)
     smfMacFetch = smfMacReadResponse(response)
 #Else
@@ -48,9 +67,123 @@ Public Function smfMacFetch(ByVal pURL As String, Optional ByVal pMethod As Stri
 RequestError:
     errorNumber = Err.Number
     errorText = Err.Description
+#If Mac Then
+    errorText = smfMacRedactAPIKey(errorText)
+#End If
     mHTTPError = "Mac request failed (" & CStr(errorNumber) & "): " & errorText
     smfMacFetch = "Error -- " & mHTTPError
 End Function
+
+#If Mac Then
+' Keep API-key query values out of saved request/error diagnostics.
+Private Function smfMacRedactAPIKey(ByVal pText As String) As String
+    Dim view As String, starts() As Long, pos As Long, characterWidth As Long
+    Dim count As Long, high As Long, low As Long, credentialName As Variant, nameEnd As Long
+    Dim operatorAt As Long, valueAt As Long, endAt As Long, rawAt As Long, back As Long
+    Dim encoded As Boolean, rawDelimiter As Boolean, quote As String, ch As String, result As String
+    On Error GoTo Failed
+    If Len(pText) = 0 Then Exit Function
+    ReDim starts(1 To Len(pText) + 1)
+    view = Space$(Len(pText))
+    pos = 1
+    Do While pos <= Len(pText)
+        ch = Mid$(pText, pos, 1)
+        characterWidth = 1
+        If ch = "%" And pos + 2 <= Len(pText) Then
+            high = InStr(1, "0123456789abcdef", LCase$(Mid$(pText, pos + 1, 1)), vbBinaryCompare) - 1
+            low = InStr(1, "0123456789abcdef", LCase$(Mid$(pText, pos + 2, 1)), vbBinaryCompare) - 1
+            If high >= 0 And low >= 0 And high * 16 + low < 128 Then
+                ch = Chr$(high * 16 + low)
+                characterWidth = 3
+            End If
+        End If
+        count = count + 1
+        starts(count) = pos
+        Mid$(view, count, 1) = ch
+        pos = pos + characterWidth
+    Loop
+    starts(count + 1) = Len(pText) + 1
+    view = Left$(view, count)
+    pos = 1
+    rawAt = 1
+    Do While pos <= count
+        If pos > 1 Then
+            ch = Mid$(view, pos - 1, 1)
+            If InStr(1, "?&;#{}[, (" & vbTab & vbCr & vbLf & Chr$(34) & "'", ch, vbBinaryCompare) = 0 Then GoTo NextCharacter
+        End If
+        For Each credentialName In Array("api_key", "apikey", "api-key")
+            If StrComp(Mid$(view, pos, Len(CStr(credentialName))), CStr(credentialName), vbTextCompare) = 0 Then Exit For
+        Next credentialName
+        If IsEmpty(credentialName) Then GoTo NextCharacter
+        ' For Each retains its final item after a failed search; confirm the match.
+        If StrComp(Mid$(view, pos, Len(CStr(credentialName))), CStr(credentialName), vbTextCompare) <> 0 Then GoTo NextCharacter
+        nameEnd = pos + Len(CStr(credentialName))
+        If nameEnd <= count Then
+            ch = LCase$(Mid$(view, nameEnd, 1))
+            If InStr(1, "abcdefghijklmnopqrstuvwxyz0123456789_-", ch, vbBinaryCompare) > 0 Then GoTo NextCharacter
+        End If
+        operatorAt = nameEnd
+        ch = Mid$(view, operatorAt, 1)
+        If ch = Chr$(34) Or ch = "'" Then operatorAt = operatorAt + 1
+        Do While operatorAt <= count
+            ch = Mid$(view, operatorAt, 1)
+            If InStr(1, " " & vbTab & vbCr & vbLf, ch, vbBinaryCompare) = 0 Then Exit Do
+            operatorAt = operatorAt + 1
+        Loop
+        If operatorAt > count Then GoTo NextCharacter
+        ch = Mid$(view, operatorAt, 1)
+        If ch <> ":" And ch <> "=" Then GoTo NextCharacter
+        encoded = starts(operatorAt + 1) - starts(operatorAt) > 1
+        If pos > 1 Then
+            If starts(pos) - starts(pos - 1) > 1 Then encoded = True
+        End If
+        valueAt = operatorAt + 1
+        Do While valueAt <= count
+            ch = Mid$(view, valueAt, 1)
+            If InStr(1, " " & vbTab & vbCr & vbLf, ch, vbBinaryCompare) = 0 Then Exit Do
+            valueAt = valueAt + 1
+        Loop
+        quote = ""
+        ch = Mid$(view, valueAt, 1)
+        If ch = Chr$(34) Or ch = "'" Then
+            quote = ch
+            If starts(valueAt + 1) - starts(valueAt) > 1 Then encoded = True
+            valueAt = valueAt + 1
+        End If
+        endAt = valueAt
+        Do While endAt <= count
+            ch = Mid$(view, endAt, 1)
+            rawDelimiter = starts(endAt + 1) - starts(endAt) = 1 Or encoded
+            If Len(quote) > 0 Then
+                If ch = quote And rawDelimiter Then
+                    back = endAt - 1
+                    Do While back >= valueAt
+                        If Mid$(view, back, 1) <> "\" Then Exit Do
+                        back = back - 1
+                    Loop
+                    If (endAt - back - 1) Mod 2 = 0 Then Exit Do
+                End If
+            ElseIf rawDelimiter Then
+                If InStr(1, "&;# " & vbTab & vbCr & vbLf & Chr$(34) & "'<>},])", ch, vbBinaryCompare) > 0 Then Exit Do
+            End If
+            endAt = endAt + 1
+        Loop
+        If endAt > valueAt Then
+            result = result & Mid$(pText, rawAt, starts(valueAt) - rawAt) & "[redacted]"
+            rawAt = starts(endAt)
+        End If
+        pos = endAt
+        GoTo ContinueScan
+NextCharacter:
+        pos = pos + 1
+ContinueScan:
+    Loop
+    smfMacRedactAPIKey = result & Mid$(pText, rawAt)
+    Exit Function
+Failed:
+    smfMacRedactAPIKey = "[redacted diagnostic]"
+End Function
+#End If
 
 ' Public for deterministic tests. Preserve line endings in the response body.
 Public Function smfMacReadResponse(ByVal pResponse As String) As String
@@ -73,7 +206,11 @@ Public Function smfMacReadResponse(ByVal pResponse As String) As String
         smfMacReadResponse = body
     Else
         If mHTTPStatus = 0 Then
+#If Mac Then
+            mHTTPError = smfMacRedactAPIKey(Left$(body, 500))
+#Else
             mHTTPError = Left$(body, 500)
+#End If
         Else
             mHTTPError = "HTTP " & CStr(mHTTPStatus)
         End If
@@ -96,6 +233,14 @@ End Function
 Public Function SMFMacLastURL() As String
     SMFMacLastURL = mHTTPURL
 End Function
+
+#If Mac Then
+' pRequests counts fetchURL bridge attempts, including attempts that fail in the helper.
+Public Sub SMFMacRequestCounts(ByRef pCalls As Double, ByRef pRequests As Double)
+    pCalls = mMacFetchCalls
+    pRequests = mMacFetchRequests
+End Sub
+#End If
 
 ' Handle a complete literal smfGetTagContent call without Excel's evaluator.
 ' False means unsupported syntax; pValue is unchanged in that case.

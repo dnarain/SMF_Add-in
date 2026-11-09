@@ -21,11 +21,13 @@ import uuid
 import zipfile
 import zlib
 
-EXPECTED_VERSION = '3.0.2024.07.30-mac.0.6-dev'
+EXPECTED_VERSION = '3.0.2024.07.30-mac.0.7-dev'
 CASE_FILES = (
     'json_and_utils_cases.json', 'root_cases.json', 'provider_cases.json',
     'options_cases.json', 'repair_cases.json', 'mac_picture_cases.json',
     'derived_history_cases.json', 'history_rowcount_cases.json', 'history_default_cases.json', 'option_quote1_cases.json',
+    'rsi_target_cases.json', 'advfn_year_end_cases.json', 'fred_access_cases.json', 'fred_key_redaction_cases.json',
+    'not_supported_cases.json', 'not_supported_field_cases.json',
 )
 SOURCE_FILES = ('datasource_cases.json', 'datasource_extraction_cases.json',
                 'datasource_inventory_meta.json')
@@ -167,9 +169,9 @@ def derive_workbook(source: Path, target: Path):
 def prepare(root: Path, suite: Path):
     root, suite = root.resolve(), suite.resolve()
     base = root / 'mac/tests/full_function_suite'
-    bundle = root / 'mac/built/0.6-dev'
+    bundle = root / 'mac/built/0.7-dev'
     source = bundle / 'SMF-Mac.xlam'
-    required = [source, bundle / 'BUILD-INFO.json', bundle / 'SHA256SUMS',
+    required = [root / 'mac/not_supported.json', root / 'mac/NotSupported.csv', bundle / 'NotSupported.csv', source, bundle / 'BUILD-INFO.json', bundle / 'SHA256SUMS',
                 bundle / 'SMFMac.applescript', bundle / 'install_helper.command',
                 base / 'build_suite.py', base / 'fixture_server.py']
     required += [base / name for name in CASE_FILES + SOURCE_FILES]
@@ -184,6 +186,12 @@ def prepare(root: Path, suite: Path):
     build = read_json(bundle / 'BUILD-INFO.json')
     if build.get('version') != EXPECTED_VERSION:
         raise ValueError('Checked-in bundle version does not match ' + EXPECTED_VERSION)
+    registry_payload = (root / 'mac/not_supported.json').read_bytes()
+    status_payload = (root / 'mac/NotSupported.csv').read_bytes()
+    if (bundle / 'NotSupported.csv').read_bytes() != status_payload:
+        raise ValueError('Bundle/source retirement status table mismatch')
+    if build.get('unsupported_registry_sha256') != sha256(registry_payload):
+        raise ValueError('Bundle/source retirement registry mismatch')
     checksum_lines = (bundle / 'SHA256SUMS').read_text().splitlines()
     expected_hash = next((line.split()[0] for line in checksum_lines
                           if len(line.split()) == 2 and line.split()[1].lstrip('*') == 'SMF-Mac.xlam'), None)
@@ -210,8 +218,8 @@ def prepare(root: Path, suite: Path):
         raise ValueError('Expected eight distinct tracked provider fragments')
     cases, case_inputs = load_cases(base)
     audit = fixture_audit(cases)
-    if len(cases) != 292:
-        raise ValueError('Expected 292 reviewed cases; found ' + str(len(cases)))
+    if len(cases) != 526:
+        raise ValueError('Expected 526 reviewed cases; found ' + str(len(cases)))
     suite.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.' + suite.name + '.prepare-', dir=suite.parent) as temporary:
         work = Path(temporary) / 'run'
@@ -223,6 +231,8 @@ def prepare(root: Path, suite: Path):
             raise ValueError('Bundle VBA project does not match BUILD-INFO.json')
         for path in definitions:
             shutil.copy2(path, work / path.name)
+        (work / 'not-supported-registry.json').write_bytes(registry_payload)
+        (work / 'NotSupported.csv').write_bytes(status_payload)
         (work / 'smf-elements-suite.txt').write_bytes(ELEMENT)
         (work / 'smf-Elements-Location.txt').write_bytes(b'Local\n')
         for name in CASE_FILES + SOURCE_FILES:
@@ -251,7 +261,7 @@ def prepare(root: Path, suite: Path):
         fixture_files = [{'path': str(path.relative_to(work)), 'bytes': path.stat().st_size,
                           'sha256': sha256(path.read_bytes())}
                          for path in sorted(fixtures.rglob('*')) if path.is_file()]
-        run_id = 'smf-0.6-' + uuid.uuid4().hex
+        run_id = 'smf-0.7-' + uuid.uuid4().hex
         commands = {
             'start_server': ['python3', str(base / 'fixture_server.py'), '--root', str(suite / 'fixtures'),
                              '--output', str(suite / 'server-config.json')],
@@ -262,11 +272,12 @@ def prepare(root: Path, suite: Path):
         }
         record = {'schema_version': 1, 'run_id': run_id,
                   'prepared_utc': datetime.now(timezone.utc).isoformat(),
-                  'suite': str(suite), 'repository': str(root), 'expected_version': 'mac.0.6-dev',
+                  'suite': str(suite), 'repository': str(root), 'expected_version': 'mac.0.7-dev',
                   'expected_full_version': EXPECTED_VERSION, 'source_commit': build.get('source_commit'),
                   'source_workbook': str(source), 'workbook': str(suite / workbook_name), **hashes,
                   'workbook_sha256_before_excel': sha256((work / workbook_name).read_bytes()),
                   'source_build_info': build, 'case_count': len(cases),
+                  'support_registry_sha256': sha256(registry_payload), 'status_table_sha256': sha256(status_payload),
                   'case_groups': dict(Counter(case['group'] for case in cases)), 'case_inputs': case_inputs,
                   'definition_files': [{'name': path.name, 'sha256': sha256(path.read_bytes())} for path in definitions],
                   'fixture_files': fixture_files, 'fixture_audit': {k: v for k, v in audit.items() if k != 'inline_case_payloads'},

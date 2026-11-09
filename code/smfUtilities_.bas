@@ -227,7 +227,11 @@ Public Function RCHGetURLData(ByVal pURL As String, _
        tEnd = Timer
        i1 = FreeFile()
        Open ThisWorkbook.Path & Application.PathSeparator & "smf-log.csv" For Append As #i1
+#If Mac Then
+       Print #i1, dDate & "," & (tEnd - tStart) & ",""" & Left(SMFMacLastURL(), 150) & """"
+#Else
        Print #i1, dDate & "," & (tEnd - tStart) & ",""" & Left(pURL, 150) & """"
+#End If
        Close #i1
        End If
     
@@ -263,6 +267,14 @@ Public Function smfGetWebPage(ByVal pURL As String, _
     ' 2014.05.31 -- Add sWebCache variable to allow re-retrieval of a web page
     ' 2017.11.08 -- Modify sWebCache processing
     '-----------------------------------------------------------------------------------------------------------*
+#If Mac Then
+    Dim unsupportedID As String, unsupportedReason As String
+    Call smfUnsupportedURL(pURL, unsupportedID, unsupportedReason)
+    If Len(unsupportedID) > 0 Then
+        smfGetWebPage = "Error -- Not Supported -- " & unsupportedReason
+        Exit Function
+    End If
+#End If
     For iData = 1 To kPages
         Select Case True
            Case aData(iData, 1) = "" Or (aData(iData, 1) = pUseIE & ":" & pURL And sWebCache = "N")
@@ -529,10 +541,10 @@ Public Function smfHTMLDecode(pString As String) As String
     smfHTMLDecode = Replace(smfHTMLDecode, "&apos;", "'")
     smfHTMLDecode = Replace(smfHTMLDecode, "&#39;", "'")
     smfHTMLDecode = Replace(smfHTMLDecode, "&#039;", "'")
-    smfHTMLDecode = Replace(smfHTMLDecode, "&#150;", "")
+    smfHTMLDecode = Replace(smfHTMLDecode, "&#150;", ChrW$(150))
     smfHTMLDecode = Replace(smfHTMLDecode, "&#151;", "-")
     smfHTMLDecode = Replace(smfHTMLDecode, "&mdash;", "-")
-    smfHTMLDecode = Replace(smfHTMLDecode, "&#160;", " ")
+    smfHTMLDecode = Replace(smfHTMLDecode, "&#160;", ChrW$(160))
     smfHTMLDecode = Replace(smfHTMLDecode, "&amp;", "&")
     End Function
 

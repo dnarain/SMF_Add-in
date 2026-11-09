@@ -9,6 +9,19 @@ Function smfGetOptionExpirations(ByVal pTicker As String, _
                         Optional ByVal pType As Integer = 0, _
                         Optional ByVal pPeriod As String = "A" _
                         )
+#If Mac Then
+    Dim macUnsupportedID As String, macUnsupportedValue As Variant
+    Select Case UCase$(Trim$(pSource))
+        Case "OX": macUnsupportedID = "optionsxpress-options"
+        Case "G", "GOOGLE": macUnsupportedID = "google-option-chain"
+        Case "8", "888": macUnsupportedID = "oic-legacy-options"
+    End Select
+    If Len(macUnsupportedID) > 0 Then
+        smfUnsupportedValue macUnsupportedID, macUnsupportedValue
+        smfGetOptionExpirations = macUnsupportedValue
+        Exit Function
+    End If
+#End If
                                                       
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get available option expirations from various data sources

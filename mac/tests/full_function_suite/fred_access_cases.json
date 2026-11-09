@@ -1,0 +1,3529 @@
+[
+  {
+    "id": "FREDAccess_DateVariant",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Date Variant returns a Double with the exact dated negative observation.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Date Variant returns a Double with the exact dated negative observation.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_SerialDouble",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Worksheet/OLE serial Double selects the exact observation.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", CDbl(DateSerial(2026, 11, 5)), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Worksheet/OLE serial Double selects the exact observation.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_ISOString",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "ISO date text selects the exact observation.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"2026-11-05\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "ISO date text selects the exact observation.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_LocaleDateText",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "A local date string accepted by VBA retains the same calendar date.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", Format$(DateSerial(2026, 11, 5), \"Short Date\"), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A local date string accepted by VBA retains the same calendar date.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_ByRefDateNormalization",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The legacy ByRef date argument becomes ISO text without changing the date.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean",
+      "Dim fredDate As Variant"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()",
+      "fredDate = DateSerial(2026, 11, 5)"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", fredDate, \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus And VarType(fredDate) = vbString And CStr(fredDate) = \"2026-11-05\"",
+    "expected_text": "The legacy ByRef date argument becomes ISO text without changing the date.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_FiscalDate",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The exact 2024-09-28 observation retains its calendar date.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2024-09-28\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2024-09-28&observation_end=2024-09-28&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"2024-09-28\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The exact 2024-09-28 observation retains its calendar date.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_LeapDate",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The exact 2024-02-29 observation retains its calendar date.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2024-02-29\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2024-02-29&observation_end=2024-02-29&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"2024-02-29\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The exact 2024-02-29 observation retains its calendar date.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_Zero",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Official dot-decimal numeric text 0 returns a Double.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"0\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 0.0#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Official dot-decimal numeric text 0 returns a Double.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_Positive",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Official dot-decimal numeric text 1234.567 returns a Double.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1234.567\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 1234.567#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Official dot-decimal numeric text 1234.567 returns a Double.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_NegativeDecimal",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Official dot-decimal numeric text -.125 returns a Double.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-.125\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -0.125#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Official dot-decimal numeric text -.125 returns a Double.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_Exponent",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Official dot-decimal numeric text 1.25e-3 returns a Double.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1.25e-3\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 0.00125#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Official dot-decimal numeric text 1.25e-3 returns a Double.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_LargeInteger",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Official dot-decimal numeric text 1234567890123 returns a Double.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1234567890123\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 1234567890123.0#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Official dot-decimal numeric text 1234567890123 returns a Double.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MissingDot",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "A missing FRED observation remains the literal period string.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\".\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \".\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A missing FRED observation remains the literal period string.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_EmptyObservations",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An unpublished exact date returns the caller error instead of an older observation.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An unpublished exact date returns the caller error instead of an older observation.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_WrongDate",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "A dated response for another day returns the caller error.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-04\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A dated response for another day returns the caller error.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_DuplicateRows",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An ambiguous multi-row exact-date response returns the caller error.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"},{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An ambiguous multi-row exact-date response returns the caller error.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_NullValue",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (NullValue).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":null}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (NullValue).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_NumericJSONValue",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (NumericJSONValue).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":12.5}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (NumericJSONValue).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_BadNumber",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (BadNumber).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1.25junk\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (BadNumber).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_CommaDecimal",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (CommaDecimal).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1,25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (CommaDecimal).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_BlankValue",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (BlankValue).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (BlankValue).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_BadExponent",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (BadExponent).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1e+\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (BadExponent).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_InfiniteValue",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (InfiniteValue).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"1e9999\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (InfiniteValue).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_ErrorObject",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (ErrorObject).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"error_code\"\":400,\"\"error_message\"\":\"\"Invalid fixture series.\"\"}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (ErrorObject).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MissingCollection",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (MissingCollection).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":null}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (MissingCollection).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_HTMLResponse",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (HTMLResponse).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"<!doctype html><html>Access denied</html>\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (HTMLResponse).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_TruncatedJSON",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (TruncatedJSON).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (TruncatedJSON).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_TrailingHTML",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Malformed or unavailable provider data returns the exact caller error (TrailingHTML).",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\": [{\"\"date\"\": \"\"2026-11-05\"\", \"\"value\"\": \"\"-1.25\"\"}]}<html>Error</html>\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Malformed or unavailable provider data returns the exact caller error (TrailingHTML).",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_CustomNumericError",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "A numeric caller error is preserved when data is unavailable.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), -999)",
+    "check_setup": [
+      "fredMatch = (VarType(result) = vbInteger And result = -999)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A numeric caller error is preserved when data is unavailable.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_CustomExcelError",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An Excel error Variant is preserved when data is unavailable.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), CVErr(xlErrNA))",
+    "check_setup": [
+      "fredMatch = False",
+      "If IsError(result) Then fredMatch = (CStr(result) = CStr(CVErr(xlErrNA)))"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An Excel error Variant is preserved when data is unavailable.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_InvalidISO",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Invalid date or metadata label returns the caller error without HTTP.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"2026-02-30\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Invalid date or metadata label returns the caller error without HTTP.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_InvalidLabel",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Invalid date or metadata label returns the caller error without HTTP.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Unknown label\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Invalid date or metadata label returns the caller error without HTTP.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_EmptyDate",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Invalid date or metadata label returns the caller error without HTTP.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Invalid date or metadata label returns the caller error without HTTP.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_InvalidID",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "A URL-like series ID is rejected before HTTP.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"DGS10&api_key=invalid\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A URL-like series ID is rejected before HTTP.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "DGS10&api_key=invalid",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_EmptyID",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An empty series ID is rejected before HTTP.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An empty series ID is rejected before HTTP.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataTitle",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Title label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Title\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"A \"\"quoted\"\" series\" & vbCr & \"\" & vbLf & \"second line\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Title label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataSeriesID",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Series ID label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Series ID\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FIXTURE\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Series ID label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataSeasonalAdjustment",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Seasonal Adjustment label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Seasonal Adjustment\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Not Seasonally Adjusted\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Seasonal Adjustment label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataFrequency",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Frequency label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Frequency\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Daily\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Frequency label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataUnits",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Units label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Units\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Percent\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Units label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataDateRange",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Date Range label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Date Range\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"1962-01-02 to 2026-11-05\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Date Range label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataLastUpdated",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Last Updated label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Last Updated\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"2026-11-06 16:05:00-06\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Last Updated label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataNotes",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Notes label reads official series metadata.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Notes\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"First line\" & vbCr & \"\" & vbLf & \"Second line: \"\"quoted\"\"; caf\" & ChrW(233) & \".\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Notes label reads official series metadata.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataColonCase",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Metadata labels accept case changes and the older trailing colon.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \" units: \", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Percent\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Metadata labels accept case changes and the older trailing colon.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_TableHeader",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The original DATE header lookup returns VALUE.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"DATE\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"VALUE\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The original DATE header lookup returns VALUE.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_Release",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Release label reads the official series release name.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"releases\"\":[{\"\"id\"\":18,\"\"name\"\":\"\"H.15 Selected Interest Rates\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/release?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Release\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"H.15 Selected Interest Rates\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Release label reads the official series release name.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_Source",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "The Source label reads names from the official release sources.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"releases\"\":[{\"\"id\"\":18,\"\"name\"\":\"\"H.15 Selected Interest Rates\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/release?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPayload = \"{\"\"sources\"\":[{\"\"name\"\":\"\"First source\"\"},{\"\"name\"\":\"\"Second source\"\"}]}\"",
+      "aData(2, 1) = \"0:https://api.stlouisfed.org/fred/release/sources?release_id=18&file_type=json\"",
+      "aData(2, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Source\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"First source; Second source\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "The Source label reads names from the official release sources.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataWrongSeries",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Metadata for another series is rejected.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"OTHER\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"Da\"",
+      "fredPayload = fredPayload & \"ily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"\"q\"",
+      "fredPayload = fredPayload & \"uoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Units\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Metadata for another series is rejected.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_MissingMetadataField",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Unavailable or malformed Units metadata returns pError.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"\"quoted\\\"\"; caf\\u00\"",
+      "fredPayload = fredPayload & \"e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Units\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Unavailable or malformed Units metadata returns pError.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_NullMetadataField",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Unavailable or malformed Title metadata returns pError.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":null,\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"season\"",
+      "fredPayload = fredPayload & \"al_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Title\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Unavailable or malformed Title metadata returns pError.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_NumericMetadataField",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Unavailable or malformed Frequency metadata returns pError.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":2\"",
+      "fredPayload = fredPayload & \"3,\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"\"quot\"",
+      "fredPayload = fredPayload & \"ed\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Frequency\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Unavailable or malformed Frequency metadata returns pError.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_EmptyMetadataField",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "Unavailable or malformed Units metadata returns pError.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"\"quoted\"",
+      "fredPayload = fredPayload & \"\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Units\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "Unavailable or malformed Units metadata returns pError.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_EmptyNotes",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An explicitly empty official Notes field remains an empty string.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Notes\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An explicitly empty official Notes field remains an empty string.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_InvalidMetadataDate",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An impossible observation range date returns pError.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-02-30\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Date Range\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An impossible observation range date returns pError.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_InvalidIDHeader",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "An error for an unknown series also rejects the DATE header lookup.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"error_code\"\":400,\"\"error_message\"\":\"\"Unknown series\"\"}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"DATE\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"FRED_ERROR\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "An error for an unknown series also rejects the DATE header lookup.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_CacheHole",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "A seeded response after an empty cache slot remains readable without HTTP.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1000, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1000, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A seeded response after an empty cache slot remains readable without HTTP.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    }
+  },
+  {
+    "id": "FREDAccess_WorksheetDate",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_worksheet",
+    "description": "A real worksheet DATE formula returns the exact numeric observation.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean",
+      "Dim fredCell As Range, fredSavedFormula As Variant, fredSavedValue As Variant",
+      "Dim fredHadFormula As Boolean, fredCellSaved As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\"-1.25\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()",
+      "Set fredCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y340\")",
+      "fredHadFormula = fredCell.HasFormula",
+      "fredSavedFormula = fredCell.Formula2",
+      "fredSavedValue = fredCell.Value2",
+      "fredCellSaved = True"
+    ],
+    "expression": "fredCell.Value2",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - -1.25#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A real worksheet DATE formula returns the exact numeric observation.",
+    "cleanup": [
+      "If fredCellSaved Then",
+      "fredCell.ClearContents",
+      "If fredHadFormula Then",
+      "fredCell.Formula2 = fredSavedFormula",
+      "Else",
+      "fredCell.Value2 = fredSavedValue",
+      "End If",
+      "End If",
+      "Set fredCell = Nothing",
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "worksheet_cached_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    },
+    "call_steps": [
+      "fredCell.Formula2 = \"=smfGetEconData(\"\"FIXTURE\"\",DATE(2026,11,5),\"\"FRED_ERROR\"\")\"",
+      "fredCell.Calculate"
+    ],
+    "worksheet_cell": "{{SUITE_SHEET}}!Y340",
+    "worksheet_formula": "=smfGetEconData(\"FIXTURE\",DATE(2026,11,5),\"FRED_ERROR\")"
+  },
+  {
+    "id": "FREDAccess_WorksheetMissing",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_worksheet",
+    "description": "A real worksheet formula preserves the missing observation period.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean",
+      "Dim fredCell As Range, fredSavedFormula As Variant, fredSavedValue As Variant",
+      "Dim fredHadFormula As Boolean, fredCellSaved As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"observations\"\":[{\"\"date\"\":\"\"2026-11-05\"\",\"\"value\"\":\"\".\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series/observations?series_id=FIXTURE&file_type=json&observation_start=2026-11-05&observation_end=2026-11-05&sort_order=desc&limit=1\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()",
+      "Set fredCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y340\")",
+      "fredHadFormula = fredCell.HasFormula",
+      "fredSavedFormula = fredCell.Formula2",
+      "fredSavedValue = fredCell.Value2",
+      "fredCellSaved = True"
+    ],
+    "expression": "fredCell.Value2",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \".\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A real worksheet formula preserves the missing observation period.",
+    "cleanup": [
+      "If fredCellSaved Then",
+      "fredCell.ClearContents",
+      "If fredHadFormula Then",
+      "fredCell.Formula2 = fredSavedFormula",
+      "Else",
+      "fredCell.Value2 = fredSavedValue",
+      "End If",
+      "End If",
+      "Set fredCell = Nothing",
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "worksheet_cached_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    },
+    "call_steps": [
+      "fredCell.Formula2 = \"=smfGetEconData(\"\"FIXTURE\"\",DATE(2026,11,5),\"\"FRED_ERROR\"\")\"",
+      "fredCell.Calculate"
+    ],
+    "worksheet_cell": "{{SUITE_SHEET}}!Y340",
+    "worksheet_formula": "=smfGetEconData(\"FIXTURE\",DATE(2026,11,5),\"FRED_ERROR\")"
+  },
+  {
+    "id": "FREDAccess_WorksheetMetadata",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_worksheet",
+    "description": "A real worksheet formula returns the requested metadata text.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean",
+      "Dim fredCell As Range, fredSavedFormula As Variant, fredSavedValue As Variant",
+      "Dim fredHadFormula As Boolean, fredCellSaved As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\r\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\r\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()",
+      "Set fredCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y340\")",
+      "fredHadFormula = fredCell.HasFormula",
+      "fredSavedFormula = fredCell.Formula2",
+      "fredSavedValue = fredCell.Value2",
+      "fredCellSaved = True"
+    ],
+    "expression": "fredCell.Value2",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Percent\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "A real worksheet formula returns the requested metadata text.",
+    "cleanup": [
+      "If fredCellSaved Then",
+      "fredCell.ClearContents",
+      "If fredHadFormula Then",
+      "fredCell.Formula2 = fredSavedFormula",
+      "Else",
+      "fredCell.Value2 = fredSavedValue",
+      "End If",
+      "End If",
+      "Set fredCell = Nothing",
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "worksheet_cached_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Official API JSON layout; controlled values, never live provider evidence."
+    },
+    "call_steps": [
+      "fredCell.Formula2 = \"=smfGetEconData(\"\"FIXTURE\"\",\"\"Units\"\",\"\"FRED_ERROR\"\")\"",
+      "fredCell.Calculate"
+    ],
+    "worksheet_cell": "{{SUITE_SHEET}}!Y340",
+    "worksheet_formula": "=smfGetEconData(\"FIXTURE\",\"Units\",\"FRED_ERROR\")"
+  },
+  {
+    "id": "FREDAccess_LiveDGS10",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_live",
+    "description": "Official DGS10 for2026-11-05 equals4.84 as independently published.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\""
+    ],
+    "expression": "smfGetEconData(\"DGS10\", DateSerial(2026, 11, 5), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 4.84#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacHTTPStatus() = 200",
+    "expected_text": "Official DGS10 for2026-11-05 equals4.84 as independently published.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": true,
+    "test_mode": "live_provider_api",
+    "fixture": {
+      "kind": "live_official_snapshot",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "observed_date": "2026-11-05",
+      "verified_utc": "2026-11-09",
+      "notes": "Independent official FRED series page; no API key is stored in this specification."
+    }
+  },
+  {
+    "id": "FREDAccess_LiveDGS2Serial",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_live",
+    "description": "Official DGS2 for2026-11-05 equals4.46 from a serial date.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\""
+    ],
+    "expression": "smfGetEconData(\"DGS2\", CDbl(DateSerial(2026, 11, 5)), \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 4.46#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacHTTPStatus() = 200",
+    "expected_text": "Official DGS2 for2026-11-05 equals4.46 from a serial date.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": true,
+    "test_mode": "live_provider_api",
+    "fixture": {
+      "kind": "live_official_snapshot",
+      "source_url": "https://fred.stlouisfed.org/series/DGS2",
+      "observed_date": "2026-11-05",
+      "verified_utc": "2026-11-09",
+      "notes": "Independent official FRED series page; no API key is stored in this specification."
+    }
+  },
+  {
+    "id": "FREDAccess_LiveDGS10Units",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_live",
+    "description": "Official DGS10 metadata reports Percent.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\""
+    ],
+    "expression": "smfGetEconData(\"DGS10\", \"Units\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Percent\")"
+    ],
+    "check": "fredMatch And SMFMacHTTPStatus() = 200",
+    "expected_text": "Official DGS10 metadata reports Percent.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": true,
+    "test_mode": "live_provider_api",
+    "fixture": {
+      "kind": "live_official_snapshot",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "observed_date": "2026-11-05",
+      "verified_utc": "2026-11-09",
+      "notes": "Independent official FRED series page; no API key is stored in this specification."
+    }
+  },
+  {
+    "id": "FREDAccess_LiveDGS10Source",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_live",
+    "description": "Official DGS10 release source matches the current FRED series page.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\""
+    ],
+    "expression": "smfGetEconData(\"DGS10\", \"Source\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"Board of Governors of the Federal Reserve System (US)\")"
+    ],
+    "check": "fredMatch And SMFMacHTTPStatus() = 200",
+    "expected_text": "Official DGS10 release source matches the current FRED series page.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": true,
+    "test_mode": "live_provider_api",
+    "fixture": {
+      "kind": "live_official_snapshot",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "observed_date": "2026-11-05",
+      "verified_utc": "2026-11-09",
+      "notes": "Independent official FRED series page; no API key is stored in this specification."
+    }
+  },
+  {
+    "id": "FREDAccess_LiveWorksheetDGS10",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_worksheet",
+    "description": "A real worksheet DATE formula returns official DGS10=4.84 for2026-11-05.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean",
+      "Dim fredCell As Range, fredSavedFormula As Variant, fredSavedValue As Variant",
+      "Dim fredHadFormula As Boolean, fredCellSaved As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "Set fredCell = ThisWorkbook.Worksheets(\"{{SUITE_SHEET}}\").Range(\"Y340\")",
+      "fredHadFormula = fredCell.HasFormula",
+      "fredSavedFormula = fredCell.Formula2",
+      "fredSavedValue = fredCell.Value2",
+      "fredCellSaved = True"
+    ],
+    "expression": "fredCell.Value2",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbDouble Then fredMatch = (Abs(CDbl(result) - 4.84#) < 0.000000001)"
+    ],
+    "check": "fredMatch And SMFMacHTTPStatus() = 200",
+    "expected_text": "A real worksheet DATE formula returns official DGS10=4.84 for2026-11-05.",
+    "cleanup": [
+      "If fredCellSaved Then",
+      "fredCell.ClearContents",
+      "If fredHadFormula Then",
+      "fredCell.Formula2 = fredSavedFormula",
+      "Else",
+      "fredCell.Value2 = fredSavedValue",
+      "End If",
+      "End If",
+      "Set fredCell = Nothing",
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": true,
+    "test_mode": "worksheet_live_api",
+    "fixture": {
+      "kind": "live_official_snapshot",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "observed_date": "2026-11-05",
+      "verified_utc": "2026-11-09",
+      "notes": "Independent official FRED series page; no API key is stored in this specification."
+    },
+    "call_steps": [
+      "fredCell.Formula2 = \"=smfGetEconData(\"\"DGS10\"\",DATE(2026,11,5),\"\"FRED_ERROR\"\")\"",
+      "fredCell.Calculate"
+    ],
+    "worksheet_cell": "{{SUITE_SHEET}}!Y340",
+    "worksheet_formula": "=smfGetEconData(\"DGS10\",DATE(2026,11,5),\"FRED_ERROR\")"
+  },
+  {
+    "id": "FREDAccess_MetadataNotesLF",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "JSON LF escapes remain LF in FRED metadata; quoted Unicode text is unchanged.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\nsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\nSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Notes\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"First line\" & vbLf & \"Second line: \"\"quoted\"\"; caf\" & ChrW(233) & \".\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "JSON LF escapes remain LF in FRED metadata; quoted Unicode text is unchanged.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Controlled LF-only metadata with escaped quotes and Unicode; no HTTP request."
+    }
+  },
+  {
+    "id": "FREDAccess_MetadataNotesCR",
+    "function": "smfGetEconData",
+    "module": "modGetEconData.bas",
+    "group": "fred_access_fixture",
+    "description": "JSON CR escapes remain CR in FRED metadata; quoted Unicode text is unchanged.",
+    "declarations": [
+      "Dim fredOldKeys(1 To kPages) As String, fredOldBodies(1 To kPages) As String",
+      "Dim fredIndex As Long, fredOldCache As String, fredOldLog As String",
+      "Dim fredPriorURL As String, fredPriorError As String, fredPriorStatus As Long",
+      "Dim fredPayload As String, fredMatch As Boolean"
+    ],
+    "setup": [
+      "For fredIndex = 1 To kPages",
+      "fredOldKeys(fredIndex) = aData(fredIndex, 1)",
+      "fredOldBodies(fredIndex) = aData(fredIndex, 2)",
+      "Next fredIndex",
+      "fredOldCache = sWebCache",
+      "fredOldLog = sLog",
+      "Erase aData",
+      "sWebCache = \"Y\"",
+      "sLog = \"N\"",
+      "fredPayload = \"{\"\"seriess\"\":[{\"\"id\"\":\"\"FIXTURE\"\",\"\"title\"\":\"\"A \\\"\"quoted\\\"\" series\\rsecond line\"\",\"\"observation_start\"\":\"\"1962-01-02\"\",\"\"observation_end\"\":\"\"2026-11-05\"\",\"\"frequency\"\":\"\"\"",
+      "fredPayload = fredPayload & \"Daily\"\",\"\"units\"\":\"\"Percent\"\",\"\"seasonal_adjustment\"\":\"\"Not Seasonally Adjusted\"\",\"\"last_updated\"\":\"\"2026-11-06 16:05:00-06\"\",\"\"notes\"\":\"\"First line\\rSecond line: \\\"",
+      "fredPayload = fredPayload & \"\"\"quoted\\\"\"; caf\\u00e9.\"\"}]}\"",
+      "aData(1, 1) = \"0:https://api.stlouisfed.org/fred/series?series_id=FIXTURE&file_type=json\"",
+      "aData(1, 2) = fredPayload",
+      "fredPriorURL = SMFMacLastURL()",
+      "fredPriorError = SMFMacLastError()",
+      "fredPriorStatus = SMFMacHTTPStatus()"
+    ],
+    "expression": "smfGetEconData(\"FIXTURE\", \"Notes\", \"FRED_ERROR\")",
+    "check_setup": [
+      "fredMatch = False",
+      "If VarType(result) = vbString Then fredMatch = (CStr(result) = \"First line\" & vbCr & \"Second line: \"\"quoted\"\"; caf\" & ChrW(233) & \".\")"
+    ],
+    "check": "fredMatch And SMFMacLastURL() = fredPriorURL And SMFMacLastError() = fredPriorError And SMFMacHTTPStatus() = fredPriorStatus",
+    "expected_text": "JSON CR escapes remain CR in FRED metadata; quoted Unicode text is unchanged.",
+    "cleanup": [
+      "For fredIndex = 1 To kPages",
+      "aData(fredIndex, 1) = fredOldKeys(fredIndex)",
+      "aData(fredIndex, 2) = fredOldBodies(fredIndex)",
+      "Next fredIndex",
+      "sWebCache = fredOldCache",
+      "sLog = fredOldLog"
+    ],
+    "network": false,
+    "test_mode": "offline_provider_fixture",
+    "fixture": {
+      "kind": "synthetic",
+      "series_id": "FIXTURE",
+      "purpose": "Controlled CR-only metadata with escaped quotes and Unicode; no HTTP request."
+    }
+  }
+]

@@ -38,6 +38,23 @@ def inline(address, value):
 
 
 class ReaderTests(unittest.TestCase):
+    def test_saved_transport_counter_columns_are_read_without_moving_existing_fields(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / 'saved.xlsm'
+            row = ('<row r="2">' + inline('A2', 'Guard') + inline('F2', 'PASS')
+                   + inline('N2', 'smf-test-case:run-one:1') + inline('O2', 'Guard')
+                   + inline('P2', 'run-one') + inline('Q2', 'NONE')
+                   + '<c r="R2"><v>1</v></c><c r="S2"><v>0</v></c></row>')
+            workbook(path, row)
+            actual = read(path)['results'][0]
+            self.assertEqual(actual['id'], 'Guard')
+            self.assertEqual(actual['http_reset_marker'], 'smf-test-case:run-one:1')
+            self.assertEqual(actual['http_case_id'], 'Guard')
+            self.assertEqual(actual['http_run_id'], 'run-one')
+            self.assertEqual(actual['http_observation'], 'NONE')
+            self.assertEqual(actual['fetch_call_delta'], '1')
+            self.assertEqual(actual['fetchurl_bridge_delta'], '0')
+
     def test_rich_and_inline_text_skip_phonetic_guides_and_keep_high_rows(self):
         with tempfile.TemporaryDirectory() as d:
             path = Path(d)/"saved.xlsm"
@@ -135,6 +152,126 @@ class ReaderTests(unittest.TestCase):
 
 
 class InterpretationTests(unittest.TestCase):
+    def test_measured_zero_transport_counters_override_url_marker_only(self):
+        case = dict(self.case, expected_not_supported=True, support_id='yahoo-yql')
+        row = dict(self.row, status='PASS', actual='Error -- Not Supported -- retired',
+                   fetch_call_delta='1', fetchurl_bridge_delta='0')
+        native = {'workbook': 'fixture.xlsm', 'workbook_vba_sha256': 'abc',
+                  'results': [row], 'run_metadata': {'Run ID': 'run-one'}}
+        report = build_report(native, [case], [{'function': 'LiveFunction', 'visibility': 'Public'}], [], {})
+        observed = report['cases'][0]
+        self.assertEqual(observed['http_observation'], 'REQUEST')
+        self.assertEqual(observed['transport_counter_state'], 'recorded')
+        self.assertEqual(observed['transport_calls_measured'], 1)
+        self.assertEqual(observed['transport_requests_measured'], 0)
+        self.assertFalse(observed['causal_http'])
+        self.assertIn('zero fetchURL bridge', observed['http_evidence_note'])
+        self.assertEqual(observed['interpreted_status'], 'NOT_SUPPORTED')
+
+    def test_expected_counter_metadata_cannot_replace_missing_measured_deltas(self):
+        case = dict(self.case, expected_not_supported=True, support_id='yahoo-yql',
+                    transport_counters_checked=True, transport_calls_expected=1,
+                    transport_requests_expected=0)
+        native = {'workbook': 'fixture.xlsm', 'workbook_vba_sha256': 'abc',
+                  'results': [dict(self.row, status='CHECK_FAILED')],
+                  'run_metadata': {'Run ID': 'run-one'}}
+        report = build_report(native, [case], [{'function': 'LiveFunction', 'visibility': 'Public'}], [], {})
+        observed = report['cases'][0]
+        self.assertEqual(observed['transport_counter_state'], 'missing')
+        self.assertIsNone(observed['transport_requests_measured'])
+        self.assertTrue(observed['causal_http'])
+        self.assertEqual(observed['interpreted_status'], 'CODE_FAILURE')
+
+    def test_positive_measured_deltas_still_require_matching_case_markers(self):
+        row = dict(self.row, fetch_call_delta='2', fetchurl_bridge_delta='1')
+        self.assertTrue(causal_http(row, 'run-one')[0])
+        self.assertEqual(interpret(row, self.case, 'run-one')[0], 'PROVIDER_UNAVAILABLE')
+        row['http_case_id'] = 'another-case'
+        self.assertFalse(causal_http(row, 'run-one')[0])
+
+    def test_invalid_measured_counter_deltas_never_establish_request(self):
+        invalid = [('', '0'), ('1', ''), ('-1', '0'), ('1', '-1'),
+                   ('NaN', '0'), ('1', 'Infinity'), ('1.5', '1'),
+                   ('1', '0.5'), ('0', '1'), ('not-a-number', '0'),
+                   ('9007199254740993', '1')]
+        for calls, requests in invalid:
+            with self.subTest(calls=calls, requests=requests):
+                row = dict(self.row, fetch_call_delta=calls, fetchurl_bridge_delta=requests)
+                matched, reason = causal_http(row, 'run-one')
+                self.assertFalse(matched)
+                self.assertIn('Invalid or incomplete', reason)
+
+    def test_legacy_rows_without_counter_columns_keep_marker_interpretation(self):
+        self.assertTrue(causal_http(self.row, 'run-one')[0])
+        row = dict(self.row, fetch_call_delta='', fetchurl_bridge_delta='')
+        self.assertTrue(causal_http(row, 'run-one')[0])
+
+
+
+    def test_mixed_retired_support_ids_remain_exact_in_report_rows(self):
+        ids = ['msn-options', 'optionsxpress-options', 'google-option-chain', 'oic-legacy-options']
+        case = {'id': 'MixedGuard', 'function': 'smfGetOptionQuotes', 'network': False,
+                'expected_not_supported': True, 'support_ids': ids,
+                'expression': 'smfGetOptionQuotes(fixture)'}
+        native = {'workbook': 'fixture.xlsm', 'workbook_vba_sha256': 'abc',
+                  'results': [{'id': 'MixedGuard', 'function': 'smfGetOptionQuotes', 'status': 'PASS'}],
+                  'run_metadata': {}}
+        report = build_report(native, [case], [{'function': 'smfGetOptionQuotes', 'visibility': 'Public'}], [], {})
+        self.assertEqual(report['cases'][0]['support_ids'], ids)
+        self.assertEqual(report['cases'][0]['support_id'], '')
+        self.assertEqual(report['cases'][0]['interpreted_status'], 'NOT_SUPPORTED')
+        self.assertFalse(report['cases'][0]['working_provider_case'])
+
+    def test_not_supported_pass_is_separate_from_financial_data(self):
+        self.case.update(expected_not_supported=True, support_id='yahoo-yql', network=True)
+        self.row.update(status='PASS', actual='Excel error Error 2042', http_status='0')
+        status, reason = interpret(self.row, self.case, 'run-one')
+        self.assertEqual(status, 'NOT_SUPPORTED')
+        self.assertIn('guard passed', reason)
+        self.row['interpreted_status'] = status
+        self.assertFalse(provider_working(self.row, self.case))
+        self.row['interpreted_status'] = 'PASS'
+        self.assertFalse(provider_working(self.row, self.case))
+
+    def test_not_supported_metadata_never_hides_failed_guards(self):
+        self.case.update(expected_not_supported=True, expected_obsolete=True)
+        self.row['actual'] = 'Obsolete'
+        for raw in ('CHECK_FAILED', 'CALL_ERROR', 'RUNTIME_ERROR', 'SETUP_ERROR',
+                    'ASSERTION_ERROR', 'CHECK_ERROR', 'HARNESS_ERROR', 'CLEANUP_ERROR'):
+            with self.subTest(status=raw):
+                self.row['status'] = raw
+                self.assertEqual(interpret(self.row, self.case, 'run-one')[0], 'CODE_FAILURE')
+
+    def test_unfinished_not_supported_checks_remain_untested(self):
+        self.case['expected_not_supported'] = True
+        for raw in ('', 'MISSING', 'PENDING', 'RUNNING'):
+            self.row['status'] = raw
+            self.assertEqual(interpret(self.row, self.case, 'run-one')[0], 'UNTESTED')
+
+    def test_not_supported_table_keeps_raw_pass_and_support_identifiers(self):
+        case = {'id': 'Guard', 'function': 'RetiredFunction', 'network': False,
+                'expected_not_supported': True, 'support_id': 'yahoo-yql',
+                'expression': 'RetiredFunction()'}
+        native = {'workbook': 'fixture.xlsm', 'workbook_vba_sha256': 'abc',
+                  'results': [{'id': 'Guard', 'function': 'RetiredFunction', 'status': 'PASS',
+                               'actual': 'Excel error Error 2042'}], 'run_metadata': {}}
+        report = build_report(native, [case], [{'function': 'RetiredFunction', 'visibility': 'Public'}], [], {})
+        self.assertEqual(report['summary']['raw_case_counts'], {'PASS': 1})
+        self.assertEqual(report['summary']['interpreted_case_counts'], {'NOT_SUPPORTED': 1})
+        self.assertEqual(report['summary']['positive_live_extraction_passes'], 0)
+        self.assertEqual(report['functions'][0]['primary_interpreted_status'], 'NOT_SUPPORTED')
+        self.assertEqual(report['cases'][0]['support_id'], 'yahoo-yql')
+        self.assertTrue(report['cases'][0]['expected_not_supported'])
+
+    def test_not_supported_status_does_not_depend_on_response_text(self):
+        self.row.update(status='PASS', actual='Array Error 2042 | Error 2042 cells=2')
+        self.case.update(expected_not_supported=True, expected_obsolete=True,
+                         support_ids=['msn-options', 'optionsxpress-options'])
+        self.assertEqual(interpret(self.row, self.case, 'run-one')[0], 'NOT_SUPPORTED')
+        self.case.pop('expected_not_supported')
+        self.case.pop('expected_obsolete')
+        self.assertEqual(interpret(self.row, self.case, 'run-one')[0], 'PASS')
+
     def setUp(self):
         self.case={"id":"live","function":"LiveFunction","group":"live_extraction","domain":"example.test","expression":"LiveFunction()"}
         self.row={"id":"live","function":"LiveFunction","row":2,"status":"CHECK_FAILED","actual":"Error","http_status":"403","http_url":"https://example.test/data","http_reset_marker":"smf-test-case:run-one:1","http_case_id":"live","http_run_id":"run-one","http_observation":"REQUEST"}
@@ -372,6 +509,147 @@ class InterpretationTests(unittest.TestCase):
 
 
 class RedactionTests(unittest.TestCase):
+    def test_fred_encoded_url_separators_keep_later_parameters(self):
+        url = ('https://api.stlouisfed.org/fred/series%3Fapi_key%3DFRED_SEPARATOR_SENTINEL'
+               '%26file_type%3Djson%26series_id%3DDGS10')
+        actual = redact_anonymous(url)
+        self.assertNotIn('SENTINEL', actual)
+        self.assertIn('[redacted]', actual)
+        self.assertIn('%26file_type%3Djson%26series_id%3DDGS10', actual)
+        self.assertTrue(actual.startswith('https://api.stlouisfed.org/fred/series%3F'))
+
+    def test_fred_encoded_ampersand_inside_raw_query_key_value_is_secret(self):
+        url = ('https://api.stlouisfed.org/fred/series?series_id=DGS10&'
+               'api_key=FRED_VISIBLE_SENTINEL%26FRED_HIDDEN_SENTINEL&file_type=json')
+        actual = redact_anonymous(url)
+        self.assertNotIn('SENTINEL', actual)
+        self.assertIn('api_key=[redacted]', actual)
+        self.assertIn('?series_id=DGS10&', actual)
+        self.assertTrue(actual.endswith('&file_type=json'))
+
+    def test_fred_api_key_dictionary_spellings_and_nested_values(self):
+        value = {
+            'api_key': 'FRED_DICT_SENTINEL_A',
+            'api-key': {'credential': 'FRED_DICT_SENTINEL_B'},
+            'APIKEY': ['FRED_DICT_SENTINEL_C'],
+            'nested': [{'Api_Key': 'FRED_DICT_SENTINEL_D'},
+                       ('https://api.stlouisfed.org/fred/series?api_key=FRED_DICT_SENTINEL_E&series_id=DGS10',)],
+            'api_key_present': True, 'api_key_source': 'environment',
+            'api_key_configured': False, 'series_id': 'DGS10', 'http_status': 200,
+            'empty': {'api_key': '', 'api-key': None, 'apikey': False},
+        }
+        redacted = redact_anonymous(value)
+        self.assertNotIn('SENTINEL', json.dumps(redacted))
+        for key in ('api_key', 'api-key', 'APIKEY'):
+            self.assertEqual(redacted[key], '[redacted]')
+        self.assertEqual(redacted['series_id'], 'DGS10')
+        self.assertEqual(redacted['http_status'], 200)
+        self.assertTrue(redacted['api_key_present'])
+        self.assertEqual(redacted['api_key_source'], 'environment')
+        self.assertFalse(redacted['api_key_configured'])
+        self.assertEqual(redacted['empty'], value['empty'])
+
+    def test_fred_api_key_query_spellings_preserve_adjacent_parameters(self):
+        for key in ('api_key', 'api-key', 'apikey', 'API_KEY', 'Api-Key', 'ApIkEy'):
+            with self.subTest(key=key):
+                url = ('https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&'
+                       + key + '=FRED_QUERY_SENTINEL&file_type=json&units=lin')
+                actual = redact_anonymous(url)
+                self.assertNotIn('SENTINEL', actual)
+                self.assertIn(key + '=[redacted]', actual)
+                self.assertIn('?series_id=DGS10&', actual)
+                self.assertIn('&file_type=json&units=lin', actual)
+
+    def test_fred_repeated_query_keys_are_all_redacted(self):
+        url = ('https://api.stlouisfed.org/fred/series?'
+               'api_key=FRED_REPEAT_SENTINEL_A&series_id=DGS10&'
+               'APIKEY=FRED_REPEAT_SENTINEL_B&api-key=FRED_REPEAT_SENTINEL_C&file_type=json')
+        actual = redact_anonymous(url)
+        self.assertNotIn('SENTINEL', actual)
+        self.assertEqual(actual.count('[redacted]'), 3)
+        self.assertIn('&series_id=DGS10&', actual)
+        self.assertTrue(actual.endswith('&file_type=json'))
+
+    def test_fred_encoded_query_parameter_names_are_redacted(self):
+        keys = ('api%5Fkey', 'API%5fKEY', 'api%2Dkey', 'api%2dKEY',
+                '%61pi_key', 'api%6bey', '%61%70%69%5F%6B%65%79')
+        for key in keys:
+            with self.subTest(key=key):
+                url = ('https://api.stlouisfed.org/fred/series?series_id=DGS10&'
+                       + key + '=FRED_ENCODED_SENTINEL&file_type=json')
+                actual = redact_anonymous(url)
+                self.assertNotIn('SENTINEL', actual)
+                self.assertIn('[redacted]', actual)
+                self.assertIn('series_id=DGS10', actual)
+                self.assertTrue(actual.endswith('&file_type=json'))
+
+    def test_fred_json_and_text_key_labels_are_redacted(self):
+        samples = (
+            '{"api_key":"FRED_LABEL_SENTINEL","series_id":"DGS10"}',
+            '{"api-key": "FRED_LABEL_SENTINEL", "series_id": "DGS10"}',
+            "{'APIKEY': 'FRED_LABEL_SENTINEL', 'series_id': 'DGS10'}",
+            'api_key=FRED_LABEL_SENTINEL series_id=DGS10',
+            'API-KEY: "FRED_LABEL_SENTINEL" series_id=DGS10',
+            "apikey : 'FRED_LABEL_SENTINEL'; series_id=DGS10",
+        )
+        for text in samples:
+            with self.subTest(text=text):
+                actual = redact_anonymous(text)
+                self.assertNotIn('SENTINEL', actual)
+                self.assertIn('[redacted]', actual)
+                self.assertIn('DGS10', actual)
+
+    def test_fred_unrelated_parameter_names_and_values_are_unchanged(self):
+        harmless = ('https://api.stlouisfed.org/fred/series?series_id=DGS10'
+                    '&api_key_status=configured&api_key_source=environment&file_type=json')
+        self.assertEqual(redact_anonymous(harmless), harmless)
+        value = {'api_key_status': 200, 'api_key_source': 'environment',
+                 'unrelated': ['DGS10', False, None, 0]}
+        self.assertEqual(redact_anonymous(value), value)
+
+    def test_fred_public_report_outputs_redact_keys_and_keep_private_evidence(self):
+        script = Path(__file__).with_name('make_report.py')
+        with tempfile.TemporaryDirectory() as d:
+            suite = Path(d)
+            path = suite / 'saved.xlsm'
+            inputs = [
+                ('test-cases.json', [{'id': 'F', 'function': 'F', 'network': False}]),
+                ('function-inventory.json', [{'function': 'F', 'visibility': 'Public'}]),
+                ('datasource_cases.json', []), ('datasource_inventory_meta.json', {}),
+            ]
+            for name, value in inputs:
+                (suite / name).write_text(json.dumps(value))
+            url = ('https://api.stlouisfed.org/fred/series?series_id=DGS10'
+                   '&api_key=FRED_REPORT_SENTINEL&file_type=json')
+            row = ('<row r="2">' + inline('A2', 'F') + inline('B2', 'F')
+                   + inline('F2', 'CHECK_FAILED') + inline('H2', 'Error at ' + url)
+                   + inline('I2', '{"api-key":"FRED_REPORT_SENTINEL"}')
+                   + inline('K2', url) + inline('L2', 'apikey=FRED_REPORT_SENTINEL') + '</row>')
+            workbook(path, row)
+            http = suite / 'http'
+            http.mkdir()
+            (http / 'results.json').write_text(json.dumps([{
+                'index': 1, 'source_ids': ['api.stlouisfed.org'],
+                'response': {'http_status': 403, 'requested_url': url.replace('api_key=', 'api%2Dkey='),
+                             'error': 'api_key=FRED_HTTP_SENTINEL'},
+            }]))
+            (http / 'run-metadata.json').write_text(json.dumps({'schema_version': 2}))
+            result = subprocess.run([sys.executable, str(script), '--suite', d,
+                                     '--workbook', str(path), '--http-dir', str(http)],
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            private = suite / 'native-results.private.json'
+            self.assertIn('FRED_REPORT_SENTINEL', private.read_text())
+            self.assertEqual(private.stat().st_mode & 0o777, 0o600)
+            for name in ('native-results.json', 'report-data.json', 'report-summary.json',
+                         'test-results.md', 'all-case-results.csv', 'http-probe-results.csv'):
+                actual = (suite / name).read_text()
+                self.assertNotIn('SENTINEL', actual, name)
+            for name in ('native-results.json', 'all-case-results.csv', 'http-probe-results.csv'):
+                actual = (suite / name).read_text()
+                self.assertIn('series_id=DGS10', actual, name)
+                self.assertIn('file_type=json', actual, name)
+
     def test_nested_session_values_are_removed_but_statuses_remain(self):
         value={'url':'https://query1.finance.yahoo.com/data?x=1&crumb=CRUMB_SENTINEL&y=2',
                'error':'Cookie: A1=COOKIE_SENTINEL; A3=OTHER_SENTINEL\nrequest failed',

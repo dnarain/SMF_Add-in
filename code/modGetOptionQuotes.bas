@@ -225,8 +225,12 @@ Public Function smfGetOptionQuotes(ByVal pTickers As Variant, _
                Case "G"
                     vData(iRow + 1 + pHeader, iCol) = smfGetGoogleOptionQuote(aParts(0), Left(aParts(4), 1), vExpiry, vStrike, sItem)
                Case "MSN"
+#If Mac Then
+                    vData(iRow + 1 + pHeader, iCol) = smfGetMSNOptionQuote(aParts(0), Left(aParts(4), 1), vExpiry, vStrike, sItem)
+#Else
                     'vData(iRow + 1 + pHeader, iCol) = smfGetMSNOptionQuote(aParts(0), Left(aParts(4), 1), vExpiry, vStrike, sItem)
                     vData(iRow + 1 + pHeader, iCol) = "MSN obsolete"
+#End If
                Case "MW"
                     vData(iRow + 1 + pHeader, iCol) = smfGetMWOptionQuote(aParts(0), Left(aParts(4), 1), vExpiry, vStrike, sItem)
                Case "N"
@@ -253,6 +257,12 @@ Public Function smfGet888OptionQuote(ByVal pTicker As Variant, _
                                      ByVal pExpiry As Variant, _
                                      ByVal pStrike As Variant, _
                                      ByVal pItem As Variant)
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "oic-legacy-options", macUnsupportedValue
+    smfGet888OptionQuote = macUnsupportedValue
+    Exit Function
+#End If
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quotes and related data from 888options.com
@@ -599,6 +609,12 @@ Public Function smfGetGoogleOptionQuote(ByVal pTicker As Variant, _
                                         ByVal pExpiry As Variant, _
                                         ByVal pStrike As Variant, _
                                         ByVal pItem As Variant)
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "google-option-chain", macUnsupportedValue
+    smfGetGoogleOptionQuote = macUnsupportedValue
+    Exit Function
+#End If
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quotes from Google
@@ -686,6 +702,12 @@ Public Function smfGetMSNOptionQuote(ByVal pTicker As Variant, _
                                      ByVal pExpiry As Variant, _
                                      ByVal pStrike As Variant, _
                                      ByVal pItem As Variant)
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "msn-options", macUnsupportedValue
+    smfGetMSNOptionQuote = macUnsupportedValue
+    Exit Function
+#End If
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quote from Yahoo
@@ -1062,6 +1084,12 @@ Public Function smfGetOXOptionQuote(ByVal pTicker As Variant, _
                                     ByVal pExpiry As Variant, _
                                     ByVal pStrike As Variant, _
                                     ByVal pItem As Variant)
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "optionsxpress-options", macUnsupportedValue
+    smfGetOXOptionQuote = macUnsupportedValue
+    Exit Function
+#End If
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quote from Yahoo
@@ -1170,6 +1198,12 @@ Public Function smfGetOX2OptionQuote(ByVal pTicker As Variant, _
                                      ByVal pExpiry As Variant, _
                                      ByVal pStrike As Variant, _
                                      ByVal pItem As Variant)
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "optionsxpress-options", macUnsupportedValue
+    smfGetOX2OptionQuote = macUnsupportedValue
+    Exit Function
+#End If
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quotes from OptionsXPress
@@ -1259,6 +1293,12 @@ Public Function smfGetOX3OptionQuote(ByVal pTicker As Variant, _
                                      ByVal pExpiry As Variant, _
                                      ByVal pStrike As Variant, _
                                      ByVal pItem As Variant)
+#If Mac Then
+    Dim macUnsupportedValue As Variant
+    smfUnsupportedValue "optionsxpress-options", macUnsupportedValue
+    smfGetOX3OptionQuote = macUnsupportedValue
+    Exit Function
+#End If
                   
     '-----------------------------------------------------------------------------------------------------------*
     ' User defined function to get option quotes from OptionsXPress

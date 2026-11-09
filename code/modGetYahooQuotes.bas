@@ -108,6 +108,25 @@ Public Function RCHGetYahooQuotes(ByVal pTickers As Variant, _
             GoTo ErrorExit
         End Select
         
+#If Mac Then
+    Dim macUnsupportedValue As Variant, macUnsupportedID As String, macUnsupportedReason As String
+    If Len(sItems) > 0 Then
+        macUnsupportedID = "yahoo-quote-csv"
+    Else
+        ' Modern and unknown CSV URLs keep their existing path.
+        smfUnsupportedURL CStr(pTickers), macUnsupportedID, macUnsupportedReason
+    End If
+    If Len(macUnsupportedID) > 0 Then
+        smfUnsupportedValue macUnsupportedID, macUnsupportedValue
+        For i1 = 1 To kDim1
+            For i2 = 1 To kDim2
+                vData(i1, i2) = macUnsupportedValue
+            Next i2
+        Next i1
+        RCHGetYahooQuotes = vData
+        Exit Function
+    End If
+#End If
     '------------------> Set the quotes delimiter based on server prefix
     pServerID = ""     ' Temporary?
     Select Case pServerID

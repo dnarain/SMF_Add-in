@@ -2,7 +2,8 @@
 """Report one explicitly selected native suite/workbook. No network or Excel calls.
 
 Last-HTTP columns are diagnostics unless N:Q bind a real request to this case
-and run. A successful endpoint-content check is not a financial extraction.
+and run. R:S contain measured fetch-entry/bridge deltas; zero bridge attempts
+exclude a network request. A successful endpoint-content check is not a financial extraction.
 """
 from __future__ import annotations
 
@@ -10,6 +11,7 @@ import argparse
 from collections import Counter
 import csv
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 import hashlib
 import json
 from pathlib import Path
@@ -94,10 +96,38 @@ def is_live(case):
         coverage_kind(case) == "WORKSHEET" and bool(case.get("domain")))
 
 
+def recorded_transport_deltas(row):
+    """Read measured R:S counters; expected case metadata is never evidence."""
+    raw = (row.get("fetch_call_delta", ""), row.get("fetchurl_bridge_delta", ""))
+    missing = tuple(value is None or value == "" for value in raw)
+    if all(missing):
+        return "missing", None, None
+    if any(missing):
+        return "invalid", None, None
+    values = []
+    for value in raw:
+        try:
+            number = Decimal(str(value))
+        except (InvalidOperation, ValueError):
+            return "invalid", None, None
+        if (not number.is_finite() or number < 0 or number > 2 ** 53
+                or number != number.to_integral_value()):
+            return "invalid", None, None
+        values.append(int(number))
+    if values[1] > values[0]:
+        return "invalid", None, None
+    return "recorded", values[0], values[1]
+
+
 def causal_http(row, run_id):
     """Require all independently saved case/run/reset-marker fields."""
     if row.get("status", "") not in FAILURES | {"PASS"}:
         return False, "Unfinished/unknown row cannot establish a completed case request"
+    counter_state, calls, requests = recorded_transport_deltas(row)
+    if counter_state == "invalid":
+        return False, "Invalid or incomplete recorded transport-counter deltas"
+    if counter_state == "recorded" and requests == 0:
+        return False, "Recorded zero fetchURL bridge attempts; the URL diagnostic is not a network request"
     if not run_id or row.get("http_observation") != "REQUEST":
         return False, "No case-bound REQUEST observation"
     marker = row.get("http_reset_marker", "")
@@ -127,6 +157,11 @@ def interpret(row, case, run_id):
     if raw in {"SETUP_ERROR", "ASSERTION_ERROR", "CHECK_ERROR", "HARNESS_ERROR", "CLEANUP_ERROR"} or (
             raw == "RUNTIME_ERROR" and re.search(r"\[(?:SETUP|CHECK|CLEANUP)\]", row.get("error", ""))):
         return "CODE_FAILURE", "The test setup/assertion/cleanup failed; this does not by itself locate a production defect"
+    if case.get("expected_not_supported"):
+        if raw == "PASS":
+            return "NOT_SUPPORTED", "The registered retired-mode guard passed; this does not establish a financial feed"
+        if raw in FAILURES:
+            return "CODE_FAILURE", "The retired-mode guard assertion or call failed; NotSupported metadata does not hide the failure"
     actual = str(row.get("actual", "")).lower()
     if case.get("expected_obsolete") and (raw == "PASS" or "obsolete" in actual):
         return "OBSOLETE", "The case identifies an obsolete response; it does not establish a working feed"
@@ -165,7 +200,7 @@ def interpret(row, case, run_id):
 
 def provider_working(row, case):
     expected = str(case.get("expected_text", "")).strip().lower()
-    sentinel = expected.startswith(("none", "error", "obsolete")) or bool(case.get("expected_obsolete"))
+    sentinel = expected.startswith(("none", "error", "obsolete")) or bool(case.get("expected_obsolete")) or bool(case.get("expected_not_supported"))
     return (row["interpreted_status"] == "PASS" and is_live(case)
             and coverage_kind(case) != "HTTP_ENDPOINT" and not sentinel)
 
@@ -264,6 +299,11 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
         row["worksheet_formula"] = case.get("worksheet_formula", "")
         row["coverage_kind"] = coverage_kind(case)
         row["worksheet_entry"] = worksheet_entry(case)
+        row["transport_counters_checked"] = case.get("transport_counters_checked") is True
+        row["transport_calls_expected"] = case.get("transport_calls_expected")
+        row["transport_requests_expected"] = case.get("transport_requests_expected")
+        (row["transport_counter_state"], row["transport_calls_measured"],
+         row["transport_requests_measured"]) = recorded_transport_deltas(row)
         row["interpreted_status"], row["interpretation_reason"] = interpret(row, case, run_id)
         if issues:
             row["interpreted_status"] = "UNTESTED"
@@ -271,6 +311,11 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
         row["causal_http"], row["http_evidence_note"] = causal_http(row, run_id)
         row["working_provider_case"] = provider_working(row, case)
         row["coverage_note"] = case.get("coverage_note", "")
+        row["expected_not_supported"] = bool(case.get("expected_not_supported"))
+        row["support_id"] = case.get("support_id", "")
+        row["support_ids"] = case.get("support_ids", [])
+        row["auxiliary"] = case.get("auxiliary") is True
+        row["procedure_kind"] = case.get("procedure_kind", "Function")
         rows.append(row)
     public = [item for item in inventory if item.get("visibility", "Public").lower() == "public"
               and item.get("kind", "function").lower() == "function"
@@ -346,7 +391,7 @@ def build_report(native, specs, inventory, sources, source_meta, manifest=None):
                "raw_case_counts": dict(Counter(row.get("status", "") for row in native["results"])),
                "planned_case_status_counts": dict(Counter(row["raw_status"] for row in rows)),
                "interpreted_case_counts": dict(Counter(row["interpreted_status"] for row in rows)),
-               "public_functions": len(function_rows),
+               "public_functions": len(function_rows), "auxiliary_cases": sum(row.get("auxiliary") is True for row in rows),
                "primary_raw_counts": dict(Counter(row["primary_raw_status"] for row in function_rows)),
                "primary_interpreted_counts": dict(Counter(row["primary_interpreted_status"] for row in function_rows)),
                "source_groups": len(source_rows), "inventoried_endpoints": len(endpoint_rows),
@@ -415,7 +460,8 @@ def markdown(report):
              f"Raw results: {compact(s['raw_case_counts'])}. Interpreted results: {compact(s['interpreted_case_counts'])}.", "",
              f"Expected version: `{cell(s['expected_version'])}`. Observed version: `{cell(s['observed_version'] or 'UNRECORDED')}`. Version verified: {s['version_verified']}.", "",
              f"Workbook SHA256: `{s['workbook_sha256']}`. Saved VBA SHA256: `{s['workbook_vba_sha256']}`.", "",
-             "A PASS applies to the recorded input/assertion. Many live assertions require only a nonempty or positive result. They do not independently verify the provider's field accuracy, meaning, or freshness. Endpoint-content PASS, offline fixture parsing, error responses, and obsolete responses do not establish a working financial feed.", "",
+             "R:S record transport-counter changes across setup, call, checks and cleanup. A zero fetchURL-bridge delta means the case did not start the network helper. Positive deltas still require matching case/run markers; older workbooks without counters retain marker-based interpretation.", "",
+             "A PASS applies to the recorded input/assertion. Many live assertions require only a nonempty or positive result. They do not independently verify the provider's field accuracy, meaning, or freshness. Endpoint-content PASS, offline fixture parsing, error responses, obsolete responses, and NOT_SUPPORTED guard results do not establish a working financial feed.", "",
              f"{s['positive_live_extraction_passes']} provider-data/image checks passed, including {s['positive_provider_image_checks']} image checks and any cached values returned by the selected calls. This is not a count of fresh provider requests.", "",
              "This run uses a fresh checkout on the same Mac. The saved VBA hash identifies the owner workbook, including its imported runner; it does not claim that the packaged add-in binary was tested without modification or that a fresh macOS account was tested.", ""]
     if s.get("input_bindings"):

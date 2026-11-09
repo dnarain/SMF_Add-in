@@ -21,21 +21,95 @@ import zipfile
 
 RAW_STATUSES = frozenset({"PASS", "CHECK_FAILED", "RUNTIME_ERROR", "SETUP_ERROR",
                           "ASSERTION_ERROR", "CLEANUP_ERROR", "PENDING", "RUNNING"})
-FIELDS = dict(zip("ABCDEFGHIJKLMNOPQ", [
+FIELDS = dict(zip("ABCDEFGHIJKLMNOPQRS", [
     "id", "function", "group", "description", "expected", "status", "seconds",
     "actual", "error", "http_status", "http_url", "http_error", "finished",
-    "http_reset_marker", "http_case_id", "http_run_id", "http_observation"]))
+    "http_reset_marker", "http_case_id", "http_run_id", "http_observation",
+    "fetch_call_delta", "fetchurl_bridge_delta"]))
 
 
 class WorkbookReadError(ValueError):
     """The saved workbook does not contain readable suite evidence."""
 
 
-SECRET_KEYS = {"crumb", "crumbvalue", "cookie", "cookies", "cookievalue", "cookieheader", "setcookie", "sessioncookie", "sessioncookies"}
+SECRET_KEYS = {"crumb", "crumbvalue", "cookie", "cookies", "cookievalue", "cookieheader", "setcookie", "sessioncookie", "sessioncookies", "apikey"}
+
+
+def _redact_api_keys(text):
+    """Redact exact key assignments without rewriting surrounding encoded text."""
+    decoded, starts = [], []
+    pos = 0
+    while pos < len(text):
+        starts.append(pos)
+        if (text[pos] == '%' and pos + 2 < len(text)
+                and all(c in '0123456789abcdefABCDEF' for c in text[pos + 1:pos + 3])
+                and int(text[pos + 1:pos + 3], 16) < 128):
+            decoded.append(chr(int(text[pos + 1:pos + 3], 16)))
+            pos += 3
+        else:
+            decoded.append(text[pos])
+            pos += 1
+    starts.append(len(text))
+    view = ''.join(decoded)
+    lowered = view.lower()
+    boundaries = '?&;#{}[,(' + ' \t\r\n' + "\"'"
+    delimiters = '&;#' + ' \t\r\n' + "\"'<>},])"
+    pieces, raw_at, pos = [], 0, 0
+    while pos < len(view):
+        if pos and view[pos - 1] not in boundaries:
+            pos += 1
+            continue
+        name = next((key for key in ('api_key', 'apikey', 'api-key')
+                     if lowered.startswith(key, pos)), None)
+        if name is None:
+            pos += 1
+            continue
+        end = pos + len(name)
+        if end < len(view) and (view[end].isascii() and (view[end].isalnum() or view[end] in '_-')):
+            pos += 1
+            continue
+        operator = end
+        if operator < len(view) and view[operator] in "\"'":
+            operator += 1
+        while operator < len(view) and view[operator] in ' \t\r\n':
+            operator += 1
+        if operator >= len(view) or view[operator] not in ':=':
+            pos = end
+            continue
+        encoded = starts[operator + 1] - starts[operator] > 1
+        if pos and starts[pos] - starts[pos - 1] > 1:
+            encoded = True
+        value_at = operator + 1
+        while value_at < len(view) and view[value_at] in ' \t\r\n':
+            value_at += 1
+        quote = ''
+        if value_at < len(view) and view[value_at] in "\"'":
+            quote = view[value_at]
+            encoded = encoded or starts[value_at + 1] - starts[value_at] > 1
+            value_at += 1
+        end = value_at
+        while end < len(view):
+            raw_delimiter = starts[end + 1] - starts[end] == 1 or encoded
+            if quote:
+                if view[end] == quote and raw_delimiter:
+                    back = end - 1
+                    while back >= value_at and view[back] == '\\':
+                        back -= 1
+                    if (end - back - 1) % 2 == 0:
+                        break
+            elif view[end] in delimiters and raw_delimiter:
+                break
+            end += 1
+        if end > value_at:
+            pieces.extend((text[raw_at:starts[value_at]], '[redacted]'))
+            raw_at = starts[end]
+        pos = max(end, operator + 1)
+    pieces.append(text[raw_at:])
+    return ''.join(pieces)
 
 
 def redact_anonymous(value):
-    """Remove anonymous Yahoo session values from shared nested evidence."""
+    """Remove Yahoo session values and API keys from shared nested evidence."""
     if isinstance(value, dict):
         result = {}
         crumb_response = "getcrumb" in str(value.get("http_url", value.get("requested_url", ""))).lower()
@@ -53,6 +127,8 @@ def redact_anonymous(value):
     if not isinstance(value, str):
         return value
     value = re.sub(r"(?im)(\b(?:set-cookie|cookie)\s*:\s*)[^\r\n]*", r"\1[redacted]", value)
+    value = _redact_api_keys(value)
+
     value = re.sub(r'''(?i)(["']?crumb["']?\s*[:=]\s*["']?)[^"'\s;&<>]+''', r"\1[redacted]", value)
     value = re.sub(r'''(?i)\b((?:A1S?|A3|GUC|GUCS)=)[^\s;"'<>]+''', r"\1[redacted]", value)
     return value
